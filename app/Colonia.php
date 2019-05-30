@@ -8,4 +8,9 @@ class Colonia extends Model
 {
 	/* Se indica la tabla que esta clase modificará */
 	protected $table = 'colonias';
+
+	/* Relación muchos a uno */
+	public function municipio(){
+		return $this->belongsTo('App\Municipio', 'IDMUNICIPIO');
+	}
 }

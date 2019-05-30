@@ -8,4 +8,9 @@ class GiroComercial extends Model
 {
 	/* Se indica la tabla que esta clase modificará */
 	protected $table = 'girocomerciales';
+
+	/* Relación uno a mucho */
+    public function subgiroComercial(){
+        return $this->hasMany('App\SubgiroComercial');
+    }
 }

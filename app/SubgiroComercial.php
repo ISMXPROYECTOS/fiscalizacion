@@ -8,4 +8,9 @@ class SubgiroComercial extends Model
 {
 	/* Se indica la tabla que esta clase modificará */
 	protected $table = 'subgirocomercial';
+
+	/* Relación muchos a uno */
+	public function giroComercial(){
+		return $this->belongsTo('App\GiroComercial', 'IDGIRO');
+	}
 }
