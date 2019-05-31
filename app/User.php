@@ -4,14 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\Usuario as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Usuario extends Authenticatable
+class User extends Authenticatable
 {
     use Notifiable;
 
     /* Se indica la tabla que esta clase modificará */
     protected $table = 'usuario';
+
+    protected $primaryKey = 'idusuario';
 
     /* Relación uno a mucho */
     public function impresionDeFormato(){
@@ -59,7 +61,7 @@ class Usuario extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'usuario', 'password', 'activo', 
     ];
 
     /**
