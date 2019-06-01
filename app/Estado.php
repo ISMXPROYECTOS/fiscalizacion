@@ -11,7 +11,7 @@ class Estado extends Model
 
 	/* Relación muchos a uno */
 	public function pais(){
-		return $this->belongsTo('App\Pais', 'IDPAIS');
+		return $this->belongsTo('App\Pais', 'id');
 	}
 
 	/* Relación uno a mucho */

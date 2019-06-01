@@ -11,7 +11,7 @@ class DocumentacionRequerida extends Model
 
 	/* Relación muchos a uno */
 	public function documentacionPorTipoDeInspeccion(){
-		return $this->belongsTo('App\DocumentacionPorTipoDeInspeccion', 'IDDOCUMENTACIONREQUERIDA');
+		return $this->belongsTo('App\DocumentacionPorTipoDeInspeccion', 'id');
 	}
 
 }

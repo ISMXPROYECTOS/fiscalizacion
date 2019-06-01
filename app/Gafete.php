@@ -16,6 +16,6 @@ class Gafete extends Model
 
 	/* Relación muchos a uno */
 	public function ejercicioFiscal(){
-		return $this->belongsTo('App\EjercicioFiscal', 'IDEJERCICIOFISCAL');
+		return $this->belongsTo('App\EjercicioFiscal', 'id');
 	}
 }

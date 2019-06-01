@@ -13,8 +13,6 @@ class User extends Authenticatable
     /* Se indica la tabla que esta clase modificará */
     protected $table = 'usuario';
 
-    protected $primaryKey = 'idusuario';
-
     /* Relación uno a mucho */
     public function impresionDeFormato(){
         return $this->hasMany('App\ImpresionDeFormato');

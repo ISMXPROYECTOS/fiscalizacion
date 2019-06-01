@@ -16,7 +16,7 @@ class ImpresionDeFormato extends Model
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
+		return $this->belongsTo('App\Usuario', 'id');
 	}
 	
 }

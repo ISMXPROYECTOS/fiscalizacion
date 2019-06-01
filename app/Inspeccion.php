@@ -16,7 +16,7 @@ class Inspeccion extends Model
 
 	/* Relación muchos a uno */
 	public function giroComercial(){
-		return $this->belongsTo('App\GiroComercial', 'IDGIRO');
+		return $this->belongsTo('App\GiroComercial', 'id');
 	}
 
 	/* Relación uno a uno */
@@ -31,7 +31,7 @@ class Inspeccion extends Model
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
+		return $this->belongsTo('App\Usuario', 'id');
 	}
 
 	/* Relación muchos a uno */
