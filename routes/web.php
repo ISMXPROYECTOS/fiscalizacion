@@ -21,3 +21,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/regitro-inspectores', 'UserController@registroInspector')->name('registro-inspector');
+Route::get('/regitro-gestores', 'UserController@registroGestores')->name('regitro-gestores');
