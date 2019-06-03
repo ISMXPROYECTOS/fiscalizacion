@@ -11,11 +11,11 @@ class SubgiroComercial extends Model
 
 	/* Relación muchos a uno */
 	public function giroComercial(){
-		return $this->belongsTo('App\GiroComercial', 'id');
+		return $this->belongsTo('App\GiroComercial', 'IDGIRO');
 	}
 
-	/* Relación uno a uno */
-	public function inspeccion(){
-		return $this->hasOne('App\Inspeccion');
-	}
+	/* Relación uno a mucho */
+    public function inspeccion(){
+        return $this->hasMany('App\Inspeccion');
+    }
 }

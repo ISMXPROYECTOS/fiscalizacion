@@ -9,14 +9,14 @@ class ImpresionDeFormato extends Model
 	/* Se indica la tabla que esta clase modificará */
 	protected $table = 'impresiondeformatos';
 
-	/* Relación uno a uno */
+	/* Relación muchos a uno */
 	public function tipoDeInspeccion(){
-		return $this->hasOne('App\TipoDeInspeccion');
+		return $this->belongsTo('App\TipoDeInspeccion', 'IDTIPOINSPECCION');
 	}
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'id');
+		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
 	}
 	
 }

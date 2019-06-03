@@ -11,7 +11,7 @@ class DiaInhabil extends Model
 
 	/* Relación muchos a uno */
 	public function ejercicioFiscal(){
-		return $this->belongsTo('App\EjercicioFiscal', 'id');
+		return $this->belongsTo('App\EjercicioFiscal', 'IDEJERCICIOFISCAL');
 	}
 
 }

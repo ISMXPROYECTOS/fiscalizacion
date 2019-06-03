@@ -9,14 +9,14 @@ class DocumentacionPorTipoDeInspeccion extends Model
 	/* Se indica la tabla que esta clase modificará */
 	protected $table = 'documentacionxtipodeinspeccion';
 
-	/* Relación uno a uno */
+	/* Relación muchos a uno */
 	public function tipoDeInspeccion(){
-		return $this->hasOne('App\TipoDeInspeccion');
+		return $this->belongsTo('App\TipoDeInspeccion', 'IDTIPOINSPECCION');
 	}
 
-	/* Relación uno a mucho */
-    public function documentacionRequerida(){
-        return $this->hasMany('App\DocumentacionRequerida');
-    }
+    /* Relación muchos a uno */
+	public function documentacionRequerida(){
+		return $this->belongsTo('App\DocumentacionRequerida', 'IDDOCUMENTACIONREQUERIDA');
+	}
 
 }

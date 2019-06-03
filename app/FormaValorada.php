@@ -9,18 +9,18 @@ class FormaValorada extends Model
 	/* Se indica la tabla que esta clase modificará */
 	protected $table = 'formavalorada';
 
-	/* Relación uno a uno */
+	/* Relación muchos a uno */
 	public function tipoDeInspeccion(){
-		return $this->hasOne('App\TipoDeInspeccion');
+		return $this->belongsTo('App\TipoDeInspeccion', 'IDTIPOINSPECCION');
 	}
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'id');
+		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
 	}
 
-	/* Relación uno a uno */
-	public function inspeccion(){
-		return $this->hasOne('App\Inspeccion');
-	}
+	/* Relación uno a mucho */
+    public function inspeccion(){
+        return $this->hasMany('App\Inspeccion');
+    }
 }

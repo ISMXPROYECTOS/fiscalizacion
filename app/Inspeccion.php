@@ -9,29 +9,29 @@ class Inspeccion extends Model
 	/* Se indica la tabla que esta clase modificará */
 	protected $table = 'inspeccion';
 
-	/* Relación uno a uno */
+	/* Relación muchos a uno */
 	public function formaValorada(){
-		return $this->hasOne('App\FormaValorada');
+		return $this->belongsTo('App\FormaValorada', 'IDFORMAVALORADA');
 	}
 
 	/* Relación muchos a uno */
 	public function giroComercial(){
-		return $this->belongsTo('App\GiroComercial', 'id');
+		return $this->belongsTo('App\GiroComercial', 'IDGIRO');
 	}
 
-	/* Relación uno a uno */
+	/* Relación muchos a uno */
 	public function subgiroComercial(){
-		return $this->hasOne('App\SubgiroComercial');
+		return $this->belongsTo('App\SubgiroComercial', 'IDSUBGIROCOMERCIAL');
 	}
 
-	/* Relación uno a uno */
+	/* Relación muchos a uno */
 	public function tipoDeInspeccion(){
-		return $this->hasOne('App\TipoDeInspeccion');
+		return $this->belongsTo('App\TipoDeInspeccion', 'IDTIPOINSPECCION');
 	}
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'id');
+		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
 	}
 
 	/* Relación muchos a uno */
@@ -64,10 +64,10 @@ class Inspeccion extends Model
         return $this->hasMany('App\BitacoraDeEstatus');
     }
 
-    /* Relación uno a uno */
-	public function bitacoraDeProroga(){
-		return $this->hasOne('App\BitacoraDeProroga');
-	}
+	/* Relación uno a mucho */
+    public function bitacoraDeProroga(){
+        return $this->hasMany('App\BitacoraDeProroga');
+    }
 
 	/* Relación uno a mucho */
     public function bitacoraDeInforme(){

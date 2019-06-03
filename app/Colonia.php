@@ -11,7 +11,7 @@ class Colonia extends Model
 
 	/* Relación muchos a uno */
 	public function municipio(){
-		return $this->belongsTo('App\Municipio', 'id');
+		return $this->belongsTo('App\Municipio', 'IDMUNICIPIO');
 	}
 
 	/* Relación uno a mucho */

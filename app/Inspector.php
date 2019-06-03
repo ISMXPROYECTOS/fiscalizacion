@@ -11,13 +11,13 @@ class Inspector extends Model
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'id');
+		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
 	}
 
-	/* Relación uno a uno */
-	public function gafete(){
-		return $this->hasOne('App\Gafete');
-	}
+	/* Relación uno a mucho */
+    public function gafete(){
+        return $this->hasMany('App\Gafete');
+    }
 
 	/* Relación uno a mucho */
     public function inspeccion(){

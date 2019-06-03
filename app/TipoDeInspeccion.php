@@ -9,28 +9,29 @@ class TipoDeInspeccion extends Model
 	/* Se indica la tabla que esta clase modificará */
 	protected $table = 'tipodeinspeccion';
 
-	/* Relación uno a uno */
+	/* Relación uno a mucho */
 	public function impresionDeFormato(){
-		return $this->hasOne('App\ImpresionDeFormato');
+		return $this->hasMany('App\ImpresionDeFormato');
 	}
 
-	/* Relación uno a uno */
+	/* Relación uno a mucho */
 	public function documentacionPorTipoDeInspeccion(){
-		return $this->hasOne('App\DocumentacionPorTipoDeInspeccion');
+		return $this->hasMany('App\DocumentacionPorTipoDeInspeccion');
 	}
 
-	/* Relación uno a uno */
+	/* Relación uno a mucho */
 	public function folioPorTipoDeInspeccion(){
-		return $this->hasOne('App\FolioPorTipoDeInspeccion');
+		return $this->hasMany('App\folioPorTipoDeInspeccion');
 	}
 
-	/* Relación uno a uno */
+	/* Relación uno a mucho */
 	public function formaValorada(){
-		return $this->hasOne('App\FormaValorada');
+		return $this->hasMany('App\FormaValorada');
 	}
 
-	/* Relación uno a uno */
+	/* Relación uno a mucho */
 	public function inspeccion(){
-		return $this->hasOne('App\Inspeccion');
+		return $this->hasMany('App\Inspeccion');
 	}
+	
 }

@@ -11,17 +11,17 @@ class BitacoraDeInforme extends Model
 
 	/* Relación muchos a uno */
 	public function gestor(){
-		return $this->belongsTo('App\Gestor', 'id');
+		return $this->belongsTo('App\Gestor', 'IDGESTORES');
 	}
 
 	/* Relación muchos a uno */
 	public function inspeccion(){
-		return $this->belongsTo('App\Inspeccion', 'id');
+		return $this->belongsTo('App\Inspeccion', 'IDINSPECCION');
 	}
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'id');
+		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
 	}
 
 }

@@ -11,17 +11,17 @@ class BitacoraDeEstatus extends Model
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'id');
+		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
 	}
 
 	/* Relación muchos a uno */
 	public function inspeccion(){
-		return $this->belongsTo('App\Inspeccion', 'id');
+		return $this->belongsTo('App\Inspeccion', 'IDINSPECCION');
 	}
 
 	/* Relación muchos a uno */
 	public function estatusInspeccion(){
-		return $this->belongsTo('App\EstatusInspeccion', 'id');
+		return $this->belongsTo('App\EstatusInspeccion', 'IDESTATUSINSPECCION');
 	}
 
 }
