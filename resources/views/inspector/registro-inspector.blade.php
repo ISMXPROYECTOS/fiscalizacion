@@ -5,17 +5,24 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Agregar Inspector') }}</div>
-
+                @if(isset($inspector) && is_object($inspector))
+                    <div class="card-header">{{ __('Editar Inspector') }}</div>
+                @else
+                    <div class="card-header">{{ __('Agregar Inspector') }}</div>
+                @endif
                 <div class="card-body">
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ isset($inspector) ? route('inspector-update') : route('inspector-create') }}">
                         @csrf
+                        
+                        @if(isset($inspector) && is_object($inspector))
+                            <input type="hidden" name="id" value="{{ $inspector->id }}">
+                        @endif
 
                         <div class="form-group row">
                             <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
                             <div class="col-md-6">
-                                <input id="nombre" type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre" value="{{ old('nombre') }}" required autofocus>
+                                <input id="nombre" type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" name="nombre" value="{{ $inspector->nombre or '' }}" required autofocus>
 
                                 @if ($errors->has('nombre'))
                                     <span class="invalid-feedback" role="alert">
@@ -26,28 +33,28 @@
                         </div>
                         
                         <div class="form-group row">
-                            <label for="apellidoPaterno" class="col-md-4 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
+                            <label for="apellidopaterno" class="col-md-4 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
 
                             <div class="col-md-6">
-                                <input id="apellidoPaterno" type="text" class="form-control{{ $errors->has('apellidoPaterno') ? ' is-invalid' : '' }}" name="apellidoPaterno" value="{{ old('apellidoPaterno') }}" required autofocus>
+                                <input id="apellidopaterno" type="text" class="form-control{{ $errors->has('apellidopaterno') ? ' is-invalid' : '' }}" name="apellidopaterno" value="{{ $inspector->apellidopaterno or '' }}" required autofocus>
 
-                                @if ($errors->has('apellidoPaterno'))
+                                @if ($errors->has('apellidopaterno'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('apellidoPaterno') }}</strong>
+                                        <strong>{{ $errors->first('apellidopaterno') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="apellidoMaterno" class="col-md-4 col-form-label text-md-right">{{ __('Apellido Materno') }}</label>
+                            <label for="apellidomaterno" class="col-md-4 col-form-label text-md-right">{{ __('Apellido Materno') }}</label>
 
                             <div class="col-md-6">
-                                <input id="apellidoMaterno" type="text" class="form-control{{ $errors->has('apellidoMaterno') ? ' is-invalid' : '' }}" name="apellidoMaterno" value="{{ old('apellidoMaterno') }}" required autofocus>
+                                <input id="apellidomaterno" type="text" class="form-control{{ $errors->has('apellidomaterno') ? ' is-invalid' : '' }}" name="apellidomaterno" value="{{ $inspector->apellidopaterno or '' }}" required autofocus>
 
-                                @if ($errors->has('apellidoMaterno'))
+                                @if ($errors->has('apellidomaterno'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('apellidoMaterno') }}</strong>
+                                        <strong>{{ $errors->first('apellidomaterno') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -57,7 +64,7 @@
                             <label for="clave" class="col-md-4 col-form-label text-md-right">{{ __('Clave') }}</label>
 
                             <div class="col-md-6">
-                                <input id="clave" type="text" class="form-control{{ $errors->has('clave') ? ' is-invalid' : '' }}" name="clave" value="{{ old('clave') }}" required autofocus>
+                                <input id="clave" type="text" class="form-control{{ $errors->has('clave') ? ' is-invalid' : '' }}" name="clave" value="{{ $inspector->clave or '' }}" required autofocus>
 
                                 @if ($errors->has('clave'))
                                     <span class="invalid-feedback" role="alert">
@@ -71,7 +78,7 @@
                             <label for="estatus" class="col-md-4 col-form-label text-md-right">{{ __('Estatus') }}</label>
 
                             <div class="col-md-6">
-                                <select name="estatus" id="estatus" class="form-control{{ $errors->has('estatus') ? ' is-invalid' : '' }}" value="{{ old('estatus') }}" required autofocus>
+                                <select name="estatus" id="estatus" class="form-control{{ $errors->has('estatus') ? ' is-invalid' : '' }}" value="{{ $inspector->estatus or '' }}" required autofocus>
                                     <option value="">Seleccionar</option>
                                     <option value="A">Activo</option>
                                     <option value="B">Baja</option>
@@ -90,7 +97,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Registrar') }}
+                                    {{ __('Guardar') }}
                                 </button>
                             </div>
                         </div>

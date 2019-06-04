@@ -23,4 +23,13 @@ class Inspector extends Model
     public function inspeccion(){
         return $this->hasMany('App\Inspeccion');
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'idusuario', 'nombre', 'apellidopaterno', 'apellidomaterno', 'clave', 'estatus',
+    ];
 }
