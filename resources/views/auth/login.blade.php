@@ -83,7 +83,7 @@
 
 
       <div class="text-center">
-        <p>Sistema de Fiscalización <br> 2019 &copy; Todos los derechos reservados </p>
+        <p>Sistema de Fiscalización <br> 2019 &copy; H. Ayuntamiento de Benito Juárez </p>
       </div>
     </div>
   </div>

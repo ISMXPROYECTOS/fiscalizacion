@@ -12,3 +12,10 @@
   position: absolute;
   margin-top: 2%;
 }
+
+/* Dashboard */
+
+.bg-color-sidebar{
+  background-color: #4b1617;
+  background-size: cover;
+}
