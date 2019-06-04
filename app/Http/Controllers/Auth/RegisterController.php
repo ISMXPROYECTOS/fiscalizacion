@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
-use Illuminate\Support\Facades\Auth;
-
 class RegisterController extends Controller
 {
     /*
@@ -32,12 +30,6 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/';
 
-    protected function guard()
-    {
-        return Auth::guard('usuario');
-    }
-
-
     /**
      * Create a new controller instance.
      *
@@ -58,9 +50,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'usuario' => 'required|string|max:255|unique:usuario',
-            'role' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
-            'role' => 'required|string|max:50',
+            'role' => 'required|string|max:255',
         ]);
     }
 
@@ -75,7 +66,7 @@ class RegisterController extends Controller
         return User::create([
             'usuario' => $data['usuario'],
             'role' => $data['role'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
             'activo' => 1,
         ]);
     }
