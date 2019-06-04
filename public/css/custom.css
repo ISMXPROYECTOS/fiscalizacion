@@ -1,0 +1,14 @@
+/* Globales */
+
+.mtb-50{
+  margin-top: 60% !important;
+  margin-bottom: 50% !important;
+}
+
+/* Login */
+
+.logotipo-login{
+  width: 10%;
+  position: absolute;
+  margin-top: 2%;
+}
