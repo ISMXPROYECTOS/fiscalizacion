@@ -39,4 +39,8 @@ Route::get('/gestor/delete/{id}', 'GestorController@delete')->name('gestor-delet
 Route::get('/listado-usuarios', 'UserController@listadoUsuarios')->name('listado-usuarios');
 Route::get('/registro-usuario', 'UserController@registroUsuario')->name('registro-usuarios');
 Route::post('/usuario/create', 'UserController@create')->name('create-usuario');
+Route::get('/editar-usuario/{id}', 'UserController@editarUsuario')->name('editar-usuario');
+Route::post('/usuario/update', 'UserController@update')->name('usuario-update');
+Route::get('/usuario/delete/{id}', 'UserController@delete')->name('usuario-delete');
+
 
