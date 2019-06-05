@@ -36,6 +36,8 @@ Route::get('/editar-gestor/{id}', 'GestorController@editarGestor')->name('editar
 Route::post('/gestor/update', 'GestorController@update')->name('gestor-update');
 Route::get('/gestor/delete/{id}', 'GestorController@delete')->name('gestor-delete');
 
+Route::get('/prueba-ajax', 'GestorController@pruebaAjax');
+
 Route::get('/listado-usuarios', 'UserController@listadoUsuarios')->name('listado-usuarios');
 Route::get('/registro-usuario', 'UserController@registroUsuario')->name('registro-usuarios');
 Route::post('/usuario/create', 'UserController@create')->name('create-usuario');

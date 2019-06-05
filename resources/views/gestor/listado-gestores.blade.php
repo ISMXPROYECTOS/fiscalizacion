@@ -8,13 +8,15 @@
             <h3 class="m-0 font-weight-bold text-primary-color">{{ __('Catalogo de Gestores') }}</h3>
         </div>
     </div>
-    
+
     <button type="button" data-toggle="modal" data-target="#crearGestor" class="btn btn-success btn-icon-split mb-4 " >
         <span class="icon text-white-50">
             <i class="fas fa-user-plus"></i>
         </span>
         <span class="text">Agregar Gestor</span>
     </button>
+    
+    <button type="button" id="editar">Ver</button>
 
     <div class="card shadow mb-4 border-bottom-primary-custom">
         
@@ -208,4 +210,8 @@
     </div>
 
 
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/gestores.js') }}" defer></script>
 @endsection

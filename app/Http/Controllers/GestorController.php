@@ -128,4 +128,16 @@ class GestorController extends Controller
     	return redirect()->route('listado-gestores')->with('status', 'Gestor Eliminado');
 	}
 
+
+	public function pruebaAjax(Request $request){
+
+		$nombre = $request->input('name');		
+
+		// para regresar json
+		//return response()->json();
+
+		var_dump($nombre);
+		die();
+	}
+
 }
