@@ -10,10 +10,7 @@
 
     <title>{{ config('app.name', 'Fiscalización') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <script src="{{ asset('js/script.js') }}" defer></script>
+    
 
 
     <!-- Bootstrap core JavaScript
@@ -207,5 +204,17 @@
 
 
     </div>
+
+    <!-- Script del Sistema en General -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+  
+    <!-- Script de la template -->
+    <script src="{{ asset('js/script.js') }}" defer></script>
+
+    <!-- Libreria de jQuery y Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!-- Script Personalizado -->
+    @yield('scripts')
 </body>
 </html>
