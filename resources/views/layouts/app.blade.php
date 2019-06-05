@@ -73,7 +73,7 @@
 
           <!-- Nav Item - Charts -->
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('regitro-gestores') }}">
+            <a class="nav-link" href="{{ route('listado-gestores') }}">
               <i class="fas fa-folder-open"></i>
               <span>Catalogo de Gestores</span></a>
           </li>
@@ -87,10 +87,11 @@
 
           <!-- Nav Item - Charts -->
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('listado-usuarios') }}">
               <i class="fas fa-users"></i>
               <span>Catalogo de Usuarios</span></a>
           </li>
+
 
 
 

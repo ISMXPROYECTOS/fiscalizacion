@@ -24,4 +24,13 @@ class Gestor extends Model
         return $this->hasMany('App\BitacoraDeInforme');
     }
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'idusuario', 'nombre', 'apellidopaterno', 'apellidomaterno', 'telefono', 'celular', 'correoelectronico', 'ine', 'estatus',
+    ];
+
 }

@@ -49,7 +49,7 @@ class InspectorController extends Controller
         ]);
 
 		/* Una vez agregado el nuevo inspector redirige e indica que fue correcta la creación del inspector */
-    	return redirect()->action('HomeController@index')->with('status', 'Inspector Creado');
+    	return redirect()->route('listado-inspectores')->with('status', 'Inspector Creado');
 
 	}
 
@@ -98,7 +98,7 @@ class InspectorController extends Controller
 		$inspector->update();
 
         /* Una vez actualizado el inspector redirige e indica que fue correcta la modificación del inspector */
-    	return redirect()->action('HomeController@index')->with('status', 'Inspector Modificado');
+    	return redirect()->route('listado-inspectores')->with('status', 'Inspector Modificado');
 
 	}
 
@@ -106,7 +106,7 @@ class InspectorController extends Controller
 
 		$inspector = Inspector::where('id', $id)->delete();
 
-    	return redirect()->action('HomeController@index')->with('status', 'Inspector Eliminado');
+    	return redirect()->route('listado-inspectores')->with('status', 'Inspector Eliminado');
 	}
 
 }
