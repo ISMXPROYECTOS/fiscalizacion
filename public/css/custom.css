@@ -5,6 +5,12 @@
   margin-bottom: 50% !important;
 }
 
+.text-primary-color{
+	color: #4b1617;
+}
+
+
+
 /* Login */
 
 .logotipo-login{
@@ -18,4 +24,49 @@
 .bg-color-sidebar{
   background-color: #4b1617;
   background-size: cover;
+}
+
+
+/* Dashboard */
+
+.border-left-primary-custom {
+    border-left: 0.25rem solid #4b1617 !important;
+}
+
+.border-bottom-primary-custom {
+    border-bottom: 0.25rem solid #4b1617 !important;
+}
+
+.btn-edit {
+    color: #fff;
+	background-color: #4e73df;
+	border-color: #4e73df;
+}
+
+.btn-edit:hover {
+    color: #fff;
+	background-color: #2e59d9;
+	border-color: #2653d4;
+}
+
+.btn-delete{
+	color: #fff;
+	background-color: #e74a3b;
+	border-color: #e74a3b;
+}
+
+.btn-delete:hover {
+	color: #fff;
+	background-color: #e02d1b;
+	border-color: #d52a1a;
+}
+
+.table-head{
+	color: #fff;
+	background-color: #5e1c1d;
+}
+
+.table-footer{
+	color: #fff;
+	background-color: #5e1c1d;
 }
