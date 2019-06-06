@@ -74,10 +74,10 @@
                             <td>
                                 <a href="{{ route('editar-gestor', ['id' => $gestor->id]) }}" class="btn btn-edit btn-sm"><i class="fas fa-edit"></i> </a>
                                 <a href="{{ route('gestor-delete', ['id' => $gestor->id]) }}" class="btn btn-delete btn-sm"><i class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                     </table>
                 </div>
             </div>
@@ -99,7 +99,7 @@
 
                         <div class="form-group">
                             <label for="nombre">{{ __('Nombre Completo') }}</label>
-                            <input id="nombre" type="text" class="form-control">        
+                            <input id="nombre" type="text" class="form-control" required>
                         </div>
 
                         <div class="row">
@@ -113,7 +113,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label for="apellidomaterno">{{ __('Apellido Materno') }}</label>
-                                    <input id="apellidomaterno" type="text" class="form-control" >
+                                    <input id="apellidomaterno" type="text" class="form-control">
                                     
                                 </div>
                             </div>
@@ -145,20 +145,17 @@
                         <div class="form-group">
                             <label for="ine">{{ __('INE') }}</label>
                             <input id="ine" type="text" class="form-control">
-
                         </div>
 
                         <div class="form-group">
                             <label for="estatus">{{ __('Estatus') }}</label>
-
-                            <select id="estatus" class="form-control" >
+                            <select id="estatus" class="form-control">
                                 <option value="">Seleccionar</option>
                                 <option value="A">Activo</option>
                                 <option value="B">Baja</option>
                                 <option value="S">Suspendido</option>
                                 <option value="V">Vigente</option>
                             </select>
-
                         </div>
 
                         <hr>
@@ -169,6 +166,7 @@
                                 <button type="button" class="btn btn-primary" id="btn-enviar">{{ __('Crear Gestor') }}</button>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>

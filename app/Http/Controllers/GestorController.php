@@ -26,15 +26,14 @@ class GestorController extends Controller
 			'nombre' => 'required|string|max:50',
             'apellidopaterno' => 'required|string|max:30',
             'apellidomaterno' => 'required|string|max:30',
-            'telefono' => 'required|string|max:50',
-            'celular' => 'required|string|max:50',
+            'telefono' => 'required|string|min:10|max:50',
+            'celular' => 'required|string|min:10|max:50',
             'correoelectronico' => 'required|string|max:75|unique:gestores',
             'ine' => 'required|string|max:30|unique:gestores',
             'estatus' => 'required|string|max:1'
 	    ]);
 
 	    // Se reciben los datos del formulario creando un Array de datos 
-
 		$datos = [
 			'idusuario' => \Auth::user()->id,
 			'nombre' => $request->input('nombre'),
@@ -48,7 +47,6 @@ class GestorController extends Controller
 		];
 
 		// Retornamos los datos a la peticion Ajax al mismo tiempo en que se almacena en la BD
-
 	    return Gestor::create($datos);
 	}
 

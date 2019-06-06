@@ -30,7 +30,6 @@ class InspectorController extends Controller
 	    ]);
 
 	    // Se reciben los datos del formulario creando un Array de datos 
-
 		$datos = [
 			'idusuario' => \Auth::user()->id,
 			'nombre' => $request->input('nombre'),
@@ -41,7 +40,6 @@ class InspectorController extends Controller
 		];
 
 		// Retornamos los datos a la peticion Ajax al mismo tiempo en que se almacena en la BD
-
 	    return Inspector::create($datos);
 	}
 
