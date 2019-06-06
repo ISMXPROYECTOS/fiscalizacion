@@ -29,9 +29,11 @@ Route::get('/editar-inspector/{id}', 'InspectorController@editarInspector')->nam
 Route::post('/inspector/update', 'InspectorController@update')->name('inspector-update');
 Route::get('/inspector/delete/{id}', 'InspectorController@delete')->name('inspector-delete');
 
-Route::get('/listado-gestores', 'GestorController@listadoGestores')->name('listado-gestores');
-Route::get('/regitro-gestores', 'GestorController@registroGestores')->name('registro-gestores');
-Route::post('/gestor/create', 'GestorController@create')->name('gestor-create');
+Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');
+Route::post('/gestores/nuevo', 'GestorController@create');
+//Route::get('/regitro-gestores', 'GestorController@registroGestores')->name('registro-gestores');
+
+
 Route::get('/editar-gestor/{id}', 'GestorController@editarGestor')->name('editar-gestor');
 Route::post('/gestor/update', 'GestorController@update')->name('gestor-update');
 Route::get('/gestor/delete/{id}', 'GestorController@delete')->name('gestor-delete');

@@ -21,8 +21,8 @@ class GestorController extends Controller
 
 	public function create(Request $request){
 
-		/* Validara los campos para evitar problemas */
-		$validate = $this->validate($request,[
+		// Validara los campos para evitar problemas 
+		$validate = $request->validate([
 			'nombre' => 'required|string|max:50',
             'apellidopaterno' => 'required|string|max:30',
             'apellidomaterno' => 'required|string|max:30',
@@ -31,37 +31,27 @@ class GestorController extends Controller
             'correoelectronico' => 'required|string|max:75|unique:gestores',
             'ine' => 'required|string|max:30|unique:gestores',
             'estatus' => 'required|string|max:1'
-		]);
+	    ]);
 
-		/* Optiene la id del usuario administrador que crea los gestores */
-		$id = \Auth::user()->id;
-		/* Se reciben los datos del formulario y se crean variables */
-		$nombre = $request->input('nombre');
-		$apellidopaterno = $request->input('apellidopaterno');
-		$apellidomaterno = $request->input('apellidomaterno');
-		$telefono = $request->input('telefono');
-		$celular = $request->input('celular');
-		$correoelectronico = $request->input('correoelectronico');
-		$ine = $request->input('ine');
-		$estatus = $request->input('estatus');
+	    // Se reciben los datos del formulario creando un Array de datos 
 
-		/* Una ves verificados los datos y creados las variables se inserta en la BD */
-		Gestor::create([
-			'idusuario' => $id,
-            'nombre' => $nombre,
-            'apellidopaterno' => $apellidopaterno,
-            'apellidomaterno' => $apellidomaterno,
-            'telefono' => $telefono,
-            'celular' => $celular,
-            'correoelectronico' => $correoelectronico,
-            'ine' => $ine,
-            'estatus' => $estatus,
-        ]);
+		$datos = [
+			'idusuario' => \Auth::user()->id,
+			'nombre' => $request->input('nombre'),
+            'apellidopaterno' => $request->input('apellidopaterno'),
+            'apellidomaterno' => $request->input('apellidomaterno'),
+            'telefono' => $request->input('telefono'),
+            'celular' => $request->input('celular'),
+            'correoelectronico' => $request->input('correoelectronico'),
+            'ine' => $request->input('ine'),
+            'estatus' => $request->input('estatus')
+		];
 
-		/* Una vez agregado el nuevo gestor redirige e indica que fue correcta la creación del gestor */
-    	return redirect()->route('listado-gestores')->with('status', 'Gestor Creado');
+		// Retornamos los datos a la peticion Ajax al mismo tiempo en que se almacena en la BD
 
+	    return Gestor::create($datos);
 	}
+
 
 	public function editarGestor($id){
 
@@ -131,7 +121,7 @@ class GestorController extends Controller
 
 	public function pruebaAjax(Request $request){
 
-		$nombre = $request->input('name');		
+		$nombre = $request->input('nombre');		
 
 		// para regresar json
 		//return response()->json();
