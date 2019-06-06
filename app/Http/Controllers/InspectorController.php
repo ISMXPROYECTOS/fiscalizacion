@@ -20,37 +20,29 @@ class InspectorController extends Controller
 
 	public function create(Request $request){
 
-		/* Validara los campos para evitar problemas */
-		$validate = $this->validate($request,[
+		// Validara los campos para evitar problemas 
+		$validate = $request->validate([
 			'nombre' => 'required|string|max:50',
             'apellidopaterno' => 'required|string|max:30',
             'apellidomaterno' => 'required|string|max:30',
-            'clave' => 'required|string|max:10|unique:inspector',
+            'clave' => 'required|string|max:50',
             'estatus' => 'required|string|max:1'
-		]);
+	    ]);
 
-		/* Optiene la id del usuario administrador que crea los inspectores */
-		$id = \Auth::user()->id;
-		/* Se reciben los datos del formulario y se crean variables */
-		$nombre = $request->input('nombre');
-		$apellidopaterno = $request->input('apellidopaterno');
-		$apellidomaterno = $request->input('apellidomaterno');
-		$clave = $request->input('clave');
-		$estatus = $request->input('estatus');
+	    // Se reciben los datos del formulario creando un Array de datos 
 
-		/* Una ves verificados los datos y creados las variables se inserta en la BD */
-		Inspector::create([
-			'idusuario' => $id,
-            'nombre' => $nombre,
-            'apellidopaterno' => $apellidopaterno,
-            'apellidomaterno' => $apellidomaterno,
-            'clave' => $clave,
-            'estatus' => $estatus,
-        ]);
+		$datos = [
+			'idusuario' => \Auth::user()->id,
+			'nombre' => $request->input('nombre'),
+            'apellidopaterno' => $request->input('apellidopaterno'),
+            'apellidomaterno' => $request->input('apellidomaterno'),
+            'clave' => $request->input('clave'),
+            'estatus' => $request->input('estatus')
+		];
 
-		/* Una vez agregado el nuevo inspector redirige e indica que fue correcta la creación del inspector */
-    	return redirect()->route('listado-inspectores')->with('status', 'Inspector Creado');
+		// Retornamos los datos a la peticion Ajax al mismo tiempo en que se almacena en la BD
 
+	    return Inspector::create($datos);
 	}
 
 	public function editarInspector($id){

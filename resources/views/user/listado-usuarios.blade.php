@@ -7,7 +7,7 @@
         </div>
     </div>
  
-    <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-success btn-icon-split mb-4 " >
+    <button type="button" data-toggle="modal" data-target="#crear-usuario" id="btn-crear-usuario" class="btn btn-success btn-icon-split mb-4 " >
     <span class="icon text-white-50">
         <i class="fas fa-user-plus"></i>
     </span>
@@ -63,72 +63,55 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+    <div class="modal fade" id="crear-usuario" tabindex="-1" role="dialog" aria-labelledby="formulario-crear-usuario" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Agregar Usuario</h5>
+                    <h5 class="modal-title" id="formulario-crear-usuario">Agregar Usuario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('create-usuario') }}" aria-label="{{ __('Registrar') }}">
+                    <form class="formulario-usuario">
                         @csrf
                         <div class="form-group">
                             <label for="usuario">{{ __('Nombre de Usuario') }}</label>
-                            <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
-                            @if ($errors->has('usuario'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('usuario') }}</strong>
-                            </span>
-                            @endif
+                            <input id="usuario" type="text" class="form-control">
+                        
                         </div>
 
                         <div class="form-group">
                             <label for="role">{{ __('Tipo de Usuario') }}</label>
-                            <select name="role" id="role" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" value="{{ old('role') }}" required autofocus>
-                                    <option value="">Seleccionar</option>
-                                    <option value="ROLE_ADMIN">Administrador</option>
-                                    <option value="ROLE_INSPECTOR">Inspector</option>
-                                    <option value="ROLE_VENTANILLA">Ventanilla</option>
-                                </select>
-                            @if ($errors->has('role'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('role') }}</strong>
-                            </span>
-                            @endif
+                            <select id="role" class="form-control" >
+                                <option value="">Seleccionar</option>
+                                <option value="ROLE_ADMIN">Administrador</option>
+                                <option value="ROLE_INSPECTOR">Inspector</option>
+                                <option value="ROLE_VENTANILLA">Ventanilla</option>
+                            </select>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label for="password">{{ __('Contraseña') }}</label>
-                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" value="{{ old('password') }}" required autofocus>
-                                    @if ($errors->has('password'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
+                                    <input id="password" type="password" class="form-control" name="password">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label for="password-confirm">{{ __('Confirmar Contraseña') }}</label>
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required >
-                                    
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
                                 </div>
                             </div>
                         </div>
-                        
-
-                     
-                        
+                           
                         <hr>
                         <div class="form-group row mb-0">
                             <div class="col-md-12 ">
                                 <button type="button" class="btn btn-secondary " data-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">{{ __('Crear Usuario') }}</button>
+                                <button type="button" class="btn btn-primary" id="btn-enviar">{{ __('Crear Usuario') }}</button>
                             </div>
                         </div>
                     </form>
@@ -137,3 +120,9 @@
         </div>
     </div>
     @endsection
+
+@section('scripts')
+    <script src="{{ asset('js/user.js') }}" defer></script>
+@endsection
+
+

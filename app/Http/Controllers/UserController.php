@@ -22,32 +22,27 @@ class UserController extends Controller
 
 	public function create(Request $request){
 
-		/* Validara los campos para evitar problemas */
-		$validate = $this->validate($request,[
+		// Validara los campos para evitar problemas 
+		$validate = $request->validate([
 			'usuario' => 'required|string|max:255|unique:usuario',
             'role' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
-		]);
+	    ]);
 
-		/* Optiene la id del usuario administrador que crea los gestores */
-		$id = \Auth::user()->id;
-		/* Se reciben los datos del formulario y se crean variables */
-		$usuario = $request->input('usuario');
-		$role = $request->input('role');
-		$password = $request->input('password');
+	    // Se reciben los datos del formulario creando un Array de datos 
+		
+		$datos = [
+			'usuario' => $request->input('usuario'),
+            'role' => $request->input('role'),
+            'password' => Hash::make($request->input('password')),
+            'activo' => 1
+		];
 
-		/* Una ves verificados los datos y creados las variables se inserta en la BD */
-		User::create([
-            'usuario' => $usuario,
-            'role' => $role,
-            'password' => Hash::make($password),
-            'activo' => 1,
-        ]);
+		// Retornamos los datos a la peticion Ajax al mismo tiempo en que se almacena en la BD
 
-		/* Una vez agregado el nuevo usuario redirige e indica que fue correcta la creación del usuario */
-    	return redirect()->route('listado-usuarios')->with('status', 'Usuario Creado');
-
+	    return User::create($datos);
 	}
+
 
 	public function editarUsuario($id){
 
