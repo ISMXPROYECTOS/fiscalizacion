@@ -16,6 +16,13 @@ class UserController extends Controller
     	]);
 	}
 
+	public function tbody(){
+		$usuarios = User::all();
+		return view('user.tbody-usuarios',[
+			'usuarios' => $usuarios
+		]);
+	}
+
 	public function registroUsuario(){
 		return view('user.registro-usuarios');
 	}

@@ -14,6 +14,14 @@ class InspectorController extends Controller
     	]);
 	}
 
+	public function tbody(){
+		$inspectores = Inspector::all();
+		return view('inspector.tbody-inspectores',[
+			'inspectores' => $inspectores
+		]);
+	}
+
+
 	public function registroInspector(){
 		return view('inspector.registro-inspector');
 	}

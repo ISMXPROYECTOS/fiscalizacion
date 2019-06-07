@@ -23,6 +23,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/inspectores', 'InspectorController@listadoInspectores')->name('listado-inspectores');
+Route::get('/inspectores/listado', 'InspectorController@tbody');
 Route::post('/inspectores/nuevo', 'InspectorController@create');
 Route::get('/editar-inspector/{id}', 'InspectorController@editarInspector')->name('editar-inspector');
 Route::post('/inspector/update', 'InspectorController@update')->name('inspector-update');
@@ -38,6 +39,7 @@ Route::get('/gestor/delete/{id}', 'GestorController@delete')->name('gestor-delet
 // Route::get('/regitro-gestores', 'GestorController@registroGestores')->name('registro-gestores');
 
 Route::get('/usuarios', 'UserController@listadoUsuarios')->name('listado-usuarios');
+Route::get('/usuarios/listado', 'UserController@tbody');
 Route::post('/usuarios/nuevo', 'UserController@create');
 Route::get('/editar-usuario/{id}', 'UserController@editarUsuario')->name('editar-usuario');
 Route::post('/usuario/update', 'UserController@update')->name('usuario-update');

@@ -34,7 +34,7 @@
                     <th>Acción</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
                 
             </tbody>
         </table>
