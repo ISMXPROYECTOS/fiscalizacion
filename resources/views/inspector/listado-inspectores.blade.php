@@ -1,78 +1,77 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="breadcrumb-holder">
-                <h1 class="main-title float-left">{{ __('Catalogo de Inspectores') }}</h1>
-                <p class="text-muted float-right">
-                    Ultima Sesión Ayer: 8:20 AM
-                </p>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-
-
-    <button type="button" class="btn btn-primary mb-4 " id="btn-crear-inspector" data-toggle="modal" data-target="#crear-inspector">
-        <span><i class="fas fa-user-plus"></i></span> Agregar Inspector
-    </button>
-
-    <div class="card mb-3">
+<header class="page-header">
+    <h2>Catalogo de Inspectores</h2>
+    
+    <div class="right-wrapper text-right">
+        <ol class="breadcrumbs">
+            <li>
+                <a href="index.html">
+                    <i class="fas fa-home"></i>
+                </a>
+            </li>
+            <li><span>Pages</span></li>
+            <li><span>Blank Page</span></li>
+        </ol>
         
-        <div class="card-body">
-            
-            <table class="table table-responsive-xl table-striped">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
-                        <th>Clave</th>
-                        <th>Estatus</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($inspectores as $inspector)
-                    <tr>
-                        <td>{{ $inspector->nombre }}</td>
-                        <td>{{ $inspector->apellidopaterno }}</td>
-                        <td>{{ $inspector->apellidomaterno }}</td>
-                        <td>{{ $inspector->clave }}</td>
-                        <td>
-                            @if ($inspector->estatus == 'A')
-                            <span class="badge badge-success">Activo</span>
-                            @elseif ($inspector->estatus == 'B')
-                            <span class="badge badge-danger">Baja</span>
-                            @elseif ($inspector->estatus == 'S')
-                            <span class="badge badge-warning">Suspendido</span>
-                            @elseif ($inspector->estatus == 'V')
-                            <span class="badge badge-info">Vigente</span>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{ route('editar-inspector', ['id' => $inspector->id]) }}" class="btn btn-edit btn-sm"><i class="fas fa-edit"></i> </a>
-                            <a href="{{ route('inspector-delete', ['id' => $inspector->id]) }}" class="btn btn-delete btn-sm"><i class="fas fa-trash-alt"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+    </div>
+</header>
+
+<a class="mb-3 mt-1 mr-1 modal-with-zoom-anim ws-normal btn btn-default" href="#agregarInspector"><i class="fas fa-user-plus"></i> Agregar Inspector</a>
+
+<div class="row">
+    <div class="col">
+        
+        
+        <table class="table table-bordered table-striped mb-0" id="datatable-default">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Clave</th>
+                    <th>Estatus</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($inspectores as $inspector)
+                <tr>
+                    <td>{{ $inspector->nombre }}</td>
+                    <td>{{ $inspector->apellidopaterno }}</td>
+                    <td>{{ $inspector->apellidomaterno }}</td>
+                    <td>{{ $inspector->clave }}</td>
+                    <td>
+                        @if ($inspector->estatus == 'A')
+                        <span class="badge badge-success">Activo</span>
+                        @elseif ($inspector->estatus == 'B')
+                        <span class="badge badge-danger">Baja</span>
+                        @elseif ($inspector->estatus == 'S')
+                        <span class="badge badge-warning">Suspendido</span>
+                        @elseif ($inspector->estatus == 'V')
+                        <span class="badge badge-info">Vigente</span>
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{ route('editar-inspector', ['id' => $inspector->id]) }}" class="btn btn-edit btn-sm"><i class="fas fa-edit"></i> </a>
+                        <a href="{{ route('inspector-delete', ['id' => $inspector->id]) }}" class="btn btn-delete btn-sm"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        
     </div>
 </div>
-<div class="modal fade" id="crear-inspector" tabindex="-1" role="dialog" aria-labelledby="formulario-crear-inspector" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="formulario-crear-inspector">Agregar Inspector</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="formulario-inspector" role="form">
+
+<div id="agregarInspector" class="zoom-anim-dialog modal-block modal-block-primary mfp-hide">
+    <section class="card">
+        <header class="card-header">
+            <h2 class="card-title">Agregar Inspector</h2>
+        </header>
+        <div class="card-body">
+            <form class="formulario-inspector" role="form">
                     @csrf
                     <div class="form-group">
                         <label for="nombre">{{ __('Nombre Completo') }}</label>
@@ -109,18 +108,21 @@
                     </div>
                     <hr>
                     <div class="form-group row mb-0">
-                        <div class="col-md-12 ">
-                            <button type="button" class="btn btn-secondary " data-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" id="btn-enviar">{{ __('Crear Inspector') }}</button>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default modal-dismiss btn-block" >Cancelar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary modal-confirm btn-block" id="btn-enviar">{{ __('Crear Inspector') }}</button>
+                            
                         </div>
                     </div>
                 </form>
-            </div>
         </div>
-    </div>
-</div>
-@endsection
 
+    </section>
+</div>
+
+@endsection
 @section('scripts')
 <script src="{{ asset('js/inspectores.js') }}" defer></script>
 @endsection
