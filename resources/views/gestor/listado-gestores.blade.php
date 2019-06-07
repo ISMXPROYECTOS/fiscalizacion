@@ -15,8 +15,6 @@
         </span>
         <span class="text">Agregar Gestor</span>
     </button>
-    
-    <button type="button" id="editar">Ver</button>
 
     <div class="card shadow mb-4 border-bottom-primary-custom">
         
@@ -50,34 +48,7 @@
                         <th>Acción</th>
                     </tr>
                     </tfoot>
-                    <tbody>
-                        @foreach ($gestores as $gestor)
-                        <tr>
-                            <td>{{ $gestor->nombre }}</td>
-                            <td>{{ $gestor->apellidopaterno }}</td>
-                            <td>{{ $gestor->apellidomaterno }}</td>
-                            <td>{{ $gestor->telefono }}</td>
-                            <td>{{ $gestor->celular }}</td>
-                            <td>{{ $gestor->correoelectronico }}</td>
-                            <td>{{ $gestor->ine }}</td>
-                            <td>
-                                @if ($gestor->estatus == 'A')
-                                <span class="badge badge-success">Activo</span>
-                                @elseif ($gestor->estatus == 'B')
-                                <span class="badge badge-danger">Baja</span>
-                                @elseif ($gestor->estatus == 'S')
-                                <span class="badge badge-warning">Suspendido</span>
-                                @elseif ($gestor->estatus == 'V')
-                                <span class="badge badge-info">Vigente</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{ route('editar-gestor', ['id' => $gestor->id]) }}" class="btn btn-edit btn-sm"><i class="fas fa-edit"></i> </a>
-                                <a href="{{ route('gestor-delete', ['id' => $gestor->id]) }}" class="btn btn-delete btn-sm"><i class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                    <tbody id="tbody"></tbody>
                     </table>
                 </div>
             </div>
@@ -88,7 +59,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="formulario-crear-gestor">Agregar Usuario</h5>
+                    <h5 class="modal-title" id="formulario-crear-gestor">Agregar Gestor</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -162,7 +133,97 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-12 ">
-                                <button type="button" class="btn btn-secondary " data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close" >Cerrar</button>
+                                <button type="button" class="btn btn-primary" id="btn-enviar">{{ __('Crear Gestor') }}</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="opeEdit" data-toggle="modal" data-target="#edit-gestor"></button>
+    <div class="modal fade" id="editar-gestor" tabindex="-1" role="dialog" aria-labelledby="formulario-editar-gestor" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formulario-editar-gestor">Editar Gestor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="formulario-gestor" role="form">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="nombre">{{ __('Nombre Completo') }}</label>
+                            <input id="nombre-edit" type="text" class="form-control"  required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="apellidopaterno">{{ __('Apellido Paterno') }}</label>
+                                    <input id="apellidopaterno-edit" type="text" class="form-control">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="apellidomaterno">{{ __('Apellido Materno') }}</label>
+                                    <input id="apellidomaterno-edit" type="text" class="form-control">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="telefono">{{ __('Teléfono') }}</label>
+                                    <input id="telefono-edit" type="number" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="celular">{{ __('Celular') }}</label>
+                                    <input id="celular-edit" type="number" class="form-control">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="correoelectronico">{{ __('Correo Electrónico') }}</label>
+                            <input id="correoelectronico-edit" type="email" class="form-control">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="ine">{{ __('INE') }}</label>
+                            <input id="ine-edit" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estatus">{{ __('Estatus') }}</label>
+                            <select id="estatus-edit" class="form-control">
+                                <option value="">Seleccionar</option>
+                                <option value="A">Activo</option>
+                                <option value="B">Baja</option>
+                                <option value="S">Suspendido</option>
+                                <option value="V">Vigente</option>
+                            </select>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-12 ">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close" >Cerrar</button>
                                 <button type="button" class="btn btn-primary" id="btn-enviar">{{ __('Crear Gestor') }}</button>
                             </div>
                         </div>

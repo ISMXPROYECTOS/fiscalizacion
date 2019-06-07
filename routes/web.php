@@ -30,6 +30,7 @@ Route::get('/inspector/delete/{id}', 'InspectorController@delete')->name('inspec
 // Route::get('/regitro-inspectores', 'InspectorController@registroInspector')->name('registro-inspector');
 
 Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');
+Route::get('/gestores/listado', 'GestorController@tbody');
 Route::post('/gestores/nuevo', 'GestorController@create');
 Route::get('/editar-gestor/{id}', 'GestorController@editarGestor')->name('editar-gestor');
 Route::post('/gestor/update', 'GestorController@update')->name('gestor-update');

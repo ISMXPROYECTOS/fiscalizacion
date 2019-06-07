@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 class GestorController extends Controller
 {
 	public function listadoGestores(){
-		/* Se solicita a la bd todos los gestores para listarlos */
+		return view('gestor.listado-gestores');
+	}
+
+	public function tbody(){
 		$gestores = Gestor::all();
-		return view('gestor.listado-gestores', [
-    		'gestores' => $gestores
-    	]);
+		return view('gestor.tbody-gestores',[
+			'gestores' => $gestores
+		]);
 	}
 
 	public function registroGestores(){
@@ -53,20 +56,15 @@ class GestorController extends Controller
 
 	public function editarGestor($id){
 
-    	$gestor = Gestor::where('id', $id)->first();
+    	$gestor = Gestor::find($id);
+    	echo json_encode($gestor);
 
-    	return view('gestor.registro-gestores', [
-    		'gestor' => $gestor
-    	]);
     }
 
-    public function update(Request $request){
-
-		/* Se reciben la id del gestor que se esta modificando */
-		$id = $request->input('id');
+    public function update(Request $request, $id){
 
 		/* Se selecciona el gestor para ser modificado */
-		$gestor = Gestor::where('id', $id)->first();
+		$gestor = Gestor::find($id);
 
 		/* Validara los campos para evitar problemas */
 		$validate = $this->validate($request,[
@@ -104,28 +102,15 @@ class GestorController extends Controller
 		$gestor->estatus = $estatus;
 		$gestor->update();
 
-        /* Una vez actualizado el gestor redirige e indica que fue correcta la modificación del gestor */
-    	return redirect()->route('listado-gestores')->with('status', 'Gestor Modificado');
+        echo "actualizado";
 
 	}
 
 	public function delete($id){
 
-		$gestor = Gestor::where('id', $id)->delete();
-
-    	return redirect()->route('listado-gestores')->with('status', 'Gestor Eliminado');
-	}
-
-
-	public function pruebaAjax(Request $request){
-
-		$nombre = $request->input('nombre');		
-
-		// para regresar json
-		//return response()->json();
-
-		var_dump($nombre);
-		die();
+		$gestor = Gestor::find($id);
+		$gestor->delete();
+    	echo "realizado";
 	}
 
 }
