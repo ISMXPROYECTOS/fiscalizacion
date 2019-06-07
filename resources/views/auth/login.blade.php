@@ -1,4 +1,4 @@
-@extends('layouts.loginlayout')
+@extends('layouts.login')
 
 @section('content')
 
@@ -7,13 +7,9 @@
   <!-- Outer Row -->
   <div class="row justify-content-center">
 
-
     <img src="{{ asset('img/logotipo-oficial.jpeg') }}" class="logotipo-login" alt="">
 
     <div class="col-lg-5">
-
-
-
 
       <div class="card o-hidden border-0 shadow-sm mtb-50">
 
