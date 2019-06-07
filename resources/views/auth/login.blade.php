@@ -1,87 +1,81 @@
 @extends('layouts.login')
-
 @section('content')
-
-<div class="container">
-
-  <!-- Outer Row -->
-  <div class="row justify-content-center">
-
-    <img src="{{ asset('img/logotipo-oficial.jpeg') }}" class="logotipo-login" alt="">
-
-    <div class="col-lg-5">
-
-      <div class="card o-hidden border-0 shadow-sm mtb-50">
-
-        <div class="card-header">
-          <div class="text-center">
-            <h1 class="h4 text-white">Ingresa tus datos</h1>
-          </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            
+            <span class="navbar-text text-right">
+                Navbar text with an inline element
+            </span>
         </div>
-        <div class="card-body p-0">
-          <!-- Nested Row within Card Body -->
-          <div class="row">
-
-
-            <div class="col-lg-12 col-md-12">
-              <div class="p-5">
-
-
-
-                <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
-                  @csrf
-
-                  <div class="form-group">
-                    <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus placeholder="Nombre de usuario">
-
-                    @if ($errors->has('usuario'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('usuario') }}</strong>
-                        </span>
-                    @endif
-                  </div>
-
-                  <div class="form-group">
-                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Contraseña">
-
-                    @if ($errors->has('password'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                    @endif
-                  </div>
-
-                  <!--<div class="form-group row">
-                      <div class="col-md-6 offset-md-4">
-                          <div class="form-check">
-                              <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                              <label class="form-check-label" for="remember">
-                                  {{ __('Remember Me') }}
-                              </label>
-                          </div>
-                      </div>
-                  </div>-->
-
-                  <div class="form-group row mb-0">
-                      <div class="col-md-12 ">
-                          <button type="submit" class="btn btn-primary btn-user btn-block">
-                              {{ __('Iniciar Sesión') }}
-                          </button>
-                      </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="text-center">
-        <p>Sistema de Fiscalización <br> 2019 &copy; H. Ayuntamiento de Benito Juárez </p>
-      </div>
     </div>
-  </div>
-</div>
+    
+</nav>
+<!-- start: page -->
+<section class="body-sign">
+    <div class="center-sign">
+        <div class="card">
+            <div class="card-header">
+                <h3>Bienvenido</h3>
+                <h5>Porfavor, ingresa tus datos</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label>Usuario</label>
+                        <div class="input-group">
+                            <input id="usuario" name="usuario" type="text" class="form-control form-control-lg{{ $errors->has('usuario') ? ' is-invalid' : '' }}" value="{{ old('usuario') }}" required />
+                            <span class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </span>
+                            @if ($errors->has('usuario'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('usuario') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="clearfix">
+                            <label class="float-left">Contraseña</label>
+                            
+                        </div>
+                        <div class="input-group">
+                            <input id="password" name="password" type="password" class="form-control form-control-lg{{ $errors->has('password') ? ' is-invalid' : '' }}" required />
+                            <span class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </span>
+                            @if ($errors->has('password'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary mt-2 btn-block">{{ __('Iniciar Sesión') }}</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+        <p class="text-center text-muted mt-3 mb-3">&copy; H. Ayuntamiento de Benito Juárez 2018 - 2021. </p>
+    </div>
+</section>
+<!-- end: page -->
 @endsection

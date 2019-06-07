@@ -6,95 +6,188 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name', 'Sistema de Fiscalización') }}</title>
-        <link href="{{ asset('vendor/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+        <!-- Web Fonts  -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+        <!-- Vendor CSS -->
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" />
+        <link rel="stylesheet" href="{{ asset('vendor/animate/animate.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/all.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('vendor/magnific-popup/magnific-popup.css') }}" />
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css') }}" />
+
+        <!-- Theme CSS -->
+        <link rel="stylesheet" href="{{ asset('css/theme.css') }}" />
+
+        <!-- Skin CSS -->
+        <link rel="stylesheet" href="{{ asset('css/skins/default.css') }}" />
+
+        <!-- Theme Custom CSS -->
+        <!--<link rel="stylesheet" href="{{ asset('css/custom.css') }}">-->
+
+        <!-- Head Libs -->
+        <script src="{{ asset('vendor/modernizr/modernizr.js') }}"></script>
     </head>
-    <body class="admin-body">
-        <div id="main">
-            <div class="headerbar">
-                <div class="headerbar-left">
-                    <a href="" class="logo"><img src="{{ asset('img/logotipo.png') }}" /></a>
+    <body>
+
+
+        <section class="body">
+
+            <!-- start: header -->
+            <header class="header">
+                <div class="logo-container">
+                    <a href="" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="200"/></a>
+                    <div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+                        <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
+                    </div>
                 </div>
-                <nav class="navbar-custom">
-                    <ul class="list-inline float-right mb-0">
-                        
-                        <li class="list-inline-item dropdown notif">
-                            <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <p>{{ Auth::user()->usuario }}</p>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right profile-dropdown">
-                                
-                                <div class="dropdown-item noti-title">
-                                    <h5 class="text-overflow"><small>ADMINISTRADOR</small> </h5>
-                                </div>
-                                
-                                <a class="dropdown-item notify-item" href="{{ route('logout') }}"
+            
+                <!-- start: search & user box -->
+                <div class="header-right">
+            
+                    <span class="separator"></span>
+            
+                    <div id="userbox" class="userbox">
+                        <a href="#" data-toggle="dropdown">
+                            <figure class="profile-picture">
+                                <img src="img/!logged-user.jpg" alt="Joseph Doe" class="rounded-circle" data-lock-picture="img/!logged-user.jpg" />
+                            </figure>
+                            <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+                                <span class="name">{{ Auth::user()->usuario }}</span>
+                                <span class="role">Administrator</span>
+                            </div>
+            
+                            <i class="fa custom-caret"></i>
+                        </a>
+            
+                        <div class="dropdown-menu">
+                            <ul class="list-unstyled mb-2">
+                                <li class="divider"></li>
+                                <li>
+                                    <a role="menuitem" tabindex="-1" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                                    <i class="fa fa-power-off"></i> <span>{{ __('Logout') }}</span>
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                                
-                            </div>
-                        </li>
-                    </ul>
-                    
-                </nav>
-            </div>
-            <div class="left main-sidebar">
-                <div class="sidebar-inner leftscroll">
-                    <div id="sidebar-menu">
-                        <ul>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('listado-inspectores') }}">
-                                    <i class="fas fa-clipboard-list"></i>
-                                    <span>Catalogo de Inspectores</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('listado-gestores') }}">
-                                    <i class="fas fa-folder-open"></i>
-                                    <span>Catalogo de Gestores</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('listado-usuarios') }}">
-                                    <i class="fas fa-users"></i>
-                                    <span>Catalogo de Usuarios</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
+                                        <i class="fas fa-power-off"></i>
+                                        <span>{{ __('Logout') }}</span>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="clearfix"></div>
                 </div>
-            </div>
-            <div class="content-page">
+                <!-- end: search & user box -->
+            </header>
+            <!-- end: header -->
 
-                <div class="content">
-                    @yield('content')
-                    
-                </div>
+            <div class="inner-wrapper">
+                <!-- start: sidebar -->
+                <aside id="sidebar-left" class="sidebar-left">
                 
-                <footer class="footer">
-                    <span class="text-right">
-                        Copyright <a target="_blank" href="#">Your Website</a>
-                    </span>
-                    <span class="float-right">
-                        Powered by <a target="_blank" href="https://www.pikeadmin.com"><b>Pike Admin</b></a>
-                    </span>
-                </footer>
-            </div>
-        </div>
+                    <div class="sidebar-header">
+                        <div class="sidebar-title">
+                            Panel de Control
+                        </div>
+                        <div class="sidebar-toggle d-none d-md-block" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+                            <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
+                        </div>
+                    </div>
+                
+                    <div class="nano">
+                        <div class="nano-content">
+                            <nav id="menu" class="nav-main" role="navigation">
+                            
+                                <ul class="nav nav-main">
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-inspectores') }}">
+                                            <i class="fas fa-home" aria-hidden="true"></i>
+                                            <span>Catalogo de Inspectores</span>
+                                        </a>                        
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-gestores') }}">
+                                            <i class="fas fa-folder-open"></i>
+                                            <span>Catalogo de Gestores</span>
+                                        </a>                      
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-usuarios') }}">
+                                            <i class="fas fa-users"></i>
+                                            <span>Catalogo de Usuarios</span>
+                                        </a>                      
+                                    </li>
+                                <ul>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+                            </nav>
+            
+                        </div>
+                
+                        <script>
+                            // Maintain Scroll Position
+                            if (typeof localStorage !== 'undefined') {
+                                if (localStorage.getItem('sidebar-left-position') !== null) {
+                                    var initialPosition = localStorage.getItem('sidebar-left-position'),
+                                        sidebarLeft = document.querySelector('#sidebar-left .nano-content');
+                                    
+                                    sidebarLeft.scrollTop = initialPosition;
+                                }
+                            }
+                        </script>
+                        
+                
+                    </div>
+                
+                </aside>
+                <!-- end: sidebar -->
+
+                <section role="main" class="content-body">
+                    <header class="page-header">
+                        <h2>Blank Page</h2>
+                    
+                        <div class="right-wrapper text-right">
+                            <ol class="breadcrumbs">
+                                <li>
+                                    <a href="index.html">
+                                        <i class="fas fa-home"></i>
+                                    </a>
+                                </li>
+                                <li><span>Pages</span></li>
+                                <li><span>Blank Page</span></li>
+                            </ol>
+                    
+                            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
+                        </div>
+                    </header>
+
+                    <!-- start: page -->
+
+                    @yield('content')
+                    <!-- end: page -->
+                </section>
+            </div>
+        </section>
+
+        <!-- Vendor -->
+
+        <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
+        <script src="{{ asset('vendor/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script>
+        <script src="{{ asset('vendor/popper/umd/popper.min.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
+        <script src="{{ asset('vendor/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+        <script src="{{ asset('vendor/common/common.js') }}"></script>
+        <script src="{{ asset('vendor/nanoscroller/nanoscroller.js') }}"></script>
+        <script src="{{ asset('vendor/magnific-popup/jquery.magnific-popup.js') }}"></script>
+        <script src="{{ asset('vendor/jquery-placeholder/jquery.placeholder.js') }}"></script>
+
+        <!-- Theme Base, Components and Settings -->
+        <script src="{{ asset('js/theme.js') }}"></script>
+        <!-- Theme Custom -->
+        <script src="{{ asset('js/custom.js') }}"></script>
+        <!-- Theme Initialization Files -->
+        <script src="{{ asset('js/theme.init.js') }}"></script>
         
         
         @yield('scripts')
