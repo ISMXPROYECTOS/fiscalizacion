@@ -19,13 +19,13 @@
             @endif
         </td>
         <td>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarGestor">
+            <button type="button" class="btn btn-primary editar"  id="{{ $gestor->id }}">
               <i class="fas fa-edit"></i>
             </button>
 
-            <button type="button" class="btn btn-danger eliminar" data-toggle="modal" data-target="#eliminarGestor" id="{{ $gestor->id }}">
+            <button type="button" class="btn btn-danger eliminar"  id="{{ $gestor->id }}">
               <i class="fas fa-trash-alt"></i>
-            </button>
+            </button> 
 
         </td>
     </tr>

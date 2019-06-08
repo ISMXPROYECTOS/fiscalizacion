@@ -16,6 +16,7 @@ $(document).ready(function(){
 
     function saveData(){
         $('#btn-enviar').click(function(){
+
             var data = {
                 'nombre' : $('#nombre').val(),
                 'apellidopaterno' : $('#apellidopaterno').val(),
@@ -33,8 +34,10 @@ $(document).ready(function(){
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 success: function (response) {
-                    // Aqui tenemos que hacer que se  manden mensajes de alerta satisfactorios y que se actualice sola la tabla
-
+                   
+                    $("#formulario-gestor")[0].reset();
+                    $('#crear-gestor').modal('hide');
+                    $('#registro-correcto').modal('show');
                     viewData();
                 }
             });
@@ -48,13 +51,13 @@ $(document).ready(function(){
         $(document).on('click', '.editar', function(e){
             e.preventDefault();
             var id = $(this).attr('id');
-            $.ajax({
-                url: url + '/editar-gestor/' + id,
+             $.ajax({
+                url: url + '/gestores/editar/' + id,
                 type: 'get',
-                dataType: 'json',
                 success: function (response) {
                     if (response != ""){
-                        $('#opeEdit').click();
+                        $('#editar-gestor').modal('show');
+                        $('#id-edit').val(response.id);
                         $('#nombre-edit').val(response.nombre);
                         $('#apellidopaterno-edit').val(response.apellidopaterno);
                         $('#apellidomaterno-edit').val(response.apellidomaterno);
@@ -69,20 +72,65 @@ $(document).ready(function(){
         });
     }
 
-    function deleteData(){
-        $(document).on('click', '.eliminar', function(e){
-            e.preventDefault();
-            var id = $(this).attr('id');
+    editData();
+
+
+    function updateData(){
+        $('#btn-editar').click(function(){
+
+    
+            var data = {
+                'id' : $('#id-edit').val(),
+                'nombre' : $('#nombre-edit').val(),
+                'apellidopaterno' : $('#apellidopaterno-edit').val(),
+                'apellidomaterno' : $('#apellidomaterno-edit').val(),
+                'telefono' : $('#telefono-edit').val(),
+                'celular' : $('#celular-edit').val(),
+                'correoelectronico' : $('#correoelectronico-edit').val(),
+                'ine' : $('#ine-edit').val(),
+                'estatus' : $('#estatus-edit').val()
+            }
+
             $.ajax({
-                url: url + '/gestor/delete/' + id,
-                type: 'get',
+                url: url + '/gestores/actualizar',
+                data: data,
+                type: 'post',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 success: function (response) {
-                    if (response == "realizado"){
-                        alert('Se elimino el gestor');
-                        viewData();
-                    }
+
+                    $('#editar-gestor').modal('hide');
+                    $('#actualizacion-correcta').modal('show');
+                    viewData();
                 }
             });
+
+        });
+    }
+
+    updateData();
+
+    function deleteData(){
+        $(document).on('click', '.eliminar', function(e){
+
+            e.preventDefault();
+            var id = $(this).attr('id');
+
+            $('#desea-eliminar').modal('show');
+
+            $('.delete-confirm').click(function(){
+                $.ajax({
+                    url: url + '/gestores/eliminar/' + id,
+                    type: 'get',
+                    success: function (response) {
+                        if (response == "realizado"){
+
+                            $('#desea-eliminar').modal('hide');
+                            $('#eliminacion-correcta').modal('show');
+                            viewData();
+                        }
+                    }  
+                });
+            });            
         });
     }
 

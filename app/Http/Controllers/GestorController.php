@@ -57,13 +57,16 @@ class GestorController extends Controller
 	public function editarGestor($id){
 
     	$gestor = Gestor::find($id);
-    	echo json_encode($gestor);
+    	return $gestor;
+    	//echo json_encode($gestor);
 
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request){
 
 		/* Se selecciona el gestor para ser modificado */
+
+		$id = $request->input('id');
 		$gestor = Gestor::find($id);
 
 		/* Validara los campos para evitar problemas */
@@ -78,9 +81,11 @@ class GestorController extends Controller
             'estatus' => 'required|string|max:1'
 		]);
 
-		/* Optiene la id del usuario administrador que modifica los gestores */
-		$idUser = \Auth::user()->id;
+
 		/* Se reciben los datos del formulario y se crean variables */
+		/* Optiene la id del usuario administrador que modifica los gestores */
+
+		$idusuario = \Auth::user()->id;
 		$nombre = $request->input('nombre');
 		$apellidopaterno = $request->input('apellidopaterno');
 		$apellidomaterno = $request->input('apellidomaterno');
@@ -91,7 +96,7 @@ class GestorController extends Controller
 		$estatus = $request->input('estatus');
 
         /* Una ves verificados los datos y creados las variables se actualiza en la BD */
-		$gestor->idusuario = $idUser;
+		$gestor->idusuario = $idusuario;
 		$gestor->nombre = $nombre;
 		$gestor->apellidopaterno = $apellidopaterno;
 		$gestor->apellidomaterno = $apellidomaterno;
@@ -102,7 +107,7 @@ class GestorController extends Controller
 		$gestor->estatus = $estatus;
 		$gestor->update();
 
-        echo "actualizado";
+        return $gestor;
 
 	}
 
@@ -110,6 +115,7 @@ class GestorController extends Controller
 
 		$gestor = Gestor::find($id);
 		$gestor->delete();
+		
     	echo "realizado";
 	}
 
