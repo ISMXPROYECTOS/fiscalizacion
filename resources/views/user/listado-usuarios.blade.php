@@ -17,7 +17,10 @@
     </div>
 </header>
 
-<a class="mb-3 mt-1 mr-1 modal-with-zoom-anim ws-normal btn btn-default" href="#agregarUsuario"><i class="fas fa-user-plus"></i> Agregar Usuario</a>
+
+<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#crearUsuario">
+    <i class="fas fa-user-plus"></i> Agregar Usuario
+</button>
 
 <div class="row">
     <div class="col">
@@ -37,13 +40,18 @@
         
     </div>
 </div>
-<div id="agregarUsuario" class="zoom-anim-dialog modal-block modal-block-primary mfp-hide">
-    <section class="card">
-        <header class="card-header">
-            <h2 class="card-title">Agregar Usuario</h2>
-        </header>
-        <div class="card-body">
-            <form class="formulario-usuario">
+
+<div class="modal fade" id="crearUsuario" tabindex="-1" role="dialog" aria-labelledby="modalCrearUsuario" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCrearUsuario">Agregar Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="formulario-usuario">
                 @csrf
                 <div class="form-group">
                     <label for="usuario">{{ __('Nombre de Usuario') }}</label>
@@ -77,17 +85,79 @@
                 <hr>
                 <div class="form-group row mb-0">
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-default modal-dismiss btn-block" >Cancelar</button>
+                        <button type="button" class="btn btn-default  btn-block" data-dismiss="modal">Cancelar</button>
                     </div>
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-primary modal-confirm btn-block" id="btn-enviar">{{ __('Crear Usuario') }}</button>
+                        <button type="button" class="btn btn-primary  btn-block" id="btn-enviar">{{ __('Crear Usuario') }}</button>
                         
                     </div>
                 </div>
             </form>
-        </div>
-    </section>
+      </div>
+
+    </div>
+  </div>
+
 </div>
+
+<div class="modal fade" id="editarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalEditarUsuario" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarUsuario">Editar Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="formulario-usuario">
+                @csrf
+                <div class="form-group">
+                    <label for="usuario">{{ __('Nombre de Usuario') }}</label>
+                    <input id="usuario" type="text" class="form-control">
+                    
+                </div>
+                <div class="form-group">
+                    <label for="role">{{ __('Tipo de Usuario') }}</label>
+                    <select id="role" class="form-control" >
+                        <option value="">Seleccionar</option>
+                        <option value="ROLE_ADMIN">Administrador</option>
+                        <option value="ROLE_INSPECTOR">Inspector</option>
+                        <option value="ROLE_VENTANILLA">Ventanilla</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label for="password">{{ __('Contraseña') }}</label>
+                            <input id="password" type="password" class="form-control" name="password">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label for="password-confirm">{{ __('Confirmar Contraseña') }}</label>
+                            <input id="password-confirm" type="password" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
+                <div class="form-group row mb-0">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-default  btn-block" data-dismiss="modal">Cancelar</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary  btn-block" id="btn-enviar">{{ __('Crear Usuario') }}</button>
+                        
+                    </div>
+                </div>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 @endsection
 @section('scripts')
 <script src="{{ asset('js/user.js') }}" defer></script>

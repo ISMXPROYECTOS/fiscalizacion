@@ -16,8 +16,13 @@
         @endif
     </td>
     <td>
-        <a href="{{ route('editar-inspector', ['id' => $inspector->id]) }}" class="btn btn-edit btn-sm"><i class="fas fa-edit"></i> </a>
-        <a href="{{ route('inspector-delete', ['id' => $inspector->id]) }}" class="btn btn-delete btn-sm"><i class="fas fa-trash-alt"></i></a>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarInspector">
+            <i class="fas fa-edit"></i>
+        </button>
+
+        <button type="button" class="btn btn-danger eliminar" data-toggle="modal" data-target="#eliminarInspector" id="{{ $inspector->id }}">
+            <i class="fas fa-trash-alt"></i>
+        </button>
     </td>
 </tr>
 @endforeach

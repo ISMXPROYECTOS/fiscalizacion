@@ -13,8 +13,13 @@
             @endif
         </td>
         <td>
-            <a href="{{ route('editar-usuario', ['id' => $usuario->id]) }}" class="btn btn-edit btn-sm"><i class="fas fa-edit"></i></a>
-            <a href="{{ route('usuario-delete', ['id' => $usuario->id]) }}" class="btn btn-delete btn-sm"><i class="fas fa-trash-alt"></i></a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarUsuario">
+                <i class="fas fa-edit"></i>
+            </button>
+
+            <button type="button" class="btn btn-danger eliminar" data-toggle="modal" data-target="#eliminarUsuario" id="{{ $usuario->id }}">
+                <i class="fas fa-trash-alt"></i>
+            </button>
         </td>
     </tr>
     @endif

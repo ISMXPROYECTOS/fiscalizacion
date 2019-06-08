@@ -29,8 +29,7 @@ $(document).ready(function(){
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 success: function (response) {
                     // Aqui tenemos que hacer que se  manden mensajes de alerta satisfactorios y que se actualice sola la tabla
-                    $('#close').click();
-                    $('.formulario-inspector')[0].reset();
+
                     viewData();
                 }
             });
