@@ -33,6 +33,34 @@ $(document).ready(function(){
                     $('#crear-inspector').modal('hide');
                     $('#registro-correcto').modal('show');
                     viewData();
+                },
+
+                error: function(response) {
+
+                    if (response.responseJSON.errors.nombre[0] != null) {
+                        $('#error-nombre').removeClass('hidden');
+                        $('#error-nombre').text(response.responseJSON.errors.nombre[0]);
+                    }
+
+                    if (response.responseJSON.errors.apellidopaterno[0] != null) {
+                        $('#error-apellidopaterno').removeClass('hidden');
+                        $('#error-apellidopaterno').text(response.responseJSON.errors.apellidopaterno[0]);
+                    }
+
+                    if (response.responseJSON.errors.apellidomaterno[0] != null) {
+                        $('#error-apellidomaterno').removeClass('hidden');
+                        $('#error-apellidomaterno').text(response.responseJSON.errors.apellidomaterno[0]);
+                    }
+
+                    if (response.responseJSON.errors.clave[0] != null) {
+                        $('#error-clave').removeClass('hidden');
+                        $('#error-clave').text(response.responseJSON.errors.clave[0]);
+                    }
+
+                    if (response.responseJSON.errors.estatus[0] != null) {
+                        $('#error-estatus').removeClass('hidden');
+                        $('#error-estatus').text(response.responseJSON.errors.estatus[0]);
+                    }
                 }
             });
 
@@ -86,6 +114,34 @@ $(document).ready(function(){
                     $('#editar-inspector').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     viewData();
+                },
+
+                error: function(response) {
+
+                    if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
+                         $('#error-nombre-edit').removeClass('hidden');
+                        $('#error-nombre-edit').text(response.responseJSON.errors.nombre[0]);
+                    } 
+
+                    if (typeof(response.responseJSON.errors.apellidopaterno) != 'undefined') {
+                        $('#error-apellidopaterno-edit').removeClass('hidden');
+                        $('#error-apellidopaterno-edit').text(response.responseJSON.errors.apellidopaterno[0]);
+                    }
+
+                    if (typeof(response.responseJSON.errors.apellidomaterno) != 'undefined') {
+                        $('#error-apellidomaterno-edit').removeClass('hidden');
+                        $('#error-apellidomaterno-edit').text(response.responseJSON.errors.apellidomaterno[0]);
+                    }
+
+                    if (typeof(response.responseJSON.errors.clave) != 'undefined') {
+                        $('#error-clave-edit').removeClass('hidden');
+                        $('#error-clave-edit').text(response.responseJSON.errors.clave[0]);
+                    }
+
+                    if (typeof(response.responseJSON.errors.estatus) != 'undefined') {
+                        $('#error-estatus-edit').removeClass('hidden');
+                        $('#error-estatus-edit').text(response.responseJSON.errors.estatus[0]);
+                    }
                 }
             });
 

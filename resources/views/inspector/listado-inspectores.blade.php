@@ -58,18 +58,21 @@
                     <div class="form-group">
                         <label for="nombre">{{ __('Nombre Completo') }}</label>
                         <input id="nombre" type="text" class="form-control">
+                        <p class="text-danger  hidden" id="error-nombre"></p>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="apellidopaterno">{{ __('Apellido Paterno') }}</label>
                                 <input id="apellidopaterno" type="text" class="form-control">
+                                <p class="text-danger  hidden" id="error-apellidopaterno"></p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="apellidomaterno">{{ __('Apellido Materno') }}</label>
                                 <input id="apellidomaterno" type="text" class="form-control">
+                                <p class="text-danger  hidden" id="error-apellidomaterno"></p>
                             </div>
                         </div>
                     </div>
@@ -77,6 +80,7 @@
                     <div class="form-group">
                         <label for="clave">{{ __('Clave') }}</label>
                         <input id="clave" type="text" class="form-control" >
+                        <p class="text-danger  hidden" id="error-clave"></p>
                     </div>
                     <div class="form-group">
                         <label for="estatus">{{ __('Estatus') }}</label>
@@ -87,6 +91,8 @@
                             <option value="S">Suspendido</option>
                             <option value="V">Vigente</option>
                         </select>
+
+                        <p class="text-danger  hidden" id="error-estatus"></p>
                     </div>
                     <hr>
                     <div class="form-group row mb-0">
@@ -120,26 +126,28 @@
                     <div class="form-group">
                         <label for="nombre-edit">{{ __('Nombre Completo') }}</label>
                         <input id="nombre-edit" type="text" class="form-control" required>
+                        <p class="text-danger  hidden" id="error-nombre-edit"></p>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="apellidopaterno-edit">{{ __('Apellido Paterno') }}</label>
                                 <input id="apellidopaterno-edit" type="text" class="form-control">
-                                
+                                <p class="text-danger  hidden" id="error-apellidopaterno-edit"></p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="apellidomaterno-edit">{{ __('Apellido Materno') }}</label>
                                 <input id="apellidomaterno-edit" type="text" class="form-control">
-                                
+                                <p class="text-danger  hidden" id="error-apellidomaterno-edit"></p>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="clave-edit">{{ __('Clave') }}</label>
                         <input id="clave-edit" type="text" class="form-control">
+                        <p class="text-danger  hidden" id="error-clave-edit"></p>
                     </div>
                     <div class="form-group">
                         <label for="estatus-edit">{{ __('Estatus') }}</label>
@@ -150,6 +158,8 @@
                             <option value="S">Suspendido</option>
                             <option value="V">Vigente</option>
                         </select>
+
+                        <p class="text-danger  hidden" id="error-estatus-edit"></p>
                     </div>
                     <hr>
                     <div class="form-group row mb-0">

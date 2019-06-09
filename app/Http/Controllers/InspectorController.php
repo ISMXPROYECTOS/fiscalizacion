@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class InspectorController extends Controller
 {
+
 	public function listadoInspectores(){
 		return view('inspector.listado-inspectores');
 	}

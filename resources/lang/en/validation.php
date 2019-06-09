@@ -125,9 +125,45 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'nombre' => [
+            'required' => 'Es necesario ingresar el nombre correctamente',
         ],
+
+        'apellidopaterno' => [
+            "required" => 'Es necesario ingresar el :attribute correctamente'
+        ],
+
+        'apellidomaterno' => [
+            "required" => 'Es necesario ingresar el :attribute correctamente'
+        ],
+
+        'telefono' => [
+            "required" => 'Es necesario ingresar el numero de telefono correctamente'
+        ],
+
+        'celular' => [
+            "required" => 'Es necesario ingresar el numero celular correctamente'
+        ],
+
+        'correoelectronico' => [
+            "required" => 'Es necesario ingresar un :attribute valido',
+            "unique" => 'Este :attribute ya se ha registrado anteriormente',
+        ],
+
+        'ine' => [
+            "required" => 'Es necesario ingresar un :attribute valido',
+            "unique" => 'Esta clave ya se ha registrado anteriormente',
+        ],
+
+        'estatus' => [
+            "required" => 'Es necesario ingresar un estado valido',
+        ],
+
+        'clave' => [
+            "required" => 'Es necesario ingresar una clave valida',
+        ]
+
+
     ],
 
     /*
@@ -141,6 +177,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'apellidopaterno' => 'apellido paterno',
+        'apellidomaterno' => 'apellido materno',
+        'correoelectronico' => 'correo electronico',
+    ],
 
 ];
