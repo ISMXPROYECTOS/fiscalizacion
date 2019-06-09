@@ -34,32 +34,41 @@ $(document).ready(function(){
                     $('#registro-correcto').modal('show');
                     viewData();
                 },
-
                 error: function(response) {
 
-                    if (response.responseJSON.errors.nombre[0] != null) {
+                    if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
                         $('#error-nombre').removeClass('hidden');
                         $('#error-nombre').text(response.responseJSON.errors.nombre[0]);
+                    }else{
+                        $('#error-nombre').addClass('hidden');
                     }
 
-                    if (response.responseJSON.errors.apellidopaterno[0] != null) {
+                    if (typeof(response.responseJSON.errors.apellidopaterno) != 'undefined') {
                         $('#error-apellidopaterno').removeClass('hidden');
                         $('#error-apellidopaterno').text(response.responseJSON.errors.apellidopaterno[0]);
+                    }else{
+                        $('#error-apellidopaterno').addClass('hidden');
                     }
 
-                    if (response.responseJSON.errors.apellidomaterno[0] != null) {
+                    if (typeof(response.responseJSON.errors.apellidomaterno) != 'undefined') {
                         $('#error-apellidomaterno').removeClass('hidden');
                         $('#error-apellidomaterno').text(response.responseJSON.errors.apellidomaterno[0]);
+                    }else{
+                        $('#error-apellidomaterno').addClass('hidden');
                     }
 
-                    if (response.responseJSON.errors.clave[0] != null) {
+                    if (typeof(response.responseJSON.errors.clave) != 'undefined') {
                         $('#error-clave').removeClass('hidden');
                         $('#error-clave').text(response.responseJSON.errors.clave[0]);
+                    }else{
+                        $('#error-clave').addClass('hidden');
                     }
 
-                    if (response.responseJSON.errors.estatus[0] != null) {
+                    if (typeof(response.responseJSON.errors.estatus) != 'undefined') {
                         $('#error-estatus').removeClass('hidden');
                         $('#error-estatus').text(response.responseJSON.errors.estatus[0]);
+                    }else{
+                        $('#error-estatus').addClass('hidden');
                     }
                 }
             });
@@ -119,28 +128,38 @@ $(document).ready(function(){
                 error: function(response) {
 
                     if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
-                         $('#error-nombre-edit').removeClass('hidden');
+                        $('#error-nombre-edit').removeClass('hidden');
                         $('#error-nombre-edit').text(response.responseJSON.errors.nombre[0]);
-                    } 
+                    }else{
+                        $('#error-nombre-edit').addClass('hidden');
+                    }
 
                     if (typeof(response.responseJSON.errors.apellidopaterno) != 'undefined') {
                         $('#error-apellidopaterno-edit').removeClass('hidden');
                         $('#error-apellidopaterno-edit').text(response.responseJSON.errors.apellidopaterno[0]);
+                    }else{
+                        $('#error-apellidopaterno-edit').addClass('hidden');
                     }
 
                     if (typeof(response.responseJSON.errors.apellidomaterno) != 'undefined') {
                         $('#error-apellidomaterno-edit').removeClass('hidden');
                         $('#error-apellidomaterno-edit').text(response.responseJSON.errors.apellidomaterno[0]);
+                    }else{
+                        $('#error-apellidomaterno-edit').addClass('hidden');
                     }
 
                     if (typeof(response.responseJSON.errors.clave) != 'undefined') {
                         $('#error-clave-edit').removeClass('hidden');
                         $('#error-clave-edit').text(response.responseJSON.errors.clave[0]);
+                    }else{
+                        $('#error-clave-edit').addClass('hidden');
                     }
 
                     if (typeof(response.responseJSON.errors.estatus) != 'undefined') {
                         $('#error-estatus-edit').removeClass('hidden');
                         $('#error-estatus-edit').text(response.responseJSON.errors.estatus[0]);
+                    }else{
+                        $('#error-estatus-edit').addClass('hidden');
                     }
                 }
             });

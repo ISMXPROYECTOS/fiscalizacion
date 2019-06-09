@@ -64,12 +64,10 @@ class UserController extends Controller
 		]);
 
 		/* Se reciben los datos del formulario y se crean variables */
-
 		$usuarioForm = $request->input('usuario');
 		$role = $request->input('role');
 
 		// Se verifica si la password es la misma o diferente y se asigna al usuario
-
 		if ($request->input('password') == $usuario->password) {
 			$usuario->password = $request->input('password');
 		} else {

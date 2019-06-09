@@ -36,6 +36,64 @@ $(document).ready(function(){
                     $('#crear-gestor').modal('hide');
                     $('#registro-correcto').modal('show');
                     viewData();
+                },
+                error: function(response) {
+
+                    if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
+                        $('#error-nombre').removeClass('hidden');
+                        $('#error-nombre').text(response.responseJSON.errors.nombre[0]);
+                    }else{
+                        $('#error-nombre').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.apellidopaterno) != 'undefined') {
+                        $('#error-apellidopaterno').removeClass('hidden');
+                        $('#error-apellidopaterno').text(response.responseJSON.errors.apellidopaterno[0]);
+                    }else{
+                        $('#error-apellidopaterno').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.apellidomaterno) != 'undefined') {
+                        $('#error-apellidomaterno').removeClass('hidden');
+                        $('#error-apellidomaterno').text(response.responseJSON.errors.apellidomaterno[0]);
+                    }else{
+                        $('#error-apellidomaterno').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.telefono) != 'undefined') {
+                        $('#error-telefono').removeClass('hidden');
+                        $('#error-telefono').text(response.responseJSON.errors.telefono[0]);
+                    }else{
+                        $('#error-telefono').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.celular) != 'undefined') {
+                        $('#error-celular').removeClass('hidden');
+                        $('#error-celular').text(response.responseJSON.errors.celular[0]);
+                    }else{
+                        $('#error-celular').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.correoelectronico) != 'undefined') {
+                        $('#error-correoelectronico').removeClass('hidden');
+                        $('#error-correoelectronico').text(response.responseJSON.errors.correoelectronico[0]);
+                    }else{
+                        $('#error-correoelectronico').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.ine) != 'undefined') {
+                        $('#error-ine').removeClass('hidden');
+                        $('#error-ine').text(response.responseJSON.errors.ine[0]);
+                    }else{
+                        $('#error-ine').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.estatus) != 'undefined') {
+                        $('#error-estatus').removeClass('hidden');
+                        $('#error-estatus').text(response.responseJSON.errors.estatus[0]);
+                    }else{
+                        $('#error-estatus').addClass('hidden');
+                    }
                 }
             });
 
@@ -95,6 +153,64 @@ $(document).ready(function(){
                     $('#editar-gestor').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     viewData();
+                },
+                error: function(response) {
+
+                    if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
+                        $('#error-nombre-edit').removeClass('hidden');
+                        $('#error-nombre-edit').text(response.responseJSON.errors.nombre[0]);
+                    }else{
+                        $('#error-nombre-edit').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.apellidopaterno) != 'undefined') {
+                        $('#error-apellidopaterno-edit').removeClass('hidden');
+                        $('#error-apellidopaterno-edit').text(response.responseJSON.errors.apellidopaterno[0]);
+                    }else{
+                        $('#error-apellidopaterno-edit').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.apellidomaterno) != 'undefined') {
+                        $('#error-apellidomaterno-edit').removeClass('hidden');
+                        $('#error-apellidomaterno-edit').text(response.responseJSON.errors.apellidomaterno[0]);
+                    }else{
+                        $('#error-apellidomaterno-edit').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.telefono) != 'undefined') {
+                        $('#error-telefono-edit').removeClass('hidden');
+                        $('#error-telefono-edit').text(response.responseJSON.errors.telefono[0]);
+                    }else{
+                        $('#error-telefono-edit').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.celular) != 'undefined') {
+                        $('#error-celular-edit').removeClass('hidden');
+                        $('#error-celular-edit').text(response.responseJSON.errors.celular[0]);
+                    }else{
+                        $('#error-celular-edit').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.correoelectronico) != 'undefined') {
+                        $('#error-correoelectronico-edit').removeClass('hidden');
+                        $('#error-correoelectronico-edit').text(response.responseJSON.errors.correoelectronico[0]);
+                    }else{
+                        $('#error-correoelectronico-edit').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.ine) != 'undefined') {
+                        $('#error-ine-edit').removeClass('hidden');
+                        $('#error-ine-edit').text(response.responseJSON.errors.ine[0]);
+                    }else{
+                        $('#error-ine-edit').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.estatus) != 'undefined') {
+                        $('#error-estatus-edit').removeClass('hidden');
+                        $('#error-estatus-edit').text(response.responseJSON.errors.estatus[0]);
+                    }else{
+                        $('#error-estatus-edit').addClass('hidden');
+                    }
                 }
             });
 

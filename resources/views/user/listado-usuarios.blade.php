@@ -57,6 +57,7 @@
                     <div class="form-group">
                         <label for="usuario">{{ __('Nombre Usuario') }}</label>
                         <input id="usuario" type="text" class="form-control" required>
+                        <p class="text-danger  hidden" id="error-usuario"></p>
                     </div>
                     <div class="form-group">
                         <label for="role">{{ __('Tipo de Usuario') }}</label>
@@ -65,19 +66,22 @@
                             <option value="ROLE_ADMIN">Administrador</option>
                             <option value="ROLE_INSPECTOR">Inspector</option>
                             <option value="ROLE_VENTANILLA">Ventanilla</option>
-                    </select>
+                        </select>
+                        <p class="text-danger  hidden" id="error-role"></p>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="password">{{ __('Contraseña') }}</label>
                                 <input id="password" type="password" class="form-control" name="password">
+                                <p class="text-danger  hidden" id="error-password"></p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="password-confirm">{{ __('Confirmar Contraseña') }}</label>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                                <p class="text-danger  hidden" id="error-password-confirm"></p>
                             </div>
                         </div>
                     </div>
@@ -115,6 +119,7 @@
                     <div class="form-group">
                         <label for="usuario-edit">{{ __('Nombre Usuario') }}</label>
                         <input id="usuario-edit" type="text" class="form-control" required>
+                        <p class="text-danger  hidden" id="error-usuario-edit"></p>
                     </div>
                     <div class="form-group">
                         <label for="role-edit">{{ __('Tipo de Usuario') }}</label>
@@ -124,20 +129,21 @@
                             <option value="ROLE_INSPECTOR">Inspector</option>
                             <option value="ROLE_VENTANILLA">Ventanilla</option>
                         </select>
+                        <p class="text-danger  hidden" id="error-role-edit"></p>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="password-edit">{{ __('Contraseña') }}</label>
                                 <input id="password-edit" type="password" class="form-control">
-                                
+                                <p class="text-danger  hidden" id="error-password-edit"></p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="password-confirm-edit">{{ __('Confirmar Contraseña') }}</label>
                                 <input id="password-confirm-edit" type="password" class="form-control">
-                                
+                                <p class="text-danger  hidden" id="error-password-confirm-edit"></p>
                             </div>
                         </div>
                     </div>

@@ -32,6 +32,29 @@ $(document).ready(function(){
                     $('#crear-usuario').modal('hide');
                     $('#registro-correcto').modal('show');
                     viewData();
+                },
+                error: function(response) {
+
+                    if (typeof(response.responseJSON.errors.usuario) != 'undefined') {
+                        $('#error-usuario').removeClass('hidden');
+                        $('#error-usuario').text(response.responseJSON.errors.usuario[0]);
+                    }else{
+                        $('#error-usuario').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.role) != 'undefined') {
+                        $('#error-role').removeClass('hidden');
+                        $('#error-role').text(response.responseJSON.errors.role[0]);
+                    }else{
+                        $('#error-role').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.password) != 'undefined') {
+                        $('#error-password').removeClass('hidden');
+                        $('#error-password').text(response.responseJSON.errors.password[0]);
+                    }else{
+                        $('#error-password').addClass('hidden');
+                    }
                 }
             });
 
@@ -83,6 +106,29 @@ $(document).ready(function(){
                     $('#editar-usuario').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     viewData();
+                },
+                error: function(response) {
+
+                    if (typeof(response.responseJSON.errors.usuario) != 'undefined') {
+                        $('#error-usuario-edit').removeClass('hidden');
+                        $('#error-usuario-edit').text(response.responseJSON.errors.usuario[0]);
+                    }else{
+                        $('#error-usuario-edit').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.role) != 'undefined') {
+                        $('#error-role-edit').removeClass('hidden');
+                        $('#error-role-edit').text(response.responseJSON.errors.role[0]);
+                    }else{
+                        $('#error-role-edit').addClass('hidden');
+                    }
+
+                    if (typeof(response.responseJSON.errors.password) != 'undefined') {
+                        $('#error-password-edit').removeClass('hidden');
+                        $('#error-password-edit').text(response.responseJSON.errors.password[0]);
+                    }else{
+                        $('#error-password-edit').addClass('hidden');
+                    }
                 }
             });
 
