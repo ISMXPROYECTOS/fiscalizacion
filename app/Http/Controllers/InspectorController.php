@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 class InspectorController extends Controller
 {
 	public function listadoInspectores(){
-		$inspectores = Inspector::all();
-		return view('inspector.listado-inspectores', [
-    		'inspectores' => $inspectores
-    	]);
+		return view('inspector.listado-inspectores');
 	}
 
 	public function tbody(){
@@ -19,11 +16,6 @@ class InspectorController extends Controller
 		return view('inspector.tbody-inspectores',[
 			'inspectores' => $inspectores
 		]);
-	}
-
-
-	public function registroInspector(){
-		return view('inspector.registro-inspector');
 	}
 
 	public function create(Request $request){
@@ -53,11 +45,9 @@ class InspectorController extends Controller
 
 	public function editarInspector($id){
 
-    	$inspector = Inspector::where('id', $id)->first();
+    	$inspector = Inspector::find($id);
+    	return $inspector;
 
-    	return view('inspector.registro-inspector', [
-    		'inspector' => $inspector
-    	]);
     }
 
 	public function update(Request $request){
@@ -102,9 +92,10 @@ class InspectorController extends Controller
 
 	public function delete($id){
 
-		$inspector = Inspector::where('id', $id)->delete();
-
-    	return redirect()->route('listado-inspectores')->with('status', 'Inspector Eliminado');
+		$inspector = Inspector::find($id);
+		$inspector->delete();
+		echo "realizado";
+		
 	}
 
 }

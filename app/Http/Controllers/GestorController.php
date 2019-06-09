@@ -18,10 +18,6 @@ class GestorController extends Controller
 		]);
 	}
 
-	public function registroGestores(){
-		return view('gestor.registro-gestores');
-	}
-
 	public function create(Request $request){
 
 		// Validara los campos para evitar problemas 
@@ -58,14 +54,12 @@ class GestorController extends Controller
 
     	$gestor = Gestor::find($id);
     	return $gestor;
-    	//echo json_encode($gestor);
 
     }
 
     public function update(Request $request){
 
 		/* Se selecciona el gestor para ser modificado */
-
 		$id = $request->input('id');
 		$gestor = Gestor::find($id);
 

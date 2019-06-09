@@ -16,11 +16,11 @@
         @endif
     </td>
     <td>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editarInspector">
+        <button type="button" class="btn btn-primary editar"  id="{{ $inspector->id }}">
             <i class="fas fa-edit"></i>
         </button>
 
-        <button type="button" class="btn btn-danger eliminar" data-toggle="modal" data-target="#eliminarInspector" id="{{ $inspector->id }}">
+        <button type="button" class="btn btn-danger eliminar"  id="{{ $inspector->id }}">
             <i class="fas fa-trash-alt"></i>
         </button>
     </td>

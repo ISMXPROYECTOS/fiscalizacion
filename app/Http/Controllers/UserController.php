@@ -9,11 +9,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 	public function listadoUsuarios(){
-		/* Se solicita a la bd todos los usuarios para listarlos */
-		$usuarios = User::all();
-		return view('user.listado-usuarios', [
-    		'usuarios' => $usuarios
-    	]);
+		return view('user.listado-usuarios');
 	}
 
 	public function tbody(){
@@ -21,10 +17,6 @@ class UserController extends Controller
 		return view('user.tbody-usuarios',[
 			'usuarios' => $usuarios
 		]);
-	}
-
-	public function registroUsuario(){
-		return view('user.registro-usuarios');
 	}
 
 	public function create(Request $request){
@@ -36,8 +28,7 @@ class UserController extends Controller
             'password' => 'required|string|min:6|confirmed',
 	    ]);
 
-	    // Se reciben los datos del formulario creando un Array de datos 
-		
+	    // Se reciben los datos del formulario creando un Array de datos
 		$datos = [
 			'usuario' => $request->input('usuario'),
             'role' => $request->input('role'),
@@ -46,18 +37,15 @@ class UserController extends Controller
 		];
 
 		// Retornamos los datos a la peticion Ajax al mismo tiempo en que se almacena en la BD
-
 	    return User::create($datos);
 	}
 
 
 	public function editarUsuario($id){
 
-    	$usuario = User::where('id', $id)->first();
+    	$usuario = User::find($id);
+    	return $usuario;
 
-    	return view('user.registro-usuarios', [
-    		'usuario' => $usuario
-    	]);
     }
 
 	public function update(Request $request){
@@ -93,9 +81,10 @@ class UserController extends Controller
 
 	public function delete($id){
 
-		$usuario = User::where('id', $id)->delete();
-
-    	return redirect()->route('listado-usuarios')->with('status', 'Usuario Eliminado');
+		$usuario = User::find($id);
+		$usuario->delete();
+		
+    	echo "realizado";
 	}
 
 

@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
     var url = "http://localhost/fiscalizacion/public";
 
     function viewData(){
@@ -16,7 +15,6 @@ $(document).ready(function(){
 
     function saveData(){
         $('#btn-enviar').click(function(){
-
             var data = {
                 'nombre' : $('#nombre').val(),
                 'apellidopaterno' : $('#apellidopaterno').val(),
@@ -34,7 +32,6 @@ $(document).ready(function(){
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 success: function (response) {
-                   
                     $("#formulario-gestor")[0].reset();
                     $('#crear-gestor').modal('hide');
                     $('#registro-correcto').modal('show');
@@ -77,8 +74,6 @@ $(document).ready(function(){
 
     function updateData(){
         $('#btn-editar').click(function(){
-
-    
             var data = {
                 'id' : $('#id-edit').val(),
                 'nombre' : $('#nombre-edit').val(),
@@ -97,7 +92,6 @@ $(document).ready(function(){
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 success: function (response) {
-
                     $('#editar-gestor').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     viewData();
@@ -111,19 +105,15 @@ $(document).ready(function(){
 
     function deleteData(){
         $(document).on('click', '.eliminar', function(e){
-
             e.preventDefault();
             var id = $(this).attr('id');
-
             $('#desea-eliminar').modal('show');
-
             $('.delete-confirm').click(function(){
                 $.ajax({
                     url: url + '/gestores/eliminar/' + id,
                     type: 'get',
                     success: function (response) {
                         if (response == "realizado"){
-
                             $('#desea-eliminar').modal('hide');
                             $('#eliminacion-correcta').modal('show');
                             viewData();

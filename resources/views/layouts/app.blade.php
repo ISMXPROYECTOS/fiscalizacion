@@ -55,9 +55,9 @@
             
                     <div id="userbox" class="userbox">
                         <a href="#" data-toggle="dropdown">
-                            <figure class="profile-picture">
+                            <!--<figure class="profile-picture">
                                 <img src="img/!logged-user.jpg" alt="Joseph Doe" class="rounded-circle" data-lock-picture="img/!logged-user.jpg" />
-                            </figure>
+                            </figure>-->
                             <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
                                 <span class="name">{{ Auth::user()->usuario }}</span>
                                 <span class="role">Administrator</span>

@@ -20,12 +20,12 @@
         </td>
         <td>
             <button type="button" class="btn btn-primary editar"  id="{{ $gestor->id }}">
-              <i class="fas fa-edit"></i>
+                <i class="fas fa-edit"></i>
             </button>
 
             <button type="button" class="btn btn-danger eliminar"  id="{{ $gestor->id }}">
-              <i class="fas fa-trash-alt"></i>
-            </button> 
+                <i class="fas fa-trash-alt"></i>
+            </button>
 
         </td>
     </tr>

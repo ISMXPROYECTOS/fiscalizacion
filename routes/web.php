@@ -25,9 +25,9 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/inspectores', 'InspectorController@listadoInspectores')->name('listado-inspectores');
 Route::get('/inspectores/listado', 'InspectorController@tbody');
 Route::post('/inspectores/nuevo', 'InspectorController@create');
-Route::get('/editar-inspector/{id}', 'InspectorController@editarInspector')->name('editar-inspector');
-Route::post('/inspector/update', 'InspectorController@update')->name('inspector-update');
-Route::get('/inspector/delete/{id}', 'InspectorController@delete')->name('inspector-delete');
+Route::get('/inspectores/editar/{id}', 'InspectorController@editarInspector');
+Route::post('/inspectores/actualizar', 'InspectorController@update')->name('inspector-update');
+Route::get('/inspectores/eliminar/{id}', 'InspectorController@delete');
 
 
 Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');
@@ -41,9 +41,6 @@ Route::get('/gestores/eliminar/{id}', 'GestorController@delete');
 Route::get('/usuarios', 'UserController@listadoUsuarios')->name('listado-usuarios');
 Route::get('/usuarios/listado', 'UserController@tbody');
 Route::post('/usuarios/nuevo', 'UserController@create');
-Route::get('/editar-usuario/{id}', 'UserController@editarUsuario')->name('editar-usuario');
-Route::post('/usuario/update', 'UserController@update')->name('usuario-update');
-Route::get('/usuario/delete/{id}', 'UserController@delete')->name('usuario-delete');
-
-
-
+Route::get('/usuarios/editar/{id}', 'UserController@editarUsuario');
+Route::post('/usuarios/actualizar', 'UserController@update')->name('usuario-update');
+Route::get('/usuarios/eliminar/{id}', 'UserController@delete');
