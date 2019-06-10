@@ -53,11 +53,6 @@
                 </button>
             </div>
             <div class="modal-body">
-
-                <div class="alert alert-danger" id="error-alert">
-                    <strong>Lo sentimos.</strong> Hubieron algunos problemas:
-                </div>
-
                 <form id="formulario-usuario" role="form">
                     @csrf
                     <div class="form-group">
