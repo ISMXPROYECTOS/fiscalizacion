@@ -3,20 +3,22 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="#">
-            <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
+            <a href="" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="135"/></a>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarText">
+        <div class="collapse navbar-collapse " id="navbarText">
             
-            <span class="navbar-text text-right">
-                Navbar text with an inline element
+            <span class="navbar-text ">
+                SISTEMA DE FISCALIZACIÓN
             </span>
         </div>
     </div>
     
 </nav>
+
+
 <!-- start: page -->
 <section class="body-sign">
     <div class="center-sign">

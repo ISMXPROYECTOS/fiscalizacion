@@ -29,7 +29,7 @@
         <link rel="stylesheet" href="{{ asset('css/skins/default.css') }}" />
 
         <!-- Theme Custom CSS -->
-        <!--<link rel="stylesheet" href="{{ asset('css/custom.css') }}">-->
+        <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
         <!-- Head Libs -->
         <script src="{{ asset('vendor/modernizr/modernizr.js') }}"></script>
@@ -42,7 +42,7 @@
             <!-- start: header -->
             <header class="header">
                 <div class="logo-container">
-                    <a href="" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="200"/></a>
+                    <a href="" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="135"/></a>
                     <div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
                         <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
                     </div>
