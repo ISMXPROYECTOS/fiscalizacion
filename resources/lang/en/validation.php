@@ -161,6 +161,7 @@ return [
 
         'clave' => [
             "required" => 'Es necesario ingresar una clave valida',
+            "unique" => 'Esta clave ya se ha registrado anteriorment',
         ],
 
         'usuario' => [
