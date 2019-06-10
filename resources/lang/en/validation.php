@@ -161,7 +161,21 @@ return [
 
         'clave' => [
             "required" => 'Es necesario ingresar una clave valida',
-        ]
+        ],
+
+        'usuario' => [
+            "required" => 'Es necesario un nombre de usuario',
+        ],
+
+        'role' => [
+            "required" => 'Es necesario asignar un rol al usuario',
+        ],
+
+        'password' => [
+            "required" => 'Ingresa una contraseña correcta',
+            "confirmed" => 'Las contraseñas no coinciden',
+            "min" => 'La contraseña debe ser de almenos 6 caracteres' 
+        ],
 
 
     ],

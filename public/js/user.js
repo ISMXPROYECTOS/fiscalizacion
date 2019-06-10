@@ -2,6 +2,12 @@ $(document).ready(function(){
 
     var url = "http://localhost/fiscalizacion/public";
 
+    $('#error-usuario, #error-role, #error-password').addClass('hidden');
+    $('#error-usuario, #error-role, #error-password').text('');
+
+    $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
+    $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
+
     function viewData(){
         $.ajax({
             url: url + '/usuarios/listado',
@@ -28,17 +34,26 @@ $(document).ready(function(){
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 success: function (response) {
+
                     $("#formulario-usuario")[0].reset();
                     $('#crear-usuario').modal('hide');
                     $('#registro-correcto').modal('show');
+
+                    $('#error-usuario, #error-role, #error-password').addClass('hidden');
+                    $('#error-usuario, #error-role, #error-password').text('');
+
                     viewData();
                 },
                 error: function(response) {
 
+                    $('#error-usuario, #error-role, #error-password').addClass('hidden');
+                    $('#error-usuario, #error-role, #error-password').text('');
+
                     $.each(response.responseJSON.errors, function(i, item) {
-                        console.log(i);
-                        //$('#error-alert').html('<li>'+ response.responseJSON.errors[i] +'</li>');
+                        $('#error-'+i).removeClass('hidden');
+                        $('#error-'+i).text(item[0]);
                     });
+
 
                     /*if (typeof(response.responseJSON.errors.usuario) != 'undefined') {
                         $('#error-usuario').removeClass('hidden');
@@ -110,11 +125,25 @@ $(document).ready(function(){
                 success: function (response) {
                     $('#editar-usuario').modal('hide');
                     $('#actualizacion-correcta').modal('show');
+
+                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
+                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
+
                     viewData();
                 },
                 error: function(response) {
 
-                    if (typeof(response.responseJSON.errors.usuario) != 'undefined') {
+                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
+                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
+
+                    $.each(response.responseJSON.errors, function(i, item) {
+                        $('#error-'+i+'-edit').removeClass('hidden');
+                        $('#error-'+i+'-edit').text(item[0]);
+
+                        console.log(item[0]);
+                    });
+
+                    /*if (typeof(response.responseJSON.errors.usuario) != 'undefined') {
                         $('#error-usuario-edit').removeClass('hidden');
                         $('#error-usuario-edit').text(response.responseJSON.errors.usuario[0]);
                     }else{
@@ -133,7 +162,7 @@ $(document).ready(function(){
                         $('#error-password-edit').text(response.responseJSON.errors.password[0]);
                     }else{
                         $('#error-password-edit').addClass('hidden');
-                    }
+                    }*/
                 }
             });
 
