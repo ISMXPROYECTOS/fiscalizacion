@@ -16,15 +16,14 @@
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
     </div>
 </header>
-
-
 <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#crear-usuario">
     <i class="fas fa-user-plus"></i> Agregar Usuario
 </button>
 
 <div class="row">
     <div class="col">
-        <table class="table table-bordered table-striped mb-0" id="datatable-default">
+        
+        <table class="table table-bordered table-striped mb-0" id="datatable-usuarios">
             <thead>
                 <tr>
                     <th>Usuario</th>
@@ -33,9 +32,7 @@
                     <th>Acción</th>
                 </tr>
             </thead>
-            <tbody id="tbody">
-                
-            </tbody>
+            <tbody></tbody>
         </table>
         
     </div>

@@ -12,10 +12,11 @@ class GestorController extends Controller
 	}
 
 	public function tbody(){
-		$gestores = Gestor::all();
-		return view('gestor.tbody-gestores',[
-			'gestores' => $gestores
-		]);
+		return datatables()
+			->eloquent(Gestor::query())
+			->addColumn('estatus', 'gestor/estatus-gestores')
+			->addColumn('btn', 'gestor/actions-gestores')
+			->rawColumns(['estatus','btn'])->toJson();
 	}
 
 	public function create(Request $request){

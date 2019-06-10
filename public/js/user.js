@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    
     var url = "http://localhost/fiscalizacion/public";
 
     $('#error-usuario, #error-role, #error-password').addClass('hidden');
@@ -9,11 +9,15 @@ $(document).ready(function(){
     $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
 
     function viewData(){
-        $.ajax({
-            url: url + '/usuarios/listado',
-            success: function (response) {
-                $('#tbody').html(response);
-            }
+        listadoUsuarios = $('#datatable-usuarios').DataTable({
+            'serverSide': true,
+            'ajax': url + '/usuarios/listado',
+            'columns': [
+                {data: 'usuario'},
+                {data: 'activo'},
+                {data: 'role'},
+                {data: 'btn'},
+            ]
         });
     }
 
@@ -34,47 +38,21 @@ $(document).ready(function(){
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 success: function (response) {
-
                     $("#formulario-usuario")[0].reset();
                     $('#crear-usuario').modal('hide');
                     $('#registro-correcto').modal('show');
-
                     $('#error-usuario, #error-role, #error-password').addClass('hidden');
                     $('#error-usuario, #error-role, #error-password').text('');
-
+                    listadoUsuarios.destroy();
                     viewData();
                 },
                 error: function(response) {
-
                     $('#error-usuario, #error-role, #error-password').addClass('hidden');
                     $('#error-usuario, #error-role, #error-password').text('');
-
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i).removeClass('hidden');
                         $('#error-'+i).text(item[0]);
                     });
-
-
-                    /*if (typeof(response.responseJSON.errors.usuario) != 'undefined') {
-                        $('#error-usuario').removeClass('hidden');
-                        $('#error-usuario').text(response.responseJSON.errors.usuario[0]);
-                    }else{
-                        $('#error-usuario').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.role) != 'undefined') {
-                        $('#error-role').removeClass('hidden');
-                        $('#error-role').text(response.responseJSON.errors.role[0]);
-                    }else{
-                        $('#error-role').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.password) != 'undefined') {
-                        $('#error-password').removeClass('hidden');
-                        $('#error-password').text(response.responseJSON.errors.password[0]);
-                    }else{
-                        $('#error-password').addClass('hidden');
-                    }*/
                 }
             });
 
@@ -125,44 +103,18 @@ $(document).ready(function(){
                 success: function (response) {
                     $('#editar-usuario').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-
                     $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
                     $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
-
+                    listadoUsuarios.destroy();
                     viewData();
                 },
                 error: function(response) {
-
                     $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
                     $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
-
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);
-
-                        console.log(item[0]);
                     });
-
-                    /*if (typeof(response.responseJSON.errors.usuario) != 'undefined') {
-                        $('#error-usuario-edit').removeClass('hidden');
-                        $('#error-usuario-edit').text(response.responseJSON.errors.usuario[0]);
-                    }else{
-                        $('#error-usuario-edit').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.role) != 'undefined') {
-                        $('#error-role-edit').removeClass('hidden');
-                        $('#error-role-edit').text(response.responseJSON.errors.role[0]);
-                    }else{
-                        $('#error-role-edit').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.password) != 'undefined') {
-                        $('#error-password-edit').removeClass('hidden');
-                        $('#error-password-edit').text(response.responseJSON.errors.password[0]);
-                    }else{
-                        $('#error-password-edit').addClass('hidden');
-                    }*/
                 }
             });
 
@@ -184,6 +136,7 @@ $(document).ready(function(){
                         if (response == "realizado"){
                             $('#desea-eliminar').modal('hide');
                             $('#eliminacion-correcta').modal('show');
+                            listadoUsuarios.destroy();
                             viewData();
                         }
                     }  

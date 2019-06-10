@@ -13,10 +13,11 @@ class UserController extends Controller
 	}
 
 	public function tbody(){
-		$usuarios = User::all();
-		return view('user.tbody-usuarios',[
-			'usuarios' => $usuarios
-		]);
+		return datatables()
+			->eloquent(User::query())
+			->addColumn('role', 'user/tipo-de-usuarios')
+			->addColumn('btn', 'user/actions-usuarios')
+			->rawColumns(['role','btn'])->toJson();
 	}
 
 	public function create(Request $request){

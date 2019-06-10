@@ -9,7 +9,6 @@ $(document).ready(function(){
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
 
     function viewData(){
-        
         listado = $('#datatable').DataTable({
             'serverSide': true,
             'ajax': url + '/inspectores/listado',

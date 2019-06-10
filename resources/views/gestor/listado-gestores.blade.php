@@ -22,8 +22,9 @@
 </button>
 <div class="row">
     <div class="col">
-        <table class="table table-bordered table-striped mb-0" id="datatable-default">
-            <thead >
+        
+        <table class="table table-bordered table-striped mb-0" id="datatable-gestores">
+            <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Apellido Paterno</th>
@@ -36,9 +37,7 @@
                     <th>Acción</th>
                 </tr>
             </thead>
-            <tbody id="tbody">
-                
-            </tbody>
+            <tbody></tbody>
         </table>
         
     </div>
