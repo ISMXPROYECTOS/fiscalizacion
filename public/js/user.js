@@ -35,7 +35,12 @@ $(document).ready(function(){
                 },
                 error: function(response) {
 
-                    if (typeof(response.responseJSON.errors.usuario) != 'undefined') {
+                    $.each(response.responseJSON.errors, function(i, item) {
+                        console.log(i);
+                        //$('#error-alert').html('<li>'+ response.responseJSON.errors[i] +'</li>');
+                    });
+
+                    /*if (typeof(response.responseJSON.errors.usuario) != 'undefined') {
                         $('#error-usuario').removeClass('hidden');
                         $('#error-usuario').text(response.responseJSON.errors.usuario[0]);
                     }else{
@@ -54,7 +59,7 @@ $(document).ready(function(){
                         $('#error-password').text(response.responseJSON.errors.password[0]);
                     }else{
                         $('#error-password').addClass('hidden');
-                    }
+                    }*/
                 }
             });
 

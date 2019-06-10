@@ -45,6 +45,7 @@
 <div class="modal fade" id="crear-usuario" tabindex="-1" role="dialog" aria-labelledby="modal-crear-usuario" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+
             <div class="modal-header">
                 <h5 class="modal-title" id="modal-crear-usuario">Agregar Usuario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -52,6 +53,11 @@
                 </button>
             </div>
             <div class="modal-body">
+
+                <div class="alert alert-danger" id="error-alert">
+                    <strong>Lo sentimos.</strong> Hubieron algunos problemas:
+                </div>
+
                 <form id="formulario-usuario" role="form">
                     @csrf
                     <div class="form-group">
