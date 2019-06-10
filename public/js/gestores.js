@@ -2,6 +2,12 @@ $(document).ready(function(){
 
     var url = "http://localhost/fiscalizacion/public";
 
+    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').addClass('hidden');
+    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').text('');
+
+    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').addClass('hidden');
+    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
+
     function viewData(){
         $.ajax({
             url: url + '/gestores/listado',
@@ -35,11 +41,24 @@ $(document).ready(function(){
                     $("#formulario-gestor")[0].reset();
                     $('#crear-gestor').modal('hide');
                     $('#registro-correcto').modal('show');
+
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').addClass('hidden');
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').text('');
+
+
                     viewData();
                 },
                 error: function(response) {
 
-                    if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').addClass('hidden');
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').text('');
+
+                    $.each(response.responseJSON.errors, function(i, item) {
+                        $('#error-'+i).removeClass('hidden');
+                        $('#error-'+i).text(item[0]);
+                    });
+
+                    /*if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
                         $('#error-nombre').removeClass('hidden');
                         $('#error-nombre').text(response.responseJSON.errors.nombre[0]);
                     }else{
@@ -93,7 +112,7 @@ $(document).ready(function(){
                         $('#error-estatus').text(response.responseJSON.errors.estatus[0]);
                     }else{
                         $('#error-estatus').addClass('hidden');
-                    }
+                    }*/
                 }
             });
 
@@ -152,11 +171,23 @@ $(document).ready(function(){
                 success: function (response) {
                     $('#editar-gestor').modal('hide');
                     $('#actualizacion-correcta').modal('show');
+
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').addClass('hidden');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
+
                     viewData();
                 },
                 error: function(response) {
 
-                    if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').addClass('hidden');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
+
+                    $.each(response.responseJSON.errors, function(i, item) {
+                        $('#error-'+i+'-edit').removeClass('hidden');
+                        $('#error-'+i+'-edit').text(item[0]);
+                    });
+
+                    /*if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
                         $('#error-nombre-edit').removeClass('hidden');
                         $('#error-nombre-edit').text(response.responseJSON.errors.nombre[0]);
                     }else{
@@ -210,7 +241,7 @@ $(document).ready(function(){
                         $('#error-estatus-edit').text(response.responseJSON.errors.estatus[0]);
                     }else{
                         $('#error-estatus-edit').addClass('hidden');
-                    }
+                    }*/
                 }
             });
 
