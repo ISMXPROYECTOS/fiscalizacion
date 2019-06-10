@@ -13,10 +13,7 @@ class InspectorController extends Controller
 	}
 
 	public function tbody(){
-		$inspectores = Inspector::all();
-		return view('inspector.tbody-inspectores',[
-			'inspectores' => $inspectores
-		]);
+		return datatables()->eloquent(Inspector::query())->addColumn('btn', 'inspector/actions-inspectores')->rawColumns(['btn'])->toJson();
 	}
 
 	public function create(Request $request){

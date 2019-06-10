@@ -25,9 +25,9 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/inspectores', 'InspectorController@listadoInspectores')->name('listado-inspectores');
 Route::get('/inspectores/listado', 'InspectorController@tbody');
 Route::post('/inspectores/nuevo', 'InspectorController@create');
-Route::get('/inspectores/editar/{id}', 'InspectorController@editarInspector');
+Route::get('/inspectores/editar/{id}', 'InspectorController@editarInspector')->name('inspector-edit');
 Route::post('/inspectores/actualizar', 'InspectorController@update')->name('inspector-update');
-Route::get('/inspectores/eliminar/{id}', 'InspectorController@delete');
+Route::get('/inspectores/eliminar/{id}', 'InspectorController@delete')->name('inspector-delete');
 
 
 Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');

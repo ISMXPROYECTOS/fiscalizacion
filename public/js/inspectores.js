@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    
+
     var url = "http://localhost/fiscalizacion/public";
 
     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
@@ -9,11 +9,18 @@ $(document).ready(function(){
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
 
     function viewData(){
-        $.ajax({
-            url: url + '/inspectores/listado',
-            success: function (response) {
-                $('#tbody').html(response);
-            }
+        
+        listado = $('#datatable').DataTable({
+            'serverSide': true,
+            'ajax': url + '/inspectores/listado',
+            'columns': [
+                {data: 'nombre'},
+                {data: 'apellidopaterno'},
+                {data: 'apellidomaterno'},
+                {data: 'clave'},
+                {data: 'estatus'},
+                {data: 'btn'},
+            ]
         });
     }
 
@@ -38,56 +45,18 @@ $(document).ready(function(){
                     $("#formulario-inspector")[0].reset();
                     $('#crear-inspector').modal('hide');
                     $('#registro-correcto').modal('show');
-
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').text('');
-
+                    listado.destroy();
                     viewData();
                 },
                 error: function(response) {
-
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').text('');
-
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i).removeClass('hidden');
                         $('#error-'+i).text(item[0]);
                     });
-
-                    /*if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
-                        $('#error-nombre').removeClass('hidden');
-                        $('#error-nombre').text(response.responseJSON.errors.nombre[0]);
-                    }else{
-                        $('#error-nombre').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.apellidopaterno) != 'undefined') {
-                        $('#error-apellidopaterno').removeClass('hidden');
-                        $('#error-apellidopaterno').text(response.responseJSON.errors.apellidopaterno[0]);
-                    }else{
-                        $('#error-apellidopaterno').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.apellidomaterno) != 'undefined') {
-                        $('#error-apellidomaterno').removeClass('hidden');
-                        $('#error-apellidomaterno').text(response.responseJSON.errors.apellidomaterno[0]);
-                    }else{
-                        $('#error-apellidomaterno').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.clave) != 'undefined') {
-                        $('#error-clave').removeClass('hidden');
-                        $('#error-clave').text(response.responseJSON.errors.clave[0]);
-                    }else{
-                        $('#error-clave').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.estatus) != 'undefined') {
-                        $('#error-estatus').removeClass('hidden');
-                        $('#error-estatus').text(response.responseJSON.errors.estatus[0]);
-                    }else{
-                        $('#error-estatus').addClass('hidden');
-                    }*/
                 }
             });
 
@@ -120,7 +89,6 @@ $(document).ready(function(){
 
     editData();
 
-
     function updateData(){
         $('#btn-editar').click(function(){
             var data = {
@@ -140,58 +108,19 @@ $(document).ready(function(){
                 success: function (response) {
                     $('#editar-inspector').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').addClass('hidden');
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
-
+                    listado.destroy();
                     viewData();
                 },
 
                 error: function(response) {
-
-
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').addClass('hidden');
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
-
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);
                     });
-
-                    /*if (typeof(response.responseJSON.errors.nombre) != 'undefined') {
-                        $('#error-nombre-edit').removeClass('hidden');
-                        $('#error-nombre-edit').text(response.responseJSON.errors.nombre[0]);
-                    }else{
-                        $('#error-nombre-edit').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.apellidopaterno) != 'undefined') {
-                        $('#error-apellidopaterno-edit').removeClass('hidden');
-                        $('#error-apellidopaterno-edit').text(response.responseJSON.errors.apellidopaterno[0]);
-                    }else{
-                        $('#error-apellidopaterno-edit').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.apellidomaterno) != 'undefined') {
-                        $('#error-apellidomaterno-edit').removeClass('hidden');
-                        $('#error-apellidomaterno-edit').text(response.responseJSON.errors.apellidomaterno[0]);
-                    }else{
-                        $('#error-apellidomaterno-edit').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.clave) != 'undefined') {
-                        $('#error-clave-edit').removeClass('hidden');
-                        $('#error-clave-edit').text(response.responseJSON.errors.clave[0]);
-                    }else{
-                        $('#error-clave-edit').addClass('hidden');
-                    }
-
-                    if (typeof(response.responseJSON.errors.estatus) != 'undefined') {
-                        $('#error-estatus-edit').removeClass('hidden');
-                        $('#error-estatus-edit').text(response.responseJSON.errors.estatus[0]);
-                    }else{
-                        $('#error-estatus-edit').addClass('hidden');
-                    }*/
                 }
             });
 
@@ -213,6 +142,7 @@ $(document).ready(function(){
                         if (response == "realizado"){
                             $('#desea-eliminar').modal('hide');
                             $('#eliminacion-correcta').modal('show');
+                            listado.destroy();
                             viewData();
                         }
                     }  
