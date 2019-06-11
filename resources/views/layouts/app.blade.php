@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'Sistema de Fiscalización') }}</title>
 
         <!-- Web Fonts  -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet"> 
 
         <!-- Vendor CSS -->
         <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" />

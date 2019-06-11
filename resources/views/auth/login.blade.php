@@ -1,6 +1,6 @@
 @extends('layouts.login')
 @section('content')
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="#">
             <a href="" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="135"/></a>
@@ -8,8 +8,8 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse " id="navbarText">
-            
+        <div class="collapse navbar-collapse text-right " id="navbarSupportedContent">
+            <ul class="mr-auto"></ul>
             <span class="navbar-text ">
                 SISTEMA DE FISCALIZACIÓN
             </span>
@@ -17,14 +17,12 @@
     </div>
     
 </nav>
-
-
 <!-- start: page -->
 <section class="body-sign">
     <div class="center-sign">
-        <div class="card">
-            <div class="card-header">
-                <h3>Bienvenido</h3>
+        <div class="card" id="card-login">
+            <div class="card-header text-center">
+                <h3><b>BIENVENIDO</b></h3>
                 <h5>Porfavor, ingresa tus datos</h5>
             </div>
             <div class="card-body">
@@ -68,7 +66,7 @@
                     <div class="form-group mb-3">
                         <div class="row">
                             <div class="col-sm-12">
-                                <button type="submit" class="btn btn-primary mt-2 btn-block">{{ __('Iniciar Sesión') }}</button>
+                                <button type="submit" class="btn btn-primary mt-2 btn-block btn-primary-custom">{{ __('Iniciar Sesión') }}</button>
                             </div>
                         </div>
                         

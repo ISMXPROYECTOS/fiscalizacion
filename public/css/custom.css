@@ -83,17 +83,27 @@ html .btn-primary:active, html .btn-primary.active, .show > html .btn-primary.dr
 }
 
 
-
-
-
-
-
 /* Login */
 
 .logotipo-login{
   width: 10%;
   position: absolute;
   margin-top: 2%;
+}
+
+.navbar-light .navbar-text {
+    color: #930223 !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
+#card-login .card-header {
+    background: #4b1617 !important;
+    color: #ffffff;
+    border-radius: 5px 5px 0 0 !important;
+    border-bottom: 1px solid #DADADA;
+    padding: 18px;
+    position: relative;
 }
 
 /* Dashboard */

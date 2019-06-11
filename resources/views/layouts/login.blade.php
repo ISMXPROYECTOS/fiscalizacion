@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
 
         <!-- Fonts -->
         <!-- Web Fonts  -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet"> 
 
         <!-- Vendor CSS -->
         <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" />
@@ -26,7 +26,7 @@
         <link rel="stylesheet" href="{{ asset('css/skins/default.css') }}" />
 
         <!-- Theme Custom CSS -->
-        <!--<link rel="stylesheet" href="{{ asset('css/custom.css') }}">-->
+        <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 
         <!-- Head Libs -->
         <script src="{{ asset('vendor/modernizr/modernizr.js') }}"></script>
