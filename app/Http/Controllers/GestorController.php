@@ -14,9 +14,8 @@ class GestorController extends Controller
 	public function tbody(){
 		return datatables()
 			->eloquent(Gestor::query())
-			->addColumn('estatus', 'gestor/estatus-gestores')
 			->addColumn('btn', 'gestor/actions-gestores')
-			->rawColumns(['estatus','btn'])->toJson();
+			->rawColumns(['btn'])->toJson();
 	}
 
 	public function create(Request $request){

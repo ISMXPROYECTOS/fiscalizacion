@@ -18,7 +18,19 @@ $(document).ready(function(){
                 {data: 'apellidopaterno'},
                 {data: 'apellidomaterno'},
                 {data: 'clave'},
-                {data: 'estatus'},
+                {data: 'estatus',
+                    'render': function(data, type, row){
+                        if (row.estatus == 'A') {
+                            return "<span class='badge badge-pill badge-success'>Activo</span>"
+                        }else if(row.estatus == 'B'){
+                            return "<span class='badge badge-pill badge-danger'>Baja</span>"
+                        }else if(row.estatus == 'S'){
+                            return "<span class='badge badge-pill badge-warning'>Suspendido</span>"
+                        } else if (row.estatus == 'V') {
+                            return "<span class='badge badge-pill badge-primary'>Vigente</span>"
+                        }
+                    }
+                },
                 {data: 'btn'},
             ]
         });

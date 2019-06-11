@@ -18,20 +18,20 @@ $(document).ready(function(){
                 {data: 'activo',
                     'render': function(data, type, row){
                         if (row.activo == 1) {
-                            return "<span class='badge badge-success'>Activo</span>"
+                            return "<span class='badge badge-pill badge-success'>Activo</span>"
                         }else if(row.activo != 1){
-                            return "<span class='badge badge-warning'>Inactivo</span>"
+                            return "<span class='badge badge-pill badge-danger'>Inactivo</span>"
                         }
                     }
                 },
                 {data: 'role',
                     'render': function(data, type, row){
                         if (row.role == 'ROLE_ADMIN') {
-                            return "<span class='badge badge-success'>Administrador</span>"
+                            return "<span class='badge badge-pill badge-success'>Administrador</span>"
                         }else if(row.role == 'ROLE_INSPECTOR'){
-                            return "<span class='badge badge-warning'>Inspector</span>"
+                            return "<span class='badge badge-pill badge-info'>Inspector</span>"
                         }else if(row.role == 'ROLE_VENTANILLA'){
-                            return "<span class='badge badge-info'>Ventanilla</span>"
+                            return "<span class='badge badge-pill badge-secondary'>Ventanilla</span>"
                         }
                     }
                 },
