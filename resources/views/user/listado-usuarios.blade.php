@@ -16,7 +16,7 @@
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
     </div>
 </header>
-<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#crear-usuario">
+<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-usuario">
     <i class="fas fa-user-plus"></i> Agregar Usuario
 </button>
 
@@ -44,7 +44,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-crear-usuario">Agregar Usuario</h5>
+                <h3 class="modal-title" id="modal-crear-usuario">Agregar Usuario</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -89,14 +89,42 @@
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
                             
-                            <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block" id="btn-enviar">{{ __('Crear Usuario') }}</button>
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Usuario') }}</button>
                             
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alerta de registro -->
+<div class="modal fade" id="registro-correcto" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-registro-correcto">Registro Exitoso</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="modal-text">
+                        <h4>Registro Exitoso</h4>
+                        <p>Se ha registrado al usuario correctamente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
@@ -107,7 +135,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-editar-usuario">Editar Gestor</h5>
+                <h3 class="modal-title" id="modal-editar-usuario">Editar Usuario</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -151,72 +179,13 @@
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block" id="btn-editar">{{ __('Guardar') }}</button>
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-editar">{{ __('Guardar') }}</button>
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal para Eliminar -->
-<div class="modal fade" id="desea-eliminar" tabindex="-1" role="dialog" aria-labelledby="modal-desea-eliminar" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal-desea-eliminar">¡Cuidado!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-wrapper">
-                    <div class="modal-icon">
-                        <i class="fas fa-question-circle"></i>
-                    </div>
-                    <div class="modal-text">
-                        <h4>Eliminar registro</h4>
-                        <p>¿Estas seguro que deseas eliminar este registro?</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="col-md-12 text-right">
-                    <button class="btn btn-primary delete-confirm">Si, eliminar</button>
-                    <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Alerta de registro -->
-<div class="modal fade" id="registro-correcto" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal-registro-correcto">Registro Exitoso</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-wrapper">
-                    <div class="modal-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="modal-text">
-                        <h4>Registro Exitoso</h4>
-                        <p>Se ha registrado al usuario correctamente.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
@@ -227,7 +196,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-actualizacion-correcta">Actualización Exitosa</h5>
+                <h3 class="modal-title" id="modal-actualizacion-correcta">Actualización Exitosa</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -250,12 +219,45 @@
     </div>
 </div>
 
+<!-- Modal para Eliminar -->
+<div class="modal fade" id="desea-eliminar" tabindex="-1" role="dialog" aria-labelledby="modal-desea-eliminar" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-desea-eliminar">¡Cuidado!</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="modal-text">
+                        <h4>Eliminar registro</h4>
+                        <p>¿Estas seguro que deseas eliminar este registro?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-warning delete-confirm">Si, eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- Alerta de eliminación -->
 <div class="modal fade" id="eliminacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-eliminacion-correcta" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-eliminacion-correcta">Eliminación Exitosa</h5>
+                <h3 class="modal-title" id="modal-eliminacion-correcta">Eliminación Exitosa</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>

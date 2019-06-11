@@ -17,7 +17,7 @@
         <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
     </div>
 </header>
-<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#crear-gestor">
+<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-gestor">
 <i class="fas fa-user-plus"></i> Agregar Gestor
 </button>
 <div class="row">
@@ -47,7 +47,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-crear-gestor">Agregar Gestor</h5>
+                <h3 class="modal-title" id="modal-crear-gestor">Agregar Gestor</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,10 +128,10 @@
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
                             
-                            <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block" id="btn-enviar">{{ __('Crear Gestor') }}</button>
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Gestor') }}</button>
                             
                         </div>
                     </div>
@@ -140,12 +140,39 @@
         </div>
     </div>
 </div>
-<!-- Modal para Editar -->
+
+<div class="modal fade" id="registro-correcto" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-registro-correcto">Registro Exitoso</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="modal-text">
+                        <h4>Registro Exitoso</h4>
+                        <p>Se ha registrado al gestor correctamente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="editar-gestor" tabindex="-1" role="dialog" aria-labelledby="modal-editar-gestor" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-editar-gestor">Editar Gestor</h5>
+                <h3 class="modal-title" id="modal-editar-gestor">Editar Gestor</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -225,10 +252,10 @@
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block" id="btn-editar">{{ __('Guardar') }}</button>
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-editar">{{ __('Guardar') }}</button>
                         </div>
                     </div>
                 </form>
@@ -236,37 +263,12 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="registro-correcto" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal-registro-correcto">Registro Exitoso</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-wrapper">
-                    <div class="modal-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="modal-text">
-                        <h4>Registro Exitoso</h4>
-                        <p>Se ha registrado al gestor correctamente.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="modal fade" id="actualizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-correcta" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-actualizacion-correcta">Actualización Exitosa</h5>
+                <h3 class="modal-title" id="modal-actualizacion-correcta">Actualización Exitosa</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -293,7 +295,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-desea-eliminar">¡Cuidado!</h5>
+                <h3 class="modal-title" id="modal-desea-eliminar">¡Cuidado!</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -311,8 +313,8 @@
             </div>
             <div class="modal-footer">
                 <div class="col-md-12 text-right">
-                    <button class="btn btn-primary delete-confirm">Si, eliminar</button>
                     <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-warning delete-confirm">Si, eliminar</button>
                 </div>
             </div>
         </div>
@@ -323,7 +325,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-eliminacion-correcta">Eliminación Exitosa</h5>
+                <h3 class="modal-title" id="modal-eliminacion-correcta">Eliminación Exitosa</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
