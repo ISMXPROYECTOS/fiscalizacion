@@ -17,7 +17,7 @@
     </div>
 </header>
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-usuario">
-    <i class="fas fa-user-plus"></i> Agregar Usuario
+    <i class="fas fa-user-plus"></i> Agregar Tato
 </button>
 
 <div class="row">
