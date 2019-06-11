@@ -9,8 +9,9 @@ $(document).ready(function(){
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
 
     function viewData(){
-        listado = $('#datatable').DataTable({
+        $('#datatable').DataTable({
             'serverSide': true,
+            'destroy': true,
             'ajax': url + '/inspectores/listado',
             'columns': [
                 {data: 'nombre'},
@@ -46,7 +47,6 @@ $(document).ready(function(){
                     $('#registro-correcto').modal('show');
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').text('');
-                    listado.destroy();
                     viewData();
                 },
                 error: function(response) {
@@ -109,7 +109,6 @@ $(document).ready(function(){
                     $('#actualizacion-correcta').modal('show');
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').addClass('hidden');
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
-                    listado.destroy();
                     viewData();
                 },
 
@@ -141,7 +140,6 @@ $(document).ready(function(){
                         if (response == "realizado"){
                             $('#desea-eliminar').modal('hide');
                             $('#eliminacion-correcta').modal('show');
-                            listado.destroy();
                             viewData();
                         }
                     }  

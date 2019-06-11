@@ -136,14 +136,12 @@
                             <div class="form-group">
                                 <label for="password-edit">{{ __('Contraseña') }}</label>
                                 <input id="password-edit" type="password" class="form-control">
-                                
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="password-confirm-edit">{{ __('Confirmar Contraseña') }}</label>
                                 <input id="password-confirm-edit" type="password" class="form-control">
-                                
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-6">

@@ -9,13 +9,32 @@ $(document).ready(function(){
     $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
 
     function viewData(){
-        listadoUsuarios = $('#datatable-usuarios').DataTable({
+        $('#datatable-usuarios').DataTable({
             'serverSide': true,
+            'destroy': true,
             'ajax': url + '/usuarios/listado',
             'columns': [
                 {data: 'usuario'},
-                {data: 'activo'},
-                {data: 'role'},
+                {data: 'activo',
+                    'render': function(data, type, row){
+                        if (row.activo == 1) {
+                            return "<span class='badge badge-success'>Activo</span>"
+                        }else if(row.activo != 1){
+                            return "<span class='badge badge-warning'>Inactivo</span>"
+                        }
+                    }
+                },
+                {data: 'role',
+                    'render': function(data, type, row){
+                        if (row.role == 'ROLE_ADMIN') {
+                            return "<span class='badge badge-success'>Administrador</span>"
+                        }else if(row.role == 'ROLE_INSPECTOR'){
+                            return "<span class='badge badge-warning'>Inspector</span>"
+                        }else if(row.role == 'ROLE_VENTANILLA'){
+                            return "<span class='badge badge-info'>Ventanilla</span>"
+                        }
+                    }
+                },
                 {data: 'btn'},
             ]
         });
@@ -43,7 +62,6 @@ $(document).ready(function(){
                     $('#registro-correcto').modal('show');
                     $('#error-usuario, #error-role, #error-password').addClass('hidden');
                     $('#error-usuario, #error-role, #error-password').text('');
-                    listadoUsuarios.destroy();
                     viewData();
                 },
                 error: function(response) {
@@ -105,7 +123,6 @@ $(document).ready(function(){
                     $('#actualizacion-correcta').modal('show');
                     $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
                     $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
-                    listadoUsuarios.destroy();
                     viewData();
                 },
                 error: function(response) {
@@ -136,7 +153,6 @@ $(document).ready(function(){
                         if (response == "realizado"){
                             $('#desea-eliminar').modal('hide');
                             $('#eliminacion-correcta').modal('show');
-                            listadoUsuarios.destroy();
                             viewData();
                         }
                     }  
