@@ -60,6 +60,7 @@ class UserController extends Controller
 		$validate = $this->validate($request,[
             'usuario' => 'required|string|max:255|unique:usuario,usuario,' . $id,
             'role' => 'required|string|max:255',
+            'activo' => 'required|string',
             'password' => 'required|string|min:6|confirmed',
 		]);
 
