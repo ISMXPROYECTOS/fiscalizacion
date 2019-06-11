@@ -66,7 +66,7 @@ class UserController extends Controller
 		/* Se reciben los datos del formulario y se crean variables */
 		$usuarioForm = $request->input('usuario');
 		$role = $request->input('role');
-		$activo = $request->input('activo');
+
 		// Se verifica si la password es la misma o diferente y se asigna al usuario
 		if ($request->input('password') == $usuario->password) {
 			$usuario->password = $request->input('password');
@@ -78,7 +78,6 @@ class UserController extends Controller
         /* Una ves verificados los datos y creados las variables se actualiza en la BD */
 		$usuario->usuario = $usuarioForm;
 		$usuario->role = $role;
-		$usuario->activo = $activo;
 		$usuario->update();
 
         /* Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario */

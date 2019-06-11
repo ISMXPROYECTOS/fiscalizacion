@@ -72,6 +72,7 @@
                             <div class="form-group">
                                 <label for="password">{{ __('Contraseña') }}</label>
                                 <input id="password" type="password" class="form-control" name="password">
+                                
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
@@ -87,10 +88,12 @@
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
+                            
                             <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Usuario') }}</button>
+                            
                         </div>
                     </div>
                 </form>
@@ -155,15 +158,6 @@
                             <option value="ROLE_VENTANILLA">Ventanilla</option>
                         </select>
                         <p class="text-danger" id="error-role-edit"></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="activo-edit">{{ __('Estatus') }}</label>
-                        <select id="activo-edit" class="form-control">
-                            <option value="">Seleccionar</option>
-                            <option value="1">Activo</option>
-                            <option value="2">Inactivo</option>
-                        </select>
-                        <p class="text-danger" id="error-activo-edit"></p>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">

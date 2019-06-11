@@ -5,8 +5,8 @@ $(document).ready(function(){
     $('#error-usuario, #error-role, #error-password').addClass('hidden');
     $('#error-usuario, #error-role, #error-password').text('');
 
-    $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
-    $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').text('');
+    $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
+    $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
 
     function viewData(){
         $('#datatable-usuarios').DataTable({
@@ -92,7 +92,6 @@ $(document).ready(function(){
                         $('#id-edit').val(response.id);
                         $('#usuario-edit').val(response.usuario);
                         $('#role-edit').val(response.role);
-                        $('#activo-edit').val(response.activo);
                         $('#password-edit').val(response.password);
                         $('#password-confirm-edit').val(response.password);
                     }
@@ -110,7 +109,6 @@ $(document).ready(function(){
                 'id' : $('#id-edit').val(),
                 'usuario' : $('#usuario-edit').val(),
                 'role' : $('#role-edit').val(),
-                'activo' : $('#activo-edit').val(),
                 'password' : $('#password-edit').val(),
                 'password_confirmation' : $('#password-confirm-edit').val()
             }
@@ -123,13 +121,13 @@ $(document).ready(function(){
                 success: function (response) {
                     $('#editar-usuario').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-                    $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
-                    $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').text('');
+                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
+                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
                     viewData();
                 },
                 error: function(response) {
-                    $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
-                    $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').text('');
+                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
+                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);
