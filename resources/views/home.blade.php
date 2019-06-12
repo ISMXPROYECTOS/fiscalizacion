@@ -12,6 +12,8 @@
         <div class="col-lg-6">
             <h1 class="display-4 mt-4" style="color: #4b1617"><b>BIENVENIDO</b></h1>
             <p class="lead" style="color: #4b1617">Has iniciado sesión correctamente</p>
+
+            <p></p>
         </div>
         
     </div>

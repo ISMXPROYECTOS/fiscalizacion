@@ -38,8 +38,10 @@ Route::get('/gestores/editar/{id}', 'GestorController@editarGestor')->name('gest
 Route::post('/gestores/actualizar', 'GestorController@update')->name('gestor-update');
 Route::get('/gestores/eliminar/{id}', 'GestorController@delete')->name('gestor-delete');
 
+Route::group(['middleware' => 'admin'], function () {
+	Route::get('/usuarios', 'UserController@listadoUsuarios')->name('listado-usuarios');
+});
 
-Route::get('/usuarios', 'UserController@listadoUsuarios')->name('listado-usuarios');
 Route::get('/usuarios/listado', 'UserController@tbody');
 Route::post('/usuarios/nuevo', 'UserController@create');
 Route::get('/usuarios/editar/{id}', 'UserController@editarUsuario')->name('usuario-edit');

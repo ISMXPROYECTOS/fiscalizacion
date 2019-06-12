@@ -118,12 +118,17 @@
                                             <span>Catalogo de Gestores</span>
                                         </a>                      
                                     </li>
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-usuarios') }}">
-                                            <i class="fas fa-users"></i>
-                                            <span>Catalogo de Usuarios</span>
-                                        </a>                      
-                                    </li>
+                                    @if(Auth::user()->role == "ROLE_ADMIN")
+                                        <li>
+                                            <a class="nav-link" href="{{ route('listado-usuarios') }}">
+                                                <i class="fas fa-users"></i>
+                                                <span>Catalogo de Usuarios</span>
+                                            </a>                      
+                                        </li>
+                                    @endif
+    
+            
+                                    
                                 <ul>
 
                             </nav>
