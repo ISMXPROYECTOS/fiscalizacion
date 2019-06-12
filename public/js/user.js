@@ -36,7 +36,21 @@ $(document).ready(function(){
                     }
                 },
                 {data: 'btn'},
-            ]
+            ],
+            'language': {
+                'info': 'Total de registros _TOTAL_',
+                'paginate': {
+                    'next': 'Siguiente',
+                    'previous': 'Anterior',
+                },
+                'lengthMenu': 'Mostrar _MENU_ registros',
+                'loadingRecords': 'Cargando...',
+                'processing': 'Procesando...',
+                'emptyTable': 'No se hay registros',
+                'zeroRecords': 'No se encontraron registros',
+                'infoEmpty': '',
+                'infoFiltered': ''
+            }
         });
     }
 
