@@ -8,6 +8,7 @@ $(document).ready(function(){
     $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
     $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').text('');
 
+    
     function viewData(){
         $('#datatable-usuarios').DataTable({
             'serverSide': true,

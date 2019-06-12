@@ -42,7 +42,7 @@ $(document).ready(function(){
                 'lengthMenu': 'Mostrar _MENU_ registros',
                 'loadingRecords': 'Cargando...',
                 'processing': 'Procesando...',
-                'emptyTable': 'No se hay registros',
+                'emptyTable': 'No se encontraron registros',
                 'zeroRecords': 'No se encontraron registros',
                 'infoEmpty': '',
                 'infoFiltered': ''

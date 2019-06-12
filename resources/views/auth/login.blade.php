@@ -26,12 +26,16 @@
                 <h5>Porfavor, ingresa tus datos</h5>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+
+                <div class="alert alert-danger" role="alert" id="alert-login">
+                  
+                </div>
+                <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" id="formulario-login">
                     @csrf
                     <div class="form-group mb-3">
                         <label>Usuario</label>
                         <div class="input-group">
-                            <input id="usuario" name="usuario" type="text" class="form-control form-control-lg{{ $errors->has('usuario') ? ' is-invalid' : '' }}" value="{{ old('usuario') }}" required />
+                            <input id="usuario-login" name="usuario" type="text" class="form-control form-control-lg{{ $errors->has('usuario') ? ' is-invalid' : '' }}" value="{{ old('usuario') }}" required />
                             <span class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fas fa-user"></i>
@@ -50,7 +54,7 @@
                             
                         </div>
                         <div class="input-group">
-                            <input id="password" name="password" type="password" class="form-control form-control-lg{{ $errors->has('password') ? ' is-invalid' : '' }}" required />
+                            <input id="password-login" name="password" type="password" class="form-control form-control-lg{{ $errors->has('password') ? ' is-invalid' : '' }}" required />
                             <span class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fas fa-lock"></i>
@@ -66,7 +70,7 @@
                     <div class="form-group mb-3">
                         <div class="row">
                             <div class="col-sm-12">
-                                <button type="submit" class="btn btn-primary mt-2 btn-block btn-primary-custom">{{ __('Iniciar Sesión') }}</button>
+                                <button type="submit" class="btn btn-primary mt-2 btn-block btn-primary-custom text-white" id="btn-login">{{ __('Iniciar Sesión') }}</button>
                             </div>
                         </div>
                         
@@ -78,4 +82,8 @@
     </div>
 </section>
 <!-- end: page -->
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/verificar-usuario.js') }}" defer></script>
 @endsection

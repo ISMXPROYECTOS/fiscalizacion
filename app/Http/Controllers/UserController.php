@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+	public function verificarUsuario($username){
+		$usuario = User::where('usuario', $username)->get();
+
+		foreach($usuario as $user){
+			if ($user->activo == 0) {
+				echo "error";
+			} else {
+				return $user->activo;
+			}	
+		}     	
+	}
+
 	public function listadoUsuarios(){
 		return view('user.listado-usuarios');
 	}
