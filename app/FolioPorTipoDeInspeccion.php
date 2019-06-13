@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FolioPorTipoDeInspeccion extends Model
 {
-	/* Se indica la tabla que esta clase modificará */
+	/* Se indica la tabla que este modelo modificará */
 	protected $table = 'folioxtipoinspeccion';
 
 	/* Relación muchos a uno */

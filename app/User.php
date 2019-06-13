@@ -10,7 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /* Se indica la tabla que esta clase modificará */
+    /* Se indica la tabla que este modelo modificará */
     protected $table = 'usuario';
 
     /* Relación uno a mucho */

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DiaInhabil extends Model
 {
-    /* Se indica la tabla que esta clase modificará */
+    /* Se indica la tabla que este modelo modificará */
 	protected $table = 'diainhabil';
 
 	/* Relación muchos a uno */
