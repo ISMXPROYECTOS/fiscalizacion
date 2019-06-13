@@ -7,7 +7,6 @@ $(document).ready(function(){
 
     $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
     $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').text('');
-
     
     function viewData(){
         $('#datatable-usuarios').DataTable({
@@ -168,16 +167,25 @@ $(document).ready(function(){
                     type: 'get',
                     success: function (response) {
                         if (response == "realizado"){
+
                             $('#desea-eliminar').modal('hide');
                             $('#eliminacion-correcta').modal('show');
+
+                            
                             viewData();
+                        } else {
+                            $('#desea-eliminar').modal('hide');
+                            $('#no-eliminar').modal({backdrop: 'static', keyboard: false});
                         }
-                    }  
+                    },
+
                 });
             });            
         });
     }
 
     deleteData();
+
+    
 
 });
