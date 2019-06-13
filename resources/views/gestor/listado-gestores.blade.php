@@ -3,19 +3,7 @@
 <header class="page-header">
     <h2>Catalogo de Gestores</h2>
     
-    <div class="right-wrapper text-right">
-        <ol class="breadcrumbs">
-            <li>
-                <a href="index.html">
-                    <i class="fas fa-home"></i>
-                </a>
-            </li>
-            <li><span>Pages</span></li>
-            <li><span>Blank Page</span></li>
-        </ol>
-        
-        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fas fa-chevron-left"></i></a>
-    </div>
+  
 </header>
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-gestor">
 <i class="fas fa-user-plus"></i> Agregar Gestor

@@ -108,13 +108,13 @@
                                 <ul class="nav nav-main">
                                     <li>
                                         <a class="nav-link" href="{{ route('listado-inspectores') }}">
-                                            <i class="fas fa-home" aria-hidden="true"></i>
+                                            <i class="fas fa-address-book"></i>
                                             <span>Catalogo de Inspectores</span>
                                         </a>                        
                                     </li>
                                     <li>
                                         <a class="nav-link" href="{{ route('listado-gestores') }}">
-                                            <i class="fas fa-folder-open"></i>
+                                            <i class="fas fa-clipboard-check"></i>
                                             <span>Catalogo de Gestores</span>
                                         </a>                      
                                     </li>
