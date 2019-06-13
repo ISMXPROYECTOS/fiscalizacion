@@ -110,7 +110,7 @@ class GestorController extends Controller
 		$gestor = Gestor::find($id);
 		$gestor->delete();
 		
-    	echo "realizado";
+    	return "realizado";
 	}
 
 }

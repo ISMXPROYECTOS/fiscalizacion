@@ -95,7 +95,7 @@ class UserController extends Controller
 		$usuario->update();
 
         /* Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario */
-    	return redirect()->route('listado-usuarios')->with('status', 'Usuario Modificado');
+    	return $usuario;
 
 	}
 
@@ -104,7 +104,7 @@ class UserController extends Controller
 		$usuario = User::find($id);
 		$usuario->delete();
 		
-    	echo "realizado";
+    	return "realizado";
 	}
 
 
