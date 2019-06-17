@@ -44,7 +44,7 @@ Route::group(['middleware' => 'admin'], function () {
 
 Route::get('/usuarios/listado', 'UserController@tbody');
 Route::post('/usuarios/nuevo', 'UserController@create');
-Route::get('/usuarios/editar/{id}', 'UserController@editarUsuario')->name('usuario-edit');
+Route::get('/usuarios/editar/{id}', 'UserController@editarUsuario');
 Route::post('/usuarios/actualizar', 'UserController@update')->name('usuario-update');
-Route::get('/usuarios/eliminar/{id}', 'UserController@delete')->name('usuario-delete');
+Route::get('/usuarios/eliminar/{id}', 'UserController@delete');
 Route::get('/usuarios/verificar/{username}', 'UserController@verificarUsuario');

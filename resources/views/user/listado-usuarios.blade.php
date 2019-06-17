@@ -140,15 +140,6 @@
                     </select>
                     <p class="text-danger" id="error-role-edit"></p>
                 </div>
-                <div class="form-group">
-                    <label for="activo-edit">{{ __('Estatus') }}</label>
-                    <select id="activo-edit" class="form-control">
-                        <option value="">Seleccionar</option>
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
-                    </select>
-                    <p class="text-danger" id="error-activo-edit"></p>
-                </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group">
@@ -173,6 +164,43 @@
                     </div>
                     <div class="col-md-6">
                         <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-editar">{{ __('Guardar') }}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Modal para Editar Estatus -->
+<div class="modal fade" id="editar-activo" tabindex="-1" role="dialog" aria-labelledby="modal-editar-activo" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-editar-activo">Estatus Usuario</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="formulario-activo" role="form">
+                @csrf
+                <input type="hidden" id="id-edit-activo">
+                <div class="form-group">
+                    <label for="activo-edit">{{ __('Estatus') }}</label>
+                    <select id="activo-edit" class="form-control">
+                        <option value="">Seleccionar</option>
+                        <option value="1">Activo</option>
+                        <option value="2">Inactivo</option>
+                    </select>
+                    <p class="text-danger" id="error-activo-edit"></p>
+                </div>
+                <hr>
+                <div class="form-group row mb-0">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-activo">{{ __('Guardar') }}</button>
                     </div>
                 </div>
             </form>
