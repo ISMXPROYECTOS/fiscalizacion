@@ -129,7 +129,6 @@ $(document).ready(function(){
                         $('#apellidopaterno-edit').val(response.apellidopaterno);
                         $('#apellidomaterno-edit').val(response.apellidomaterno);
                         $('#clave-edit').val(response.clave);
-                        $('#estatus-edit').val(response.estatus);
                     }
                 }
             });
@@ -148,8 +147,7 @@ $(document).ready(function(){
                 'nombre' : $('#nombre-edit').val(),
                 'apellidopaterno' : $('#apellidopaterno-edit').val(),
                 'apellidomaterno' : $('#apellidomaterno-edit').val(),
-                'clave' : $('#clave-edit').val(),
-                'estatus' : $('#estatus-edit').val()
+                'clave' : $('#clave-edit').val()
             }
             // Se envía esa variable al metodo update de InspectorController, el metodo regresa un registro
             // con las modificaciones realizadas si no hubo algun problema en la validación, de lo contrario
@@ -162,14 +160,14 @@ $(document).ready(function(){
                 success: function (response) {
                     $('#editar-inspector').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').addClass('hidden');
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').addClass('hidden');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').text('');
                     viewData();
                 },
 
                 error: function(response) {
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').addClass('hidden');
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').addClass('hidden');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);
@@ -183,34 +181,58 @@ $(document).ready(function(){
     // Se ejecuta la función cuando todo el archivo este cargado
     updateData();
 
-    // Esta función elimina registros, se encuentra enlazada con el metodo delete de InspectorController
-    function deleteData(){
-        $(document).on('click', '.eliminar', function(e){
+    function editEstatus(){
+        $(document).on('click', '.estatus', function(e){
             e.preventDefault();
-            // Se crea una variable id con la id del registro que se desea eliminar
             var id = $(this).attr('id');
-            // Si se presiona el boton eliminar se muetra una alerta para confirmar
-            // la eliminación de ese regitro, de esta forma se evita eliminar registros por error
-            $('#desea-eliminar').modal('show');
-            // Se envía esa variable al metodo delete de InspectorController, el metodo regresa la palabra realizado
-            // lo que significa que el registro se elimino correctamente.
-            $('.delete-confirm').click(function(){
-                $.ajax({
-                    url: url + '/inspectores/eliminar/' + id,
-                    type: 'get',
-                    success: function (response) {
-                        if (response == "realizado"){
-                            $('#desea-eliminar').modal('hide');
-                            $('#eliminacion-correcta').modal('show');
-                            viewData();
-                        }
-                    }  
-                });
-            });           
+             $.ajax({
+                url: url + '/inspectores/editar/' + id,
+                type: 'get',
+                success: function (response) {
+                    if (response != ""){
+                        $('#editar-estatus').modal('show');
+                        $('#id-edit-estatus').val(response.id);
+                        $('#estatus-edit').val(response.estatus);
+                    }
+                }
+            });
         });
     }
 
-    // Se ejecuta la función cuando todo el archivo este cargado
-    deleteData();
+    editEstatus();
+
+    function updateEstatus(){
+        $('#btn-estatus').click(function(){
+            var data = {
+                'id' : $('#id-edit-estatus').val(),
+                'estatus' : $('#estatus-edit').val()
+            }
+
+            $.ajax({
+                url: url + '/inspectores/estatus',
+                data: data,
+                type: 'post',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    $('#editar-estatus').modal('hide');
+                    $('#actualizacion-correcta').modal('show');
+                    $('#error-estatus-edit').addClass('hidden');
+                    $('#error-estatus-edit').text('');
+                    viewData();
+                },
+                error: function(response) {
+                    $('#error-estatus-edit').addClass('hidden');
+                    $('#error-estatus-edit').text('');
+                    $.each(response.responseJSON.errors, function(i, item) {
+                        $('#error-'+i+'-edit').removeClass('hidden');
+                        $('#error-'+i+'-edit').text(item[0]);
+                    });
+                }
+            });
+
+        });
+    }
+
+    updateEstatus();
 
 });

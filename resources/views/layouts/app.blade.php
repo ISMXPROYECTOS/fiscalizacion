@@ -126,46 +126,37 @@
                                             </a>                      
                                         </li>
                                     @endif
-    
-            
-                                    
+                                    <li>
+                                        <a class="nav-link" href="#">
+                                            <i class=""></i>
+                                            <span>Mis Datos</span>
+                                        </a>                        
+                                    </li>
                                 <ul>
 
                             </nav>
-            
                         </div>
-                
                         <script>
                             // Maintain Scroll Position
                             if (typeof localStorage !== 'undefined') {
                                 if (localStorage.getItem('sidebar-left-position') !== null) {
                                     var initialPosition = localStorage.getItem('sidebar-left-position'),
                                         sidebarLeft = document.querySelector('#sidebar-left .nano-content');
-                                    
-                                    sidebarLeft.scrollTop = initialPosition;
+                                        sidebarLeft.scrollTop = initialPosition;
                                 }
                             }
                         </script>
-                        
-                
                     </div>
-                
                 </aside>
                 <!-- end: sidebar -->
-
                 <section role="main" class="content-body">
-                    
-
                     <!-- start: page -->
-
                     @yield('content')
                     <!-- end: page -->
                 </section>
             </div>
         </section>
-
         <!-- Vendor -->
-
         <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
         <script src="{{ asset('vendor/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script>
         <script src="{{ asset('vendor/popper/umd/popper.min.js') }}"></script>
