@@ -29,15 +29,13 @@ Route::post('/inspectores/nuevo', 'InspectorController@create');
 Route::get('/inspectores/editar/{id}', 'InspectorController@editarInspector');
 Route::post('/inspectores/actualizar', 'InspectorController@update')->name('inspector-update');
 Route::post('/inspectores/estatus', 'InspectorController@updateEstatus');
-Route::get('/inspectores/eliminar/{id}', 'InspectorController@delete');
-
 
 Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');
 Route::get('/gestores/listado', 'GestorController@tbody');
 Route::post('/gestores/nuevo', 'GestorController@create');
-Route::get('/gestores/editar/{id}', 'GestorController@editarGestor')->name('gestor-edit');
+Route::get('/gestores/editar/{id}', 'GestorController@editarGestor');
 Route::post('/gestores/actualizar', 'GestorController@update')->name('gestor-update');
-Route::get('/gestores/eliminar/{id}', 'GestorController@delete')->name('gestor-delete');
+Route::post('/gestores/estatus', 'GestorController@updateEstatus');
 
 Route::group(['middleware' => 'admin'], function () {
 	Route::get('/usuarios', 'UserController@listadoUsuarios')->name('listado-usuarios');

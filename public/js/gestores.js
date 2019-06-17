@@ -9,8 +9,9 @@ $(document).ready(function(){
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
 
     function viewData(){
-        listadoGestores = $('#datatable-gestores').DataTable({
+        $('#datatable-gestores').DataTable({
             'serverSide': true,
+            'destroy': true,
             'ajax': url + '/gestores/listado',
             'columns': [
                 {data: 'nombre'},
@@ -78,7 +79,6 @@ $(document).ready(function(){
                     $('#registro-correcto').modal('show');
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').addClass('hidden');
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').text('');
-                    listadoGestores.destroy();
                     viewData();
                 },
                 error: function(response) {
@@ -114,7 +114,6 @@ $(document).ready(function(){
                         $('#celular-edit').val(response.celular);
                         $('#correoelectronico-edit').val(response.correoelectronico);
                         $('#ine-edit').val(response.ine);
-                        $('#estatus-edit').val(response.estatus);
                     }
                 }
             });
@@ -133,8 +132,7 @@ $(document).ready(function(){
                 'telefono' : $('#telefono-edit').val(),
                 'celular' : $('#celular-edit').val(),
                 'correoelectronico' : $('#correoelectronico-edit').val(),
-                'ine' : $('#ine-edit').val(),
-                'estatus' : $('#estatus-edit').val()
+                'ine' : $('#ine-edit').val()
             }
 
             $.ajax({
@@ -145,14 +143,13 @@ $(document).ready(function(){
                 success: function (response) {
                     $('#editar-gestor').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').addClass('hidden');
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
-                    listadoGestores.destroy();
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit').addClass('hidden');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit').text('');
                     viewData();
                 },
                 error: function(response) {
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').addClass('hidden');
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit').addClass('hidden');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);
@@ -165,28 +162,58 @@ $(document).ready(function(){
 
     updateData();
 
-    function deleteData(){
-        $(document).on('click', '.eliminar', function(e){
+    function editEstatus(){
+        $(document).on('click', '.estatus', function(e){
             e.preventDefault();
             var id = $(this).attr('id');
-            $('#desea-eliminar').modal('show');
-            $('.delete-confirm').click(function(){
-                $.ajax({
-                    url: url + '/gestores/eliminar/' + id,
-                    type: 'get',
-                    success: function (response) {
-                        if (response == "realizado"){
-                            $('#desea-eliminar').modal('hide');
-                            $('#eliminacion-correcta').modal('show');
-                            listadoGestores.destroy();
-                            viewData();
-                        }
-                    }  
-                });
-            });            
+             $.ajax({
+                url: url + '/gestores/editar/' + id,
+                type: 'get',
+                success: function (response) {
+                    if (response != ""){
+                        $('#editar-estatus').modal('show');
+                        $('#id-edit-estatus').val(response.id);
+                        $('#estatus-edit').val(response.estatus);
+                    }
+                }
+            });
         });
     }
 
-    deleteData();
+    editEstatus();
+
+    function updateEstatus(){
+        $('#btn-estatus').click(function(){
+            var data = {
+                'id' : $('#id-edit-estatus').val(),
+                'estatus' : $('#estatus-edit').val()
+            }
+
+            $.ajax({
+                url: url + '/gestores/estatus',
+                data: data,
+                type: 'post',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    $('#editar-estatus').modal('hide');
+                    $('#actualizacion-correcta').modal('show');
+                    $('#error-estatus-edit').addClass('hidden');
+                    $('#error-estatus-edit').text('');
+                    viewData();
+                },
+                error: function(response) {
+                    $('#error-estatus-edit').addClass('hidden');
+                    $('#error-estatus-edit').text('');
+                    $.each(response.responseJSON.errors, function(i, item) {
+                        $('#error-'+i+'-edit').removeClass('hidden');
+                        $('#error-'+i+'-edit').text(item[0]);
+                    });
+                }
+            });
+
+        });
+    }
+
+    updateEstatus();
 
 });

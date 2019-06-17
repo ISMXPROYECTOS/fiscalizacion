@@ -51,10 +51,8 @@ class GestorController extends Controller
 
 
 	public function editarGestor($id){
-
     	$gestor = Gestor::find($id);
     	return $gestor;
-
     }
 
     public function update(Request $request){
@@ -71,8 +69,7 @@ class GestorController extends Controller
             'telefono' => 'required|string|max:50',
             'celular' => 'required|string|max:50',
             'correoelectronico' => 'required|string|max:75|unique:gestores,correoelectronico,' . $id,
-            'ine' => 'required|string|max:30|unique:gestores,ine,' . $id,
-            'estatus' => 'required|string|max:1'
+            'ine' => 'required|string|max:30|unique:gestores,ine,' . $id
 		]);
 
 
@@ -87,7 +84,6 @@ class GestorController extends Controller
 		$celular = $request->input('celular');
 		$correoelectronico = $request->input('correoelectronico');
 		$ine = $request->input('ine');
-		$estatus = $request->input('estatus');
 
         /* Una ves verificados los datos y creados las variables se actualiza en la BD */
 		$gestor->idusuario = $idusuario;
@@ -98,19 +94,33 @@ class GestorController extends Controller
 		$gestor->celular = $celular;
 		$gestor->correoelectronico = $correoelectronico;
 		$gestor->ine = $ine;
-		$gestor->estatus = $estatus;
 		$gestor->update();
 
         return $gestor;
 
 	}
 
-	public function delete($id){
+	public function updateEstatus(Request $request){
 
+		/* Se selecciona el gestor para ser modificado */
+		$id = $request->input('id');
 		$gestor = Gestor::find($id);
-		$gestor->delete();
-		
-    	return "realizado";
+
+		/* Validara los campos para evitar problemas */
+		$validate = $this->validate($request,[
+            'estatus' => 'required|string|max:1'
+		]);
+
+		$idusuario = \Auth::user()->id;
+		$estatus = $request->input('estatus');
+
+        // Una ves verificados los datos y creados las variables se actualiza en la BD
+		$gestor->idusuario = $idusuario;
+		$gestor->estatus = $estatus;
+		$gestor->update();
+
+        return $gestor;
+
 	}
 
 }

@@ -157,7 +157,6 @@
                                 
                             </div>
                         </div>
-
                         <div class="col-lg-12 col-md-6">
                             <p class="text-danger" id="error-apellidopaterno-edit"></p>
                             <p class="text-danger" id="error-apellidomaterno-edit"></p>

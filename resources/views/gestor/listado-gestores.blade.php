@@ -128,7 +128,7 @@
         </div>
     </div>
 </div>
-
+<!-- Alerta de registro -->
 <div class="modal fade" id="registro-correcto" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -155,7 +155,7 @@
         </div>
     </div>
 </div>
-
+<!-- Modal para Editar -->
 <div class="modal fade" id="editar-gestor" tabindex="-1" role="dialog" aria-labelledby="modal-editar-gestor" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -189,7 +189,6 @@
                                 
                             </div>
                         </div>
-
                         <div class="col-lg-12 col-md-6">
                             <p class="text-danger" id="error-apellidopaterno-edit"></p>
                             <p class="text-danger" id="error-apellidomaterno-edit"></p>
@@ -226,17 +225,6 @@
                         <input id="ine-edit" type="text" class="form-control">
                         <p class="text-danger" id="error-ine-edit"></p>
                     </div>
-                    <div class="form-group">
-                        <label for="estatus-edit">{{ __('Estatus') }}</label>
-                        <select id="estatus-edit" class="form-control">
-                            <option value="">Seleccionar</option>
-                            <option value="A">Activo</option>
-                            <option value="B">Baja</option>
-                            <option value="S">Suspendido</option>
-                            <option value="V">Vigente</option>
-                        </select>
-                        <p class="text-danger" id="error-estatus-edit"></p>
-                    </div>
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
@@ -251,7 +239,47 @@
         </div>
     </div>
 </div>
+<!-- Modal para Editar Estatus -->
+<div class="modal fade" id="editar-estatus" tabindex="-1" role="dialog" aria-labelledby="modal-editar-estatus" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-editar-estatus">Estatus Inspector</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="formulario-estatus" role="form">
+                    @csrf
+                    <input type="hidden" id="id-edit-estatus">
+                    <div class="form-group">
+                        <label for="estatus-edit">{{ __('Estatus') }}</label>
+                        <select id="estatus-edit" class="form-control">
+                            <option value="">Seleccionar</option>
+                            <option value="A">Activo</option>
+                            <option value="B">Baja</option>
+                            <option value="S">Suspendido</option>
+                            <option value="V">Vigente</option>
+                        </select>
 
+                        <p class="text-danger" id="error-estatus-edit"></p>
+                    </div>
+                    <hr>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-estatus">{{ __('Guardar') }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Alerta de actualización -->
 <div class="modal fade" id="actualizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-correcta" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -279,62 +307,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="desea-eliminar" tabindex="-1" role="dialog" aria-labelledby="modal-desea-eliminar" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-desea-eliminar">¡Cuidado!</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-wrapper">
-                    <div class="modal-icon">
-                        <i class="fas fa-question-circle"></i>
-                    </div>
-                    <div class="modal-text">
-                        <h4>Eliminar registro</h4>
-                        <p>¿Estas seguro que deseas eliminar este registro?</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div class="col-md-12 text-right">
-                    <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button class="btn btn-warning delete-confirm">Si, eliminar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="eliminacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-eliminacion-correcta" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-eliminacion-correcta">Eliminación Exitosa</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-wrapper">
-                    <div class="modal-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="modal-text">
-                        <h4>Eliminación Exitosa</h4>
-                        <p>La información se ha eliminado correctamente.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
 @section('scripts')
 <script src="{{ asset('js/gestores.js') }}" defer></script>
