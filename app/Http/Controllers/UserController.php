@@ -96,13 +96,31 @@ class UserController extends Controller
 
 	}
 
-	public function delete($id){
+	public function updateEstatus(Request $request){
 
-		$usuario = User::find($id);
-		$usuario->delete();
-		
-    	return "realizado";
+		/* Se reciben la id del usuario que se esta modificando */
+		$id = $request->input('id');
+
+		/* Se selecciona el usuario para ser modificado */
+		$usuario = User::where('id', $id)->first();
+
+		/* Validara los campos para evitar problemas */
+		$validate = $this->validate($request,[
+       		'activo' => 'required|string',
+		]);
+
+		/* Se reciben los datos del formulario y se crean variables */
+		$activo = $request->input('activo');
+
+        /* Una ves verificados los datos y creados las variables se actualiza en la BD */
+		$usuario->activo = $activo;
+		$usuario->update();
+
+        /* Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario */
+    	return $usuario;
+
 	}
 
+	
 
 }

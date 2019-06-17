@@ -174,36 +174,38 @@ $(document).ready(function(){
 
     editEstatus();
 
-    function deleteData(){
-        $(document).on('click', '.eliminar', function(e){
-            e.preventDefault();
-            var id = $(this).attr('id');
-            $('#desea-eliminar').modal('show');
-            $('.delete-confirm').click(function(){
-                $.ajax({
-                    url: url + '/usuarios/eliminar/' + id,
-                    type: 'get',
-                    success: function (response) {
-                        if (response == "realizado"){
+    function updateEstatus(){
+        $('#btn-activo').click(function(){
+            var data = {
+                'id' : $('#id-edit-activo').val(),
+                'activo' : $('#activo-edit').val()
+            }
 
-                            $('#desea-eliminar').modal('hide');
-                            $('#eliminacion-correcta').modal('show');
+            $.ajax({
+                url: url + '/usuarios/estatus',
+                data: data,
+                type: 'post',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    $('#editar-activo').modal('hide');
+                    $('#actualizacion-correcta').modal('show');
+                    $('#error-activo-edit').addClass('hidden');
+                    $('#error-activo-edit').text('');
+                    viewData();
+                },
+                error: function(response) {
+                    $('#error-activo-edit').addClass('hidden');
+                    $('#error-activo-edit').text('');
+                    $.each(response.responseJSON.errors, function(i, item) {
+                        $('#error-'+i+'-edit').removeClass('hidden');
+                        $('#error-'+i+'-edit').text(item[0]);
+                    });
+                }
+            });
 
-                            
-                            viewData();
-                        } else {
-                            $('#desea-eliminar').modal('hide');
-                            $('#no-eliminar').modal({backdrop: 'static', keyboard: false});
-                        }
-                    },
-
-                });
-            });            
         });
     }
 
-    deleteData();
-
+    updateEstatus();
     
-
 });

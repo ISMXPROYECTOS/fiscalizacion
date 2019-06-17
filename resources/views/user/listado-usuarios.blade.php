@@ -235,63 +235,6 @@
     </div>
 </div>
 </div>
-<!-- Modal para Eliminar -->
-<div class="modal fade" id="desea-eliminar" tabindex="-1" role="dialog" aria-labelledby="modal-desea-eliminar" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-desea-eliminar">¡Cuidado!</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="modal-wrapper">
-                <div class="modal-icon">
-                    <i class="fas fa-question-circle"></i>
-                </div>
-                <div class="modal-text">
-                    <h4>Eliminar registro</h4>
-                    <p>¿Estas seguro que deseas eliminar este registro?</p>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="col-md-12 text-right">
-                <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button class="btn btn-warning delete-confirm">Si, eliminar</button>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<!-- Alerta de eliminación -->
-<div class="modal fade" id="eliminacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-eliminacion-correcta" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-eliminacion-correcta">Eliminación Exitosa</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="modal-wrapper">
-                <div class="modal-icon">
-                    <i class="fas fa-check"></i>
-                </div>
-                <div class="modal-text">
-                    <h4>Eliminación Exitosa</h4>
-                    <p>La información se ha eliminado correctamente.</p>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-        </div>
-    </div>
-</div>
-</div>
 
 @endsection
 @section('scripts')
