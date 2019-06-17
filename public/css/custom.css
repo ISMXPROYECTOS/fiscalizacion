@@ -1,3 +1,6 @@
+body{
+  font-size: 1rem !important;
+}
 /* Globales */
 
 .btn-primary-custom{
@@ -104,6 +107,16 @@ html .btn-primary:active, html .btn-primary.active, .show > html .btn-primary.dr
     border-bottom: 1px solid #DADADA;
     padding: 18px;
     position: relative;
+}
+
+.navbar{
+  background-image: url('../img/pattern.png');
+  padding: 1rem 1rem !important;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+}
+
+#card-login{
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
 }
 
 /* Dashboard */

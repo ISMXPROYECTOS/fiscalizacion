@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="#">
-            <a href="" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="135"/></a>
+            <a href="" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="180"/></a>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
