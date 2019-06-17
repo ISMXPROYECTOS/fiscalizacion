@@ -128,7 +128,7 @@
                                     @endif
                                     <li>
                                         <a class="nav-link" href="#">
-                                            <i class=""></i>
+                                            <i class="fas fa-user-edit"></i>
                                             <span>Mis Datos</span>
                                         </a>                        
                                     </li>
