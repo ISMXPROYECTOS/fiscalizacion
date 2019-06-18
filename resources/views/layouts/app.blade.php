@@ -127,7 +127,7 @@
                                         </li>
                                     @endif
                                     <li>
-                                        <a class="nav-link" href="#">
+                                        <a class="nav-link" href="{{ route('cambiar-password') }}">
                                             <i class="fas fa-user-edit"></i>
                                             <span>Mis Datos</span>
                                         </a>                        

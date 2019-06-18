@@ -33,8 +33,9 @@ class UserController extends Controller
 
 	public function create(Request $request){
 
-		$s = $request->input('vigencia');
-		$date = strtotime($s);
+		// Convierte la fecha de un string a un date
+		$vigencia = $request->input('vigencia');
+		$date = strtotime($vigencia);
 		$fecha_format = date("Y-m-d", $date);
 		
 		// Validara los campos para evitar problemas 
@@ -127,6 +128,36 @@ class UserController extends Controller
 
 	}
 
-	
+	public function cambiarPassword(){
+		return view('user.cambio-de-password');
+	}
+
+	public function updatePassword(Request $request){
+
+		// Se obtiene la id del usuario con la sesión
+		$id = \Auth::user()->id;
+
+		// Se selecciona el usuario para ser modificado
+		$usuario = User::find($id);
+
+		// Validara los campos para evitar problemas
+		$validate = $this->validate($request,[
+       		'password' => 'required|string|min:6|confirmed',
+		]);
+
+		// Se realiza el cambio de la contraseña
+		if ($request->input('password') == $usuario->password) {
+			$usuario->password = $request->input('password');
+		} else {
+			$usuario->password = Hash::make($request->input('password'));
+		}
+
+        // Una ves verificada la contraseña se actualiza en la BD
+		$usuario->update();
+
+        // Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario
+    	return redirect()->route('home')->with('status', 'Contraseña Modificada');
+
+	}
 
 }
