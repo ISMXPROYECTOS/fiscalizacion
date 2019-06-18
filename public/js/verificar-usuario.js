@@ -2,7 +2,6 @@ $(document).ready(function(){
 
     var url = "http://localhost/fiscalizacion/public";
 
-    $('#btn-login').attr('disabled', 'disabled');
     $('#btn-login').removeAttr('type');
     $('#formulario-login').removeAttr('action');
     $('#error-login, #alert-login').addClass('hidden');
@@ -17,13 +16,13 @@ $(document).ready(function(){
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             success: function (response) {
 
-                $('#btn-login').attr('disabled', 'disabled');
+                console.log(response);
+
                 $('#btn-login').removeAttr('type');
                 $('#formulario-login').removeAttr('action');
                 $('#error-login, #alert-login').addClass('hidden');
 
-                if (response == '1') {
-                    $('#btn-login').removeAttr('disabled');
+                if (response.user.activo == '1' && response.user.vigencia >= response.fecha_hoy) {
                     $('#btn-login').attr('type', 'submit');
                     $('#formulario-login').attr("action", "login");
                 } else {

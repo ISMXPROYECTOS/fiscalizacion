@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use DateTime;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -11,11 +12,19 @@ class UserController extends Controller
 	public function verificarUsuario($username){
 		$usuario = User::where('usuario', $username)->get();
 
+		$fecha = new DateTime('now');
+		$fecha_hoy = $fecha->format('Y-m-d');
+
+
+
 		foreach($usuario as $user){
-			if ($user->activo == 0) {
+			if ($user->activo == 0 && $user->vigencia < $fecha_hoy) {
 				echo "error";
 			} else {
-				return $user->activo;
+				return [
+					'user' => $user,
+					'fecha_hoy' => $fecha_hoy
+				];
 			}	
 		}     	
 	}
