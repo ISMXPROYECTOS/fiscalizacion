@@ -4,7 +4,7 @@
     <h2>Catalogo de Usuarios</h2>
 </header>
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-usuario">
-<i class="fas fa-user-plus"></i> Agregar Usuario
+    <i class="fas fa-user-plus"></i> Agregar Usuario
 </button>
 <div class="row">
     <div class="col">
@@ -50,6 +50,11 @@
                         <option value="ROLE_VENTANILLA">Ventanilla</option>
                     </select>
                     <p class="text-danger  " id="error-role"></p>
+                </div>
+                <div class="form-group">
+                    <label for="vigencia">{{ __('Vigencia del Usuario') }}</label>
+                    <input id="vigencia" type="date" class="form-control" required>
+                    <p class="text-danger  " id="error-vigencia"></p>
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6">

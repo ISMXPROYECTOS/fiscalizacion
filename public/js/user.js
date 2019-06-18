@@ -2,8 +2,8 @@ $(document).ready(function(){
     
     var url = "http://localhost/fiscalizacion/public";
 
-    $('#error-usuario, #error-role, #error-password').addClass('hidden');
-    $('#error-usuario, #error-role, #error-password').text('');
+    $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
+    $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
 
     $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
     $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').text('');
@@ -61,6 +61,7 @@ $(document).ready(function(){
             var data = {
                 'usuario' : $('#usuario').val(),
                 'role' : $('#role').val(),
+                'vigencia' : $('#vigencia').val(),
                 'password' : $('#password').val(),
                 'password_confirmation' : $('#password-confirm').val()
             }
@@ -74,13 +75,13 @@ $(document).ready(function(){
                     $("#formulario-usuario")[0].reset();
                     $('#crear-usuario').modal('hide');
                     $('#registro-correcto').modal('show');
-                    $('#error-usuario, #error-role, #error-password').addClass('hidden');
-                    $('#error-usuario, #error-role, #error-password').text('');
+                    $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
+                    $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
                     viewData();
                 },
                 error: function(response) {
-                    $('#error-usuario, #error-role, #error-password').addClass('hidden');
-                    $('#error-usuario, #error-role, #error-password').text('');
+                    $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
+                    $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i).removeClass('hidden');
                         $('#error-'+i).text(item[0]);
