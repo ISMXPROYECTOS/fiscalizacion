@@ -58,6 +58,9 @@ $(document).ready(function(){
 
     function saveData(){
         $('#btn-enviar').click(function(){
+
+            
+
             var data = {
                 'usuario' : $('#usuario').val(),
                 'role' : $('#role').val(),

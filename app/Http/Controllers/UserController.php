@@ -33,14 +33,15 @@ class UserController extends Controller
 
 	public function create(Request $request){
 
-		return var_dump($request->input('vigencia'));
-		die();
-
+		$s = $request->input('vigencia');
+		$date = strtotime($s);
+		$fecha_format = date("Y-m-d", $date);
+		
 		// Validara los campos para evitar problemas 
 		$validate = $request->validate([
 			'usuario' => 'required|string|max:255|unique:usuario',
             'role' => 'required|string|max:255',
-            'vigencia' => 'required|date_format:d/m/Y',
+            'vigencia' => 'required|date_format:Y-m-d',
             'password' => 'required|string|min:6|confirmed',
 	    ]);
 
@@ -48,7 +49,7 @@ class UserController extends Controller
 		$datos = [
 			'usuario' => $request->input('usuario'),
             'role' => $request->input('role'),
-            'vigencia' => $request->input('vigencia'),
+            'vigencia' => $fecha_format,
             'password' => Hash::make($request->input('password')),
             'activo' => 1
 		];
