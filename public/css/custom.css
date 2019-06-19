@@ -166,3 +166,55 @@ ul.nav-main > li > a:hover, ul.nav-main > li > a:focus {
 ul.nav-main li a {
     color: #fff;
 }
+
+ul.nav-main > li.nav-expanded > a {
+    background: #732f30 !important;
+}
+
+ul.nav-main li .nav-children {
+    background: #732f30 !important;
+    -webkit-box-shadow: 0px -3px 3px -3px rgba(0, 0, 0, 0.7) inset;
+    box-shadow: 0px -3px 3px -3px rgba(0, 0, 0, 0.7) inset;
+    display: none;
+    padding: 10px 0;
+}
+
+ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus {
+    background: #4b1617;
+}
+
+#separator, #ultima-sesion-mv{
+  display: none;
+}
+
+
+
+/* Responsive */
+
+.header .toggle-sidebar-left {
+    background: #b71c1c !important;
+}
+
+
+@media only screen and (max-width: 740px) {
+  #userbox{
+    display: none;
+  }
+
+  #ultima-sesion-dt{
+    display: none;
+  }
+
+  .header .header-right {
+    background: #FFF;
+    float: none !important;
+    height: 0px;
+    margin-top: 56px;
+    width: 100%;
+  }
+
+  #separator, #ultima-sesion-mv{
+    display: block;
+  }
+
+}

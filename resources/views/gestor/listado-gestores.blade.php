@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col">
         
-        <table class="table table-bordered table-striped mb-0" id="datatable-gestores">
+        <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable-gestores">
             <thead>
                 <tr>
                     <th>Nombre</th>
