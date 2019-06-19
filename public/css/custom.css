@@ -125,6 +125,10 @@ html .btn-primary:active, html .btn-primary.active, .show > html .btn-primary.dr
 
 /* Dashboard */
 
+.jumbotron{
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12) !important;
+}
+
 .header .logo {
     float: left;
     margin: 0px 0 0 15px !important;

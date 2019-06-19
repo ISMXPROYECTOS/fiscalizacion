@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Jenssegers\Date\Date;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -74,5 +76,11 @@ class User extends Authenticatable
     protected $dates = [
         'sesionactual', 'ultimasesion',
     ];
+
+
+    public function getUltimaSesionAttribute($date)
+    {
+        return new Date($date);
+    }
 
 }

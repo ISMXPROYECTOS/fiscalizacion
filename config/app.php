@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Cancun',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -152,6 +152,8 @@ return [
          * Package Service Providers...
          */
 
+        Jenssegers\Date\DateServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -211,6 +213,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Datatables' => Yajra\DataTables\DataTablesServiceProvider::class,
+
+        'Date' => Jenssegers\Date\Date::class
     ],
 
 ];

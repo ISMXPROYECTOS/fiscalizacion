@@ -50,6 +50,8 @@
             
                 <!-- start: search & user box -->
                 <div class="header-right">
+
+                    <span>Ultima sesion: <b>{{ auth()->user()->ultimasesion->format('l j F Y, h:i:s A') }}</b></span>
             
                     <span class="separator"></span>
             
@@ -130,12 +132,6 @@
                                         <a class="nav-link" href="{{ route('cambiar-password') }}">
                                             <i class="fas fa-user-edit"></i>
                                             <span>Mis Datos</span>
-                                        </a>                        
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="#">
-                                            <i class="fas fa-user-edit"></i>
-                                            <span>Ultima Sesion: {{ auth()->user()->ultimasesion->diffForHumans() }}</span>
                                         </a>                        
                                     </li>
                                 <ul>
