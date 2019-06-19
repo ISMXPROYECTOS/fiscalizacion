@@ -22,7 +22,6 @@ body{
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
-}
 
 .btn-primary-custom:focus{
   box-shadow: none !important;
@@ -117,6 +116,14 @@ html .btn-primary:active, html .btn-primary.active, .show > html .btn-primary.dr
 
 #card-login{
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+}
+
+.body-sign {
+    height: 100% !important;
+}
+
+.mt-10{
+  margin-top: 10rem !important;
 }
 
 /* Dashboard */

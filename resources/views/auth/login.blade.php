@@ -1,6 +1,6 @@
 @extends('layouts.login')
 @section('content')
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+<nav class="navbar navbar-expand-lg  navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="#">
             <a href="" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="180"/></a>
@@ -19,17 +19,25 @@
 </nav>
 <!-- start: page -->
 <section class="body-sign">
-    <div class="center-sign">
-        <div class="card" id="card-login">
+
+
+
+
+        <div class="card mt-10" id="card-login">
             <div class="card-header text-center">
                 <h3><b>BIENVENIDO</b></h3>
                 <h5>Porfavor, ingresa tus datos</h5>
             </div>
+
+            @foreach ($errors->get('activo') as $error)
+                    <div class="alert alert-danger fade show" role="alert">
+                      <b>Lo sentimos.</b> {{ $error }}
+                    </div>
+                @endforeach
             <div class="card-body">
 
-                <div class="alert alert-danger" role="alert" id="alert-login">
-                  
-                </div>
+                
+
                 <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" id="formulario-login">
                     @csrf
                     <div class="form-group mb-3">
@@ -79,11 +87,10 @@
             </div>
         </div>
         <p class="text-center text-muted mt-3 mb-3">&copy; H. Ayuntamiento de Benito Juárez 2018 - 2021. </p>
-    </div>
 </section>
 <!-- end: page -->
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/verificar-usuario.js') }}" defer></script>
+<!--<script src="{{ asset('js/verificar-usuario.js') }}" defer></script>-->
 @endsection

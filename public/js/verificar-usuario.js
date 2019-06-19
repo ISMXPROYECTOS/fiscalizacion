@@ -26,8 +26,10 @@ $(document).ready(function(){
                     $('#btn-login').attr('type', 'submit');
                     $('#formulario-login').attr("action", "login");
                 } else {
+                    $('#btn-login').removeAttr('type');
+                    $('#formulario-login').removeAttr('action');
                     $('#alert-login').removeClass('hidden');
-                    $('#alert-login').html("<strong>Lo sentimos.</strong> El usuario no existe o esta inactivo.");
+                    $('#alert-login').html("<strong>Lo sentimos.</strong> El usuario no esta vigente o no se encuentra activo.");
                 }
                 
             }
