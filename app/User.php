@@ -71,4 +71,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $dates = [
+        'sesionactual', 'ultimasesion',
+    ];
+
 }

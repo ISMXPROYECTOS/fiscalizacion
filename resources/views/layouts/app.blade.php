@@ -132,6 +132,12 @@
                                             <span>Mis Datos</span>
                                         </a>                        
                                     </li>
+                                    <li>
+                                        <a class="nav-link" href="#">
+                                            <i class="fas fa-user-edit"></i>
+                                            <span>Ultima Sesion: {{ auth()->user()->ultimasesion->diffForHumans() }}</span>
+                                        </a>                        
+                                    </li>
                                 <ul>
 
                             </nav>
