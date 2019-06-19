@@ -23,7 +23,7 @@
 
 
 
-        <div class="card mt-10" id="card-login">
+        <div class="card my-5" id="card-login">
             <div class="card-header text-center">
                 <h3><b>BIENVENIDO</b></h3>
                 <h5>Porfavor, ingresa tus datos</h5>
