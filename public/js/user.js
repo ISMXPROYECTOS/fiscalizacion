@@ -5,8 +5,8 @@ $(document).ready(function(){
     $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
     $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
 
-    $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
-    $('#error-usuario-edit, #error-role-edit, #error-activo-edit, #error-password-edit').text('');
+    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
+    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').text('');
     
     function viewData(){
         $('#datatable-usuarios').DataTable({
@@ -35,6 +35,7 @@ $(document).ready(function(){
                         }
                     }
                 },
+                {data: 'vigencia'},
                 {data: 'btn'},
             ],
             'language': {
@@ -58,8 +59,6 @@ $(document).ready(function(){
 
     function saveData(){
         $('#btn-enviar').click(function(){
-
-            
 
             var data = {
                 'usuario' : $('#usuario').val(),
@@ -110,6 +109,7 @@ $(document).ready(function(){
                         $('#id-edit').val(response.id);
                         $('#usuario-edit').val(response.usuario);
                         $('#role-edit').val(response.role);
+                        $('#vigencia-edit').val(response.vigencia);
                         $('#password-edit').val(response.password);
                         $('#password-confirm-edit').val(response.password);
                     }
@@ -120,13 +120,13 @@ $(document).ready(function(){
 
     editData();
 
-
     function updateData(){
         $('#btn-editar').click(function(){
             var data = {
                 'id' : $('#id-edit').val(),
                 'usuario' : $('#usuario-edit').val(),
                 'role' : $('#role-edit').val(),
+                'vigencia' : $('#vigencia-edit').val(),
                 'password' : $('#password-edit').val(),
                 'password_confirmation' : $('#password-confirm-edit').val()
             }
@@ -139,13 +139,13 @@ $(document).ready(function(){
                 success: function (response) {
                     $('#editar-usuario').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
-                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
+                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').addClass('hidden');
+                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').text('');
                     viewData();
                 },
                 error: function(response) {
-                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').addClass('hidden');
-                    $('#error-usuario-edit, #error-role-edit, #error-password-edit').text('');
+                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').addClass('hidden');
+                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);

@@ -15,8 +15,6 @@ class UserController extends Controller
 		$fecha = new DateTime('now');
 		$fecha_hoy = $fecha->format('Y-m-d');
 
-
-
 		foreach($usuario as $user){
 			if ($user->activo == 0 && $user->vigencia < $fecha_hoy) {
 				echo "error";
@@ -78,22 +76,29 @@ class UserController extends Controller
 
 	public function update(Request $request){
 
-		/* Se reciben la id del usuario que se esta modificando */
+		// Se reciben la id del usuario que se esta modificando
 		$id = $request->input('id');
 
-		/* Se selecciona el usuario para ser modificado */
+		// Convierte la fecha de un string a un date
+		$vigencia = $request->input('vigencia');
+		$date = strtotime($vigencia);
+		$fecha_format = date("Y-m-d", $date);
+
+		// Se selecciona el usuario para ser modificado
 		$usuario = User::where('id', $id)->first();
 
-		/* Validara los campos para evitar problemas */
+		// Validara los campos para evitar problemas
 		$validate = $this->validate($request,[
             'usuario' => 'required|string|max:255|unique:usuario,usuario,' . $id,
             'role' => 'required|string|max:255',
+            'vigencia' => 'required|date_format:Y-m-d',
             'password' => 'required|string|min:6|confirmed',
 		]);
 
-		/* Se reciben los datos del formulario y se crean variables */
+		// Se reciben los datos del formulario y se crean variables
 		$usuarioForm = $request->input('usuario');
 		$role = $request->input('role');
+		
 		// Se verifica si la password es la misma o diferente y se asigna al usuario
 		if ($request->input('password') == $usuario->password) {
 			$usuario->password = $request->input('password');
@@ -101,38 +106,38 @@ class UserController extends Controller
 			$usuario->password = Hash::make($request->input('password'));
 		}
 		
-
-        /* Una ves verificados los datos y creados las variables se actualiza en la BD */
+        // Una ves verificados los datos y creados las variables se actualiza en la BD
 		$usuario->usuario = $usuarioForm;
 		$usuario->role = $role;
+		$usuario->vigencia = $fecha_format;
 		$usuario->update();
 
-        /* Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario */
+        // Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario
     	return $usuario;
 
 	}
 
 	public function updateEstatus(Request $request){
 
-		/* Se reciben la id del usuario que se esta modificando */
+		// Se reciben la id del usuario que se esta modificando
 		$id = $request->input('id');
 
-		/* Se selecciona el usuario para ser modificado */
+		// Se selecciona el usuario para ser modificado
 		$usuario = User::where('id', $id)->first();
 
-		/* Validara los campos para evitar problemas */
+		// Validara los campos para evitar problemas
 		$validate = $this->validate($request,[
        		'activo' => 'required|string',
 		]);
 
-		/* Se reciben los datos del formulario y se crean variables */
+		// Se reciben los datos del formulario y se crean variables
 		$activo = $request->input('activo');
 
-        /* Una ves verificados los datos y creados las variables se actualiza en la BD */
+        // Una ves verificados los datos y creados las variables se actualiza en la BD
 		$usuario->activo = $activo;
 		$usuario->update();
 
-        /* Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario */
+        // Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario
     	return $usuario;
 
 	}

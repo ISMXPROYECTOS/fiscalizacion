@@ -15,6 +15,7 @@
                     <th>Usuario</th>
                     <th>Activo</th>
                     <th>Rol</th>
+                    <th>Fecha límite</th>
                     <th>Acción</th>
                 </tr>
             </thead>
@@ -143,6 +144,11 @@
                     </select>
                     <p class="text-danger" id="error-role-edit"></p>
                 </div>
+                <div class="form-group">
+                    <label for="vigencia-edit">{{ __('Vigencia del Usuario') }}</label>
+                    <input id="vigencia-edit" type="date" class="form-control" required>
+                    <p class="text-danger  " id="error-vigencia-edit"></p>
+                </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group">
@@ -193,7 +199,7 @@
                     <select id="activo-edit" class="form-control">
                         <option value="">Seleccionar</option>
                         <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
+                        <option value="0">Inactivo</option>
                     </select>
                     <p class="text-danger" id="error-activo-edit"></p>
                 </div>
