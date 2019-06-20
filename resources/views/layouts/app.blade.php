@@ -51,7 +51,13 @@
                             </figure>-->
                             <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
                                 <span class="name">{{ Auth::user()->usuario }}</span>
-                                <span class="role">Administrator</span>
+                                @if( Auth::user()->role == 'ROLE_ADMIN')
+                                    <span class="role">Administrador</span>
+                                @elseif( Auth::user()->role == 'ROLE_INSPECTOR')
+                                    <span class="role">Inspector</span>
+                                @elseif( Auth::user()->role == 'ROLE_VENTANILLA')
+                                    <span class="role">Ventanilla</span>
+                                @endif
                             </div>
                             
                             <i class="fa custom-caret"></i>

@@ -138,7 +138,7 @@ $(document).ready(function(){
     // Se ejecuta la función cuando todo el archivo este cargado
     editData();
 
-    // Esta función modifica registros, se encuentra enlazada con el metodo update de InspectorController
+    // Esta función modifica registros, se encuentra enlazada con el método update de InspectorController
     function updateData(){
         // Se crea un objeto data que contiene todos los campos necesarios para modificar un registro
         $('#btn-editar').click(function(){
@@ -181,6 +181,8 @@ $(document).ready(function(){
     // Se ejecuta la función cuando todo el archivo este cargado
     updateData();
 
+    // La funcioón envia el id del registro que se desea modificar su estatus y recibe la información
+    // de ese registro para poder poner los datos en el modal de edición
     function editEstatus(){
         $(document).on('click', '.estatus', function(e){
             e.preventDefault();
@@ -199,10 +201,13 @@ $(document).ready(function(){
         });
     }
 
+    // Se ejecuta la función cuando todo el archivo este cargado
     editEstatus();
 
+    // Esta función modifica el estatus del registro, se encuentra enlazada con el método updateEstatus de InspectorController
     function updateEstatus(){
         $('#btn-estatus').click(function(){
+            // Se crea un array con los datos para modificar y ser enviados al método del controlador
             var data = {
                 'id' : $('#id-edit-estatus').val(),
                 'estatus' : $('#estatus-edit').val()
@@ -233,6 +238,7 @@ $(document).ready(function(){
         });
     }
 
+    // Se ejecuta la función cuando todo el archivo este cargado
     updateEstatus();
 
 });
