@@ -3,14 +3,14 @@
 @section('content')
 
 <div class="container">
-    <div class="jumbotron bg-white">
+    <div class="jumbotron bg-white my-5">
 
     <div class="row text-center">
-        <div class="col-lg-6">
-            <img src="{{ asset('img/logotipo-bienvenida.jpg') }}" width="80%" />
+        <div class="col-lg-6 ">
+            <img  src="{{ asset('img/logotipo-bienvenida.jpg') }}" width="80%" />
         </div>
         <div class="col-lg-6">
-            <h1 class="display-4 mt-4" style="color: #4b1617"><b>BIENVENIDO</b></h1>
+            <h1 class="display-4 mt-4" style="color: #4b1617" id="bienvenido-txt"><b>BIENVENIDO</b></h1>
             <p class="lead" style="color: #4b1617">Has iniciado sesión correctamente</p>
 
             <p></p>

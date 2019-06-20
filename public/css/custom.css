@@ -218,3 +218,10 @@ ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus
   }
 
 }
+
+@media only screen and (max-width: 1024px){
+  #bienvenido-txt{
+    font-size: 2.6rem;
+    margin-top: 0 !important;
+  }
+}

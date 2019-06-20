@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col">
         
-        <table class="table table-bordered table-striped mb-0" id="datatable-usuarios">
+        <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable-usuarios">
             <thead>
                 <tr>
                     <th>Usuario</th>
