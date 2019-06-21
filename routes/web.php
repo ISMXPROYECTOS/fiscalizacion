@@ -48,3 +48,7 @@ Route::get('/usuarios/editar/{id}', 'UserController@editarUsuario');
 Route::post('/usuarios/actualizar', 'UserController@update')->name('usuario-update');
 Route::post('/usuarios/estatus', 'UserController@updateEstatus');
 Route::get('/usuarios/verificar/{username}', 'UserController@verificarUsuario');
+
+Route::get('/ejercicios-fiscales', 'EjercicioFiscalController@listadoEjerciciosFiscales')->name('listado-ejercicios-fiscales');
+Route::get('/ejercicios-fiscales/listado', 'EjercicioFiscalController@tbody');
+Route::post('/ejercicios-fiscales/nuevo', 'EjercicioFiscalController@create');
