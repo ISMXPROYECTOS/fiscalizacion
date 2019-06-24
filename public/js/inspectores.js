@@ -65,7 +65,7 @@ $(document).ready(function(){
     // Se ejecuta la función cuando todo el archivo este cargado
     viewData();
 
-    // Esta función agrega nuevos registros, se encuentra enlazada con el metodo create de InspectorController
+    // Esta función agrega nuevos registros, se encuentra enlazada con el método create de InspectorController
     function saveData(){
         // Se crea un objeto data que contiene todos los campos necesarios para generar un nuevo registro
         // crea un Json clave : valor, la clave sera el campo de la BD y el valor el campo del formulario 
@@ -110,7 +110,7 @@ $(document).ready(function(){
     // Se ejecuta la función cuando todo el archivo este cargado
     saveData();
 
-    // Esta función selecciona registros para modificarlos, se encuentra enlazada con el metodo editarInspector de InspectorController
+    // Esta función selecciona registros para modificarlos, se encuentra enlazada con el método editarInspector de InspectorController
     function editData(){
         $(document).on('click', '.editar', function(e){
             e.preventDefault();

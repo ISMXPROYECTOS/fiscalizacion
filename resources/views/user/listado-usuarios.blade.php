@@ -182,40 +182,40 @@
 </div>
 <!-- Modal para Editar Estatus -->
 <div class="modal fade" id="editar-activo" tabindex="-1" role="dialog" aria-labelledby="modal-editar-activo" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-editar-activo">Estatus Usuario</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form class="formulario-activo" role="form">
-                @csrf
-                <input type="hidden" id="id-edit-activo">
-                <div class="form-group">
-                    <label for="activo-edit">{{ __('Estatus') }}</label>
-                    <select id="activo-edit" class="form-control">
-                        <option value="">Seleccionar</option>
-                        <option value="1">Activo</option>
-                        <option value="0">Inactivo</option>
-                    </select>
-                    <p class="text-danger" id="error-activo-edit"></p>
-                </div>
-                <hr>
-                <div class="form-group row mb-0">
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-editar-activo">Estatus Usuario</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="formulario-activo" role="form">
+                    @csrf
+                    <input type="hidden" id="id-edit-activo">
+                    <div class="form-group">
+                        <label for="activo-edit">{{ __('Estatus') }}</label>
+                        <select id="activo-edit" class="form-control">
+                            <option value="">Seleccionar</option>
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                        <p class="text-danger" id="error-activo-edit"></p>
                     </div>
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-activo">{{ __('Guardar') }}</button>
+                    <hr>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-activo">{{ __('Guardar') }}</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <!-- Alerta de actualización -->
 <div class="modal fade" id="actualizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-correcta" aria-hidden="true">

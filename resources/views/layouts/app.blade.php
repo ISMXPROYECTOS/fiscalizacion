@@ -32,7 +32,7 @@
             <!-- start: header -->
             <header class="header">
                 <div class="logo-container">
-                    <a href="" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="135"/></a>
+                    <a href="{{ route('home') }}" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="135"/></a>
                     <div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
                         <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
                     </div>
@@ -115,6 +115,11 @@
                                         </a>
                                     </li>
                                     @if(Auth::user()->role == "ROLE_ADMIN")
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-inspecciones') }}">
+                                            <span>Inspección</span>
+                                        </a>
+                                    </li>
                                     <li>
                                         <a class="nav-link" href="{{ route('listado-usuarios') }}">
                                             <i class="fas fa-users"></i>

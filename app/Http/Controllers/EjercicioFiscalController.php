@@ -24,15 +24,68 @@ class EjercicioFiscalController extends Controller
 	public function create(Request $request){
 
 		$validate = $request->validate([
-			'anio' => 'required|string|max:4'
+			'anio' => 'required|string|min:4|max:4|unique:ejerciciofiscal',
 	    ]);
 
 		$datos = [
-			'anio' => $request->input('ejercicio-fiscal'),
+			'anio' => $request->input('anio'),
 			'activo' => 1
 		];
 
 		// Retornamos los datos a la peticion Ajax, al mismo tiempo en se almacena en la BD
 	    return EjercicioFiscal::create($datos);
 	}
+
+	public function editarEjercicioFiscal($id){
+    	$ejercicioFiscal = EjercicioFiscal::find($id);
+    	return $ejercicioFiscal;
+    }
+
+    public function update(Request $request){
+		// Se reciben la id del ejercicioFiscal que se esta modificando
+		$id = $request->input('id');
+
+		// Se selecciona el ejercicioFiscal para ser modificado
+		$ejercicioFiscal = EjercicioFiscal::find($id);
+
+		// Validará los campos para evitar problemas
+		$validate = $this->validate($request,[
+            'anio' => 'required|string|min:4|max:4|unique:ejerciciofiscal,anio,' . $id
+		]);
+
+		// Se reciben los datos del formulario y se crean variables
+		$anio = $request->input('anio');
+
+        // Una ves verificados los datos y creados las variables se actualiza en la BD
+		$ejercicioFiscal->anio = $anio;
+		$ejercicioFiscal->update();
+
+        // Indica que fue correcta la modificación
+    	return $ejercicioFiscal;
+	}
+
+	public function updateEstatus(Request $request){
+		// Se reciben la id del ejercicioFiscal que se esta modificando
+		$id = $request->input('id');
+
+		// Se selecciona el ejercicioFiscal para ser modificado
+		$ejercicioFiscal = EjercicioFiscal::find($id);
+
+		// Validara los campos para evitar problemas
+		$validate = $this->validate($request,[
+       		'activo' => 'required|string',
+		]);
+
+		// Se reciben los datos del formulario y se crean variables
+		$activo = $request->input('activo');
+
+        // Una ves verificados los datos y creados las variables se actualiza en la BD
+		$ejercicioFiscal->activo = $activo;
+		$ejercicioFiscal->update();
+
+        // Indica que fue correcta la modificación
+    	return $ejercicioFiscal;
+
+	}
+	
 }

@@ -88,7 +88,7 @@ class InspectorController extends Controller
 		$inspector->clave = $clave;
 		$inspector->update();
 
-        // Una vez actualizado el inspector redirige e indica que fue correcta la modificación del inspector
+        // Indica que fue correcta la modificación del inspector
     	return $inspector;
 
 	}
@@ -119,7 +119,5 @@ class InspectorController extends Controller
     	return $inspector;
 
 	}
-
-	
 
 }

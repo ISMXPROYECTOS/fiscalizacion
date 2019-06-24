@@ -1,28 +1,38 @@
 @extends('layouts.app')
 @section('content')
 <header class="page-header">
-    <h2>Catalogo de Gestores</h2>
-    
-  
+    <h2>Inspecciones</h2>
 </header>
-<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-gestor">
-<i class="fas fa-user-plus"></i> Agregar Gestor
+<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspector">
+<i class="fas fa-user-plus"></i> Agregar Inspección
 </button>
 <div class="row">
     <div class="col">
         
-        <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable-gestores">
+        <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
-                    <th>Teléfono</th>
-                    <th>Celular</th>
-                    <th>E-mail</th>
-                    <th>INE</th>
+                    <th>Usuario</th>
+                    <th>Inspector</th>
+                    <th>Gestor</th>
+                    <th>Tipo Inspección</th>
+                    <th>Forma Valorada</th>
+                    <th>Giro Comercial</th>
+                    <th>Subgiro Comercial</th>
+                    <th>Año</th>
                     <th>Estatus</th>
-                    <th>Acción</th>
+                    <th>Colonia</th>
+                    <th>Fecha Generada</th>
+                    <th>Fecha Asignada</th>
+                    <th>Fecha Capturada</th>
+                    <th>Fecha Prorroga</th>
+                    <th>Nombre del Local</th>
+                    <th>Domicilio</th>
+                    <th>Folio</th>
+                    <th>Encargado</th>
+                    <th>Puesto del Encargado</th>
+                    <th>Días de vencimiento</th>
+                    <th>Fecha de vencimiento</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -31,21 +41,21 @@
     </div>
 </div>
 <!-- Modal para Crear -->
-<div class="modal fade" id="crear-gestor" tabindex="-1" role="dialog" aria-labelledby="moda-crear-gestor" aria-hidden="true">
+<div class="modal fade" id="crear-inspector" tabindex="-1" role="dialog" aria-labelledby="modal-crear-inspector" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-crear-gestor">Agregar Gestor</h3>
+                <h3 class="modal-title" id="modal-crear-inspector">Agregar Inspector</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formulario-gestor" role="form">
+                <form id="formulario-inspector" role="form">
                     @csrf
                     <div class="form-group">
                         <label for="nombre">{{ __('Nombre Completo') }}</label>
-                        <input id="nombre" type="text" class="form-control" required>
+                        <input id="nombre" type="text" class="form-control">
                         <p class="text-danger" id="error-nombre"></p>
                     </div>
                     <div class="row">
@@ -60,7 +70,6 @@
                             <div class="form-group">
                                 <label for="apellidomaterno">{{ __('Apellido Materno') }}</label>
                                 <input id="apellidomaterno" type="text" class="form-control">
-                                
                             </div>
                         </div>
 
@@ -69,56 +78,31 @@
                             <p class="text-danger" id="error-apellidomaterno"></p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="telefono">{{ __('Teléfono') }}</label>
-                                <input id="telefono" type="number" class="form-control">
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="celular">{{ __('Celular') }}</label>
-                                <input id="celular" type="number" class="form-control">
-                                
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-telefono"></p>
-                            <p class="text-danger" id="error-celular"></p>
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
-                        <label for="correoelectronico">{{ __('Correo Electrónico') }}</label>
-                        <input id="correoelectronico" type="email" class="form-control">
-                        <p class="text-danger" id="error-correoelectronico"></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="ine">{{ __('INE') }}</label>
-                        <input id="ine" type="text" class="form-control">
-                        <p class="text-danger" id="error-ine"></p>
+                        <label for="clave">{{ __('Clave') }}</label>
+                        <input id="clave" type="text" class="form-control" >
+                        <p class="text-danger" id="error-clave"></p>
                     </div>
                     <div class="form-group">
                         <label for="estatus">{{ __('Estatus') }}</label>
-                        <select id="estatus" class="form-control">
+                        <select id="estatus" class="form-control" >
                             <option value="">Seleccionar</option>
                             <option value="A">Activo</option>
                             <option value="B">Baja</option>
                             <option value="S">Suspendido</option>
                             <option value="V">Vigente</option>
                         </select>
+
                         <p class="text-danger" id="error-estatus"></p>
                     </div>
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
-                            
                             <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Gestor') }}</button>
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspector') }}</button>
                             
                         </div>
                     </div>
@@ -144,7 +128,7 @@
                     </div>
                     <div class="modal-text">
                         <h4>Registro Exitoso</h4>
-                        <p>Se ha registrado al gestor correctamente.</p>
+                        <p>Se ha registrado al inspector correctamente.</p>
                     </div>
                 </div>
             </div>
@@ -155,11 +139,11 @@
     </div>
 </div>
 <!-- Modal para Editar -->
-<div class="modal fade" id="editar-gestor" tabindex="-1" role="dialog" aria-labelledby="modal-editar-gestor" aria-hidden="true">
+<div class="modal fade" id="editar-inspector" tabindex="-1" role="dialog" aria-labelledby="modal-editar-inspector" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-editar-gestor">Editar Gestor</h3>
+                <h3 class="modal-title" id="modal-editar-inspector">Editar Inspector</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -193,36 +177,10 @@
                             <p class="text-danger" id="error-apellidomaterno-edit"></p>
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="telefono-edit">{{ __('Teléfono') }}</label>
-                                <input id="telefono-edit" type="number" class="form-control">
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="celular-edit">{{ __('Celular') }}</label>
-                                <input id="celular-edit" type="number" class="form-control">
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-telefono-edit"></p>
-                            <p class="text-danger" id="error-celular-edit"></p>
-                        </div>
-                    </div>
                     <div class="form-group">
-                        <label for="correoelectronico-edit">{{ __('Correo Electrónico') }}</label>
-                        <input id="correoelectronico-edit" type="email" class="form-control">
-                        <p class="text-danger" id="error-correoelectronico-edit"></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="ine-edit">{{ __('INE') }}</label>
-                        <input id="ine-edit" type="text" class="form-control">
-                        <p class="text-danger" id="error-ine-edit"></p>
+                        <label for="clave-edit">{{ __('Clave') }}</label>
+                        <input id="clave-edit" type="text" class="form-control">
+                        <p class="text-danger" id="error-clave-edit"></p>
                     </div>
                     <hr>
                     <div class="form-group row mb-0">
@@ -308,5 +266,5 @@
 
 @endsection
 @section('scripts')
-<script src="{{ asset('js/gestores.js') }}" defer></script>
+<script src="{{ asset('js/inspecciones.js') }}" defer></script>
 @endsection

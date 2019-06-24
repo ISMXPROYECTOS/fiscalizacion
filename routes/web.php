@@ -52,3 +52,8 @@ Route::get('/usuarios/verificar/{username}', 'UserController@verificarUsuario');
 Route::get('/ejercicios-fiscales', 'EjercicioFiscalController@listadoEjerciciosFiscales')->name('listado-ejercicios-fiscales');
 Route::get('/ejercicios-fiscales/listado', 'EjercicioFiscalController@tbody');
 Route::post('/ejercicios-fiscales/nuevo', 'EjercicioFiscalController@create');
+Route::get('/ejercicios-fiscales/editar/{id}', 'EjercicioFiscalController@editarEjercicioFiscal');
+Route::post('/ejercicios-fiscales/actualizar', 'EjercicioFiscalController@update');
+Route::post('/ejercicios-fiscales/estatus', 'EjercicioFiscalController@updateEstatus');
+
+Route::get('/inspecciones', 'InspeccionController@listadoInspecciones')->name('listado-inspecciones');
