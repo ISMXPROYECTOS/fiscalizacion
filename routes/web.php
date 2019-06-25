@@ -27,14 +27,14 @@ Route::get('/inspectores', 'InspectorController@listadoInspectores')->name('list
 Route::get('/inspectores/listado', 'InspectorController@tbody');
 Route::post('/inspectores/nuevo', 'InspectorController@create');
 Route::get('/inspectores/editar/{id}', 'InspectorController@editarInspector');
-Route::post('/inspectores/actualizar', 'InspectorController@update')->name('inspector-update');
+Route::post('/inspectores/actualizar', 'InspectorController@update');
 Route::post('/inspectores/estatus', 'InspectorController@updateEstatus');
 
 Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');
 Route::get('/gestores/listado', 'GestorController@tbody');
 Route::post('/gestores/nuevo', 'GestorController@create');
 Route::get('/gestores/editar/{id}', 'GestorController@editarGestor');
-Route::post('/gestores/actualizar', 'GestorController@update')->name('gestor-update');
+Route::post('/gestores/actualizar', 'GestorController@update');
 Route::post('/gestores/estatus', 'GestorController@updateEstatus');
 
 Route::group(['middleware' => 'admin'], function () {
