@@ -3,8 +3,8 @@
 <header class="page-header">
     <h2>Inspecciones</h2>
 </header>
-<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspector">
-<i class="fas fa-user-plus"></i> Agregar Inspección
+<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspeccion">
+    <i class="fas fa-user-plus"></i> Agregar Inspección
 </button>
 <div class="row">
     <div class="col">
@@ -35,106 +35,48 @@
                     <th>Fecha de vencimiento</th>
                 </tr>
             </thead>
-            <tbody></tbody>
         </table>
-        
     </div>
 </div>
 <!-- Modal para Crear -->
-<div class="modal fade" id="crear-inspector" tabindex="-1" role="dialog" aria-labelledby="modal-crear-inspector" aria-hidden="true">
+<div class="modal fade" id="crear-inspeccion" tabindex="-1" role="dialog" aria-labelledby="modal-crear-inspeccion" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-crear-inspector">Agregar Inspección</h3>
+                <h3 class="modal-title" id="modal-crear-inspeccion">Agregar Inspecciones</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="formulario-inspector" role="form">
+                <form id="formulario-inspeccion" role="form">
                     @csrf
-                    <div class="form-group">
-                        <label for="inspeccion">{{ __('Número de Inspecciones') }}</label>
-                        <input id="inspeccion" type="number" class="form-control">
-                        <p class="text-danger" id="error-inspeccion"></p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="inspector">{{ __('Inspector') }}</label>
-                                <select id="inspector" class="form-control" >
-                                    <option value="">Seleccionar</option>
-                                    @foreach($inspectores as $inspector)
-                                        @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
-                                            <option value="{{ $inspector->id}}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="gestor">{{ __('Gestor') }}</label>
-                                <select id="gestor" class="form-control" >
-                                    <option value="">Seleccionar</option>
-                                    @foreach($gestores as $gestor)
-                                        @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
-                                            <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-inspector"></p>
-                            <p class="text-danger" id="error-gestor"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="tipoInspeccion">{{ __('Tipo de Inspección') }}</label>
-                        <select id="tipoInspeccion" class="form-control" >
-                            <option value="">Seleccionar</option>
-                            @foreach($tipoInspecciones as $tipoInspeccion)
-                                <option value="{{ $tipoInspeccion->id}}">{{ $tipoInspeccion->nombre }}</option>
-                            @endforeach
-                        </select>
-                        <p class="text-danger" id="error-tipoInspeccion"></p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="giro">{{ __('Giro Comercial') }}</label>
-                                <select id="giro" class="form-control" >
-                                    <option value="">Seleccionar</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="subgiro">{{ __('Subgiro Comercial') }}</label>
-                                <select id="subgiro" class="form-control" >
-                                    <option value="">Seleccionar</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-giro"></p>
-                            <p class="text-danger" id="error-subgiro"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="ejercicioFiscal">{{ __('Año Fiscal') }}</label>
-                        <select id="ejercicioFiscal" class="form-control" >
-                            <option value="">Seleccionar</option>
-                        </select>
-                        <p class="text-danger" id="error-ejercicioFiscal"></p>
-                    </div>
-                    <div class="form-group">
-                        <label for="estatus">{{ __('Estatus') }}</label>
-                        <select id="estatus" class="form-control" >
-                            <option value="">Seleccionar</option>
-                        </select>
-                        <p class="text-danger" id="error-estatus"></p>
+                    <div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Cantidad</th>
+                                    <th>Inspector</th>
+                                    <th><a href="#" class="addRow"><i class="fas fa-plus"></i></a></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="number" id="cantidad" name="cantidad[]" class="form-control" required></td>
+                                    <td>
+                                        <select id="inspector" name="inspector[]" class="form-control" >
+                                            <option value="">Seleccionar</option>
+                                            @foreach($inspectores as $inspector)
+                                                @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
+                                                    <option value="{{ $inspector->id}}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td><a href="#" class="btn btn-danger remove"><i class="fas fa-trash-alt"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <hr>
                     <div class="form-group row mb-0">
@@ -142,7 +84,7 @@
                             <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspector') }}</button>
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspecciones') }}</button>
                         </div>
                     </div>
                 </form>

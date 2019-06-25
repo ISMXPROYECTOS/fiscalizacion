@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    // Se crea una variable con la ruta raiz del proyecto
+    // Se crea una variable con la ruta raíz del proyecto
     var url = "http://localhost/fiscalizacion/public";
 
     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
