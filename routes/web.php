@@ -57,3 +57,4 @@ Route::post('/ejercicios-fiscales/actualizar', 'EjercicioFiscalController@update
 Route::post('/ejercicios-fiscales/estatus', 'EjercicioFiscalController@updateEstatus');
 
 Route::get('/inspecciones', 'InspeccionController@listadoInspecciones')->name('listado-inspecciones');
+Route::post('/inspecciones/nuevo', 'InspeccionController@create');

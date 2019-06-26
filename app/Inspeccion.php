@@ -74,4 +74,13 @@ class Inspeccion extends Model
         return $this->hasMany('App\BitacoraDeInforme');
     }
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'cantidad', 'inspector',
+    ];
+
 }

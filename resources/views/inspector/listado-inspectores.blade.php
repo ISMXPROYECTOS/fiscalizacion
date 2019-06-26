@@ -48,7 +48,6 @@
                             <div class="form-group">
                                 <label for="apellidopaterno">{{ __('Apellido Paterno') }}</label>
                                 <input id="apellidopaterno" type="text" class="form-control">
-                                
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">

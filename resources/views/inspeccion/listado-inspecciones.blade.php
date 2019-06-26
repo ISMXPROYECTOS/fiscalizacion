@@ -61,10 +61,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type="number" id="cantidad" name="cantidad[]" class="form-control" required></td>
+                                <tr id="trOriginal">
+                                    <td><input type="number" name="cantidad[]" class="form-control cantidad" required></td>
                                     <td>
-                                        <select id="inspector" name="inspector[]" class="form-control" >
+                                        <select name="inspector[]" class="form-control inspector" >
                                             <option value="">Seleccionar</option>
                                             @foreach($inspectores as $inspector)
                                                 @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
@@ -247,5 +247,6 @@
 
 @endsection
 @section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 <script src="{{ asset('js/inspecciones.js') }}" defer></script>
 @endsection
