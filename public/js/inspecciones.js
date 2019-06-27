@@ -3,30 +3,32 @@ $(document).ready(function(){
     // Se crea una variable con la ruta raíz del proyecto
     var url = "http://localhost/fiscalizacion/public";
 
-    $('.addRow').on('click', function(){
+    $('#add-row').click(function(){
         addRow();
     });
 
-    $('.remove').live('click', function(){
-        var last = $('tbody tr').length;
-        if(last != 1){
-            $(this).parent().parent().remove();
-        }
-    });
-
     function addRow(){
-        var clone = $('#trOriginal:first').clone();
+        var i = $('.duplicados').length; // how many "duplicatable" input fields we currently have
+        var contador = new Number(i + 1);
+        
+        var clone = $('#inspecciones:first').clone();
+
         var section = clone.clone();
-        section.find("input").val("");
-        $('tbody').append(section);
+
+        section.find("input").attr('name', 'cantidad-'+contador).val("");
+        section.find("select").attr('name', 'inspector-'+contador).val("");
+        $('#new-row').append(section);
     }
 
     function saveData(){
         $('#btn-enviar').click(function(){
-            var data = {
-                'cantidad' : $('.cantidad').val(),
-                'inspector' : $('.inspector').val()
-            }
+            //esta te la convierte en una URL
+            //var data = $("#formulario-inspeccion").serialize(); 
+
+            // esta en array
+            var data = $("#formulario-inspeccion").serializeArray();
+            console.log(data);
+
             $.ajax({
                 url: url + '/inspecciones/nuevo',
                 data: data,
@@ -53,5 +55,15 @@ $(document).ready(function(){
     }
 
     saveData();
+
+    $('#remove').live('click', function(){
+        var last = $('.duplicados').length; // how many "duplicatable" input fields we currently have
+
+        $('#inspecciones' + last).remove();
+
+        if(last != 1){
+            $(this).parent().parent().remove();
+        }
+    });
 
 });

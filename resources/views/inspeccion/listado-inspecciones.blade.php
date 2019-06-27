@@ -49,35 +49,52 @@
                 </button>
             </div>
             <div class="modal-body">
+
+                <div class="prueba">
+                    
+
+                </div>
                 <form id="formulario-inspeccion" role="form">
                     @csrf
-                    <div>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Cantidad</th>
-                                    <th>Inspector</th>
-                                    <th><a href="#" class="addRow"><i class="fas fa-plus"></i></a></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr id="trOriginal">
-                                    <td><input type="number" name="cantidad[]" class="form-control cantidad" required></td>
-                                    <td>
-                                        <select name="inspector[]" class="form-control inspector" >
-                                            <option value="">Seleccionar</option>
-                                            @foreach($inspectores as $inspector)
-                                                @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
-                                                    <option value="{{ $inspector->id}}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                    <td><a href="#" class="btn btn-danger remove"><i class="fas fa-trash-alt"></i></a></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="">Cantidad</label>
+                        </div>
+                        <div class="col-md-7">
+                            <label for="">Inspector</label>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="#" class="btn btn-success btn-sm" id="add-row"><i class="fas fa-plus"></i></a>
+                        </div>
                     </div>
+                    <div class="row mb-3 duplicados" id="inspecciones">
+                        <div class="col-md-3">
+                            <input type="number" name="cantidad" class="form-control" id="cantidad">
+                            <!--<input type="number" class="form-control" id="cantidad">-->
+                        </div>
+                        <div class="col-md-7">
+
+                            <select name="inspector" class="form-control " id="inspector">
+                                <option value="">Seleccionar</option>
+                                @foreach($inspectores as $inspector)
+                                    @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
+                                        <option value="{{ $inspector->id}}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            <!--<select class="form-control" id="inspector" >
+                                <option value="">Seleccionar</option>
+                            </select>-->
+                        </div>
+                        <div class="col-md-2">
+                            <a href="#" class="btn btn-danger" id="remove"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </div>
+
+                    <div id="new-row">
+                        
+                    </div>
+                    
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">

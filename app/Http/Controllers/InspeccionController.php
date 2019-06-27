@@ -12,6 +12,7 @@ class InspeccionController extends Controller
 {
 	// Muetra la vista del listado de las inspecciones
 	public function listadoInspecciones(){
+
 		$inspectores = Inspector::all();
 		return view('inspeccion.listado-inspecciones', [
 			'inspectores' => $inspectores
@@ -19,6 +20,10 @@ class InspeccionController extends Controller
 	}
 
 	public function create(Request $request){
+
+		// aqui pienso que debe ir un for que recorra todo lo que estamos enviando y despues validar y toda la wea 
+
+		var_dump($request); // este trae toda la request y el array
 
 		$validate = $request->validate([
 			'cantidad' => 'required|string',
