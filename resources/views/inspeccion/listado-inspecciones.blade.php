@@ -8,7 +8,6 @@
 </button>
 <div class="row">
     <div class="col">
-        
         <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
             <thead>
                 <tr>
@@ -33,8 +32,10 @@
                     <th>Puesto del Encargado</th>
                     <th>Días de vencimiento</th>
                     <th>Fecha de vencimiento</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
+            <tbody></tbody>
         </table>
     </div>
 </div>
@@ -49,11 +50,7 @@
                 </button>
             </div>
             <div class="modal-body">
-
-                <div class="prueba">
-                    
-
-                </div>
+                <div class="prueba"></div>
                 <form id="formulario-inspeccion" role="form">
                     @csrf
                     <div class="row mb-3">
@@ -69,12 +66,11 @@
                     </div>
                     <div class="row mb-3 duplicados" id="inspecciones">
                         <div class="col-md-3">
-                            <input type="number" name="cantidad" class="form-control" id="cantidad">
-                            <!--<input type="number" class="form-control" id="cantidad">-->
+                            <input type="number" name="cantidad[]" class="form-control" id="cantidad">
+                            <p class="text-danger" id="error-cantidad"></p>
                         </div>
                         <div class="col-md-7">
-
-                            <select name="inspector" class="form-control " id="inspector">
+                            <select name="inspector[]" class="form-control " id="inspector">
                                 <option value="">Seleccionar</option>
                                 @foreach($inspectores as $inspector)
                                     @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
@@ -82,19 +78,13 @@
                                     @endif
                                 @endforeach
                             </select>
-                            <!--<select class="form-control" id="inspector" >
-                                <option value="">Seleccionar</option>
-                            </select>-->
+                            <p class="text-danger" id="error-inspector"></p>
                         </div>
                         <div class="col-md-2">
                             <a href="#" class="btn btn-danger" id="remove"><i class="fas fa-trash-alt"></i></a>
                         </div>
                     </div>
-
-                    <div id="new-row">
-                        
-                    </div>
-                    
+                    <div id="new-row"></div>
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">

@@ -3,32 +3,81 @@ $(document).ready(function(){
     // Se crea una variable con la ruta raíz del proyecto
     var url = "http://localhost/fiscalizacion/public";
 
+    $('#error-cantidad, #error-inspector').addClass('hidden');
+    $('#error-cantidad, #error-inspector').text('');
+
     $('#add-row').click(function(){
         addRow();
     });
 
     function addRow(){
-        var i = $('.duplicados').length; // how many "duplicatable" input fields we currently have
-        var contador = new Number(i + 1);
-        
         var clone = $('#inspecciones:first').clone();
-
         var section = clone.clone();
-
-        section.find("input").attr('name', 'cantidad-'+contador).val("");
-        section.find("select").attr('name', 'inspector-'+contador).val("");
+        section.find("input").val("");
+        section.find("select").val("");
         $('#new-row').append(section);
     }
 
+    $('#remove').live('click', function(){
+        var last = $('.duplicados').length; // how many "duplicatable" input fields we currently have
+        $('#inspecciones' + last).remove();
+        if(last != 1){
+            $(this).parent().parent().remove();
+        }
+    });
+
+    function viewData(){
+        $('#datatable').DataTable({
+            'serverSide': true,
+            'destroy': true,
+            'ajax': url + '/inspecciones/listado',
+            'columns': [
+                {data: 'idusuario'},
+                {data: 'idinspector'},
+                {data: 'idgestor'},
+                {data: 'idtipoinspeccion'},
+                {data: 'idformavalorada'},
+                {data: 'idgiro'},
+                {data: 'idsubgirocomercial'},
+                {data: 'idejerciciofiscal'},
+                {data: 'idestatusinspeccion'},
+                {data: 'idcolonia'},
+                {data: 'created_at'},
+                {data: 'fechaasignada'},
+                {data: 'fechacapturada'},
+                {data: 'fechaprorroga'},
+                {data: 'nombrelocal'},
+                {data: 'domicilio'},
+                {data: 'folio'},
+                {data: 'nombreencargado'},
+                {data: 'cargoencargado'},
+                {data: 'diasvence'},
+                {data: 'fechavence'},
+                {data: 'btn'},
+            ],
+            'language': {
+                'info': 'Total de registros _TOTAL_',
+                'paginate': {
+                    'next': 'Siguiente',
+                    'previous': 'Anterior',
+                },
+                'lengthMenu': 'Mostrar _MENU_ registros',
+                'loadingRecords': 'Cargando...',
+                'processing': 'Procesando...',
+                'emptyTable': 'No se encontraron registros',
+                'zeroRecords': 'No se encontraron registros',
+                'infoEmpty': '',
+                'infoFiltered': ''
+            }
+        });
+    }
+
+    viewData();
+
     function saveData(){
         $('#btn-enviar').click(function(){
-            //esta te la convierte en una URL
-            //var data = $("#formulario-inspeccion").serialize(); 
-
-            // esta en array
+            // Convierte los datos de form en array
             var data = $("#formulario-inspeccion").serializeArray();
-            console.log(data);
-
             $.ajax({
                 url: url + '/inspecciones/nuevo',
                 data: data,
@@ -55,15 +104,5 @@ $(document).ready(function(){
     }
 
     saveData();
-
-    $('#remove').live('click', function(){
-        var last = $('.duplicados').length; // how many "duplicatable" input fields we currently have
-
-        $('#inspecciones' + last).remove();
-
-        if(last != 1){
-            $(this).parent().parent().remove();
-        }
-    });
 
 });

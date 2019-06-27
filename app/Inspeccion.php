@@ -80,7 +80,7 @@ class Inspeccion extends Model
      * @var array
      */
     protected $fillable = [
-        'cantidad', 'inspector',
+    	'idinspector',
     ];
 
 }

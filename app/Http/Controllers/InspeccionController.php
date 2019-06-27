@@ -12,34 +12,42 @@ class InspeccionController extends Controller
 {
 	// Muetra la vista del listado de las inspecciones
 	public function listadoInspecciones(){
-
 		$inspectores = Inspector::all();
 		return view('inspeccion.listado-inspecciones', [
 			'inspectores' => $inspectores
 		]);
 	}
 
+	public function tbody(){
+		return datatables()
+			->eloquent(Inspeccion::query())
+			->addColumn('btn', 'inspeccion/actions-inspecciones')
+			->rawColumns(['btn'])->toJson();
+	}
+
 	public function create(Request $request){
 
-		// aqui pienso que debe ir un for que recorra todo lo que estamos enviando y despues validar y toda la wea 
+		$data = $request->all();
+    	$cantidades = array_get($data, 'cantidad');
+    	$inspectores = array_get($data, 'inspector');
 
-		var_dump($request); // este trae toda la request y el array
+		// Valida cada array en cada posición con el .*
+		$this->validate($request, [
+            'cantidad.*' => 'required|string',
+            'inspector.*' => 'required|string'
+        ]);
 
-		$validate = $request->validate([
-			'cantidad' => 'required|string',
-            'inspector' => 'required|string'
-	    ]);
+    	for ($i = 0; $i < count($cantidades); $i++) {
+    		$cantidad = $cantidades[$i];
+    		for ($a = 0; $a < $cantidad; $a++) {
+    			$datos = [
+    				'idinspector' => $inspectores[$i]
+    			];
+    			Inspeccion::create($datos);
+    		}
+    	}
 
-		$datos = [
-			'cantidad' => $request->input('cantidad'),
-            'inspector' => $request->input('inspector')
-		];
-
-	    $cantidades = $request->input('cantidad');
-	    var_dump($cantidades);
-	    
-
-	    return $cantidades;
+    	return $datos;
 	}
 
 }
