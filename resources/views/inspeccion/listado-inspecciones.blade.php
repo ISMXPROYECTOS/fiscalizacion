@@ -70,7 +70,7 @@
                             <p class="text-danger" id="error-cantidad"></p>
                         </div>
                         <div class="col-md-7">
-                            <select name="inspector[]" class="form-control " id="inspector">
+                            <select name="inspector[]" class="form-control" id="inspector">
                                 <option value="">Seleccionar</option>
                                 @foreach($inspectores as $inspector)
                                     @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
@@ -127,48 +127,204 @@
     </div>
 </div>
 <!-- Modal para Editar -->
-<div class="modal fade" id="editar-inspector" tabindex="-1" role="dialog" aria-labelledby="modal-editar-inspector" aria-hidden="true">
+<div class="modal fade" id="editar-inspeccion" tabindex="-1" role="dialog" aria-labelledby="modal-editar-inspeccion" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-editar-inspector">Editar Inspector</h3>
+                <h3 class="modal-title" id="modal-editar-inspeccion">Editar Inspector</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="formulario-gestor" role="form">
+                <form class="formulario-inspeccion" role="form">
                     @csrf
                     <input type="hidden" id="id-edit">
-                    <div class="form-group">
-                        <label for="nombre-edit">{{ __('Nombre Completo') }}</label>
-                        <input id="nombre-edit" type="text" class="form-control" required>
-                        <p class="text-danger" id="error-nombre-edit"></p>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="inspector-edit">{{ __('Inspector') }}</label>
+                                <select id="inspector-edit" class="form-control">
+                                    <option value="">Seleccionar</option>
+                                    @foreach($inspectores as $inspector)
+                                        @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
+                                            <option value="{{ $inspector->id}}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="gestor-edit">{{ __('Gestor') }}</label>
+                                <select id="gestor-edit" class="form-control">
+                                    <option value="">Seleccionar</option>
+                                    @foreach($gestores as $gestor)
+                                        @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
+                                            <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <p class="text-danger" id="error-inspector-edit"></p>
+                            <p class="text-danger" id="error-gestor-edit"></p>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
-                                <label for="apellidopaterno-edit">{{ __('Apellido Paterno') }}</label>
-                                <input id="apellidopaterno-edit" type="text" class="form-control">
-                                
+                                <label for="tipoinspeccion-edit">{{ __('Tipo de Inspección') }}</label>
+                                <select id="tipoinspeccion-edit" class="form-control">
+                                    <option value="">Seleccionar</option>
+                                    @foreach($gestores as $gestor)
+                                        @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
+                                            <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
-                                <label for="apellidomaterno-edit">{{ __('Apellido Materno') }}</label>
-                                <input id="apellidomaterno-edit" type="text" class="form-control">
-                                
+                                <label for="formavalorada-edit">{{ __('Forma Valorada') }}</label>
+                                <select id="formavalorada-edit" class="form-control">
+                                    <option value="">Seleccionar</option>
+                                    @foreach($gestores as $gestor)
+                                        @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
+                                            <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-apellidopaterno-edit"></p>
-                            <p class="text-danger" id="error-apellidomaterno-edit"></p>
+                            <p class="text-danger" id="error-tipoinspeccion-edit"></p>
+                            <p class="text-danger" id="error-formavalorada-edit"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="giro-edit">{{ __('Giro Comercial') }}</label>
+                                <select id="giro-edit" class="form-control">
+                                    <option value="">Seleccionar</option>
+                                    @foreach($inspectores as $inspector)
+                                        @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
+                                            <option value="{{ $inspector->id}}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="subgiro-edit">{{ __('Subgiro Comercial') }}</label>
+                                <select id="subgiro-edit" class="form-control">
+                                    <option value="">Seleccionar</option>
+                                    @foreach($gestores as $gestor)
+                                        @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
+                                            <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <p class="text-danger" id="error-giro-edit"></p>
+                            <p class="text-danger" id="error-subgiro-edit"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="ejerciciofiscal-edit">{{ __('Ejercicio Fiscal') }}</label>
+                                <select id="ejerciciofiscal-edit" class="form-control">
+                                    <option value="">Seleccionar</option>
+                                    @foreach($inspectores as $inspector)
+                                        @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
+                                            <option value="{{ $inspector->id}}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="estatus-edit">{{ __('Estatus') }}</label>
+                                <select id="estatus-edit" class="form-control">
+                                    <option value="">Seleccionar</option>
+                                    @foreach($gestores as $gestor)
+                                        @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
+                                            <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <p class="text-danger" id="error-ejerciciofiscal-edit"></p>
+                            <p class="text-danger" id="error-estatus-edit"></p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="clave-edit">{{ __('Clave') }}</label>
-                        <input id="clave-edit" type="text" class="form-control">
-                        <p class="text-danger" id="error-clave-edit"></p>
+                        <label for="colonia-edit">{{ __('Colonia') }}</label>
+                        <select id="colonia-edit" class="form-control">
+                            <option value="">Seleccionar</option>
+                            @foreach($gestores as $gestor)
+                                @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
+                                    <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <p class="text-danger" id="error-colonia-edit"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="local-edit">{{ __('Nombre del Local') }}</label>
+                        <input type="text" id="local-edit" class="form-control">
+                        <p class="text-danger" id="error-local-edit"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="domicilio-edit">{{ __('Domicilio') }}</label>
+                        <input type="text" id="domicilio-edit" class="form-control">
+                        <p class="text-danger" id="error-domicilio-edit"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="encargado-edit">{{ __('Encargado') }}</label>
+                                <input type="text" id="encargado-edit" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="puestoencargado-edit">{{ __('Puesto del Encargado') }}</label>
+                                <input type="text" id="puestoencargado-edit" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <p class="text-danger" id="error-encargado-edit"></p>
+                            <p class="text-danger" id="error-puestoencargado-edit"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="diasvence-edit">{{ __('Días de vencimiento') }}</label>
+                                <input type="number" id="diasvence-edit" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="fechavence-edit">{{ __('Fecha de vencimiento') }}</label>
+                                <input type="date" id="fechavence-edit" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <p class="text-danger" id="error-diasvence-edit"></p>
+                            <p class="text-danger" id="error-fechavence-edit"></p>
+                        </div>
                     </div>
                     <hr>
                     <div class="form-group row mb-0">
@@ -254,6 +410,5 @@
 
 @endsection
 @section('scripts')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 <script src="{{ asset('js/inspecciones.js') }}" defer></script>
 @endsection
