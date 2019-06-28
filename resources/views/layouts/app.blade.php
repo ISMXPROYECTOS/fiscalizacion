@@ -52,11 +52,11 @@
                             <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
                                 <span class="name">{{ Auth::user()->usuario }}</span>
                                 @if( Auth::user()->role == 'ROLE_ADMIN')
-                                    <span class="role">Administrador</span>
+                                <span class="role">Administrador</span>
                                 @elseif( Auth::user()->role == 'ROLE_INSPECTOR')
-                                    <span class="role">Inspector</span>
+                                <span class="role">Inspector</span>
                                 @elseif( Auth::user()->role == 'ROLE_VENTANILLA')
-                                    <span class="role">Ventanilla</span>
+                                <span class="role">Ventanilla</span>
                                 @endif
                             </div>
                             
@@ -102,40 +102,10 @@
                             <nav id="menu" class="nav-main" role="navigation">
                                 
                                 <ul class="nav nav-main">
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-inspectores') }}">
-                                            <i class="fas fa-address-book"></i>
-                                            <span>Catalogo de Inspectores</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-gestores') }}">
-                                            <i class="fas fa-clipboard-check"></i>
-                                            <span>Catalogo de Gestores</span>
-                                        </a>
-                                    </li>
-                                    @if(Auth::user()->role == "ROLE_ADMIN")
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-inspecciones') }}">
-                                            <span>Inspección</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-usuarios') }}">
-                                            <i class="fas fa-users"></i>
-                                            <span>Catalogo de Usuarios</span>
-                                        </a>
-                                    </li>
-                                    @endif
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-ejercicios-fiscales') }}">
-                                            <span>Año Fiscal</span>
-                                        </a>
-                                    </li>
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
-                                             <i class="fas fa-user-edit"></i>
-                                            <span>Mis Datos</span>
+                                            <i class="fas fa-user-edit"></i>
+                                            <span>Catalogos</span>
                                         </a>
                                         <ul class="nav nav-children">
                                             <li>
@@ -143,7 +113,51 @@
                                                     Cambiar contraseña
                                                 </a>
                                             </li>
-
+                                            <li>
+                                                <a class="nav-link" href="{{ route('listado-inspectores') }}">
+                                                    <i class="fas fa-address-book"></i>
+                                                    <span>Catalogo de Inspectores</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="{{ route('listado-gestores') }}">
+                                                    <i class="fas fa-clipboard-check"></i>
+                                                    <span>Catalogo de Gestores</span>
+                                                </a>
+                                            </li>
+                                            @if(Auth::user()->role == "ROLE_ADMIN")
+                                            <li>
+                                                <a class="nav-link" href="{{ route('listado-inspecciones') }}">
+                                                    <span>Inspección</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="{{ route('listado-usuarios') }}">
+                                                    <i class="fas fa-users"></i>
+                                                    <span>Catalogo de Usuarios</span>
+                                                </a>
+                                            </li>
+                                            @endif
+                                            
+                                        </ul>
+                                    </li>
+                                    
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-ejercicios-fiscales') }}">
+                                            <span>Años fiscales</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-parent">
+                                        <a class="nav-link" href="#">
+                                            <i class="fas fa-user-edit"></i>
+                                            <span>Configuración</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a href="{{ route('cambiar-password') }}">
+                                                    Cambiar contraseña
+                                                </a>
+                                            </li>
                                             <li>
                                                 <a role="menuitem" tabindex="-1" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
@@ -156,19 +170,16 @@
                                             </li>
                                         </ul>
                                     </li>
-
                                     <ul>
                                     </nav>
-
                                     <hr class="separator" id="separator" />
-                
+                                    
                                     <div class="sidebar-widget widget-tasks" id="ultima-sesion-mv">
                                         <div class="widget-header">
                                             <h6 class="text-white">Ultima sesión</h6>
                                         </div>
-
                                         <div class="widget-content">
-                                             <span class="text-white">{{ auth()->user()->ultimasesion->format('D j M Y, h:i:s A') }}</span>
+                                            <span class="text-white">{{ auth()->user()->ultimasesion->format('D j M Y, h:i:s A') }}</span>
                                         </div>
                                     </div>
                                     
@@ -176,11 +187,11 @@
                                 <script>
                                 // Maintain Scroll Position
                                 if (typeof localStorage !== 'undefined') {
-                                    if (localStorage.getItem('sidebar-left-position') !== null) {
-                                        var initialPosition = localStorage.getItem('sidebar-left-position'),
-                                        sidebarLeft = document.querySelector('#sidebar-left .nano-content');
-                                        sidebarLeft.scrollTop = initialPosition;
-                                    }
+                                if (localStorage.getItem('sidebar-left-position') !== null) {
+                                var initialPosition = localStorage.getItem('sidebar-left-position'),
+                                sidebarLeft = document.querySelector('#sidebar-left .nano-content');
+                                sidebarLeft.scrollTop = initialPosition;
+                                }
                                 }
                                 </script>
                             </div>

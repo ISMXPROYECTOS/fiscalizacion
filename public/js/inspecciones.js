@@ -74,7 +74,11 @@ $(document).ready(function(){
                 'infoEmpty': '',
                 'infoFiltered': ''
             }
+
+
         });
+
+
     }
 
     viewData();

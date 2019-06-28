@@ -41,6 +41,7 @@ class InspeccionController extends Controller
 	}
 
 	public function tbody(){
+
 		return datatables()
 			->eloquent(Inspeccion::query())
 			->addColumn('btn', 'inspeccion/actions-inspecciones')
