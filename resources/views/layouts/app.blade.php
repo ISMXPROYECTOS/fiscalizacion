@@ -104,52 +104,81 @@
                                 <ul class="nav nav-main">
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
-                                            <i class="fas fa-user-edit"></i>
+                                            <i class="fas fa-th-list"></i>
                                             <span>Catalogos</span>
                                         </a>
                                         <ul class="nav nav-children">
-                                            <li>
-                                                <a href="{{ route('cambiar-password') }}">
-                                                    Cambiar contraseña
-                                                </a>
-                                            </li>
+                                            
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-inspectores') }}">
-                                                    <i class="fas fa-address-book"></i>
-                                                    <span>Catalogo de Inspectores</span>
+                                                   
+                                                    <span>Inspectores</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-gestores') }}">
-                                                    <i class="fas fa-clipboard-check"></i>
-                                                    <span>Catalogo de Gestores</span>
+                                                   
+                                                    <span>Gestores</span>
                                                 </a>
                                             </li>
                                             @if(Auth::user()->role == "ROLE_ADMIN")
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-inspecciones') }}">
-                                                    <span>Inspección</span>
+                                                    <span>Inspecciones</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-usuarios') }}">
-                                                    <i class="fas fa-users"></i>
-                                                    <span>Catalogo de Usuarios</span>
+                                                  
+                                                    <span>Usuarios</span>
                                                 </a>
                                             </li>
                                             @endif
-                                            
+
+                                            <li>
+                                                <a class="nav-link" href="#">
+                                                   
+                                                    <span>Estados, Municipios y Colonias</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a class="nav-link" href="#">
+                                                   
+                                                    <span>Tipo de Inspecciones</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="{#">
+                                                    
+                                                    <span>Estatus de Inspecciones</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a class="nav-link" href="#">
+                                                    
+                                                    <span>Documentacion requerida</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="#">
+                                                    
+                                                    <span>Giros y Subgiros comerciales</span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
                                     
                                     <li>
                                         <a class="nav-link" href="{{ route('listado-ejercicios-fiscales') }}">
-                                            <span>Años fiscales</span>
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>Años fiscales y dias inhabiles</span>
                                         </a>
                                     </li>
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
-                                            <i class="fas fa-user-edit"></i>
+                                            <i class="fas fa-wrench"></i>
                                             <span>Configuración</span>
                                         </a>
                                         <ul class="nav nav-children">
