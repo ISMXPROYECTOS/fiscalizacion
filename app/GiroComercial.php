@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class GiroComercial extends Model
 {
 	/* Se indica la tabla que este modelo modificará */
-	protected $table = 'girocomerciales';
+	protected $table = 'girocomercial';
 
 	/* Relación uno a mucho */
     public function subgiroComercial(){

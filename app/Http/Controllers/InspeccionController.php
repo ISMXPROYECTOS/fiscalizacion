@@ -7,6 +7,12 @@ use App\Inspeccion;
 use App\Inspector;
 use App\Gestor;
 use App\TipoDeInspeccion;
+use App\FormaValorada;
+use App\GiroComercial;
+use App\SubgiroComercial;
+use App\EjercicioFiscal;
+use App\EstatusInspeccion;
+use App\Colonia;
 
 class InspeccionController extends Controller
 {
@@ -14,9 +20,23 @@ class InspeccionController extends Controller
 	public function listadoInspecciones(){
 		$inspectores = Inspector::all();
 		$gestores = Gestor::all();
+		$tiposInspecciones = TipoDeInspeccion::all();
+		$formasValoradas = FormaValorada::all();
+		$giros = GiroComercial::all();
+		$subgiros = SubgiroComercial::all();
+		$ejerciciosFiscales = EjercicioFiscal::all();
+		$estatusInspecciones = EstatusInspeccion::all();
+		$colonias = Colonia::all();
 		return view('inspeccion.listado-inspecciones', [
 			'inspectores' => $inspectores,
-			'gestores' => $gestores
+			'gestores' => $gestores,
+			'tiposInspecciones' => $tiposInspecciones,
+			'formasValoradas' => $formasValoradas,
+			'giros' => $giros,
+			'subgiros' => $subgiros,
+			'ejerciciosFiscales' => $ejerciciosFiscales,
+			'estatusInspecciones' => $estatusInspecciones,
+			'colonias' => $colonias
 		]);
 	}
 
@@ -34,7 +54,7 @@ class InspeccionController extends Controller
     	$inspectores = array_get($data, 'inspector');
 
 		// Valida cada array en cada posición con el .*
-		$this->validate($request, [
+		$validate = $this->validate($request, [
             'cantidad.*' => 'required|string',
             'inspector.*' => 'required|string'
         ]);
@@ -58,36 +78,70 @@ class InspeccionController extends Controller
     }
 
     public function update(Request $request){
-		// Se reciben la id de la inspección que se esta modificando
+		// Se reciben la id de la inspección y se selecciona para modificarla
 		$id = $request->input('id');
+		$inspeccion = Inspeccion::find($id);
 
-		// Se selecciona la inspección para ser modificado
-		$inspector = Inspector::where('id', $id)->first();
+		// Se le da formato a la fecha de vencimiento
+		$fechavence = $request->input('fechavence');
+		$date = strtotime($fechavence);
+		$fecha_format = date("Y-m-d", $date);
 
 		// Validara los campos para evitar problemas
 		$validate = $this->validate($request,[
-			'nombre' => 'required|string|max:50',
-            'apellidopaterno' => 'required|string|max:30',
-            'apellidomaterno' => 'required|string|max:30',
-            'clave' => 'required|string|max:10|unique:inspector,clave,' . $id
+			'inspector' => 'required|string',
+			'gestor' => 'required|string',
+			'tipoinspeccion' => 'required|string',
+			'formavalorada' => 'required|string',
+			'giro' => 'required|string',
+			'subgiro' => 'required|string',
+			'ejerciciofiscal' => 'required|string',
+			'estatus' => 'required|string',
+			'colonia' => 'required|string',
+			'local' => 'required|string',
+			'domicilio' => 'required|string|max:75',
+			'encargado' => 'required|string|max:50',
+            'puestoencargado' => 'required|string|max:30',
+            'diasvence' => 'required|string',
+            'fechavence' => 'required|date_format:Y-m-d'
 		]);
 
 		// Se reciben los datos del formulario y se crean variables
-		$nombre = $request->input('nombre');
-		$apellidopaterno = $request->input('apellidopaterno');
-		$apellidomaterno = $request->input('apellidomaterno');
-		$clave = $request->input('clave');
+		$inspector = $request->input('inspector');
+		$gestor = $request->input('gestor');
+		$tipoinspeccion = $request->input('tipoinspeccion');
+		$formavalorada = $request->input('formavalorada');
+		$giro = $request->input('giro');
+		$subgiro = $request->input('subgiro');
+		$ejerciciofiscal = $request->input('ejerciciofiscal');
+		$estatus = $request->input('estatus');
+		$colonia = $request->input('colonia');
+		$local = $request->input('local');
+		$domicilio = $request->input('domicilio');
+		$encargado = $request->input('encargado');
+		$puestoencargado = $request->input('puestoencargado');
+		$diasvence = $request->input('diasvence');
 
         // Una ves verificados los datos y creados las variables se actualiza en la BD
-		$inspector->idusuario = $idUser;
-		$inspector->nombre = $nombre;
-		$inspector->apellidopaterno = $apellidopaterno;
-		$inspector->apellidomaterno = $apellidomaterno;
-		$inspector->clave = $clave;
-		$inspector->update();
+		$inspeccion->idinspector = $inspector;
+		$inspeccion->idgestores = $gestor;
+		$inspeccion->idtipoinspeccion = $tipoinspeccion;
+		$inspeccion->idformavalorada = $formavalorada;
+		$inspeccion->idgiro = $giro;
+		$inspeccion->idsubgirocomercial = $subgiro;
+		$inspeccion->idejerciciofiscal = $ejerciciofiscal;
+		$inspeccion->idestatusinspeccion = $estatus;
+		$inspeccion->idcolonia = $colonia;
+		$inspeccion->nombrelocal = $local;
+		$inspeccion->domicilio = $domicilio;
+		$inspeccion->nombreencargado = $encargado;
+		$inspeccion->cargoencargado = $puestoencargado;
+		$inspeccion->diasvence = $diasvence;
+		$inspeccion->fechavence = $fecha_format;
+		$inspeccion->update();
 
         // Indica que fue correcta la modificación de la inspección
-    	return $inspector;
+    	return $inspeccion;
 
 	}
 

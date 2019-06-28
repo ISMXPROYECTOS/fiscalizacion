@@ -178,10 +178,8 @@
                                 <label for="tipoinspeccion-edit">{{ __('Tipo de Inspección') }}</label>
                                 <select id="tipoinspeccion-edit" class="form-control">
                                     <option value="">Seleccionar</option>
-                                    @foreach($gestores as $gestor)
-                                        @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
-                                            <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
-                                        @endif
+                                    @foreach($tiposInspecciones as $tipoInspeccion)
+                                        <option value="{{ $tipoInspeccion->id}}">{{ $tipoInspeccion->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -191,10 +189,8 @@
                                 <label for="formavalorada-edit">{{ __('Forma Valorada') }}</label>
                                 <select id="formavalorada-edit" class="form-control">
                                     <option value="">Seleccionar</option>
-                                    @foreach($gestores as $gestor)
-                                        @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
-                                            <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
-                                        @endif
+                                    @foreach($formasValoradas as $formaValorada)
+                                        <option value="{{ $formaValorada->id}}">{{ $formaValorada->nombreencargado }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -210,10 +206,8 @@
                                 <label for="giro-edit">{{ __('Giro Comercial') }}</label>
                                 <select id="giro-edit" class="form-control">
                                     <option value="">Seleccionar</option>
-                                    @foreach($inspectores as $inspector)
-                                        @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
-                                            <option value="{{ $inspector->id}}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}</option>
-                                        @endif
+                                    @foreach($giros as $giro)
+                                        <option value="{{ $giro->id}}">{{ $giro->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -223,10 +217,8 @@
                                 <label for="subgiro-edit">{{ __('Subgiro Comercial') }}</label>
                                 <select id="subgiro-edit" class="form-control">
                                     <option value="">Seleccionar</option>
-                                    @foreach($gestores as $gestor)
-                                        @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
-                                            <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
-                                        @endif
+                                    @foreach($subgiros as $subgiro)
+                                        <option value="{{ $subgiro->id}}">{{ $subgiro->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -242,10 +234,8 @@
                                 <label for="ejerciciofiscal-edit">{{ __('Ejercicio Fiscal') }}</label>
                                 <select id="ejerciciofiscal-edit" class="form-control">
                                     <option value="">Seleccionar</option>
-                                    @foreach($inspectores as $inspector)
-                                        @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
-                                            <option value="{{ $inspector->id}}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}</option>
-                                        @endif
+                                    @foreach($ejerciciosFiscales as $ejercicioFiscal)
+                                        <option value="{{ $ejercicioFiscal->id}}">{{ $ejercicioFiscal->anio }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -255,10 +245,8 @@
                                 <label for="estatus-edit">{{ __('Estatus') }}</label>
                                 <select id="estatus-edit" class="form-control">
                                     <option value="">Seleccionar</option>
-                                    @foreach($gestores as $gestor)
-                                        @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
-                                            <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
-                                        @endif
+                                    @foreach($estatusInspecciones as $estatus)
+                                        <option value="{{ $estatus->id}}">{{ $estatus->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -272,35 +260,33 @@
                         <label for="colonia-edit">{{ __('Colonia') }}</label>
                         <select id="colonia-edit" class="form-control">
                             <option value="">Seleccionar</option>
-                            @foreach($gestores as $gestor)
-                                @if($gestor->estatus == 'A' or $gestor->estatus == 'V')
-                                    <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }}</option>
-                                @endif
+                            @foreach($colonias as $colonia)
+                                <option value="{{ $colonia->id}}">{{ $colonia->nombrecolonia }}</option>
                             @endforeach
                         </select>
                         <p class="text-danger" id="error-colonia-edit"></p>
                     </div>
                     <div class="form-group">
                         <label for="local-edit">{{ __('Nombre del Local') }}</label>
-                        <input type="text" id="local-edit" class="form-control">
+                        <input id="local-edit" type="text" class="form-control">
                         <p class="text-danger" id="error-local-edit"></p>
                     </div>
                     <div class="form-group">
                         <label for="domicilio-edit">{{ __('Domicilio') }}</label>
-                        <input type="text" id="domicilio-edit" class="form-control">
+                        <input id="domicilio-edit" type="text" class="form-control">
                         <p class="text-danger" id="error-domicilio-edit"></p>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="encargado-edit">{{ __('Encargado') }}</label>
-                                <input type="text" id="encargado-edit" class="form-control">
+                                <input id="encargado-edit" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="puestoencargado-edit">{{ __('Puesto del Encargado') }}</label>
-                                <input type="text" id="puestoencargado-edit" class="form-control">
+                                <input id="puestoencargado-edit" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-6">
@@ -312,13 +298,13 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="diasvence-edit">{{ __('Días de vencimiento') }}</label>
-                                <input type="number" id="diasvence-edit" class="form-control">
+                                <input id="diasvence-edit" type="number" class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="fechavence-edit">{{ __('Fecha de vencimiento') }}</label>
-                                <input type="date" id="fechavence-edit" class="form-control" required>
+                                <input id="fechavence-edit" type="date" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-6">
