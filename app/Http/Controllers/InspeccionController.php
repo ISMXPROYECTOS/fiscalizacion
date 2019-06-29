@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Inspeccion;
 use App\Inspector;
@@ -42,8 +43,14 @@ class InspeccionController extends Controller
 
 	public function tbody(){
 
+		$inspeccion = DB::table('inspeccion')
+			->join('inspector', 'inspeccion.idinspector', '=', 'inspector.id')
+			->get();
+
+		//var_dump($inspeccion);
+
 		return datatables()
-			->eloquent(Inspeccion::query())
+			->of($inspeccion)
 			->addColumn('btn', 'inspeccion/actions-inspecciones')
 			->rawColumns(['btn'])->toJson();
 	}

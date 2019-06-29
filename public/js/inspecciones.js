@@ -38,7 +38,7 @@ $(document).ready(function(){
             'ajax': url + '/inspecciones/listado',
             'columns': [
                 {data: 'idusuario'},
-                {data: 'idinspector'},
+                {data: 'nombre'},
                 {data: 'idgestores'},
                 {data: 'idtipoinspeccion'},
                 {data: 'idformavalorada'},

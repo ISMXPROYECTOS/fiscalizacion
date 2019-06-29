@@ -40,6 +40,7 @@ Route::post('/gestores/estatus', 'GestorController@updateEstatus');
 Route::group(['middleware' => 'admin'], function () {
 	Route::get('/usuarios', 'UserController@listadoUsuarios')->name('listado-usuarios');
 });
+
 Route::get('/usuarios/cambio-de-contraseña', 'UserController@cambiarPassword')->name('cambiar-password');
 Route::post('/usuarios/actualizar-contraseña', 'UserController@updatePassword')->name('actualizar-password');
 Route::get('/usuarios/listado', 'UserController@tbody');
