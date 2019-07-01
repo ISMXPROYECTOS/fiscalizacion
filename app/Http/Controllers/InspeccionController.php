@@ -57,6 +57,8 @@ class InspeccionController extends Controller
 
 	public function create(Request $request){
 
+		$inspecciones = Inspeccion::all();
+
 		$data = $request->all();
     	$cantidades = array_get($data, 'cantidad');
     	$ejerciciosfiscales = array_get($data, 'ejerciciofiscal');
@@ -87,14 +89,14 @@ class InspeccionController extends Controller
 
     			// Osea ultima obtiene el número 150 pero yo estoy intertando la número 151 por eso le sumo 1
     			// para quedar en el mismo número de id
-    			$inspecciones = Inspeccion::all();
+    			
     			$ultima = $inspecciones->last()->id + 1;
 
     			$datos = [
     				'idtipoinspeccion' => $tiposinspecciones[$i],
     				'idejerciciofiscal' => $ejerciciosfiscales[$i],
     				'idestatusinspeccion' => 1,
-    				'folio' => $ejercicioFiscal.'-'.$tipoInspeccion.'-'.$ultima
+    				'folio' => $ejercicioFiscal.'/'.$tipoInspeccion.'/'.$ultima
     			];
     			Inspeccion::create($datos);
     		}
