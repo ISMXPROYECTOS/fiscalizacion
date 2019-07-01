@@ -11,27 +11,11 @@
         <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
             <thead>
                 <tr>
-                    <th>Usuario</th>
-                    <th>Inspector</th>
-                    <th>Gestor</th>
-                    <th>Tipo Inspección</th>
-                    <th>Forma Valorada</th>
-                    <th>Giro Comercial</th>
-                    <th>Subgiro Comercial</th>
-                    <th>Año</th>
-                    <th>Estatus</th>
-                    <th>Colonia</th>
-                    <th>Fecha Generada</th>
-                    <th>Fecha Asignada</th>
-                    <th>Fecha Capturada</th>
-                    <th>Fecha Prorroga</th>
-                    <th>Nombre del Local</th>
-                    <th>Domicilio</th>
                     <th>Folio</th>
-                    <th>Encargado</th>
-                    <th>Puesto del Encargado</th>
-                    <th>Días de vencimiento</th>
-                    <th>Fecha de vencimiento</th>
+                    <th>Tipo de Inspección</th>
+                    <th>Estatus</th>
+                    <th>Inspector</th>
+                    <th>Nombre del Local</th>
                     <th>Acción</th>
                 </tr>
             </thead>
@@ -57,8 +41,11 @@
                         <div class="col-md-3">
                             <label for="">Cantidad</label>
                         </div>
-                        <div class="col-md-7">
-                            <label for="">Inspector</label>
+                        <div class="col-md-3">
+                            <label for="">Año</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Tipo de Inspección</label>
                         </div>
                         <div class="col-md-2">
                             <a href="#" class="btn btn-success btn-sm" id="add-row"><i class="fas fa-plus"></i></a>
@@ -66,19 +53,38 @@
                     </div>
                     <div class="row mb-3 duplicados" id="inspecciones">
                         <div class="col-md-3">
-                            <input type="number" name="cantidad[]" class="form-control" id="cantidad">
+                            <select name="cantidad[]" class="form-control" id="cantidad">
+                                <option value="">Seleccionar</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="150">150</option>
+                                <option value="200">200</option>
+                                <option value="250">250</option>
+                                <option value="300">300</option>
+                            </select>
                             <p class="text-danger" id="error-cantidad"></p>
                         </div>
-                        <div class="col-md-7">
-                            <select name="inspector[]" class="form-control" id="inspector">
+                        <div class="col-md-3">
+                            <select name="ejerciciofiscal[]" class="form-control" id="ejerciciofiscal">
                                 <option value="">Seleccionar</option>
-                                @foreach($inspectores as $inspector)
-                                    @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
-                                        <option value="{{ $inspector->id}}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}</option>
-                                    @endif
+                                @foreach($ejerciciosFiscales as $ejercicioFiscal)
+                                    <option value="{{ $ejercicioFiscal->id}}">{{ $ejercicioFiscal->anio }}</option>
                                 @endforeach
                             </select>
-                            <p class="text-danger" id="error-inspector"></p>
+                            <p class="text-danger" id="error-ejerciciofiscal"></p>
+                        </div>
+                        <div class="col-md-4">
+                            <select name="tipoinspeccion[]" class="form-control" id="tipoinspeccion">
+                                <option value="">Seleccionar</option>
+                                @foreach($tiposInspecciones as $tipoInspeccion)
+                                    <option value="{{ $tipoInspeccion->id}}">{{ $tipoInspeccion->nombre }}</option>
+                                @endforeach
+                            </select>
+                            <p class="text-danger" id="error-tipoinspeccion"></p>
                         </div>
                         <div class="col-md-2">
                             <a href="#" class="btn btn-danger" id="remove"><i class="fas fa-trash-alt"></i></a>

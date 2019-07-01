@@ -3,8 +3,8 @@ $(document).ready(function(){
     // Se crea una variable con la ruta raíz del proyecto
     var url = "http://localhost/fiscalizacion/public";
 
-    $('#error-cantidad, #error-inspector').addClass('hidden');
-    $('#error-cantidad, #error-inspector').text('');
+    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').addClass('hidden');
+    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').text('');
     $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-formavalorada-edit, #error-giro-edit').addClass('hidden');
     $('#error-subgiro-edit, #error-ejerciciofiscal-edit, #error-estatus-edit, #error-colonia-edit, #error-domicilio-edit').addClass('hidden');
     $('#error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit, #error-fechavence-edit').addClass('hidden');
@@ -37,27 +37,11 @@ $(document).ready(function(){
             'destroy': true,
             'ajax': url + '/inspecciones/listado',
             'columns': [
-                {data: 'idusuario'},
-                {data: 'nombre'},
-                {data: 'idgestores'},
-                {data: 'idtipoinspeccion'},
-                {data: 'idformavalorada'},
-                {data: 'idgiro'},
-                {data: 'idsubgirocomercial'},
-                {data: 'idejerciciofiscal'},
-                {data: 'idestatusinspeccion'},
-                {data: 'idcolonia'},
-                {data: 'created_at'},
-                {data: 'fechaasignada'},
-                {data: 'fechacapturada'},
-                {data: 'fechaprorroga'},
-                {data: 'nombrelocal'},
-                {data: 'domicilio'},
                 {data: 'folio'},
-                {data: 'nombreencargado'},
-                {data: 'cargoencargado'},
-                {data: 'diasvence'},
-                {data: 'fechavence'},
+                {data: 'idtipoinspeccion'},
+                {data: 'idestatusinspeccion'},
+                {data: 'idinspector'},
+                {data: 'nombrelocal'},
                 {data: 'btn'},
             ],
             'language': {
@@ -74,11 +58,7 @@ $(document).ready(function(){
                 'infoEmpty': '',
                 'infoFiltered': ''
             }
-
-
         });
-
-
     }
 
     viewData();
@@ -96,13 +76,13 @@ $(document).ready(function(){
                     $("#formulario-inspeccion")[0].reset();
                     $('#crear-inspeccion').modal('hide');
                     $('#registro-correcto').modal('show');
-                    $('#error-cantidad, #error-inspector').addClass('hidden');
-                    $('#error-cantidad, #error-inspector').text('');
+                    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').addClass('hidden');
+                    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').text('');
                     viewData();
                 },
                 error: function(response) {
-                    $('#error-cantidad, #error-inspector').addClass('hidden');
-                    $('#error-cantidad, #error-inspector').text('');
+                    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').addClass('hidden');
+                    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i).removeClass('hidden');
                         $('#error-'+i).text(item[0]);

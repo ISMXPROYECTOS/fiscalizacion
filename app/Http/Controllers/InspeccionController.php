@@ -42,15 +42,15 @@ class InspeccionController extends Controller
 	}
 
 	public function tbody(){
-
+		/*
 		$inspeccion = DB::table('inspeccion')
 			->join('inspector', 'inspeccion.idinspector', '=', 'inspector.id')
 			->get();
-
+		*/
 		//var_dump($inspeccion);
 
 		return datatables()
-			->of($inspeccion)
+			->eloquent(Inspeccion::query())
 			->addColumn('btn', 'inspeccion/actions-inspecciones')
 			->rawColumns(['btn'])->toJson();
 	}
@@ -59,19 +59,42 @@ class InspeccionController extends Controller
 
 		$data = $request->all();
     	$cantidades = array_get($data, 'cantidad');
-    	$inspectores = array_get($data, 'inspector');
+    	$ejerciciosfiscales = array_get($data, 'ejerciciofiscal');
+    	$tiposinspecciones = array_get($data, 'tipoinspeccion');
 
 		// Valida cada array en cada posición con el .*
 		$validate = $this->validate($request, [
             'cantidad.*' => 'required|string',
-            'inspector.*' => 'required|string'
+            'ejerciciofiscal.*' => 'required|string',
+            'tipoinspeccion.*' => 'required|string'
         ]);
 
     	for ($i = 0; $i < count($cantidades); $i++) {
     		$cantidad = $cantidades[$i];
     		for ($a = 0; $a < $cantidad; $a++) {
+
+    			// Estas son las variables de año y tipo de inspección, aqui va a buscar el campo necesario con la id
+    			// La id es la posicion del recorrido en la que va por ende por cada iteracción lo hace
+    			$ejerciciosFiscales = EjercicioFiscal::find($ejerciciosfiscales[$i]);
+    			$ejercicioFiscal = $ejerciciosFiscales->anio;
+    			$tiposInspecciones = TipoDeInspeccion::find($tiposinspecciones[$i]);
+    			$tipoInspeccion = $tiposInspecciones->clave;
+
+    			// Es aqui la variable de las inspecciones, recoge todas
+    			// La variable ultima recoge la ultima inspección con el método last
+    			// y selecciona el id de ese ultimo registro, al id que es un número le sumo 1
+    			// para quedar en la misma posición del id siguiente
+
+    			// Osea ultima obtiene el número 150 pero yo estoy intertando la número 151 por eso le sumo 1
+    			// para quedar en el mismo número de id
+    			$inspecciones = Inspeccion::all();
+    			$ultima = $inspecciones->last()->id + 1;
+
     			$datos = [
-    				'idinspector' => $inspectores[$i]
+    				'idtipoinspeccion' => $tiposinspecciones[$i],
+    				'idejerciciofiscal' => $ejerciciosfiscales[$i],
+    				'idestatusinspeccion' => 1,
+    				'folio' => $ejercicioFiscal.'-'.$tipoInspeccion.'-'.$ultima
     			];
     			Inspeccion::create($datos);
     		}
