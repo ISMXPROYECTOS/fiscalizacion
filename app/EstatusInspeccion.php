@@ -19,5 +19,13 @@ class EstatusInspeccion extends Model
         return $this->hasMany('App\BitacoraDeEstatus');
     }
 
-    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nombre', 'clave',
+    ];
+
 }

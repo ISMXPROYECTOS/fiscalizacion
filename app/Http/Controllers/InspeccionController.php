@@ -57,8 +57,6 @@ class InspeccionController extends Controller
 
 	public function create(Request $request){
 
-		$inspecciones = Inspeccion::all();
-
 		$data = $request->all();
     	$cantidades = array_get($data, 'cantidad');
     	$ejerciciosfiscales = array_get($data, 'ejerciciofiscal');
@@ -75,22 +73,16 @@ class InspeccionController extends Controller
     		$cantidad = $cantidades[$i];
     		for ($a = 0; $a < $cantidad; $a++) {
 
-    			// Estas son las variables de año y tipo de inspección, aqui va a buscar el campo necesario con la id
-    			// La id es la posicion del recorrido en la que va por ende por cada iteracción lo hace
     			$ejerciciosFiscales = EjercicioFiscal::find($ejerciciosfiscales[$i]);
     			$ejercicioFiscal = $ejerciciosFiscales->anio;
     			$tiposInspecciones = TipoDeInspeccion::find($tiposinspecciones[$i]);
     			$tipoInspeccion = $tiposInspecciones->clave;
-
-    			// Es aqui la variable de las inspecciones, recoge todas
-    			// La variable ultima recoge la ultima inspección con el método last
-    			// y selecciona el id de ese ultimo registro, al id que es un número le sumo 1
-    			// para quedar en la misma posición del id siguiente
-
-    			// Osea ultima obtiene el número 150 pero yo estoy intertando la número 151 por eso le sumo 1
-    			// para quedar en el mismo número de id
-    			
-    			$ultima = $inspecciones->last()->id + 1;
+    			$inspecciones = Inspeccion::all();
+    			if ($inspecciones->count() == 0) {
+    				$ultima = 1;
+    			}else{
+    				$ultima = $inspecciones->last()->id + 1;
+    			}
 
     			$datos = [
     				'idtipoinspeccion' => $tiposinspecciones[$i],

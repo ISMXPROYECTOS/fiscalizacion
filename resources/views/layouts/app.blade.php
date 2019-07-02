@@ -143,13 +143,13 @@
                                             </li>
 
                                             <li>
-                                                <a class="nav-link" href="#">
+                                                <a class="nav-link" href="{{ route('listado-tipo-inspecciones') }}">
                                                    
                                                     <span>Tipo de Inspecciones</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="{#">
+                                                <a class="nav-link" href="{{ route('listado-estatus-inspecciones') }}">
                                                     
                                                     <span>Estatus de Inspecciones</span>
                                                 </a>

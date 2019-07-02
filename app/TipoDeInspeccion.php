@@ -33,5 +33,14 @@ class TipoDeInspeccion extends Model
 	public function inspeccion(){
 		return $this->hasMany('App\Inspeccion');
 	}
+
+	/**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nombre', 'clave', 'formato',
+    ];
 	
 }

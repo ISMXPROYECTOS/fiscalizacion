@@ -62,3 +62,15 @@ Route::get('/inspecciones/listado', 'InspeccionController@tbody');
 Route::post('/inspecciones/nuevo', 'InspeccionController@create');
 Route::get('/inspecciones/editar/{id}', 'InspeccionController@editarInspeccion');
 Route::post('/inspecciones/actualizar', 'InspeccionController@update');
+
+Route::get('/tipo-inspecciones', 'TipoInspeccionController@listadoTipoInspecciones')->name('listado-tipo-inspecciones');
+Route::get('/tipo-inspecciones/listado', 'TipoInspeccionController@tbody');
+Route::post('/tipo-inspecciones/nuevo', 'TipoInspeccionController@create');
+Route::get('/tipo-inspecciones/editar/{id}', 'TipoInspeccionController@editarTipoInspeccion');
+Route::post('/tipo-inspecciones/actualizar', 'TipoInspeccionController@update');
+
+Route::get('/estatus-inspecciones', 'EstatusInspeccionController@listadoEstatusInspecciones')->name('listado-estatus-inspecciones');
+Route::get('/estatus-inspecciones/listado', 'EstatusInspeccionController@tbody');
+Route::post('/estatus-inspecciones/nuevo', 'EstatusInspeccionController@create');
+Route::get('/estatus-inspecciones/editar/{id}', 'EstatusInspeccionController@editarEstatusInspeccion');
+Route::post('/estatus-inspecciones/actualizar', 'EstatusInspeccionController@update');
