@@ -6,6 +6,10 @@
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspeccion">
     <i class="fas fa-user-plus"></i> Agregar Inspección
 </button>
+
+<button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#asignar-inspeccion">
+    <i class="fas fa-user-plus"></i> Asignar Inspecciones
+</button>
 <div class="row">
     <div class="col">
         <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
@@ -105,6 +109,110 @@
         </div>
     </div>
 </div>
+
+<!-- Modal para asignar -->
+<div class="modal fade " id="asignar-inspeccion" tabindex="-1" role="dialog" aria-labelledby="modal-crear-inspeccion" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-crear-inspeccion">Asignar Inspecciones</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="prueba"></div>
+                <form id="formulario-inspeccion" role="form">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="">Año</label>
+                        <select name="ejerciciofiscal" class="form-control" id="ejerciciofiscal">
+                            <option value="">Seleccionar</option>
+                            @foreach($ejerciciosFiscales as $ejercicioFiscal)
+                                <option value="{{ $ejercicioFiscal->id}}">{{ $ejercicioFiscal->anio }}</option>
+                            @endforeach
+                        </select>
+                        <p class="text-danger" id="error-ejerciciofiscal"></p>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="">Tipo de Inspección</label>
+                                <select name="tipoinspeccion" class="form-control" id="tipoinspeccion">
+                                    <option value="">Seleccionar</option>
+                                    @foreach($tiposInspecciones as $tipoInspeccion)
+                                        <option value="{{ $tipoInspeccion->id}}">
+                                            {{ $tipoInspeccion->nombre }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <p class="text-danger" id="error-tipoinspeccion"></p>
+                                </div> 
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Cantidad Existente</label>
+                                <select name="cantidad" class="form-control" id="cantidad">
+                                    <option value="">Seleccionar</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="40">40</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="150">150</option>
+                                    <option value="200">200</option>
+                                    <option value="250">250</option>
+                                    <option value="300">300</option>
+                                </select>
+                                <p class="text-danger" id="error-cantidad"></p>
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Cantidad a Asignar</label>
+                            <select name="" class="form-control" id="cantidad">
+                                <option value="">Seleccionar</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="150">150</option>
+                                <option value="200">200</option>
+                                <option value="250">250</option>
+                                <option value="300">300</option>
+                            </select>
+                            <p class="text-danger" id="error-cantidad"></p>
+                        </div>
+                        @foreach($inspectores as $inspector)
+                        <div class="form-group">
+                           <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="{{ $inspector->id}}" id="defaultCheck1">
+                              <label class="form-check-label" for="defaultCheck1">
+                                {{ $inspector->nombre }} {{ $inspector->apellidopaterno }}
+                              </label>
+                            </div> 
+                        </div>  
+                        @endforeach
+                    <hr>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspecciones') }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Alerta de registro -->
 <div class="modal fade" id="registro-correcto" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

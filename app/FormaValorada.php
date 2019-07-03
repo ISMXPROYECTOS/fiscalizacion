@@ -30,6 +30,6 @@ class FormaValorada extends Model
      * @var array
      */
     protected $fillable = [
-        'idusuario', 'idtipoinspeccion', 'folioinicio', 'foliofin', 'idejerciciofiscal',
+        'idusuario', 'idtipoinspeccion', 'idejerciciofiscal', 'idconfiguracion', 'folioinicio', 'foliofin'
     ];
 }
