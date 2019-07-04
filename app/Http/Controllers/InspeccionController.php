@@ -71,7 +71,6 @@ class InspeccionController extends Controller
     	$tipos_inspecciones = array_get($data, 'tipoinspeccion');
     	$usuario = Auth::user();
     	
-    	
     	$estatus_inspeccion = EstatusInspeccion::where('nombre', 'No asignada')->get();
 
     	foreach ($estatus_inspeccion as $estatus) {
@@ -79,8 +78,8 @@ class InspeccionController extends Controller
     	}
     
     	for ($i = 0; $i < count($cantidades); $i++) {
-			$cantidad = $cantidades[$i];
 
+			$cantidad = $cantidades[$i];
 			$forma_valorada = FormaValorada::all();
 			
 			if ($forma_valorada->count() == 0) {
@@ -231,16 +230,15 @@ class InspeccionController extends Controller
 
 		$inspecciones = Inspeccion::all();
 		$tipos_inspecciones = TipoDeInspeccion::find($request->input('tipoinspeccion-asignar'));
-		$estatus_inspeccion = EstatusInspeccion::where('clave', 'A')->get();
+		$estatus_antiguo = EstatusInspeccion::where('clave', 'NA')->get();
+		$estatus_nuevo = EstatusInspeccion::where('clave', 'A')->get();
 
-    	foreach ($estatus_inspeccion as $estatus) {
-    		$id_estatus_inspeccion = $estatus->id;
-    	}
+    	foreach ($estatus_antiguo as $estatusA) {
+    		$id_estatus_antiguo = $estatusA->id;
+		}
 
-		foreach ($inspecciones as $inspeccion) {
-			if ($inspeccion->idtipoinspeccion == $tipos_inspecciones->id) {
-				echo 'meco';
-			}
+		foreach ($estatus_nuevo as $estatusN) {
+    		$id_estatus_nuevo = $estatusN->id;
 		}
 
 		// Valida cada array en cada posición con el .*
@@ -258,11 +256,18 @@ class InspeccionController extends Controller
     	$inspectores = array_get($data, 'inspectores-asignar');
 
     	for ($i = 0; $i < count($inspectores); $i++) {
-    		for ($a = 0; $a < $cantidad; $a ++) { 
-				$inspeccion->update([
-					'idinspector' => $inspectores[$i],
-					'idestatusinspeccion' => 2
-				]);
+    		for ($a = 0; $a < $cantidad; $a ++) {
+    			foreach ($inspecciones as $inspeccion) {
+    				if ($inspeccion->idtipoinspeccion == $tipos_inspecciones->id && $inspeccion->idestatusinspeccion == $id_estatus_antiguo) {
+					echo "Inspector " . $inspectores[$i] . "Número " . $a . "<br>";
+					/*
+					$inspeccion->update([
+						'idinspector' => $inspectores[$i],
+						'idestatusinspeccion' => $id_estatus_nuevo
+					]);
+					*/
+				}
+    			}
     		}
     	}
 		

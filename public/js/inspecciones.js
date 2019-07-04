@@ -5,10 +5,8 @@ $(document).ready(function(){
 
     $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').addClass('hidden');
     $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').text('');
-
-    //$('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar').addClass('hidden');
-    //$('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar').text('');
-
+    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').addClass('hidden');
+    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').text('');
     $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-formavalorada-edit, #error-giro-edit').addClass('hidden');
     $('#error-subgiro-edit, #error-ejerciciofiscal-edit, #error-estatus-edit, #error-colonia-edit, #error-domicilio-edit').addClass('hidden');
     $('#error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit, #error-fechavence-edit').addClass('hidden');
@@ -195,23 +193,34 @@ $(document).ready(function(){
         console.log(tipoinspeccion);
     });
 
-    $('#btn-asignar').click(function(){
-        var data = $("#formulario-asignacion").serializeArray();
-        console.log(data);
-        $.ajax({
-            url: url + '/inspecciones/asignar',
-            data: data,
-            type: 'post',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            success: function (response) {
-                
-                viewData();
-            },
+    function asignar(){
+        $('#btn-asignar').click(function(){
+            var data = $("#formulario-asignacion").serializeArray();
+            $.ajax({
+                url: url + '/inspecciones/asignar',
+                data: data,
+                type: 'post',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    $('#asignar-inspeccion').modal('hide');
+                    $('#actualizacion-correcta').modal('show');
+                    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').addClass('hidden');
+                    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').text('');
+                    viewData();
+                },
 
-            error: function(response) {
-                
-            }
+                error: function(response) {
+                    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').addClass('hidden');
+                    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').text('');
+                    $.each(response.responseJSON.errors, function(i, item) {
+                        $('#error-'+i).removeClass('hidden');
+                        $('#error-'+i).text(item[0]);
+                    });
+                }
+            });
         });
-    });
+    }
+
+    asignar();
 
 });
