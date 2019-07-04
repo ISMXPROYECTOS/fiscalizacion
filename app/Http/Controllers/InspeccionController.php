@@ -58,19 +58,6 @@ class InspeccionController extends Controller
 
 	public function create(Request $request){
 
-		$data = $request->all();
-    	$cantidades = array_get($data, 'cantidad');
-    	$ejercicios_fiscales = array_get($data, 'ejerciciofiscal');
-    	$tipos_inspecciones = array_get($data, 'tipoinspeccion');
-    	$usuario = Auth::user();
-    	
-    	$estatus_inspeccion = EstatusInspeccion::where('nombre', 'No asignada')->get();
-
-    	foreach ($estatus_inspeccion as $estatus) {
-    		$id_estatus_inspeccion = $estatus->id;
-    	}
-    	
-
 		// Valida cada array en cada posición con el .*
 		$validate = $this->validate($request, [
             'cantidad.*' => 'required|string',
@@ -78,7 +65,19 @@ class InspeccionController extends Controller
             'tipoinspeccion.*' => 'required|string'
         ]);
 
+		$data = $request->all();
+    	$cantidades = array_get($data, 'cantidad');
+    	$ejercicios_fiscales = array_get($data, 'ejerciciofiscal');
+    	$tipos_inspecciones = array_get($data, 'tipoinspeccion');
+    	$usuario = Auth::user();
+    	
+    	
+    	$estatus_inspeccion = EstatusInspeccion::where('nombre', 'No asignada')->get();
 
+    	foreach ($estatus_inspeccion as $estatus) {
+    		$id_estatus_inspeccion = $estatus->id;
+    	}
+    
     	for ($i = 0; $i < count($cantidades); $i++) {
 			$cantidad = $cantidades[$i];
 
@@ -216,6 +215,57 @@ class InspeccionController extends Controller
         // Indica que fue correcta la modificación de la inspección
     	return $inspeccion;
 
+	}
+
+	public function asignar(Request $request){
+
+		//$inspeccion = Inspeccion::where('idestatusinspeccion', 'NA');
+
+		/*$inspeccion = DB::table('inspeccion')
+			->join('estatusinspeccion', 'inspeccion.idestatusinspeccion', '=', 'estatusinspeccion.id')
+			->join('tipodeinspeccion', 'inspeccion.idtipoinspeccion', '=', 'tipodeinspeccion.id')
+			->select('inspeccion.*', 'estatusinspeccion.clave as estatus', 'tipodeinspeccion.clave as tipo')
+			->where('estatusinspeccion.clave', '=', 'NA')
+			->where('tipodeinspeccion.id', '=', $request->input('tipoinspeccion-asignar'))
+			->get();*/
+
+		$inspecciones = Inspeccion::all();
+		$tipos_inspecciones = TipoDeInspeccion::find($request->input('tipoinspeccion-asignar'));
+		$estatus_inspeccion = EstatusInspeccion::where('clave', 'A')->get();
+
+    	foreach ($estatus_inspeccion as $estatus) {
+    		$id_estatus_inspeccion = $estatus->id;
+    	}
+
+		foreach ($inspecciones as $inspeccion) {
+			if ($inspeccion->idtipoinspeccion == $tipos_inspecciones->id) {
+				echo 'meco';
+			}
+		}
+
+		// Valida cada array en cada posición con el .*
+		$validate = $this->validate($request, [
+			'ejerciciofiscal-asignar' => 'required|string',
+			'tipoinspeccion-asignar' => 'required|string',
+            'cantidad-asignar' => 'required|string',
+            'inspectores-asignar.*' => 'required|string'
+        ]);
+
+		$data = $request->all();
+    	$ejerciciofiscal = $request->input('ejerciciofiscal-asignar');
+    	$tipoinspeccion = $request->input('tipoinspeccion-asignar');
+    	$cantidad = $request->input('cantidad-asignar');
+    	$inspectores = array_get($data, 'inspectores-asignar');
+
+    	for ($i = 0; $i < count($inspectores); $i++) {
+    		for ($a = 0; $a < $cantidad; $a ++) { 
+				$inspeccion->update([
+					'idinspector' => $inspectores[$i],
+					'idestatusinspeccion' => 2
+				]);
+    		}
+    	}
+		
 	}
 
 }

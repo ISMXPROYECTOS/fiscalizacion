@@ -62,6 +62,7 @@ Route::get('/inspecciones/listado', 'InspeccionController@tbody');
 Route::post('/inspecciones/nuevo', 'InspeccionController@create');
 Route::get('/inspecciones/editar/{id}', 'InspeccionController@editarInspeccion');
 Route::post('/inspecciones/actualizar', 'InspeccionController@update');
+Route::post('/inspecciones/asignar', 'InspeccionController@asignar');
 
 Route::get('/tipo-inspecciones', 'TipoInspeccionController@listadoTipoInspecciones')->name('listado-tipo-inspecciones');
 Route::get('/tipo-inspecciones/listado', 'TipoInspeccionController@tbody');
