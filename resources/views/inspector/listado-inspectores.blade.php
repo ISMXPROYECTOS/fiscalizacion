@@ -248,7 +248,10 @@
     </div>
 </div>
 
+
+
 @endsection
 @section('scripts')
 <script src="{{ asset('js/inspectores.js') }}" defer></script>
+<script src="{{ asset('js/gafetes.js') }}" defer></script>
 @endsection
