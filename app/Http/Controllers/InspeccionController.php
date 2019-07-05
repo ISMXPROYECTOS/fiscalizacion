@@ -220,13 +220,19 @@ class InspeccionController extends Controller
 
 		//$inspeccion = Inspeccion::where('idestatusinspeccion', 'NA');
 
-		/*$inspeccion = DB::table('inspeccion')
+		/*$inspecciones = DB::table('inspeccion')
 			->join('estatusinspeccion', 'inspeccion.idestatusinspeccion', '=', 'estatusinspeccion.id')
 			->join('tipodeinspeccion', 'inspeccion.idtipoinspeccion', '=', 'tipodeinspeccion.id')
 			->select('inspeccion.*', 'estatusinspeccion.clave as estatus', 'tipodeinspeccion.clave as tipo')
 			->where('estatusinspeccion.clave', '=', 'NA')
 			->where('tipodeinspeccion.id', '=', $request->input('tipoinspeccion-asignar'))
-			->get();*/
+			->get();
+
+		$estatus_nuevo = EstatusInspeccion::where('clave', 'A')->get();
+
+		foreach ($estatus_nuevo as $estatusN) {
+			$id_estatus_nuevo = $estatusN->id;
+		}*/
 
 		$inspecciones = Inspeccion::all();
 		$tipos_inspecciones = TipoDeInspeccion::find($request->input('tipoinspeccion-asignar'));
@@ -253,23 +259,37 @@ class InspeccionController extends Controller
     	$ejerciciofiscal = $request->input('ejerciciofiscal-asignar');
     	$tipoinspeccion = $request->input('tipoinspeccion-asignar');
     	$cantidad = $request->input('cantidad-asignar');
-    	$inspectores = array_get($data, 'inspectores-asignar');
+		$inspectores = array_get($data, 'inspectores-asignar');
 
+	
     	for ($i = 0; $i < count($inspectores); $i++) {
-    		for ($a = 0; $a < $cantidad; $a ++) {
-    			foreach ($inspecciones as $inspeccion) {
-    				if ($inspeccion->idtipoinspeccion == $tipos_inspecciones->id && $inspeccion->idestatusinspeccion == $id_estatus_antiguo) {
-					echo "Inspector " . $inspectores[$i] . "Número " . $a . "<br>";
-					/*
-					$inspeccion->update([
-						'idinspector' => $inspectores[$i],
-						'idestatusinspeccion' => $id_estatus_nuevo
-					]);
-					*/
+    		for ($a = 0; $a < $cantidad; $a++) {
+
+				//echo "Inspectores:" . $inspectores[$i] . "tanto: ". $a . "<br>";
+
+				for ($b=0; $b < count($inspecciones); $b++) { 
+					//echo $b . " " .$inspecciones[$b]->idtipoinspeccion . "<br>";
+					if ($inspecciones[$b]->idtipoinspeccion == $tipos_inspecciones->id && $inspecciones[$b]->idestatusinspeccion == $id_estatus_antiguo) {
+						$inspecciones[$b]->idinspector = $inspectores[$i];
+						$inspecciones[$b]->idestatusinspeccion = $id_estatus_nuevo;
+						$inspecciones[$b]->update();
+						break;
+					}
 				}
-    			}
+
+    			/*foreach ($inspecciones as $inspeccion) {
+    				if ($inspeccion->idtipoinspeccion == $tipos_inspecciones->id && $inspeccion->idestatusinspeccion == $id_estatus_antiguo) {
+						echo "Inspector " . $inspectores[$i] . "Número " . $a . "<br>";
+						
+						$inspeccion->update([
+							'idinspector' => $inspectores[$i],
+							'idestatusinspeccion' => $id_estatus_nuevo
+						]);
+					}
+				}*/
     		}
-    	}
+		}
+		
 		
 	}
 
