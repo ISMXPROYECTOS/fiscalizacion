@@ -270,13 +270,7 @@ class InspeccionController extends Controller
 	
     	for ($i = 0; $i < count($inspectores); $i++) {
     		for ($a = 0; $a < $cantidad; $a++) {
-
-				//echo "Inspectores:" . $inspectores[$i] . "tanto: ". $a . "<br>";
-
 				for ($b=0; $b < count($inspecciones); $b++) { 
-					//echo $b . " " .$inspecciones[$b]->idtipoinspeccion . "<br>";
-
-					
 					if ($inspecciones[$b]->idtipoinspeccion == $tipos_inspecciones->id && $inspecciones[$b]->idestatusinspeccion == $id_estatus_antiguo) {
 						$inspecciones[$b]->idinspector = $inspectores[$i];
 						$inspecciones[$b]->idestatusinspeccion = $id_estatus_nuevo;
@@ -284,17 +278,6 @@ class InspeccionController extends Controller
 						break;
 					}
 				}
-
-    			/*foreach ($inspecciones as $inspeccion) {
-    				if ($inspeccion->idtipoinspeccion == $tipos_inspecciones->id && $inspeccion->idestatusinspeccion == $id_estatus_antiguo) {
-						echo "Inspector " . $inspectores[$i] . "Número " . $a . "<br>";
-						
-						$inspeccion->update([
-							'idinspector' => $inspectores[$i],
-							'idestatusinspeccion' => $id_estatus_nuevo
-						]);
-					}
-				}*/
     		}
 		}
 		
