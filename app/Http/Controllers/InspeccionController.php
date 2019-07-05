@@ -234,6 +234,12 @@ class InspeccionController extends Controller
 			$id_estatus_nuevo = $estatusN->id;
 		}*/
 
+		/*$inspecciones = Inspeccion::has('estatusinspeccion', '=', 'NA')->get();
+
+		var_dump($inspecciones);
+		die();*/
+
+			
 		$inspecciones = Inspeccion::all();
 		$tipos_inspecciones = TipoDeInspeccion::find($request->input('tipoinspeccion-asignar'));
 		$estatus_antiguo = EstatusInspeccion::where('clave', 'NA')->get();
@@ -269,6 +275,8 @@ class InspeccionController extends Controller
 
 				for ($b=0; $b < count($inspecciones); $b++) { 
 					//echo $b . " " .$inspecciones[$b]->idtipoinspeccion . "<br>";
+
+					
 					if ($inspecciones[$b]->idtipoinspeccion == $tipos_inspecciones->id && $inspecciones[$b]->idestatusinspeccion == $id_estatus_antiguo) {
 						$inspecciones[$b]->idinspector = $inspectores[$i];
 						$inspecciones[$b]->idestatusinspeccion = $id_estatus_nuevo;
