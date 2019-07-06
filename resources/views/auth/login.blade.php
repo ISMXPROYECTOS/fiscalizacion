@@ -87,7 +87,3 @@
 </section>
 <!-- end: page -->
 @endsection
-
-@section('scripts')
-<!--<script src="{{ asset('js/verificar-usuario.js') }}" defer></script>-->
-@endsection

@@ -154,6 +154,7 @@ return [
 
         Jenssegers\Date\DateServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -216,7 +217,8 @@ return [
         'Datatables' => Yajra\DataTables\DataTablesServiceProvider::class,
 
         'Date' => Jenssegers\Date\Date::class,
-        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class
     ],
 
 ];

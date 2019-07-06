@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Gafetes;
+use DateTime;
+use App\Gafete;
 use App\Inspector;
 use App\EjercicioFiscal;
 use Illuminate\Http\Request;
@@ -10,8 +11,12 @@ use Illuminate\Support\Facades\URL;
 
 class GafetesController extends Controller
 {
+	public function registrar($id){
+		$inspector = Inspector::find($id);
+    	return $inspector;
+	}
 
-	public function create(Request $request){
+	public function generar(Request $request){
 
 		// Este metodo debe crear un gafete de inspector que incluya ejercicio fiscal, inspector, folio, created_at, fecha vence, qr, estatus
 
@@ -21,10 +26,39 @@ class GafetesController extends Controller
 
 		// primero recibimos el inspector al que queremos generar su gafete
 
+	
+		// Validamos los campos que estamos enviando por AJAX
+		$validate = $request->validate([
+			'gafete-nombre' => 'required|string|max:50',
+            'gafete-apellidopaterno' => 'required|string|max:30',
+            'gafete-apellidomaterno' => 'required|string|max:30',
+            'gafete-clave' => 'required|string|max:50',
+            'gafete-image' => 'required|image|mimes:jpeg,png,jpg,gif'
+	    ]);
 
-		
+	    $vigencia = new DateTime();
 
-		$id = $request->input('id');
+		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		$folio_gafete = $ejercicio_fiscal->anio . '/INSPECTOR';
+
+		$vigencia->modify('last day of december'.$ejercicio_fiscal->anio);
+
+		$imagen = $request->file('gafete-image');
+		$nombre_imagen = $ejercicio_fiscal->anio .'INS'. $request->input('gafete-id').'.'.$imagen->getClientOriginalExtension();;
+		$imagen->move(public_path('img/inspectores'), $nombre_imagen);
+
+		$datos = [
+			'idejerciciofiscal' => $ejercicio_fiscal->id,
+            'idinspector' => $request->input('gafete-id'),
+            'folio' => $folio_gafete,
+            'fechavence' => $vigencia,
+            'imageninspector' => $nombre_imagen
+		];
+
+		// Retornamos los datos a la peticion Ajax, al mismo tiempo en se almacena en la BD
+	    return Gafete::create($datos);
+
+		/*$id = $request->input('id');
 		$inspector = Inspector::find($id);
 
 		// año fiscal
@@ -34,7 +68,7 @@ class GafetesController extends Controller
 		//die();
 		
 		
-		return \QrCode::size(300)->generate(url('/perfil/inspector/'.$inspector->id));
+		return \QrCode::size(300)->generate(url('/perfil/inspector/'.$inspector->id));*/
 	}
     
 }

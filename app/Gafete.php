@@ -18,4 +18,13 @@ class Gafete extends Model
 	public function ejercicioFiscal(){
 		return $this->belongsTo('App\EjercicioFiscal', 'IDEJERCICIOFISCAL');
 	}
+
+	/**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'idejerciciofiscal', 'idinspector', 'folio', 'fechavence', 'codigoqr', 'pdf', 'imageninspector', 'estatus',
+    ];
 }

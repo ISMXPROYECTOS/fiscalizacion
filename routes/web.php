@@ -89,6 +89,7 @@ Route::post('/estatus-inspecciones/nuevo', 'EstatusInspeccionController@create')
 Route::get('/estatus-inspecciones/editar/{id}', 'EstatusInspeccionController@editarEstatusInspeccion');
 Route::post('/estatus-inspecciones/actualizar', 'EstatusInspeccionController@update');
 
-/* Rutas Gagetes */
+/* Rutas Gafetes */
 
-Route::post('/gafetes/crear', 'GafetesController@create');
+Route::get('/gafetes/registrar/{id}', 'GafetesController@registrar');
+Route::post('/gafetes/generar', 'GafetesController@generar');
