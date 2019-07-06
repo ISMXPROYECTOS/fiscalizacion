@@ -30,6 +30,6 @@ class Inspector extends Model
      * @var array
      */
     protected $fillable = [
-        'idusuario', 'nombre', 'apellidopaterno', 'apellidomaterno', 'clave', 'estatus',
+        'idusuario', 'nombre', 'apellidopaterno', 'apellidomaterno', 'clave', 'hash', 'estatus',
     ];
 }

@@ -30,6 +30,7 @@ Route::post('/inspectores/nuevo', 'InspectorController@create');
 Route::get('/inspectores/editar/{id}', 'InspectorController@editarInspector');
 Route::post('/inspectores/actualizar', 'InspectorController@update');
 Route::post('/inspectores/estatus', 'InspectorController@updateEstatus');
+Route::get('/inspectores/perfil/{hash}', 'InspectorController@perfil');
 
 /* Rutas Gestores */
 

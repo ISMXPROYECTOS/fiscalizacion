@@ -7,6 +7,7 @@ use App\Gafete;
 use App\Inspector;
 use App\EjercicioFiscal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 
 class GafetesController extends Controller
@@ -42,6 +43,11 @@ class GafetesController extends Controller
 		$folio_gafete = $ejercicio_fiscal->anio . '/INSPECTOR';
 
 		$vigencia->modify('last day of december'.$ejercicio_fiscal->anio);
+
+		$inspector = Inspector::find($request->input('gafete-id'));
+
+		$qr = \QrCode::size(300)->generate(url('/perfil/inspector/'.$inspector->id));
+
 
 		$imagen = $request->file('gafete-image');
 		$nombre_imagen = $ejercicio_fiscal->anio .'INS'. $request->input('gafete-id').'.'.$imagen->getClientOriginalExtension();;

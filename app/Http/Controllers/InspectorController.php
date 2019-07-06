@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Inspector;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class InspectorController extends Controller
 {
@@ -43,6 +44,7 @@ class InspectorController extends Controller
             'apellidopaterno' => $request->input('apellidopaterno'),
             'apellidomaterno' => $request->input('apellidomaterno'),
             'clave' => $request->input('clave'),
+            'hash' => Hash::make($request->input('nombre').$request->input('clave').rand()),
             'estatus' => $request->input('estatus')
 		];
 
@@ -117,6 +119,17 @@ class InspectorController extends Controller
 
         // Una vez actualizado el inspector redirige e indica que fue correcta la modificación del inspector
     	return $inspector;
+
+	}
+
+	public function perfil($hash){
+
+		$new_hash = urlencode($hash);
+
+		$inspector = Inspector::where('hash', $new_hash)->first();
+
+		$url = url('/inspectores/perfil/'.$hash);
+		var_dump(urlencode ($inspector));
 
 	}
 
