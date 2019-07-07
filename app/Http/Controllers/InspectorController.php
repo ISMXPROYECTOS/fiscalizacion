@@ -44,7 +44,7 @@ class InspectorController extends Controller
             'apellidopaterno' => $request->input('apellidopaterno'),
             'apellidomaterno' => $request->input('apellidomaterno'),
             'clave' => $request->input('clave'),
-            'hash' => Hash::make($request->input('nombre').$request->input('clave').rand()),
+            'hash' => sha1($request->input('nombre').$request->input('clave').rand()),
             'estatus' => $request->input('estatus')
 		];
 
@@ -124,12 +124,10 @@ class InspectorController extends Controller
 
 	public function perfil($hash){
 
-		$new_hash = urlencode($hash);
 
-		$inspector = Inspector::where('hash', $new_hash)->first();
+		$inspector = Inspector::where('hash', $hash)->first();
 
-		$url = url('/inspectores/perfil/'.$hash);
-		var_dump(urlencode ($inspector));
+		var_dump($inspector);
 
 	}
 
