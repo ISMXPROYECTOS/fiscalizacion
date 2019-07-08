@@ -25,6 +25,6 @@ class Gafete extends Model
      * @var array
      */
     protected $fillable = [
-        'idejerciciofiscal', 'idinspector', 'folio', 'fechavence', 'codigoqr', 'pdf', 'imageninspector', 'estatus',
+        'idejerciciofiscal', 'idinspector', 'folio', 'vigencia', 'codigoqr', 'pdf', 'imageninspector', 'estatus',
     ];
 }
