@@ -176,6 +176,18 @@
                                             <span>Años fiscales y dias inhabiles</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a class="nav-link" href="{{ route('agregar-inspecciones') }}">
+                                            <i class="fas fa-folder-plus"></i>
+                                            <span>Agregar Inspección</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="{{ route('asignar-inspecciones') }}">
+                                            <i class="fas fa-arrow-alt-circle-right"></i>
+                                            <span>Asignar Inspección</span>
+                                        </a>
+                                    </li>
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
                                             <i class="fas fa-wrench"></i>

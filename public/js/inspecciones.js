@@ -14,25 +14,6 @@ $(document).ready(function(){
     $('#error-subgiro-edit, #error-ejerciciofiscal-edit, #error-estatus-edit, #error-colonia-edit, #error-domicilio-edit').text('');
     $('#error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit, #error-fechavence-edit').text('');
 
-    $('#add-row').click(function(){
-        addRow();
-    });
-
-    function addRow(){
-        var clone = $('#inspecciones:first').clone();
-        var section = clone;
-        section.find("input").val("");
-        section.find("select").val("");
-        $('#new-row').append(section);
-    }
-
-    $(document).on("click", "#remove", function() {
-        var last = $('.duplicados').length;
-        if(last != 1){
-            $(this).closest("#inspecciones").remove();
-        }
-    });
-
     function viewData(){
         $('#datatable').DataTable({
             'serverSide': true,
@@ -64,39 +45,6 @@ $(document).ready(function(){
     }
 
     viewData();
-
-    function saveData(){
-        $('#btn-enviar').click(function(){
-            // Convierte los datos de form en array
-            var data = $("#formulario-inspeccion").serializeArray();
-
-            $.ajax({
-                url: url + '/inspecciones/nuevo',
-                data: data,
-                type: 'post',
-                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                success: function (response) {
-                    $("#formulario-inspeccion")[0].reset();
-                    $('#crear-inspeccion').modal('hide');
-                    $('#registro-correcto').modal('show');
-                    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').addClass('hidden');
-                    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').text('');
-                    viewData();
-                },
-                error: function(response) {
-                    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').addClass('hidden');
-                    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').text('');
-                    $.each(response.responseJSON.errors, function(i, item) {
-                        $('#error-'+i).removeClass('hidden');
-                        $('#error-'+i).text(item[0]);
-                    });
-                }
-            });
-
-        });
-    }
-
-    saveData();
 
     function editData(){
         $(document).on('click', '.editar', function(e){
@@ -187,40 +135,5 @@ $(document).ready(function(){
     }
 
     updateData();
-
-    $(document).on("change", "#tipoinspeccion-asignar", function(){
-        var tipoinspeccion = $('#tipoinspeccion-asignar').val();
-        console.log(tipoinspeccion);
-    });
-
-    function asignar(){
-        $('#btn-asignar').click(function(){
-            var data = $("#formulario-asignacion").serializeArray();
-            $.ajax({
-                url: url + '/inspecciones/asignar',
-                data: data,
-                type: 'post',
-                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                success: function (response) {
-                    $('#asignar-inspeccion').modal('hide');
-                    $('#actualizacion-correcta').modal('show');
-                    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').addClass('hidden');
-                    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').text('');
-                    viewData();
-                },
-
-                error: function(response) {
-                    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').addClass('hidden');
-                    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').text('');
-                    $.each(response.responseJSON.errors, function(i, item) {
-                        $('#error-'+i).removeClass('hidden');
-                        $('#error-'+i).text(item[0]);
-                    });
-                }
-            });
-        });
-    }
-
-    asignar();
 
 });

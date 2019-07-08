@@ -18,6 +18,29 @@ use App\Colonia;
 
 class InspeccionController extends Controller
 {
+	public function agregarInspeccion(){
+		$inspectores = Inspector::all();
+		$gestores = Gestor::all();
+		$tiposInspecciones = TipoDeInspeccion::all();
+		$formasValoradas = FormaValorada::all();
+		$giros = GiroComercial::all();
+		$subgiros = SubgiroComercial::all();
+		$ejerciciosFiscales = EjercicioFiscal::all();
+		$estatusInspecciones = EstatusInspeccion::all();
+		$colonias = Colonia::all();
+		return view('inspeccion.agregar-inspeccion', [
+			'inspectores' => $inspectores,
+			'gestores' => $gestores,
+			'tiposInspecciones' => $tiposInspecciones,
+			'formasValoradas' => $formasValoradas,
+			'giros' => $giros,
+			'subgiros' => $subgiros,
+			'ejerciciosFiscales' => $ejerciciosFiscales,
+			'estatusInspecciones' => $estatusInspecciones,
+			'colonias' => $colonias
+		]);
+	}
+
 	// Muetra la vista del listado de las inspecciones
 	public function listadoInspecciones(){
 		$inspectores = Inspector::all();
@@ -60,15 +83,15 @@ class InspeccionController extends Controller
 
 		// Valida cada array en cada posición con el .*
 		$validate = $this->validate($request, [
-            'cantidad.*' => 'required|string',
-            'ejerciciofiscal.*' => 'required|string',
-            'tipoinspeccion.*' => 'required|string'
+            'cantidad' => 'required|string',
+            'ejerciciofiscal' => 'required|string',
+            'tipoinspeccion' => 'required|string'
         ]);
 
 		$data = $request->all();
-    	$cantidades = array_get($data, 'cantidad');
-    	$ejercicios_fiscales = array_get($data, 'ejerciciofiscal');
-    	$tipos_inspecciones = array_get($data, 'tipoinspeccion');
+    	$cantidad = $request->input('cantidad');
+    	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
+    	$tipo_inspeccion_id = $request->input('tipoinspeccion');
     	$usuario = Auth::user();
     	
     	$estatus_inspeccion = EstatusInspeccion::where('nombre', 'No asignada')->get();
@@ -76,71 +99,68 @@ class InspeccionController extends Controller
     	foreach ($estatus_inspeccion as $estatus) {
     		$id_estatus_inspeccion = $estatus->id;
     	}
-    
-    	for ($i = 0; $i < count($cantidades); $i++) {
 
-			$cantidad = $cantidades[$i];
-			$forma_valorada = FormaValorada::all();
-			
-			if ($forma_valorada->count() == 0) {
-				$datos = [
-					'idusuario' => $usuario->id,
-					'idtipoinspeccion' => $tipos_inspecciones[$i],
-					'idejerciciofiscal' => $ejercicios_fiscales[$i],
-					'idconfiguracion' => 1,
-					'folioinicio' => 1,
-					'foliofin' => $cantidad
-				];
+		$forma_valorada = FormaValorada::where('idtipoinspeccion', $tipo_inspeccion_id)->get();
+		
+		if ($forma_valorada->count() == 0) {
+			$datos = [
+				'idusuario' => $usuario->id,
+				'idtipoinspeccion' => $tipo_inspeccion_id,
+				'idejerciciofiscal' => $ejercicio_fiscal_id,
+				'idconfiguracion' => 1,
+				'folioinicio' => 1,
+				'foliofin' => $cantidad
+			];
 
-				FormaValorada::create($datos);
+			FormaValorada::create($datos);
 
-			} else {
+		} else {
 
-				$folio_fin = $forma_valorada->last()->foliofin;
-				$nuevo_folio_inicio = $folio_fin + 1;
-				$nuevo_folio_fin = $folio_fin + $cantidad;
+			$folio_fin = $forma_valorada->last()->foliofin;
+			$nuevo_folio_inicio = $folio_fin + 1;
+			$nuevo_folio_fin = $folio_fin + $cantidad;
 
-				$datos = [
-					'idusuario' => $usuario->id,
-					'idtipoinspeccion' => $tipos_inspecciones[$i],
-					'idejerciciofiscal' => $ejercicios_fiscales[$i],
-					'idconfiguracion' => 1,
-					'folioinicio' => $nuevo_folio_inicio,
-					'foliofin' => $nuevo_folio_fin
-				];
+			$datos = [
+				'idusuario' => $usuario->id,
+				'idtipoinspeccion' => $tipo_inspeccion_id,
+				'idejerciciofiscal' => $ejercicio_fiscal_id,
+				'idconfiguracion' => 1,
+				'folioinicio' => $nuevo_folio_inicio,
+				'foliofin' => $nuevo_folio_fin
+			];
 
-				FormaValorada::create($datos);
-			}
+			FormaValorada::create($datos);
+		}
 
-			for ($a = 0; $a < $cantidad; $a++) {
+		for ($a = 0; $a < $cantidad; $a++) {
 
-				$forma_valorada = FormaValorada::all();
-				$id_forma_valorada = $forma_valorada->last()->id;
+			$forma_valorada = FormaValorada::where('idtipoinspeccion', $tipo_inspeccion_id)->get();
+			$id_forma_valorada = $forma_valorada->last()->id;
 
-				$folio_inicio = $forma_valorada->last()->folioinicio;
-				$folio = $folio_inicio + $a;
+			$folio_inicio = $forma_valorada->last()->folioinicio;
+			$folio = $folio_inicio + $a;
 
-    			$ejercicio_fiscal = EjercicioFiscal::find($ejercicios_fiscales[$i]);
-    			$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
+			$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
+			$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
 
-    			$tipo_inspeccion = TipoDeInspeccion::find($tipos_inspecciones[$i]);
-    			$tipo_inspeccion_clave = $tipo_inspeccion->clave;
+			$tipo_inspeccion = TipoDeInspeccion::find($tipo_inspeccion_id);
+			$tipo_inspeccion_clave = $tipo_inspeccion->clave;
 
-    			$inspecciones = Inspeccion::all();
+			$inspecciones = Inspeccion::all();
 
-    			$datos = [
-    				'idformavalorada' => $id_forma_valorada,
-    				'idtipoinspeccion' => $tipos_inspecciones[$i],
-    				'idusuario' => $usuario->id,
-    				'idejerciciofiscal' => $ejercicios_fiscales[$i],
-    				'idestatusinspeccion' => $id_estatus_inspeccion,
-    				'folio' => $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio
-    			];
+			$datos = [
+				'idformavalorada' => $id_forma_valorada,
+				'idtipoinspeccion' => $tipo_inspeccion_id,
+				'idusuario' => $usuario->id,
+				'idejerciciofiscal' => $ejercicio_fiscal_id,
+				'idestatusinspeccion' => $id_estatus_inspeccion,
+				'folio' => $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio
+			];
 
-    			Inspeccion::create($datos);
-    		}
-    	}
-    	return $datos;
+			Inspeccion::create($datos);
+		}
+    	
+    	 return redirect('inspecciones/agregar')->with('status', 'Se ha creado correctamente');
 	}
 
 	public function editarInspeccion($id){
@@ -279,9 +299,56 @@ class InspeccionController extends Controller
 					}
 				}
     		}
-		}
-		
-		
+		}		
 	}
 
+	public function obtenerFolios(Request $request){
+		$validate = $this->validate($request, [
+			'tipoinspeccion' => 'required|string',
+			'cantidad' => 'required|string'
+        ]);
+
+        $tipo_inspeccion_id = $request->input('tipoinspeccion');
+    	$cantidad = $request->input('cantidad');
+    	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
+
+		$forma_valorada = FormaValorada::where('idtipoinspeccion', $tipo_inspeccion_id)->get();
+
+		if ($forma_valorada->count() == 0) {
+			$folio_inicio = 1;
+			$folio_fin = $folio_inicio + $cantidad -1;
+
+			$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
+			$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
+
+			$tipo_inspeccion = TipoDeInspeccion::find($tipo_inspeccion_id);
+			$tipo_inspeccion_clave = $tipo_inspeccion->clave;
+
+			$inicio_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_inicio;
+			$fin_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_fin;
+
+			return [
+				'folioinicio' => $inicio_folio,
+				'foliofin' => $fin_folio
+			];
+
+		} else {
+			$folio_inicio = $forma_valorada->last()->foliofin + 1;
+			$folio_fin = $folio_inicio + $cantidad - 1;
+
+			$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
+			$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
+
+			$tipo_inspeccion = TipoDeInspeccion::find($tipo_inspeccion_id);
+			$tipo_inspeccion_clave = $tipo_inspeccion->clave;
+
+			$inicio_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_inicio;
+			$fin_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_fin;
+
+			return [
+				'folioinicio' => $inicio_folio,
+				'foliofin' => $fin_folio
+			];
+		}
+	}
 }
