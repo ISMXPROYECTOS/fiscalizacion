@@ -379,6 +379,7 @@ class InspeccionController extends Controller
     	$inspectores_json = array_get($data, 'inspectores-asignar');
     	$inspectores_array = json_decode($inspectores_json, true);
 
+
     	$inspecciones = Inspeccion::where('idestatusinspeccion', 1)
 									->where('idtipoinspeccion', $tipo_inspeccion_id)->get();
 		
@@ -387,9 +388,20 @@ class InspeccionController extends Controller
 		for ($i = 1; $i <= $numero_inspectores; $i++) {
 			$cantidad_final = $cantidad * $i;
 			if ($i == 1) {
-				echo "Folio Inicio: " . $inspecciones[$i-1]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
+
+				return [
+					'folioinicio' => $inspecciones[$i-1]->folio,
+					'foliofin' => $inspecciones[$cantidad_final-1]->folio,
+					'inspectores' => $inspectores_array
+				];
+				//echo "Folio Inicio: " . $inspecciones[$i-1]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
 			}else{
-				echo "Folio Inicio: " . $inspecciones[$cantidad_final-$cantidad]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
+				return [
+					'folioinicio' => $inspecciones[$cantidad_final-$cantidad]->folio,
+					'foliofin' => $inspecciones[$cantidad_final-1]->folio,
+					'inspectores' => $inspectores_array
+				];
+				//echo "Folio Inicio: " . $inspecciones[$cantidad_final-$cantidad]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
 			}
 			
 		}
