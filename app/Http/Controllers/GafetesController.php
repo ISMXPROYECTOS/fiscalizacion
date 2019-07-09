@@ -53,8 +53,9 @@ class GafetesController extends Controller
 			->generate(url('/inspectores/perfil/'.$inspector->hash), public_path('img/qrs/'.$nombre_qr.'.png'));
 
 
-		$imagen = $request->file('gafete-image');
-		$nombre_imagen = $ejercicio_fiscal->anio .'INS'. $request->input('gafete-id').'.'.$imagen->getClientOriginalExtension();;
+		$imagen = $request->file('gafete-image'); 
+		$nombre_imagen = $ejercicio_fiscal->anio .'INS'. $request->input('gafete-id').'.'.$imagen
+			->getClientOriginalExtension();
 		$imagen->move(public_path('img/inspectores'), $nombre_imagen);
 
 		$datos = [

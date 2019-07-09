@@ -33,7 +33,7 @@ class InspectorController extends Controller
 			'nombre' => 'required|string|max:50',
             'apellidopaterno' => 'required|string|max:30',
             'apellidomaterno' => 'required|string|max:30',
-            'clave' => 'required|string|max:50',
+            'clave' => 'required|string|max:10',
             'estatus' => 'required|string|max:1'
 	    ]);
 

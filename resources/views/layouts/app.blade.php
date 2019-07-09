@@ -183,7 +183,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="{{ route('asignar-inspecciones') }}">
+                                        <a class="nav-link" href="{{ route('vista-asignar-inspecciones') }}">
                                             <i class="fas fa-arrow-alt-circle-right"></i>
                                             <span>Asignar Inspección</span>
                                         </a>

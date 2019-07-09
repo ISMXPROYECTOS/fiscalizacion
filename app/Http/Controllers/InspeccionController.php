@@ -18,7 +18,7 @@ use App\Colonia;
 
 class InspeccionController extends Controller
 {
-	public function agregarInspeccion(){
+	public function vistaAgregarInspeccion(){
 		$inspectores = Inspector::all();
 		$gestores = Gestor::all();
 		$tiposInspecciones = TipoDeInspeccion::all();
@@ -29,6 +29,29 @@ class InspeccionController extends Controller
 		$estatusInspecciones = EstatusInspeccion::all();
 		$colonias = Colonia::all();
 		return view('inspeccion.agregar-inspeccion', [
+			'inspectores' => $inspectores,
+			'gestores' => $gestores,
+			'tiposInspecciones' => $tiposInspecciones,
+			'formasValoradas' => $formasValoradas,
+			'giros' => $giros,
+			'subgiros' => $subgiros,
+			'ejerciciosFiscales' => $ejerciciosFiscales,
+			'estatusInspecciones' => $estatusInspecciones,
+			'colonias' => $colonias
+		]);
+	}
+
+	public function vistaAsignarInspeccion(){
+		$inspectores = Inspector::all();
+		$gestores = Gestor::all();
+		$tiposInspecciones = TipoDeInspeccion::all();
+		$formasValoradas = FormaValorada::all();
+		$giros = GiroComercial::all();
+		$subgiros = SubgiroComercial::all();
+		$ejerciciosFiscales = EjercicioFiscal::all();
+		$estatusInspecciones = EstatusInspeccion::all();
+		$colonias = Colonia::all();
+		return view('inspeccion.asignar-inspeccion', [
 			'inspectores' => $inspectores,
 			'gestores' => $gestores,
 			'tiposInspecciones' => $tiposInspecciones,
@@ -238,36 +261,12 @@ class InspeccionController extends Controller
 
 	public function asignar(Request $request){
 
-		//$inspeccion = Inspeccion::where('idestatusinspeccion', 'NA');
-
-		/*$inspecciones = DB::table('inspeccion')
-			->join('estatusinspeccion', 'inspeccion.idestatusinspeccion', '=', 'estatusinspeccion.id')
-			->join('tipodeinspeccion', 'inspeccion.idtipoinspeccion', '=', 'tipodeinspeccion.id')
-			->select('inspeccion.*', 'estatusinspeccion.clave as estatus', 'tipodeinspeccion.clave as tipo')
-			->where('estatusinspeccion.clave', '=', 'NA')
-			->where('tipodeinspeccion.id', '=', $request->input('tipoinspeccion-asignar'))
-			->get();
-
-		$estatus_nuevo = EstatusInspeccion::where('clave', 'A')->get();
-
-		foreach ($estatus_nuevo as $estatusN) {
-			$id_estatus_nuevo = $estatusN->id;
-		}*/
-
-		/*$inspecciones = Inspeccion::has('estatusinspeccion', '=', 'NA')->get();
-
-		var_dump($inspecciones);
-		die();*/
-
 			
-		$inspecciones = Inspeccion::all();
-		$tipos_inspecciones = TipoDeInspeccion::find($request->input('tipoinspeccion-asignar'));
-		$estatus_antiguo = EstatusInspeccion::where('clave', 'NA')->get();
-		$estatus_nuevo = EstatusInspeccion::where('clave', 'A')->get();
+		$inspecciones = Inspeccion::where('idestatusinspeccion', 1)
+									->where('idtipoinspeccion', $request->input('tipoinspeccion-asignar'))->get();
 
-    	foreach ($estatus_antiguo as $estatusA) {
-    		$id_estatus_antiguo = $estatusA->id;
-		}
+
+		$estatus_nuevo = EstatusInspeccion::where('clave', 'A')->get();
 
 		foreach ($estatus_nuevo as $estatusN) {
     		$id_estatus_nuevo = $estatusN->id;
@@ -287,25 +286,41 @@ class InspeccionController extends Controller
     	$cantidad = $request->input('cantidad-asignar');
 		$inspectores = array_get($data, 'inspectores-asignar');
 
+		$numero_inspectores = count($inspectores);
+		$total_inspecciones = $cantidad * $numero_inspectores;
+		$numero_inspecciones = count($inspecciones);
 	
-    	for ($i = 0; $i < count($inspectores); $i++) {
+    	for ($i = 0; $i < $numero_inspectores; $i++) {
     		for ($a = 0; $a < $cantidad; $a++) {
-				for ($b=0; $b < count($inspecciones); $b++) { 
-					if ($inspecciones[$b]->idtipoinspeccion == $tipos_inspecciones->id && $inspecciones[$b]->idestatusinspeccion == $id_estatus_antiguo) {
+				for ($b = 0; $b < $numero_inspecciones; $b++) { 
+					if ($numero_inspecciones >= $total_inspecciones) {
 						$inspecciones[$b]->idinspector = $inspectores[$i];
 						$inspecciones[$b]->idestatusinspeccion = $id_estatus_nuevo;
 						$inspecciones[$b]->update();
 						break;
+					} else {
+						return redirect('inspecciones/asignar')->with('error', 'Agrega mas inspecciones');
 					}
 				}
     		}
-		}		
+		}	
+
+		return redirect('inspecciones/asignar')->with('status', 'Se ha asignado correctamente');	
+	}
+
+	public function obtenerTotalInspecciones($id){
+		$total_inspecciones = Inspeccion::where('idtipoinspeccion', $id)
+										->where('idestatusinspeccion', 1)
+										->get();
+		
+		return count($total_inspecciones);
 	}
 
 	public function obtenerFolios(Request $request){
 		$validate = $this->validate($request, [
 			'tipoinspeccion' => 'required|string',
-			'cantidad' => 'required|string'
+			'cantidad' => 'required|string',
+			'ejerciciofiscal' => 'required|string'
         ]);
 
         $tipo_inspeccion_id = $request->input('tipoinspeccion');
@@ -349,6 +364,36 @@ class InspeccionController extends Controller
 				'folioinicio' => $inicio_folio,
 				'foliofin' => $fin_folio
 			];
+		}
+	}
+
+	public function obtenerFoliosInspecciones(Request $request){
+
+		$validate = $this->validate($request, [
+			'tipoinspeccion' => 'required|string',
+			'cantidad' => 'required|string',
+			'ejerciciofiscal' => 'required|string',
+			'inspectores-asignar.*' => 'required|string'
+        ]);
+
+        $data = $request->all();
+		$inspectores = array_get($data, 'inspectores-asignar');
+
+		var_dump(count($inspectores));
+		die();
+
+        $tipo_inspeccion_id = $request->input('tipoinspeccion');
+    	$cantidad = $request->input('cantidad');
+    	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
+
+    	$inspecciones = Inspeccion::where('idestatusinspeccion', 1)
+							->where('idtipoinspeccion', $tipo_inspeccion_id)->get();
+
+
+		$numero_inspecciones = count($inspecciones);
+		for ($i = 0; $i < $numero_inspecciones; $i++) {
+			echo $inspecciones[0]->folio;
+
 		}
 	}
 }
