@@ -389,17 +389,19 @@ class InspeccionController extends Controller
 			$cantidad_final = $cantidad * $i;
 			if ($i == 1) {
 
-				/*return [
+				return [
 					'folioinicio' => $inspecciones[$i-1]->folio,
-					'foliofin' => $inspecciones[$cantidad_final-1]->folio
-				];*/
-				echo "Folio Inicio: " . $inspecciones[$i-1]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
+					'foliofin' => $inspecciones[$cantidad_final-1]->folio,
+					'inspectores' => $inspectores_array
+				];
+				//echo "Folio Inicio: " . $inspecciones[$i-1]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
 			}else{
-				/*return [
+				return [
 					'folioinicio' => $inspecciones[$cantidad_final-$cantidad]->folio,
-					'foliofin' => $inspecciones[$cantidad_final-1]->folio
-				];*/
-				echo "Folio Inicio: " . $inspecciones[$cantidad_final-$cantidad]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
+					'foliofin' => $inspecciones[$cantidad_final-1]->folio,
+					'inspectores' => $inspectores_array
+				];
+				//echo "Folio Inicio: " . $inspecciones[$cantidad_final-$cantidad]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
 			}
 			
 		}
