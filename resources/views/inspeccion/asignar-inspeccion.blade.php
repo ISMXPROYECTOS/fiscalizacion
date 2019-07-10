@@ -11,7 +11,7 @@
 @endif
 
 @if (session('error'))
-<div class="alert alert-danger">
+<div class="alert alert-error">
     {{ session('error') }}
 </div>
 @endif
@@ -95,7 +95,7 @@
     <br>
     <div class="form-group row mb-0">
         <div class="col-md-6">
-            <button type="submit" class="btn btn-primary btn-block btn-primary-custom" >{{ __('Crear Inspecciones') }}</button>
+            <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-asignar">{{ __('Crear Inspecciones') }}</button>
         </div>
     </div>
 </form>

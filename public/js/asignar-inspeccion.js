@@ -29,29 +29,27 @@ $(document).ready(function(){
 
         $('#inspector-'+$(this).val()).click(function(){
 
-        	/*var data = {
+        	var data = {
 				'tipoinspeccion' :$('#tipoinspeccion-asignar').val(),
 				'cantidad' : $('#cantidad-asignar').val(),
 				'ejerciciofiscal' : $('#ejerciciofiscal-asignar').val(),
 				'inspectores-asignar': JSON.stringify($('[name="inspectores-asignar[]"]').serializeArray())
-			}*/
-
-			var data = $("#formulario-asignar-inspecciones").serializeArray();
+			}
 
 			console.log(data);
-			
-			/*$.ajax({
+
+			$.ajax({
 	            url: url + '/inspecciones/obtener-folios-inspecciones',
 	            data: data,
 	            type: 'post',
             	headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 	            success: function (response) {
 
-	            	//console.log('#folio-inicio-2')
-	                //$('#folio-inicio-2'.text(response.folioinicio);
-	                //$('#folio-fin-2'.text(response.foliofin);
+	            	console.log('#folio-inicio-'+$(this).val())
+	                //$('#folio-inicio-'+$(this).val()).text(response.folioinicio);
+	                //$('#folio-fin-'+$(this).val()).text(response.foliofin);
 	            } 
-	        });*/
+	        });
 		});
 
         
