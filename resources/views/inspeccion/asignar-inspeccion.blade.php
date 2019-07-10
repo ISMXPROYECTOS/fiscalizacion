@@ -5,27 +5,27 @@
 </header>
 
 @if (session('status'))
-<div class="alert alert-success">
-    {{ session('status') }}
-</div>
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
 @endif
 
 @if (session('error'))
-<div class="alert alert-error">
-    {{ session('error') }}
-</div>
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
 @endif
 
-<form method="POST" action="{{ route('asignar-inspecciones') }}" id="formulario-crear-inspeccion">
+<form method="POST" action="{{ route('asignar-inspecciones') }}" id="formulario-asignar-inspeccion">
     @csrf
     <div class="form-group">
         <label for="ejerciciofiscal-asignar">Año</label>
         @foreach ($ejerciciosFiscales as $ejercicioFiscal)
-        @if ($ejercicioFiscal->anio == date('Y'))
-        <input type="text" class="form-control" disabled="" value="{{ $ejercicioFiscal->anio }}">
-        <input type="hidden" name="ejerciciofiscal-asignar" id="ejerciciofiscal-asignar"
-        value="{{ $ejercicioFiscal->anio }}">
-        @endif
+            @if ($ejercicioFiscal->anio == date('Y'))
+                <input type="text" class="form-control" disabled="" value="{{ $ejercicioFiscal->anio }}">
+                <input type="hidden" name="ejerciciofiscal-asignar" id="ejerciciofiscal-asignar"
+                value="{{ $ejercicioFiscal->id }}">
+            @endif
         @endforeach
         <p class="text-danger" id="error-ejerciciofiscal-asignar"></p>
     </div>
@@ -71,27 +71,25 @@
     @php $var = 1; @endphp
     <label for="inspectores-asignar">Inspectores </label>
     <p class="text-danger" id="error-inspectores-asignar"></p>
-
     @foreach($inspectores as $inspector)
-    @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
-    <div class="form-check">
-        <input name="inspectores-asignar[]" class="form-check-input" type="checkbox" value="{{ $inspector->id}}" id="inspector-{{ $var }}">
-        <label class="form-check-label" for="inspector-{{ $var }}">
-            {{ $inspector->nombre }} {{ $inspector->apellidopaterno }}
-        </label>
-        <div class="row">
-            <div class="col-md-4">
-                <h5>Folio inicio: <b id="folio-inicio-{{ $var }}"></b></h5>
+        @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
+            <div class="form-check">
+                <input name="inspectores-asignar[]" class="form-check-input" type="checkbox" value="{{ $inspector->id}}" id="inspector-{{ $var }}">
+                <label class="form-check-label" for="inspector-{{ $var }}">
+                    {{ $inspector->nombre }} {{ $inspector->apellidopaterno }}
+                </label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Folio inicio: <b id="folio-inicio-{{ $var }}"></b></h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Folio fin: <b id="folio-fin-{{ $var }}"></b></h5>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h5>Folio fin: <b id="folio-fin-{{ $var }}"></b></h5>
-            </div>
-        </div>
-    </div>
-    @endif
-    @php $var++; @endphp
+        @endif
+        @php $var++; @endphp
     @endforeach
-    
     <br>
     <div class="form-group row mb-0">
         <div class="col-md-6">

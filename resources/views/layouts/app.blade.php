@@ -177,7 +177,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="{{ route('agregar-inspecciones') }}">
+                                        <a class="nav-link" href="{{ route('vista-agregar-inspecciones') }}">
                                             <i class="fas fa-folder-plus"></i>
                                             <span>Agregar Inspección</span>
                                         </a>

@@ -22,7 +22,7 @@
     <hr>
 
 	<form method="POST" action="{{ route('crear-inspeccion') }}" id="formulario-crear-inspeccion">
-	@csrf
+        @csrf
 		<div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -69,15 +69,13 @@
                 </div>
             </div>
 	    </div>
-        <br>  
-
+        <br>
         <div class="form-group row mb-0">
             <div class="col-md-4">
                 <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspecciones') }}</button>
             </div>
         </div>         
     </form>
-
 @endsection
 
 @section('scripts')
