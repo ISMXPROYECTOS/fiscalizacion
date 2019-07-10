@@ -283,6 +283,7 @@ class InspeccionController extends Controller
     	$cantidad = $request->input('cantidad-asignar');
 		$inspectores = array_get($data, 'inspectores-asignar');
 
+
 		$numero_inspectores = count($inspectores);
 		$total_inspecciones = $cantidad * $numero_inspectores;
 		$numero_inspecciones = count($inspecciones);
@@ -291,6 +292,7 @@ class InspeccionController extends Controller
     		for ($a = 0; $a < $cantidad; $a++) {
 				for ($b = 0; $b < $numero_inspecciones; $b++) { 
 					if ($numero_inspecciones >= $total_inspecciones) {
+						//echo 'Inspector: '.$i.' Cantidad: '.$a.' Numero de inspecciones: '.$b.'<br>';
 						$inspecciones[$b]->idinspector = $inspectores[$i];
 						$inspecciones[$b]->idestatusinspeccion = $id_estatus_nuevo;
 						$inspecciones[$b]->update();
@@ -363,21 +365,24 @@ class InspeccionController extends Controller
 		}
 	}
 
-	public function obtenerFoliosInspecciones(Request $request){
+	/*public function obtenerFoliosInspecciones(Request $request){
 
 		$validate = $this->validate($request, [
 			'tipoinspeccion' => 'required|string',
 			'cantidad' => 'required|string',
-			'ejerciciofiscal' => 'required|string',
-			'inspectores-asignar.*' => 'required|string'
+			'ejerciciofiscal' => 'required|string'
+			//'inspectores-asignar.*' => 'required|string'
         ]);
 
         $data = $request->all();
         $tipo_inspeccion_id = $request->input('tipoinspeccion');
     	$cantidad = $request->input('cantidad');
     	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
-    	$inspectores_json = array_get($data, 'inspectores-asignar');
-    	$inspectores_array = json_decode($inspectores_json, true);
+    	//$inspectores_json = array_get($data, 'inspectores-asignar');
+    	//$inspectores_array = json_decode($inspectores_json, true);
+
+    	$inspectores_array = array_get($data, 'inspectores-asignar');
+    	
 
 
     	$inspecciones = Inspeccion::where('idestatusinspeccion', 1)
@@ -389,19 +394,25 @@ class InspeccionController extends Controller
 			$cantidad_final = $cantidad * $i;
 			if ($i == 1) {
 
-				/*return [
+				foreach ($inspectores_array as $inspector) {
+					echo "Folio Inicio: " . $inspecciones[$i-1]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$inspector['value'] . "<br>";
+				}
+				/*
+				return [
 					'folioinicio' => $inspecciones[$i-1]->folio,
-					'foliofin' => $inspecciones[$cantidad_final-1]->folio
-				];*/
-				echo "Folio Inicio: " . $inspecciones[$i-1]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
+					'foliofin' => $inspecciones[$cantidad_final-1]->folio,
+					'inspector' => $inspectores_array
+				];
+				
+				//echo "Folio Inicio: " . $inspecciones[$i-1]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
 			}else{
 				/*return [
 					'folioinicio' => $inspecciones[$cantidad_final-$cantidad]->folio,
 					'foliofin' => $inspecciones[$cantidad_final-1]->folio
-				];*/
-				echo "Folio Inicio: " . $inspecciones[$cantidad_final-$cantidad]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
+				];
+				//echo "Folio Inicio: " . $inspecciones[$cantidad_final-$cantidad]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
 			}
 			
 		}
-	}
+	}*/
 }
