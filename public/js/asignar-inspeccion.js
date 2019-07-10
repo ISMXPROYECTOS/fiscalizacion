@@ -27,13 +27,12 @@ $(document).ready(function(){
 
     $(".form-check-input").each(function(){
         $('#inspector-'+$(this).val()).click(function(){
+
         	var data = {
 				'tipoinspeccion' :$('#tipoinspeccion-asignar').val(),
 				'cantidad' : $('#cantidad-asignar').val(),
-				'ejerciciofiscal' : $('#ejerciciofiscal-asignar').val(),
-				'inspectores-asignar': JSON.stringify($('[name="inspectores-asignar[]"]').serializeArray())
+				'ejerciciofiscal' : $('#ejerciciofiscal-asignar').val()
 			}
-
 			$.ajax({
 	            url: url + '/inspecciones/obtener-folios-inspecciones',
 	            data: data,

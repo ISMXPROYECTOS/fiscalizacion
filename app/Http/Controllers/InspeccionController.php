@@ -117,7 +117,7 @@ class InspeccionController extends Controller
     	$tipo_inspeccion_id = $request->input('tipoinspeccion');
     	$usuario = Auth::user();
     	
-    	$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->get();
+    	$estatus_inspeccion = EstatusInspeccion::where('nombre', 'No asignada')->get();
 
     	foreach ($estatus_inspeccion as $estatus) {
     		$id_estatus_inspeccion = $estatus->id;
@@ -261,10 +261,13 @@ class InspeccionController extends Controller
 
 	public function asignar(Request $request){
 
+			
 		$inspecciones = Inspeccion::where('idestatusinspeccion', 1)
 									->where('idtipoinspeccion', $request->input('tipoinspeccion-asignar'))->get();
 
+
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'A')->get();
+
 		foreach ($estatus_nuevo as $estatusN) {
     		$id_estatus_nuevo = $estatusN->id;
 		}
@@ -323,11 +326,12 @@ class InspeccionController extends Controller
         $tipo_inspeccion_id = $request->input('tipoinspeccion');
     	$cantidad = $request->input('cantidad');
     	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
+
 		$forma_valorada = FormaValorada::where('idtipoinspeccion', $tipo_inspeccion_id)->get();
 
 		if ($forma_valorada->count() == 0) {
 			$folio_inicio = 1;
-			$folio_fin = $folio_inicio + $cantidad - 1;
+			$folio_fin = $folio_inicio + $cantidad -1;
 
 			$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
 			$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
@@ -373,25 +377,23 @@ class InspeccionController extends Controller
         ]);
 
         $data = $request->all();
+		$inspectores = array_get($data, 'inspectores-asignar');
+
+		var_dump(count($inspectores));
+		die();
+
         $tipo_inspeccion_id = $request->input('tipoinspeccion');
     	$cantidad = $request->input('cantidad');
     	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
-    	$inspectores_json = array_get($data, 'inspectores-asignar');
-    	$inspectores_array = json_decode($inspectores_json, true);
 
     	$inspecciones = Inspeccion::where('idestatusinspeccion', 1)
-									->where('idtipoinspeccion', $tipo_inspeccion_id)->get();
-		
-		$numero_inspectores = count($inspectores_array);
+							->where('idtipoinspeccion', $tipo_inspeccion_id)->get();
 
-		for ($i = 1; $i <= $numero_inspectores; $i++) {
-			$cantidad_final = $cantidad * $i;
-			if ($i == 1) {
-				echo "Folio Inicio: " . $inspecciones[$i-1]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
-			}else{
-				echo "Folio Inicio: " . $inspecciones[$cantidad_final-$cantidad]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$i . "<br>";
-			}
-			
+
+		$numero_inspecciones = count($inspecciones);
+		for ($i = 0; $i < $numero_inspecciones; $i++) {
+			echo $inspecciones[0]->folio;
+
 		}
 	}
 }
