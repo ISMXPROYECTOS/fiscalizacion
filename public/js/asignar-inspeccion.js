@@ -24,27 +24,55 @@ $(document).ready(function(){
 	
 
     $(".form-check-input").each(function(){
-        $('#inspector-'+$(this).val()).click(function(){
 
-        	$('#folios-'+$(this).val()).append('');
+		$('#inspector-'+$(this).val()).click(function(){
 
-			var data = $("#formulario-asignar-inspeccion").serializeArray();
+
+			if ($('#inspector-'+$(this).val()).is(':checked')) {
+
+				//alert('checked');
+				//$('#inspector-'+$(this).val()).attr('checked', true);
+
+				obtenerFoliosInspecciones();
+			} else {
+				//$('#inspector-'+$(this).val()).attr('checked', false);
+				//alert('unchecked');
+				//obtenerFoliosInspecciones();
+				$('#folios-'+$(this).val()).text('');
+
+				
+			}
+
 			
-			$.ajax({
-	            url: url + '/inspecciones/obtener-folios-inspecciones',
-	            data: data,
-	            type: 'post',
-            	headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-	            success: function (response) {
-	            	$.each(response, function(i, item) {
-	            		$('#folios-'+response[i].inspector).append('Folio inicio: '+response[i].folioinicio+' Folio final: '+response[i].foliofin)
-                        //$('#folio-inicio-'+response[i].inspector).text(response[i].folioinicio);
-                        //$('#folio-fin-'+response[i].inspector).text(response[i].foliofin);
-                    }); 
-	            } 
-	        });
 
 		});
-    });
+
+	});
+		
+	
+	//$('#inspector-'+$(this).val()).attr('checked',false);
+	//$('input:checkbox[name=colorfavorito]').attr('checked',false);
+	
+	function obtenerFoliosInspecciones(){
+
+		var data = $("#formulario-asignar-inspeccion").serializeArray();
+		
+		$.ajax({
+            url: url + '/inspecciones/obtener-folios-inspecciones',
+            data: data,
+            type: 'post',
+        	headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            success: function (response) {
+            	console.log(response);
+
+            	$.each(response, function(i, item) {
+            		//console.log(response);
+            		$('#folios-'+response[i].inspector).text('Folio inicio: '+response[i].folioinicio+' Folio final: '+response[i].foliofin)
+                    //$('#folio-inicio-'+response[i].inspector).text(response[i].folioinicio);
+                    //$('#folio-fin-'+response[i].inspector).text(response[i].foliofin);
+                }); 
+            } 
+        });
+	}
 
 });

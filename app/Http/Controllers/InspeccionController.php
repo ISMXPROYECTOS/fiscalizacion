@@ -357,24 +357,62 @@ class InspeccionController extends Controller
 		$total_inspectores = count($inspectores);
 
 
+
 		for ($i = 1; $i <= $total_inspectores; $i++) {
 			$cantidad_final = $cantidad * $i;
 			if ($i == 1) {
-				$datos = array(	
-					$i-1 => array(
+				$datos = [
+					$i-1 => [
 						'folioinicio' => $inspecciones[$i-1]->folio,
 						'foliofin'  => $inspecciones[$cantidad_final-1]->folio,
 						'inspector'  => $inspectores[$i-1]
-					)
-				);
+					]
+				];
+
+
+				/*$datos = [
+					'1' => [
+						'folioinicio' => 'algo',
+						'foliofin' => 'no pelas',
+						'inspector' => '1'
+					],
+					'2' => [
+						'folioinicio' => 'algoasdad',
+						'foliofin' => 'no pelasxzcz',
+						'inspector' => '2'
+					],
+					'3' => [
+						'folioinicio' => 'algo213',
+						'foliofin' => 'no pelasñl',
+						'inspector' => '5'
+					]
+				];*/
 			}else{	
-				$datos = array(	
-					$i-1 => array(
+				$datos = [
+					$i-1 => [
 						'folioinicio' => $inspecciones[$cantidad_final-$cantidad]->folio,
 						'foliofin'  => $inspecciones[$cantidad_final-1]->folio,
 						'inspector'  => $inspectores[$i-1]
-					)
-				);	
+					]
+				];
+
+				/*$datos = [
+					'1' => [
+						'folioinicio' => 'algo',
+						'foliofin' => 'no pelas',
+						'inspector' => '1'
+					],
+					'2' => [
+						'folioinicio' => 'algoasdad',
+						'foliofin' => 'no pelasxzcz',
+						'inspector' => '2'
+					],
+					'3' => [
+						'folioinicio' => 'algo213',
+						'foliofin' => 'no pelasñl',
+						'inspector' => '5'
+					]
+				];*/
 			}
 		}
 		return $datos;
