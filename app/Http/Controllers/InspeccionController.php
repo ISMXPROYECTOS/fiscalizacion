@@ -356,51 +356,27 @@ class InspeccionController extends Controller
 
 		$total_inspectores = count($inspectores);
 
-		/*
-		echo "TipoInspeccion: " . $tipo_inspeccion_id . "<br>";
-		echo "Cantdad: " . $cantidad . "<br>";
-		echo "Ejercicio Fiscal: " . $ejercicio_fiscal_id . "<br>";
-		echo "Total Inspecciones: " . $total_inspecciones . "<br>";
-		var_dump($inspectores);
-		die();
-
-		for ($i = 0; $i < $numero_inspectores; $i++) {
-			for ($a = 0; $a < $cantidad; $a++) {
-				for ($b = 0; $b < $total_inspecciones; $b++) {
-					$folio_fin = $inspecciones[0+$cantidad-1]->folio;
-					echo "Folio Inicio: " . $inspecciones[$b]->folio . " Folio Fin: " . $folio_fin . " a:" . $a . "<br>";
-				}
-			}
-		}
-		*/
 
 		for ($i = 1; $i <= $total_inspectores; $i++) {
 			$cantidad_final = $cantidad * $i;
 			if ($i == 1) {
-
-				/*
-
-				Me deberia regresar algo asi:
-
-				[
-					0 = [
-						'folioinicio' = 2019/OIVP/1,
-						'foliofin' = 2019/OIVP/20,
-						'inspector' = 1
-					],
-
-					1 = [
-						'folioinicio' = 2019/OIVP/21,
-						'foliofin' = 2019/OIVP/40,
-						'inspector' = 3
-					]
-				]
-
-				*/
-				echo "Folio Inicio: " . $inspecciones[$i-1]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$inspectores[$i-1] . "<br>";
-			}else{
-				echo "Folio Inicio: " . $inspecciones[$cantidad_final-$cantidad]->folio . " Folio Fin: " . $inspecciones[$cantidad_final-1]->folio . " Inspector: " .$inspectores[$i-1] . "<br>";
+				$datos = array(	
+					$i-1 => array(
+						'folioinicio' => $inspecciones[$i-1]->folio,
+						'foliofin'  => $inspecciones[$cantidad_final-1]->folio,
+						'inspector'  => $inspectores[$i-1]
+					)
+				);
+			}else{	
+				$datos = array(	
+					$i-1 => array(
+						'folioinicio' => $inspecciones[$cantidad_final-$cantidad]->folio,
+						'foliofin'  => $inspecciones[$cantidad_final-1]->folio,
+						'inspector'  => $inspectores[$i-1]
+					)
+				);	
 			}
 		}
+		return $datos;
 	}
 }
