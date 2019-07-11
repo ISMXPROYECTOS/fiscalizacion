@@ -35,7 +35,7 @@ $(document).ready(function(){
 			*/
 
 			var data = $("#formulario-asignar-inspeccion").serializeArray();
-			console.log(data);
+			//console.log(data);
 			
 			$.ajax({
 	            url: url + '/inspecciones/obtener-folios-inspecciones',
@@ -43,6 +43,8 @@ $(document).ready(function(){
 	            type: 'post',
             	headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 	            success: function (response) {
+	            	console.log(response);
+
 
 	            	//console.log('#folio-inicio-2')
 	                //$('#folio-inicio-2'.text(response.folioinicio);
