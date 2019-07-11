@@ -21,14 +21,21 @@ $(document).ready(function(){
             } 
         });
 	}
-	
 
     $(".form-check-input").each(function(){
         $('#inspector-'+$(this).val()).click(function(){
 
-        	$('#folios-'+$(this).val()).append('');
+        	/*
+        	var data = {
+				'tipoinspeccion' :$('#tipoinspeccion-asignar').val(),
+				'cantidad' : $('#cantidad-asignar').val(),
+				'ejerciciofiscal' : $('#ejerciciofiscal-asignar').val(),
+				'inspectores-asignar': JSON.stringify($('[name="inspectores-asignar[]"]').serializeArray())
+			}
+			*/
 
 			var data = $("#formulario-asignar-inspeccion").serializeArray();
+			//console.log(data);
 			
 			$.ajax({
 	            url: url + '/inspecciones/obtener-folios-inspecciones',
@@ -36,11 +43,12 @@ $(document).ready(function(){
 	            type: 'post',
             	headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 	            success: function (response) {
-	            	$.each(response, function(i, item) {
-	            		$('#folios-'+response[i].inspector).append('Folio inicio: '+response[i].folioinicio+' Folio final: '+response[i].foliofin)
-                        //$('#folio-inicio-'+response[i].inspector).text(response[i].folioinicio);
-                        //$('#folio-fin-'+response[i].inspector).text(response[i].foliofin);
-                    }); 
+	            	console.log(response);
+
+
+	            	//console.log('#folio-inicio-2')
+	                //$('#folio-inicio-2'.text(response.folioinicio);
+	                //$('#folio-fin-2'.text(response.foliofin);
 	            } 
 	        });
 
