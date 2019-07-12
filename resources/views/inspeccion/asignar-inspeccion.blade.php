@@ -70,6 +70,7 @@
     </div>
     @php $var = 1; @endphp
     <label for="inspectores-asignar">Inspectores </label>
+
     <p class="text-danger" id="error-inspectores-asignar"></p>
     @foreach($inspectores as $inspector)
         @if($inspector->estatus == 'A' or $inspector->estatus == 'V')

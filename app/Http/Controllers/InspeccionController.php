@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Inspeccion;
 use App\Inspector;
@@ -353,7 +354,19 @@ class InspeccionController extends Controller
 
     	$inspecciones = Inspeccion::where('idestatusinspeccion', 1)
 							->where('idtipoinspeccion', $tipo_inspeccion_id)->get();
+		
 
+		$datos = [];
+		$inspectores_array = [];
+
+		if ($inspectores == null) {
+			
+			return response()->json([
+				'error' => true,
+				'mensaje' => 'aLGO ANDA MAL'
+			], 422);
+		} 
+		
 		$total_inspectores = count($inspectores);
 		$total_inspecciones = count($inspecciones);
 
@@ -371,70 +384,25 @@ class InspeccionController extends Controller
 			for ($i = 0; $i < $total_inspectores; $i++) {
 				$cantidad_final = $cantidad * ($i + 1);
 				if ($i == 0) {
-					//echo $inspectores[$i] . "<br>";
-					$datos = [
-						$inspectores[$i] => [
-							'folioinicio' => $inspecciones[0]->folio,
-							'foliofin' => $inspecciones[$cantidad-1]->folio,
-							'inspector' => $inspectores[$i]
-						]
-					];
+
+					$inspectores_array['folioinicio'] = $inspecciones[0]->folio;
+					$inspectores_array['foliofin'] =  $inspecciones[$cantidad-1]->folio;
+					$inspectores_array['inspector'] = $inspectores[$i];
+					$datos[$inspectores[$i]] = $inspectores_array;
+
 				} else {
-					//echo "Avanzo a" . $inspectores[$i] . "<br>";
-					$datos[] = [
-						$inspectores[$i] => [
-							'folioinicio' => $inspecciones[$cantidad_final-$cantidad]->folio,
-							'foliofin' => $inspecciones[$cantidad_final-1]->folio,
-							'inspector' => $inspectores[$i]
-						]
-					];
+				
+					$inspectores_array['folioinicio'] = $inspecciones[$cantidad_final-$cantidad]->folio;
+					$inspectores_array['foliofin'] =  $inspecciones[$cantidad_final-1]->folio;
+					$inspectores_array['inspector'] = $inspectores[$i];
+					$datos[$inspectores[$i]] = $inspectores_array;
+
+
 				}
 			}
-			return $datos;
 
 		}
 
-
-		/*
-		for ($i = 1; $i <= $total_inspectores; $i++) {
-			$cantidad_final = $cantidad * $i;
-			if ($i == 1) {
-				$datos = [
-					$i-1 => [
-						'folioinicio' => $inspecciones[$i-1]->folio,
-						'foliofin'  => $inspecciones[$cantidad_final-1]->folio,
-						'inspector'  => $inspectores[$i-1]
-					]
-				];
-
-				$datos = [
-					'1' => [
-						'folioinicio' => 'algo',
-						'foliofin' => 'no pelas',
-						'inspector' => '1'
-					],
-					'2' => [
-						'folioinicio' => 'algoasdad',
-						'foliofin' => 'no pelasxzcz',
-						'inspector' => '2'
-					],
-					'3' => [
-						'folioinicio' => 'algo213',
-						'foliofin' => 'no pelasñl',
-						'inspector' => '5'
-					]
-				];
-			}else{	
-				$datos = [
-					$i-1 => [
-						'folioinicio' => $inspecciones[$cantidad_final-$cantidad]->folio,
-						'foliofin'  => $inspecciones[$cantidad_final-1]->folio,
-						'inspector'  => $inspectores[$i-1]
-					]
-				];
-			}
-		}
-		*/
 		return $datos;
 	}
 }
