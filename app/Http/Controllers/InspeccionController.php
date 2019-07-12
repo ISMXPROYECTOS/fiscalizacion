@@ -355,9 +355,33 @@ class InspeccionController extends Controller
 							->where('idtipoinspeccion', $tipo_inspeccion_id)->get();
 
 		$total_inspectores = count($inspectores);
+		$total_inspecciones = count($inspecciones);
 
+		if ($total_inspectores == 1) {
+			$datos = [
+				$total_inspectores => [
+					'folioinicio' => $inspecciones[0]->folio,
+					'foliofin' => $inspecciones[$cantidad-1]->folio,
+					'inspector' => $inspectores
+				]
+			];
 
+			return $datos;
+		} else {
+			for ($i = 0; $i < $total_inspectores; $i++) {
+				$datos[$i] = [
+					$inspectores[$i] => [
+						'folioinicio' => $inspecciones[0]->folio,
+						'foliofin' => $inspecciones[$cantidad-1]->folio,
+						'inspector' => $inspectores[$i]
+					]
+				];
+			}
+			
+			return $datos;
+		}
 
+		/*
 		for ($i = 1; $i <= $total_inspectores; $i++) {
 			$cantidad_final = $cantidad * $i;
 			if ($i == 1) {
@@ -369,8 +393,7 @@ class InspeccionController extends Controller
 					]
 				];
 
-
-				/*$datos = [
+				$datos = [
 					'1' => [
 						'folioinicio' => 'algo',
 						'foliofin' => 'no pelas',
@@ -386,7 +409,7 @@ class InspeccionController extends Controller
 						'foliofin' => 'no pelasñl',
 						'inspector' => '5'
 					]
-				];*/
+				];
 			}else{	
 				$datos = [
 					$i-1 => [
@@ -395,26 +418,9 @@ class InspeccionController extends Controller
 						'inspector'  => $inspectores[$i-1]
 					]
 				];
-
-				/*$datos = [
-					'1' => [
-						'folioinicio' => 'algo',
-						'foliofin' => 'no pelas',
-						'inspector' => '1'
-					],
-					'2' => [
-						'folioinicio' => 'algoasdad',
-						'foliofin' => 'no pelasxzcz',
-						'inspector' => '2'
-					],
-					'3' => [
-						'folioinicio' => 'algo213',
-						'foliofin' => 'no pelasñl',
-						'inspector' => '5'
-					]
-				];*/
 			}
 		}
+		*/
 		return $datos;
 	}
 }

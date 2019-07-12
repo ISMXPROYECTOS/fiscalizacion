@@ -24,12 +24,8 @@ $(document).ready(function(){
 	
 
     $(".form-check-input").each(function(){
-
 		$('#inspector-'+$(this).val()).click(function(){
-
-
 			if ($('#inspector-'+$(this).val()).is(':checked')) {
-
 				//alert('checked');
 				//$('#inspector-'+$(this).val()).attr('checked', true);
 
@@ -39,24 +35,13 @@ $(document).ready(function(){
 				//alert('unchecked');
 				//obtenerFoliosInspecciones();
 				$('#folios-'+$(this).val()).text('');
-
-				
 			}
-
-			
-
 		});
 
 	});
-		
-	
-	//$('#inspector-'+$(this).val()).attr('checked',false);
-	//$('input:checkbox[name=colorfavorito]').attr('checked',false);
 	
 	function obtenerFoliosInspecciones(){
-
 		var data = $("#formulario-asignar-inspeccion").serializeArray();
-		
 		$.ajax({
             url: url + '/inspecciones/obtener-folios-inspecciones',
             data: data,
@@ -64,7 +49,6 @@ $(document).ready(function(){
         	headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             success: function (response) {
             	console.log(response);
-
             	$.each(response, function(i, item) {
             		//console.log(response);
             		$('#folios-'+response[i].inspector).text('Folio inicio: '+response[i].folioinicio+' Folio final: '+response[i].foliofin)
