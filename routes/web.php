@@ -14,7 +14,6 @@
 Use App\User;
 
 Route::get('/', function () {
-
     return view('welcome');
 });
 
@@ -79,6 +78,9 @@ Route::post('/inspecciones/obtener-folios', 'InspeccionController@obtenerFolios'
 Route::get('/inspecciones/obtener-total-inspecciones/{id}', 'InspeccionController@obtenerTotalInspecciones');
 Route::post('/inspecciones/obtener-folios-inspecciones', 'InspeccionController@obtenerFoliosInspecciones');
 
+/* Rutas PDF */
+Route::get('/pdf', 'InspeccionController@pdf')->name('pdf');
+
 /* Rutas Tipos Inspecciones*/
 
 Route::get('/tipo-inspecciones', 'TipoInspeccionController@listadoTipoInspecciones')->name('listado-tipo-inspecciones');
@@ -99,3 +101,4 @@ Route::post('/estatus-inspecciones/actualizar', 'EstatusInspeccionController@upd
 
 Route::get('/gafetes/registrar/{id}', 'GafetesController@registrar');
 Route::post('/gafetes/generar', 'GafetesController@generar');
+

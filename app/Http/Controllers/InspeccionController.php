@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Inspeccion;
 use App\Inspector;
 use App\Gestor;
@@ -384,25 +385,28 @@ class InspeccionController extends Controller
 			for ($i = 0; $i < $total_inspectores; $i++) {
 				$cantidad_final = $cantidad * ($i + 1);
 				if ($i == 0) {
-
 					$inspectores_array['folioinicio'] = $inspecciones[0]->folio;
 					$inspectores_array['foliofin'] =  $inspecciones[$cantidad-1]->folio;
 					$inspectores_array['inspector'] = $inspectores[$i];
 					$datos[$inspectores[$i]] = $inspectores_array;
-
 				} else {
-				
 					$inspectores_array['folioinicio'] = $inspecciones[$cantidad_final-$cantidad]->folio;
 					$inspectores_array['foliofin'] =  $inspecciones[$cantidad_final-1]->folio;
 					$inspectores_array['inspector'] = $inspectores[$i];
 					$datos[$inspectores[$i]] = $inspectores_array;
-
-
 				}
 			}
 
 		}
 
 		return $datos;
+	}
+
+	public function pdf(){
+
+		$inspecciones = Inspeccion::all();
+		$pdf = PDF::loadView('pdf.pdf', ['inspecciones' => $inspecciones]);
+
+		return $pdf->stream();
 	}
 }

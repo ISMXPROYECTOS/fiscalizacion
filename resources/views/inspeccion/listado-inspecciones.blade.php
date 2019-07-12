@@ -6,10 +6,12 @@
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspeccion">
     <i class="fas fa-user-plus"></i> Agregar Inspección
 </button>
-
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#asignar-inspeccion">
     <i class="fas fa-user-plus"></i> Asignar Inspecciones
 </button>
+<a class="btn btn-success mb-3" href="{{ route('pdf') }}">
+    <i class="fas fa-file-pdf"></i> PDF
+</a>
 <div class="row">
     <div class="col">
         <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
