@@ -369,17 +369,31 @@ class InspeccionController extends Controller
 			return $datos;
 		} else {
 			for ($i = 0; $i < $total_inspectores; $i++) {
-				$datos[$i] = [
-					$inspectores[$i] => [
-						'folioinicio' => $inspecciones[0]->folio,
-						'foliofin' => $inspecciones[$cantidad-1]->folio,
-						'inspector' => $inspectores[$i]
-					]
-				];
+				$cantidad_final = $cantidad * ($i + 1);
+				if ($i == 0) {
+					//echo $inspectores[$i] . "<br>";
+					$datos = [
+						$inspectores[$i] => [
+							'folioinicio' => $inspecciones[0]->folio,
+							'foliofin' => $inspecciones[$cantidad-1]->folio,
+							'inspector' => $inspectores[$i]
+						]
+					];
+				} else {
+					//echo "Avanzo a" . $inspectores[$i] . "<br>";
+					$datos[] = [
+						$inspectores[$i] => [
+							'folioinicio' => $inspecciones[$cantidad_final-$cantidad]->folio,
+							'foliofin' => $inspecciones[$cantidad_final-1]->folio,
+							'inspector' => $inspectores[$i]
+						]
+					];
+				}
 			}
-			
 			return $datos;
+
 		}
+
 
 		/*
 		for ($i = 1; $i <= $total_inspectores; $i++) {
