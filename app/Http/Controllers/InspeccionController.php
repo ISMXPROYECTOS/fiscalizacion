@@ -363,7 +363,7 @@ class InspeccionController extends Controller
 			
 			return response()->json([
 				'error' => true,
-				'mensaje' => 'aLGO ANDA MAL'
+				'mensaje' => 'Es necesario seleccionar a un Inspector'
 			], 422);
 		} 
 		
