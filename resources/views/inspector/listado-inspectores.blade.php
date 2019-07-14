@@ -4,7 +4,7 @@
     <h2>Catalogo de Inspectores</h2>
 </header>
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspector">
-<i class="fas fa-user-plus"></i> Agregar Inspector
+    <i class="fas fa-user-plus"></i> Agregar Inspector
 </button>
 <div class="row">
     <div class="col">

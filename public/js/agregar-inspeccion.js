@@ -4,9 +4,7 @@ $(document).ready(function(){
 
 	$('#ejerciciofiscal').attr('disabled', '');
 	$('#cantidad').attr('disabled', '');
-
-
-
+	
 	$('#tipoinspeccion').change(function(){
 		if ($('#tipoinspeccion').val() != '') {
 			$('#ejerciciofiscal').removeAttr('disabled');

@@ -3,12 +3,12 @@
 <header class="page-header">
     <h2>Inspecciones</h2>
 </header>
-<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspeccion">
+<!--<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspeccion">
     <i class="fas fa-user-plus"></i> Agregar Inspección
 </button>
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#asignar-inspeccion">
     <i class="fas fa-user-plus"></i> Asignar Inspecciones
-</button>
+</button> -->
 <a class="btn btn-success mb-3" href="{{ route('pdf') }}">
     <i class="fas fa-file-pdf"></i> PDF
 </a>
@@ -22,7 +22,8 @@
                     <th>Estatus</th>
                     <th>Inspector</th>
                     <th>Nombre del Local</th>
-                    <th>Acción</th>
+                    <th>Editar</th>
+                    <th>Estatus</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -449,18 +450,16 @@
             <div class="modal-body">
                 <form class="formulario-estatus" role="form">
                     @csrf
-                    <input type="hidden" id="id-edit-estatus">
+                    <input type="hidden" id="id-edit-estatusinspeccion">
                     <div class="form-group">
-                        <label for="estatus-edit">{{ __('Estatus') }}</label>
-                        <select id="estatus-edit" class="form-control">
+                        <label for="estatusinspeccion-edit">{{ __('Estatus') }}</label>
+                        <select id="estatusinspeccion-edit" class="form-control">
                             <option value="">Seleccionar</option>
-                            <option value="A">Activo</option>
-                            <option value="B">Baja</option>
-                            <option value="S">Suspendido</option>
-                            <option value="V">Vigente</option>
+                            @foreach($estatusInspecciones as $estatus)
+                                <option value="{{ $estatus->id }}">{{ $estatus->nombre }}</option>
+                            @endforeach
                         </select>
-
-                        <p class="text-danger" id="error-estatus-edit"></p>
+                        <p class="text-danger" id="error-estatusinspeccion-edit"></p>
                     </div>
                     <hr>
                     <div class="form-group row mb-0">

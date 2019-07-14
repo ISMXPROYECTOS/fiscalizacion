@@ -42,6 +42,7 @@ class InspeccionController extends Controller
 
 	// Muetra la vista del listado de las inspecciones
 	public function listadoInspecciones(){
+		$inspecciones = Inspeccion::all();
 		$inspectores = Inspector::all();
 		$gestores = Gestor::all();
 		$tiposInspecciones = TipoDeInspeccion::all();
@@ -60,15 +61,24 @@ class InspeccionController extends Controller
 			'subgiros' => $subgiros,
 			'ejerciciosFiscales' => $ejerciciosFiscales,
 			'estatusInspecciones' => $estatusInspecciones,
-			'colonias' => $colonias
+			'colonias' => $colonias,
+			'inspecciones' => $inspecciones
 		]);
 	}
 
 	public function tbody(){
 		return datatables()
 			->eloquent(Inspeccion::query())
-			->addColumn('btn', 'inspeccion/actions-inspecciones')
-			->rawColumns(['btn'])->toJson();
+			->addColumn('tipoInspeccion', function(Inspeccion $inspeccion){
+				return $inspeccion->tipoInspeccion->clave;
+			})
+			->addColumn('estatusInspeccion', function(Inspeccion $inspeccion){
+				return $inspeccion->estatusInspeccion->nombre;
+			})
+			->addColumn('editar', 'inspeccion/boton-editar')
+			->addColumn('estatus', 'inspeccion/boton-estatus')
+			->rawColumns(['editar', 'estatus'])
+			->toJson();
 	}
 
 	public function create(Request $request){
@@ -138,14 +148,12 @@ class InspeccionController extends Controller
 			$tipo_inspeccion = TipoDeInspeccion::find($tipo_inspeccion_id);
 			$tipo_inspeccion_clave = $tipo_inspeccion->clave;
 
-			$inspecciones = Inspeccion::all();
-
 			$datos = [
 				'idformavalorada' => $id_forma_valorada,
-				'idtipoinspeccion' => $tipo_inspeccion_id,
+				'tipoinspeccion_id' => $tipo_inspeccion_id,
 				'idusuario' => $usuario->id,
 				'idejerciciofiscal' => $ejercicio_fiscal_id,
-				'idestatusinspeccion' => $id_estatus_inspeccion,
+				'estatusinspeccion_id' => $id_estatus_inspeccion,
 				'folio' => $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio
 			];
 
@@ -208,12 +216,12 @@ class InspeccionController extends Controller
         // Una ves verificados los datos y creados las variables se actualiza en la BD
 		$inspeccion->idinspector = $inspector;
 		$inspeccion->idgestores = $gestor;
-		$inspeccion->idtipoinspeccion = $tipoinspeccion;
+		$inspeccion->tipoinspeccion_id = $tipoinspeccion;
 		$inspeccion->idformavalorada = $formavalorada;
 		$inspeccion->idgiro = $giro;
 		$inspeccion->idsubgirocomercial = $subgiro;
 		$inspeccion->idejerciciofiscal = $ejerciciofiscal;
-		$inspeccion->idestatusinspeccion = $estatus;
+		$inspeccion->estatusinspeccion_id = $estatus;
 		$inspeccion->idcolonia = $colonia;
 		$inspeccion->nombrelocal = $local;
 		$inspeccion->domicilio = $domicilio;
@@ -224,6 +232,33 @@ class InspeccionController extends Controller
 		$inspeccion->update();
 
         // Indica que fue correcta la modificación de la inspección
+    	return $inspeccion;
+
+	}
+
+	public function updateEstatus(Request $request){
+		// Se reciben la id de la inspección a modificar
+		$id = $request->input('id');
+
+		// Se selecciona la inspección
+		$inspeccion = Inspeccion::find($id);
+
+		// Validara los campos para evitar problemas
+		$validate = $this->validate($request,[
+			'estatusinspeccion' => 'required|string|max:1'
+		]);
+
+		// Obtiene la id del usuario que modifica la inspección
+		$idUser = \Auth::user()->id;
+
+		// Se reciben los datos del formulario y se crean variables
+		$estatus = $request->input('estatusinspeccion');
+
+        // Una ves verificados los datos y creados las variables se actualiza en la BD
+		$inspeccion->estatusinspeccion_id = $estatus;
+		$inspeccion->update();
+
+        // Una vez actualizada la inspección redirige e indica que fue correcta la modificación
     	return $inspeccion;
 
 	}
@@ -254,8 +289,8 @@ class InspeccionController extends Controller
     		$id_estatus_nuevo = $estatus->id;
 		}
 
-		$inspecciones = Inspeccion::where('idestatusinspeccion', $id_estatus_anterior)
-									->where('idtipoinspeccion', $tipoinspeccion)->get();
+		$inspecciones = Inspeccion::where('estatusinspeccion_id', $id_estatus_anterior)
+									->where('tipoinspeccion_id', $tipoinspeccion)->get();
 		$tipos_inspecciones = TipoDeInspeccion::find($tipoinspeccion);
 		$total_inspectores = count($inspectores);
 		$total_inspecciones = $cantidad * $total_inspectores;
@@ -265,9 +300,9 @@ class InspeccionController extends Controller
 			for ($i = 0; $i < $total_inspectores; $i++) {
 	    		for ($a = 0; $a < $cantidad; $a++) {
 	    			for ($b = 0; $b < $numero_inspecciones; $b++) {
-						if ($inspecciones[$b]->idtipoinspeccion == $tipos_inspecciones->id && $inspecciones[$b]->idestatusinspeccion == $id_estatus_anterior) {
+						if ($inspecciones[$b]->tipoinspeccion_id == $tipos_inspecciones->id && $inspecciones[$b]->estatusinspeccion_id == $id_estatus_anterior) {
 							$inspecciones[$b]->idinspector = $inspectores[$i];
-							$inspecciones[$b]->idestatusinspeccion = $id_estatus_nuevo;
+							$inspecciones[$b]->estatusinspeccion_id = $id_estatus_nuevo;
 							$inspecciones[$b]->update();
 							break;
 						}
@@ -282,8 +317,8 @@ class InspeccionController extends Controller
 	}
 
 	public function obtenerTotalInspecciones($id){
-		$total_inspecciones = Inspeccion::where('idtipoinspeccion', $id)
-										->where('idestatusinspeccion', 1)
+		$total_inspecciones = Inspeccion::where('tipoinspeccion_id', $id)
+										->where('estatusinspeccion_id', 1)
 										->get();
 		return count($total_inspecciones);
 	}
@@ -353,10 +388,9 @@ class InspeccionController extends Controller
     	$ejercicio_fiscal_id = $request->input('ejerciciofiscal-asignar');
     	$inspectores = array_get($data, 'inspectores-asignar');
 
-    	$inspecciones = Inspeccion::where('idestatusinspeccion', 1)
-							->where('idtipoinspeccion', $tipo_inspeccion_id)->get();
+    	$inspecciones = Inspeccion::where('estatusinspeccion_id', 1)
+							->where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 		
-
 		$datos = [];
 		$inspectores_array = [];
 

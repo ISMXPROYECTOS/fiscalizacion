@@ -25,8 +25,8 @@ class Inspeccion extends Model
 	}
 
 	/* Relación muchos a uno */
-	public function tipoDeInspeccion(){
-		return $this->belongsTo('App\TipoDeInspeccion', 'IDTIPOINSPECCION');
+	public function tipoInspeccion(){
+		return $this->belongsTo('App\TipoDeInspeccion', 'tipoinspeccion_id');
 	}
 
 	/* Relación muchos a uno */
@@ -51,7 +51,7 @@ class Inspeccion extends Model
 
 	/* Relación muchos a uno */
 	public function estatusInspeccion(){
-		return $this->belongsTo('App\EstatusInspeccion', 'IDESTATUSINSPECCION');
+		return $this->belongsTo('App\EstatusInspeccion', 'estatusinspeccion_id');
 	}
 
 	/* Relación muchos a uno */
@@ -80,7 +80,7 @@ class Inspeccion extends Model
      * @var array
      */
     protected $fillable = [
-    	'idusuario', 'idinspector', 'idgestores', 'idtipoinspeccion', 'idformavalorada', 'idgiro', 'idsubgirocomercial', 'idejerciciofiscal', 'idestatusinspeccion', 'idcolonia', 'nombrelocal', 'domicilio', 'nombreencargado', 'cargoencargado', 'diasvence', 'fechavence', 'folio',
+    	'idusuario', 'idinspector', 'idgestores', 'tipoinspeccion_id', 'idformavalorada', 'idgiro', 'idsubgirocomercial', 'idejerciciofiscal', 'estatusinspeccion_id', 'idcolonia', 'nombrelocal', 'domicilio', 'nombreencargado', 'cargoencargado', 'diasvence', 'fechavence', 'folio',
     ];
     
 }

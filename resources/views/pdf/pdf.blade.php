@@ -13,8 +13,8 @@
 		@foreach($inspecciones as $inspeccion)
 			<tr>
 				<td>{{ $inspeccion->folio }}</td>
-				<td>{{ $inspeccion->idtipoinspeccion }}</td>
-				<td>{{ $inspeccion->idestatusinspeccion }}</td>
+				<td>{{ $inspeccion->tipoInspeccion->nombre }}</td>
+				<td>{{ $inspeccion->estatusInspeccion->nombre }}</td>
 				<td>{{ $inspeccion->idinspector }}</td>
 				<td>{{ $inspeccion->nombrelocal }}</td>
 			</tr>
