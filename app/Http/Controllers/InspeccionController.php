@@ -46,23 +46,17 @@ class InspeccionController extends Controller
 		$inspectores = Inspector::all();
 		$gestores = Gestor::all();
 		$tiposInspecciones = TipoDeInspeccion::all();
-		$formasValoradas = FormaValorada::all();
-		$giros = GiroComercial::all();
-		$subgiros = SubgiroComercial::all();
 		$ejerciciosFiscales = EjercicioFiscal::all();
 		$estatusInspecciones = EstatusInspeccion::all();
 		$colonias = Colonia::all();
 		return view('inspeccion.listado-inspecciones', [
+			'inspecciones' => $inspecciones,
 			'inspectores' => $inspectores,
 			'gestores' => $gestores,
 			'tiposInspecciones' => $tiposInspecciones,
-			'formasValoradas' => $formasValoradas,
-			'giros' => $giros,
-			'subgiros' => $subgiros,
 			'ejerciciosFiscales' => $ejerciciosFiscales,
 			'estatusInspecciones' => $estatusInspecciones,
-			'colonias' => $colonias,
-			'inspecciones' => $inspecciones
+			'colonias' => $colonias
 		]);
 	}
 
@@ -174,38 +168,32 @@ class InspeccionController extends Controller
 		$inspeccion = Inspeccion::find($id);
 
 		// Se le da formato a la fecha de vencimiento
+		/*
 		$fechavence = $request->input('fechavence');
 		$date = strtotime($fechavence);
 		$fecha_format = date("Y-m-d", $date);
+		*/
 
 		// Validara los campos para evitar problemas
 		$validate = $this->validate($request,[
 			'inspector' => 'required|string',
 			'gestor' => 'required|string',
 			'tipoinspeccion' => 'required|string',
-			'formavalorada' => 'required|string',
-			'giro' => 'required|string',
-			'subgiro' => 'required|string',
 			'ejerciciofiscal' => 'required|string',
-			'estatus' => 'required|string',
 			'colonia' => 'required|string',
 			'local' => 'required|string',
 			'domicilio' => 'required|string|max:75',
 			'encargado' => 'required|string|max:50',
             'puestoencargado' => 'required|string|max:30',
-            'diasvence' => 'required|string',
-            'fechavence' => 'required|date_format:Y-m-d'
+            'diasvence' => 'required|string'
 		]);
+		// 'fechavence' => 'required|date_format:Y-m-d'
 
 		// Se reciben los datos del formulario y se crean variables
 		$inspector = $request->input('inspector');
 		$gestor = $request->input('gestor');
 		$tipoinspeccion = $request->input('tipoinspeccion');
-		$formavalorada = $request->input('formavalorada');
-		$giro = $request->input('giro');
-		$subgiro = $request->input('subgiro');
 		$ejerciciofiscal = $request->input('ejerciciofiscal');
-		$estatus = $request->input('estatus');
 		$colonia = $request->input('colonia');
 		$local = $request->input('local');
 		$domicilio = $request->input('domicilio');
@@ -217,18 +205,14 @@ class InspeccionController extends Controller
 		$inspeccion->idinspector = $inspector;
 		$inspeccion->idgestores = $gestor;
 		$inspeccion->tipoinspeccion_id = $tipoinspeccion;
-		$inspeccion->idformavalorada = $formavalorada;
-		$inspeccion->idgiro = $giro;
-		$inspeccion->idsubgirocomercial = $subgiro;
 		$inspeccion->idejerciciofiscal = $ejerciciofiscal;
-		$inspeccion->estatusinspeccion_id = $estatus;
 		$inspeccion->idcolonia = $colonia;
 		$inspeccion->nombrelocal = $local;
 		$inspeccion->domicilio = $domicilio;
 		$inspeccion->nombreencargado = $encargado;
 		$inspeccion->cargoencargado = $puestoencargado;
 		$inspeccion->diasvence = $diasvence;
-		$inspeccion->fechavence = $fecha_format;
+		//$inspeccion->fechavence = $fecha_format;
 		$inspeccion->update();
 
         // Indica que fue correcta la modificación de la inspección

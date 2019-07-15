@@ -9,7 +9,7 @@ $(document).ready(function(){
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
 
     function viewData(){
-        $('#datatable-gestores').DataTable({
+        $('#datatable').DataTable({
             'serverSide': true,
             'destroy': true,
             'ajax': url + '/gestores/listado',
@@ -34,7 +34,8 @@ $(document).ready(function(){
                         }
                     }
                 },
-                {data: 'btn'},
+                {data: 'editar'},
+                {data: 'cambiarestatus'},
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',

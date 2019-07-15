@@ -46,12 +46,10 @@ class GafetesController extends Controller
 
 		$inspector = Inspector::find($request->input('gafete-id'));
 
-
 		$nombre_qr = "QR".date("Y").'INS'.$inspector->id;
 		$qr = \QrCode::format('png')
 			->size(500)
 			->generate(url('/inspectores/perfil/'.$inspector->hash), public_path('img/qrs/'.$nombre_qr.'.png'));
-
 
 		$imagen = $request->file('gafete-image'); 
 		$nombre_imagen = $ejercicio_fiscal->anio .'INS'. $request->input('gafete-id').'.'.$imagen

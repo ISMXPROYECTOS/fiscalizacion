@@ -41,7 +41,9 @@ $(document).ready(function(){
                     }
                 },
                 // La columna pertenece a los botones de editar o eliminar de cada registro
-                {data: 'btn'},
+                {data: 'editar'},
+                {data: 'cambiarestatus'},
+                {data: 'gafete'},
             ],
             // Aquí se realiza la traduccion de la tabla, la libreria datatable esta en ingles
             // pero aqui se realiza las respectivas configuraciones y traducciones

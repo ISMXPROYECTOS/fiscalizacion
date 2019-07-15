@@ -15,7 +15,7 @@
                     <th>Nombre</th>
                     <th>Formato</th>
                     <th>Fecha creado</th>
-                    <th>Acción</th>
+                    <th>Editar</th>
                 </tr>
             </thead>
             <tbody></tbody>

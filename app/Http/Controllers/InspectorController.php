@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Inspector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Inspector;
+use App\Gafete;
 
 class InspectorController extends Controller
 {
@@ -22,8 +23,10 @@ class InspectorController extends Controller
 	public function tbody(){
 		return datatables()
 			->eloquent(Inspector::query())
-			->addColumn('btn', 'inspector/actions-inspectores')
-			->rawColumns(['btn'])->toJson();
+			->addColumn('editar', 'inspector/boton-editar')
+			->addColumn('cambiarestatus', 'inspector/boton-estatus')
+			->addColumn('gafete', 'inspector/boton-gafete')
+			->rawColumns(['editar', 'cambiarestatus', 'gafete'])->toJson();
 	}
 
 	public function create(Request $request){
@@ -124,10 +127,13 @@ class InspectorController extends Controller
 
 	public function perfil($hash){
 
-
 		$inspector = Inspector::where('hash', $hash)->first();
+		$gafete = Gafete::find($inspector->id);
 
-		var_dump($inspector);
+		return view('inspector.perfil',[
+			'inspector' => $inspector,
+			'gafete' => $gafete
+		]);
 
 	}
 

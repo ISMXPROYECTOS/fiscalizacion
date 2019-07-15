@@ -36,7 +36,8 @@ $(document).ready(function(){
                     }
                 },
                 {data: 'vigencia'},
-                {data: 'btn'},
+                {data: 'editar'},
+                {data: 'cambiarestatus'},
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',

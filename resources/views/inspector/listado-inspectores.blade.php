@@ -17,7 +17,9 @@
                     <th>Apellido Materno</th>
                     <th>Clave</th>
                     <th>Estatus</th>
-                    <th>Acción</th>
+                    <th>Editar</th>
+                    <th>Cambiar Estatus</th>
+                    <th>Gafete</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -281,18 +283,15 @@
                             <div class="form-group">
                                 <label for="gafete-apellidopaterno">{{ __('Apellido Paterno') }}</label>
                                 <input id="gafete-apellidopaterno" name="gafete-apellidopaterno" type="text" class="form-control"> 
+                                <p class="text-danger" id="error-gafete-apellidopaterno"></p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="gafete-apellidomaterno">{{ __('Apellido Materno') }}</label>
                                 <input id="gafete-apellidomaterno" name="gafete-apellidomaterno" type="text" class="form-control">
-                                
+                                <p class="text-danger" id="error-gafete-apellidomaterno"></p>
                             </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-gafete-apellidopaterno"></p>
-                            <p class="text-danger" id="error-gafete-apellidomaterno"></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -300,12 +299,11 @@
                         <input id="gafete-clave" name="gafete-clave" type="text" class="form-control">
                         <p class="text-danger" id="error-gafete-clave"></p>
                     </div>
-
                     <div class="form-group">
                         <label for="gafete-image">Foto del Inspector (99px x 142px)</label>
                         <input id="gafete-image" name="gafete-image" type="file" class="form-control-file" >
+                        <p class="text-danger" id="error-gafete-image"></p>
                     </div>
-
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
