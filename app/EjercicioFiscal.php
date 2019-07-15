@@ -29,6 +29,11 @@ class EjercicioFiscal extends Model
 		return $this->hasMany('App\Inspeccion');
 	}
 
+	/* Relación uno a mucho */
+	public function formaValorada(){
+		return $this->hasMany('App\FormaValorada');
+	}
+
 	/**
      * The attributes that are mass assignable.
      *

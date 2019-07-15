@@ -11,17 +11,17 @@ class Inspeccion extends Model
 
 	/* Relación muchos a uno */
 	public function formaValorada(){
-		return $this->belongsTo('App\FormaValorada', 'IDFORMAVALORADA');
+		return $this->belongsTo('App\FormaValorada', 'formavalorada_id');
 	}
 
 	/* Relación muchos a uno */
 	public function giroComercial(){
-		return $this->belongsTo('App\GiroComercial', 'IDGIRO');
+		return $this->belongsTo('App\GiroComercial', 'giro_id');
 	}
 
 	/* Relación muchos a uno */
 	public function subgiroComercial(){
-		return $this->belongsTo('App\SubgiroComercial', 'IDSUBGIROCOMERCIAL');
+		return $this->belongsTo('App\SubgiroComercial', 'subgirocomercial_id');
 	}
 
 	/* Relación muchos a uno */
@@ -31,22 +31,22 @@ class Inspeccion extends Model
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
+		return $this->belongsTo('App\Usuario', 'usuario_id');
 	}
 
 	/* Relación muchos a uno */
 	public function gestor(){
-		return $this->belongsTo('App\Gestor', 'IDGESTOR');
+		return $this->belongsTo('App\Gestor', 'gestores_id');
 	}
 
 	/* Relación muchos a uno */
 	public function ejercicioFiscal(){
-		return $this->belongsTo('App\EjercicioFiscal', 'IDEJERCICIOFISCAL');
+		return $this->belongsTo('App\EjercicioFiscal', 'ejerciciofiscal_id');
 	}
 
 	/* Relación muchos a uno */
 	public function inspector(){
-		return $this->belongsTo('App\Inspector', 'IDINSPECTOR');
+		return $this->belongsTo('App\Inspector', 'inspector_id');
 	}
 
 	/* Relación muchos a uno */
@@ -56,7 +56,7 @@ class Inspeccion extends Model
 
 	/* Relación muchos a uno */
 	public function colonia(){
-		return $this->belongsTo('App\Colonia', 'IDCOLONIA');
+		return $this->belongsTo('App\Colonia', 'colonia_id');
 	}
 
 	/* Relación uno a mucho */
@@ -80,7 +80,7 @@ class Inspeccion extends Model
      * @var array
      */
     protected $fillable = [
-    	'idusuario', 'idinspector', 'idgestores', 'tipoinspeccion_id', 'idformavalorada', 'idgiro', 'idsubgirocomercial', 'idejerciciofiscal', 'estatusinspeccion_id', 'idcolonia', 'nombrelocal', 'domicilio', 'nombreencargado', 'cargoencargado', 'diasvence', 'fechavence', 'folio',
+    	'usuario_id', 'inspector_id', 'gestores_id', 'tipoinspeccion_id', 'formavalorada_id', 'giro_id', 'subgirocomercial_id', 'ejerciciofiscal_id', 'estatusinspeccion_id', 'colonia_id', 'nombrelocal', 'domicilio', 'nombreencargado', 'cargoencargado', 'diasvence', 'fechavence', 'folio',
     ];
     
 }

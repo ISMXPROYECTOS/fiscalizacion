@@ -57,8 +57,8 @@ class GafetesController extends Controller
 		$imagen->move(public_path('img/inspectores'), $nombre_imagen);
 
 		$datos = [
-			'idejerciciofiscal' => $ejercicio_fiscal->id,
-            'idinspector' => $request->input('gafete-id'),
+			'ejerciciofiscal_id' => $ejercicio_fiscal->id,
+            'inspector_id' => $request->input('gafete-id'),
             'folio' => $folio_gafete,
             'vigencia' => $vigencia,
             'codigoqr' => $nombre_qr,

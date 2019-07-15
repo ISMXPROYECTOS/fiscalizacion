@@ -11,7 +11,7 @@ class Gestor extends Model
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
+		return $this->belongsTo('App\Usuario', 'usuario_id');
 	}
 
 	/* Relación uno a mucho */
@@ -30,7 +30,7 @@ class Gestor extends Model
      * @var array
      */
     protected $fillable = [
-        'idusuario', 'nombre', 'apellidopaterno', 'apellidomaterno', 'telefono', 'celular', 'correoelectronico', 'ine', 'estatus',
+        'usuario_id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'telefono', 'celular', 'correoelectronico', 'ine', 'estatus',
     ];
 
 }

@@ -10,13 +10,23 @@ class FormaValorada extends Model
 	protected $table = 'formavalorada';
 
 	/* Relación muchos a uno */
-	public function tipoDeInspeccion(){
-		return $this->belongsTo('App\TipoDeInspeccion', 'IDTIPOINSPECCION');
+	public function tipoInspeccion(){
+		return $this->belongsTo('App\TipoDeInspeccion', 'tipoinspeccion_id');
 	}
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
+		return $this->belongsTo('App\User', 'usuario_id');
+	}
+
+	/* Relación muchos a uno */
+	public function ejercicioFiscal(){
+		return $this->belongsTo('App\EjercicioFiscal', 'ejerciciofiscal_id');
+	}
+
+	/* Relación muchos a uno */
+	public function configuracion(){
+		return $this->belongsTo('App\Configuracion', 'configuracion_id');
 	}
 
 	/* Relación uno a mucho */
@@ -30,6 +40,6 @@ class FormaValorada extends Model
      * @var array
      */
     protected $fillable = [
-        'idusuario', 'idtipoinspeccion', 'idejerciciofiscal', 'idconfiguracion', 'folioinicio', 'foliofin'
+        'usuario_id', 'tipoinspeccion_id', 'ejerciciofiscal_id', 'configuracion_id', 'idejerciciofiscal', 'idconfiguracion', 'folioinicio', 'foliofin'
     ];
 }

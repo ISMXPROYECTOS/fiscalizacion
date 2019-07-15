@@ -24,7 +24,7 @@ $(document).ready(function(){
                 {data: 'folio'},
                 {data: 'tipoInspeccion'},
                 {data: 'estatusInspeccion'},
-                {data: 'idinspector'},
+                {data: 'inspector'},
                 {data: 'nombrelocal'},
                 {data: 'editar'},
                 {data: 'estatus'},
@@ -59,15 +59,15 @@ $(document).ready(function(){
                     if (response != ""){
                         $('#editar-inspeccion').modal('show');
                         $('#id-edit').val(response.id);
-                        $('#inspector-edit').val(response.idinspector);
-                        $('#gestor-edit').val(response.idgestores);
+                        $('#inspector-edit').val(response.inspector_id);
+                        $('#gestor-edit').val(response.gestores_id);
                         $('#tipoinspeccion-edit').val(response.tipoinspeccion_id);
                         //$('#formavalorada-edit').val(response.idformavalorada);
                         //$('#giro-edit').val(response.idgiro);
                         //$('#subgiro-edit').val(response.idsubgirocomercial);
-                        $('#ejerciciofiscal-edit').val(response.idejerciciofiscal);
+                        $('#ejerciciofiscal-edit').val(response.ejerciciofiscal_id);
                         //$('#estatus-edit').val(response.estatusinspeccion_id);
-                        $('#colonia-edit').val(response.idcolonia);
+                        $('#colonia-edit').val(response.colonia_id);
                         $('#local-edit').val(response.nombrelocal);
                         $('#domicilio-edit').val(response.domicilio);
                         $('#encargado-edit').val(response.nombreencargado);

@@ -15,7 +15,9 @@
 				<td>{{ $inspeccion->folio }}</td>
 				<td>{{ $inspeccion->tipoInspeccion->nombre }}</td>
 				<td>{{ $inspeccion->estatusInspeccion->nombre }}</td>
-				<td>{{ $inspeccion->idinspector }}</td>
+				@if(is_object($inspeccion->inspector))
+					<td>{{ $inspeccion->inspector->nombre }}</td>
+				@endif
 				<td>{{ $inspeccion->nombrelocal }}</td>
 			</tr>
 		@endforeach

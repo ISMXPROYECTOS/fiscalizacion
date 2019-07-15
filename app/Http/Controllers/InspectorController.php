@@ -42,7 +42,7 @@ class InspectorController extends Controller
 
 	    // Se reciben los datos del formulario creando un Array de datos 
 		$datos = [
-			'idusuario' => \Auth::user()->id,
+			'usuario_id' => \Auth::user()->id,
 			'nombre' => $request->input('nombre'),
             'apellidopaterno' => $request->input('apellidopaterno'),
             'apellidomaterno' => $request->input('apellidomaterno'),
@@ -86,7 +86,7 @@ class InspectorController extends Controller
 		$clave = $request->input('clave');
 
         // Una ves verificados los datos y creados las variables se actualiza en la BD
-		$inspector->idusuario = $idUser;
+		$inspector->usuario_id = $idUser;
 		$inspector->nombre = $nombre;
 		$inspector->apellidopaterno = $apellidopaterno;
 		$inspector->apellidomaterno = $apellidomaterno;
@@ -117,6 +117,7 @@ class InspectorController extends Controller
 		$estatus = $request->input('estatus');
 
         // Una ves verificados los datos y creados las variables se actualiza en la BD
+        $inspector->usuario_id = $idUser;
 		$inspector->estatus = $estatus;
 		$inspector->update();
 

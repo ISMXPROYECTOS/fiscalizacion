@@ -11,12 +11,12 @@ class Gafete extends Model
 
 	/* Relación muchos a uno */
 	public function inspector(){
-		return $this->belongsTo('App\Inspector', 'IDINSPECTOR');
+		return $this->belongsTo('App\Inspector', 'inspector_id');
 	}
 
 	/* Relación muchos a uno */
 	public function ejercicioFiscal(){
-		return $this->belongsTo('App\EjercicioFiscal', 'IDEJERCICIOFISCAL');
+		return $this->belongsTo('App\EjercicioFiscal', 'ejerciciofiscal_id');
 	}
 
 	/**
@@ -25,6 +25,6 @@ class Gafete extends Model
      * @var array
      */
     protected $fillable = [
-        'idejerciciofiscal', 'idinspector', 'folio', 'vigencia', 'codigoqr', 'pdf', 'imageninspector', 'estatus',
+        'ejerciciofiscal_id', 'inspector_id', 'folio', 'vigencia', 'codigoqr', 'pdf', 'imageninspector', 'estatus',
     ];
 }

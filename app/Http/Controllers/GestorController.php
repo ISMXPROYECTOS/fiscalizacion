@@ -35,7 +35,7 @@ class GestorController extends Controller
 
 	    // Se reciben los datos del formulario creando un Array de datos 
 		$datos = [
-			'idusuario' => \Auth::user()->id,
+			'usuario_id' => \Auth::user()->id,
 			'nombre' => $request->input('nombre'),
             'apellidopaterno' => $request->input('apellidopaterno'),
             'apellidomaterno' => $request->input('apellidomaterno'),
@@ -87,7 +87,7 @@ class GestorController extends Controller
 		$ine = $request->input('ine');
 
         /* Una ves verificados los datos y creados las variables se actualiza en la BD */
-		$gestor->idusuario = $idusuario;
+		$gestor->usuario_id = $idusuario;
 		$gestor->nombre = $nombre;
 		$gestor->apellidopaterno = $apellidopaterno;
 		$gestor->apellidomaterno = $apellidomaterno;
@@ -116,7 +116,7 @@ class GestorController extends Controller
 		$estatus = $request->input('estatus');
 
         // Una ves verificados los datos y creados las variables se actualiza en la BD
-		$gestor->idusuario = $idusuario;
+		$gestor->usuario_id = $idusuario;
 		$gestor->estatus = $estatus;
 		$gestor->update();
 

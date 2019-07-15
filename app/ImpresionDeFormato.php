@@ -10,13 +10,13 @@ class ImpresionDeFormato extends Model
 	protected $table = 'impresiondeformatos';
 
 	/* Relación muchos a uno */
-	public function tipoDeInspeccion(){
-		return $this->belongsTo('App\TipoDeInspeccion', 'IDTIPOINSPECCION');
+	public function tipoInspeccion(){
+		return $this->belongsTo('App\TipoDeInspeccion', 'tipoinspeccion_id');
 	}
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'IDUSUARIO');
+		return $this->belongsTo('App\User', 'usuario_id');
 	}
 	
 }

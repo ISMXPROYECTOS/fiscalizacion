@@ -308,7 +308,7 @@
                         <select id="colonia-edit" class="form-control">
                             <option value="">Seleccionar</option>
                             @foreach($colonias as $colonia)
-                                <option value="{{ $colonia->id}}">{{ $colonia->nombrecolonia }}</option>
+                                <option value="{{ $colonia->id}}">{{ $colonia->nombre }}</option>
                             @endforeach
                         </select>
                         <p class="text-danger" id="error-colonia-edit"></p>
