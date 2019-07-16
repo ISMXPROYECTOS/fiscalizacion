@@ -80,7 +80,7 @@ Route::post('/inspecciones/obtener-folios-inspecciones', 'InspeccionController@o
 Route::post('/inspecciones/estatus', 'InspeccionController@updateEstatus');
 
 /* Rutas PDF */
-Route::get('/pdf', 'InspeccionController@pdf')->name('pdf');
+Route::get('/pdf', 'PdfController@inspeccionesPdf')->name('pdf');
 
 /* Rutas Tipos Inspecciones*/
 

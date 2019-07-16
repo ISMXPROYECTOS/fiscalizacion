@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\DomPDF\Facade as PDF;
 use App\Inspeccion;
 use App\Inspector;
 use App\Gestor;
@@ -415,11 +414,4 @@ class InspeccionController extends Controller
 		return $datos;
 	}
 
-	public function pdf(){
-
-		$inspecciones = Inspeccion::all();
-		$pdf = PDF::loadView('pdf.pdf', ['inspecciones' => $inspecciones]);
-
-		return $pdf->stream();
-	}
 }

@@ -159,65 +159,6 @@
     </div>
 </div>
 
-<!-- Modal para Editar -->
-<div class="modal fade" id="editar-inspector" tabindex="-1" role="dialog" aria-labelledby="modal-editar-inspector" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-editar-inspector">Editar Inspector</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="formulario-gestor" role="form">
-                    @csrf
-                    <input type="hidden" id="id-edit">
-                    <div class="form-group">
-                        <label for="nombre-edit">{{ __('Nombre Completo') }}</label>
-                        <input id="nombre-edit" type="text" class="form-control" required>
-                        <p class="text-danger" id="error-nombre-edit"></p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="apellidopaterno-edit">{{ __('Apellido Paterno') }}</label>
-                                <input id="apellidopaterno-edit" type="text" class="form-control">
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="apellidomaterno-edit">{{ __('Apellido Materno') }}</label>
-                                <input id="apellidomaterno-edit" type="text" class="form-control">
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-apellidopaterno-edit"></p>
-                            <p class="text-danger" id="error-apellidomaterno-edit"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="clave-edit">{{ __('Clave') }}</label>
-                        <input id="clave-edit" type="text" class="form-control">
-                        <p class="text-danger" id="error-clave-edit"></p>
-                    </div>
-                    <hr>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-editar">{{ __('Guardar') }}</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Modal para Editar Estatus -->
 <div class="modal fade" id="editar-estatus" tabindex="-1" role="dialog" aria-labelledby="modal-editar-estatus" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -374,8 +315,6 @@
         </div>
     </div>
 </div>
-
-
 
 @endsection
 @section('scripts')
