@@ -23,7 +23,7 @@
                     <th>Inspector</th>
                     <th>Nombre del Local</th>
                     <th>Editar</th>
-                    <th>Estatus</th>
+                    <th>Ver Más</th>
                 </tr>
             </thead>
             <tbody></tbody>

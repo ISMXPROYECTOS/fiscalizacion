@@ -65,7 +65,6 @@ Route::post('/ejercicios-fiscales/actualizar', 'EjercicioFiscalController@update
 Route::post('/ejercicios-fiscales/estatus', 'EjercicioFiscalController@updateEstatus');
 
 /* Rutas Inspecciones*/
-
 Route::get('/inspecciones', 'InspeccionController@listadoInspecciones')->name('listado-inspecciones');
 Route::get('/inspecciones/agregar', 'InspeccionController@vistaAgregarInspeccion')->name('vista-agregar-inspecciones');
 Route::get('/inspecciones/asignar', 'InspeccionController@vistaAsignarInspeccion')->name('vista-asignar-inspecciones');
@@ -77,7 +76,7 @@ Route::post('/inspecciones/asignar-nuevo', 'InspeccionController@asignarInspecci
 Route::post('/inspecciones/obtener-folios', 'InspeccionController@obtenerFolios');
 Route::get('/inspecciones/obtener-total-inspecciones/{id}', 'InspeccionController@obtenerTotalInspecciones');
 Route::post('/inspecciones/obtener-folios-inspecciones', 'InspeccionController@obtenerFoliosInspecciones');
-Route::post('/inspecciones/estatus', 'InspeccionController@updateEstatus');
+Route::get('/inspecciones/informacion/{id}', 'InspeccionController@verMasInformacion')->name('ver-mas');
 
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@inspeccionesPdf')->name('pdf');

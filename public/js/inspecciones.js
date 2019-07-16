@@ -27,7 +27,7 @@ $(document).ready(function(){
                 {data: 'inspector'},
                 {data: 'nombrelocal'},
                 {data: 'editar'},
-                {data: 'estatus'},
+                {data: 'informacion'},
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',
@@ -62,18 +62,13 @@ $(document).ready(function(){
                         $('#inspector-edit').val(response.inspector_id);
                         $('#gestor-edit').val(response.gestores_id);
                         $('#tipoinspeccion-edit').val(response.tipoinspeccion_id);
-                        //$('#formavalorada-edit').val(response.idformavalorada);
-                        //$('#giro-edit').val(response.idgiro);
-                        //$('#subgiro-edit').val(response.idsubgirocomercial);
                         $('#ejerciciofiscal-edit').val(response.ejerciciofiscal_id);
-                        //$('#estatus-edit').val(response.estatusinspeccion_id);
                         $('#colonia-edit').val(response.colonia_id);
                         $('#local-edit').val(response.nombrelocal);
                         $('#domicilio-edit').val(response.domicilio);
                         $('#encargado-edit').val(response.nombreencargado);
                         $('#puestoencargado-edit').val(response.cargoencargado);
                         $('#diasvence-edit').val(response.diasvence);
-                        //$('#fechavence-edit').val(response.fechavence);
                     }
                 }
             });
@@ -128,60 +123,5 @@ $(document).ready(function(){
     }
 
     updateData();
-
-    function editEstatus(){
-        $(document).on('click', '.estatus', function(e){
-            e.preventDefault();
-            var id = $(this).attr('id');
-             $.ajax({
-                url: url + '/inspecciones/editar/' + id,
-                type: 'get',
-                success: function (response) {
-                    if (response != ""){
-                        $('#editar-estatus').modal('show');
-                        $('#id-edit-estatusinspeccion').val(response.id);
-                        $('#estatusinspeccion-edit').val(response.estatusinspeccion_id);
-                    }
-                }
-            });
-        });
-    }
-
-    editEstatus();
-
-    function updateEstatus(){
-        $('#btn-estatus').click(function(){
-
-            var data = {
-                'id' : $('#id-edit-estatusinspeccion').val(),
-                'estatusinspeccion' : $('#estatusinspeccion-edit').val()
-            }
-
-            $.ajax({
-                url: url + '/inspecciones/estatus',
-                data: data,
-                type: 'post',
-                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                success: function (response) {
-                    $('#editar-estatus').modal('hide');
-                    $('#actualizacion-correcta').modal('show');
-                    $('#error-estatusinspeccion-edit').addClass('hidden');
-                    $('#error-estatusinspeccion-edit').text('');
-                    viewData();
-                },
-                error: function(response) {
-                    $('#error-estatusinspeccion-edit').addClass('hidden');
-                    $('#error-estatusinspeccion-edit').text('');
-                    $.each(response.responseJSON.errors, function(i, item) {
-                        $('#error-'+i+'-edit').removeClass('hidden');
-                        $('#error-'+i+'-edit').text(item[0]);
-                    });
-                }
-            });
-
-        });
-    }
-
-    updateEstatus();
-
+    
 });

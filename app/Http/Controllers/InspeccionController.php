@@ -74,8 +74,8 @@ class InspeccionController extends Controller
 				}
 			})
 			->addColumn('editar', 'inspeccion/boton-editar')
-			->addColumn('estatus', 'inspeccion/boton-estatus')
-			->rawColumns(['editar', 'estatus'])
+			->addColumn('informacion', 'inspeccion/boton-informacion')
+			->rawColumns(['editar', 'informacion'])
 			->toJson();
 	}
 
@@ -211,7 +211,6 @@ class InspeccionController extends Controller
 		$inspeccion->nombreencargado = $encargado;
 		$inspeccion->cargoencargado = $puestoencargado;
 		$inspeccion->diasvence = $diasvence;
-		//$inspeccion->fechavence = $fecha_format;
 		$inspeccion->update();
 
         // Indica que fue correcta la modificación de la inspección
@@ -219,32 +218,11 @@ class InspeccionController extends Controller
 
 	}
 
-	public function updateEstatus(Request $request){
-		// Se reciben la id de la inspección a modificar
-		$id = $request->input('id');
-
-		// Se selecciona la inspección
+	public function verMasInformacion($id){
 		$inspeccion = Inspeccion::find($id);
-
-		// Validara los campos para evitar problemas
-		$validate = $this->validate($request,[
-			'estatusinspeccion' => 'required|string|max:1'
+		return view('inspeccion.informacion-completa', [
+			'inspeccion' => $inspeccion
 		]);
-
-		// Obtiene la id del usuario que modifica la inspección
-		$idUser = \Auth::user()->id;
-
-		// Se reciben los datos del formulario y se crean variables
-		$estatus = $request->input('estatusinspeccion');
-
-        // Una ves verificados los datos y creados las variables se actualiza en la BD
-		$inspeccion->usuario_id = $idUser;
-		$inspeccion->estatusinspeccion_id = $estatus;
-		$inspeccion->update();
-
-        // Una vez actualizada la inspección redirige e indica que fue correcta la modificación
-    	return $inspeccion;
-
 	}
 
 	public function asignarInspecciones(Request $request){
