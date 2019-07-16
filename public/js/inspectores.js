@@ -88,7 +88,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Inspector...');
+                },
                 success: function (response) {
+                    $('#btn-enviar').text('Crear Inspector');
                     $("#formulario-inspector")[0].reset();
                     $('#crear-inspector').modal('hide');
                     $('#registro-correcto').modal('show');
@@ -97,6 +101,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-enviar').text('Crear Inspector');
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
@@ -159,7 +164,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-editar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Guardando...');
+                },
                 success: function (response) {
+                    $('#btn-editar').text('Guardar');
                     $('#editar-inspector').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').addClass('hidden');
@@ -168,6 +177,7 @@ $(document).ready(function(){
                 },
 
                 error: function(response) {
+                    $('#btn-editar').text('Guardar');
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').addClass('hidden');
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
@@ -220,7 +230,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-estatus').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Guardando...');
+                },
                 success: function (response) {
+                    $('#btn-estatus').text('Guardar');
                     $('#editar-estatus').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     $('#error-estatus-edit').addClass('hidden');
@@ -228,6 +242,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-estatus').text('Guardar');
                     $('#error-estatus-edit').addClass('hidden');
                     $('#error-estatus-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {

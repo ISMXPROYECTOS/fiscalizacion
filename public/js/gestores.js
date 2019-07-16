@@ -74,7 +74,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Gestor...');
+                },
                 success: function (response) {
+                    $('#btn-enviar').text('Crear Gestor');
                     $("#formulario-gestor")[0].reset();
                     $('#crear-gestor').modal('hide');
                     $('#registro-correcto').modal('show');
@@ -83,6 +87,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-enviar').text('Crear Gestor');
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').addClass('hidden');
                     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
@@ -141,7 +146,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-editar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Guardando...');
+                },
                 success: function (response) {
+                    $('#btn-editar').text('Guardar');
                     $('#editar-gestor').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit').addClass('hidden');
@@ -149,6 +158,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-editar').text('Guardar');
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit').addClass('hidden');
                     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
@@ -195,7 +205,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-estatus').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Guardando...');
+                },
                 success: function (response) {
+                    $('#btn-estatus').text('Guardar');
                     $('#editar-estatus').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     $('#error-estatus-edit').addClass('hidden');
@@ -203,6 +217,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-estatus').text('Guardar');
                     $('#error-estatus-edit').addClass('hidden');
                     $('#error-estatus-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {

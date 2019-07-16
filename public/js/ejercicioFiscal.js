@@ -58,7 +58,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Año Fiscal...');
+                },
                 success: function (response) {
+                    $('#btn-enviar').text('Crear Año Fiscal');
                     $("#formulario-ejercicio-fiscal")[0].reset();
                     $('#crear-ejercicio-fiscal').modal('hide');
                     $('#registro-correcto').modal('show');
@@ -67,6 +71,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-enviar').text('Crear Año Fiscal');
                     $('#error-anio').addClass('hidden');
                     $('#error-anio').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
@@ -116,7 +121,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-editar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Guardando...');
+                },
                 success: function (response) {
+                    $('#btn-editar').text('Guardar');
                     $('#editar-ejercicio-fiscal').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     $('#error-anio-edit').addClass('hidden');
@@ -124,6 +133,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-editar').text('Guardar');
                     $('#error-anio-edit').addClass('hidden');
                     $('#error-anio-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
@@ -173,7 +183,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-activo').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Guardando...');
+                },
                 success: function (response) {
+                    $('#btn-activo').text('Guardar');
                     $('#editar-activo').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     $('#error-activo-edit').addClass('hidden');
@@ -181,6 +195,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-activo').text('Guardar');
                     $('#error-activo-edit').addClass('hidden');
                     $('#error-activo-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {

@@ -85,12 +85,19 @@
                         <p class="text-danger" id="error-estatus"></p>
                     </div>
                     <hr>
+
+                    
+                    
                     <div class="form-group row mb-0">
+
                         <div class="col-md-6">
                             <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspector') }}</button>
+
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">
+                                {{ __('Crear Inspector') }} 
+                            </button>
                             
                         </div>
                     </div>
