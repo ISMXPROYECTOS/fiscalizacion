@@ -111,13 +111,13 @@
                                             
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-inspectores') }}">
-                                                   
+                                                    
                                                     <span>Inspectores</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-gestores') }}">
-                                                   
+                                                    
                                                     <span>Gestores</span>
                                                 </a>
                                             </li>
@@ -129,22 +129,20 @@
                                             </li>
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-usuarios') }}">
-                                                  
+                                                    
                                                     <span>Usuarios</span>
                                                 </a>
                                             </li>
                                             @endif
-
                                             <li>
                                                 <a class="nav-link" href="#">
-                                                   
+                                                    
                                                     <span>Estados, Municipios y Colonias</span>
                                                 </a>
                                             </li>
-
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-tipo-inspecciones') }}">
-                                                   
+                                                    
                                                     <span>Tipo de Inspecciones</span>
                                                 </a>
                                             </li>
@@ -154,7 +152,6 @@
                                                     <span>Estatus de Inspecciones</span>
                                                 </a>
                                             </li>
-
                                             <li>
                                                 <a class="nav-link" href="#">
                                                     
@@ -195,12 +192,12 @@
                                         </a>
                                         <ul class="nav nav-children">
                                             <li>
-                                                <a href="{{ route('cambiar-password') }}">
+                                                <a class="nav-link" href="{{ route('cambiar-password') }}">
                                                     Cambiar contraseña
                                                 </a>
                                             </li>
                                             <li>
-                                                <a role="menuitem" tabindex="-1" href="{{ route('logout') }}"
+                                                <a class="nav-link" role="menuitem" tabindex="-1" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                                     <span>{{ __('Cerrar sesión') }}</span>
@@ -265,7 +262,7 @@
                 <script src="{{ asset('vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.print.min.js') }}"></script>
                 <script src="{{ asset('vendor/datatables/extras/TableTools/JSZip-2.5.0/jszip.min.js') }}"></script>
                 <script src="{{ asset('vendor/datatables/extras/TableTools/pdfmake-0.1.32/pdfmake.min.js') }}"></script>
-                <script src="{{ asset('vendor/datatables/extras/TableTools/pdfmake-0.1.32/vfs_fonts.js') }}"></script> 
+                <script src="{{ asset('vendor/datatables/extras/TableTools/pdfmake-0.1.32/vfs_fonts.js') }}"></script>
                 <!-- Theme Base, Components and Settings -->
                 <script src="{{ asset('js/theme.js') }}"></script>
                 <!-- Theme Custom -->
@@ -274,6 +271,7 @@
                 <script src="{{ asset('js/theme.init.js') }}"></script>
                 
                 <script src="{{ asset('js/examples/examples.modals.js') }} "></script>
+                <script src="{{ asset('js/navbar.js') }} "></script>
                 @yield('scripts')
             </body>
         </html>

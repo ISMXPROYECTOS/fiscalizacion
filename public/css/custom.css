@@ -172,11 +172,15 @@ ul.nav-main > li.nav-expanded > a {
 }
 
 ul.nav-main li .nav-children {
-    background: #732f30 !important;
+    background: #4b1617 !important;
     -webkit-box-shadow: 0px -3px 3px -3px rgba(0, 0, 0, 0.7) inset;
     box-shadow: 0px -3px 3px -3px rgba(0, 0, 0, 0.7) inset;
     display: none;
     padding: 10px 0;
+}
+
+.nav-active{
+  background: #732f30 !important;
 }
 
 ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus {
