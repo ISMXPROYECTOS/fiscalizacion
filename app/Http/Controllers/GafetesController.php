@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 
+use Barryvdh\DomPDF\Facade as PDF;
+
 class GafetesController extends Controller
 {
 	public function registrar($id){
@@ -56,6 +58,8 @@ class GafetesController extends Controller
 			->getClientOriginalExtension();
 		$imagen->move(public_path('img/inspectores'), $nombre_imagen);
 
+
+
 		$datos = [
 			'ejerciciofiscal_id' => $ejercicio_fiscal->id,
             'inspector_id' => $request->input('gafete-id'),
@@ -66,19 +70,9 @@ class GafetesController extends Controller
 		];
 
 		// Retornamos los datos a la peticion Ajax, al mismo tiempo en se almacena en la BD
-	    return Gafete::create($datos);
+		return Gafete::create($datos);
 
-		/*$id = $request->input('id');
-		$inspector = Inspector::find($id);
-
-		// año fiscal
-		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->get();
-
-		//var_dump(url('/perfil/inspector/'.$inspector->id));
-		//die();
-		
-		
-		return \QrCode::size(300)->generate(url('/perfil/inspector/'.$inspector->id));*/
+		//$pdf = PDF::loadView('gafete.gafete', ['gafete' => $datos]);
 	}
     
 }

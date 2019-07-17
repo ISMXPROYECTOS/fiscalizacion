@@ -40,7 +40,9 @@ $(document).ready(function(){
                 contentType: false,
                 cache: false,
                 processData: false,
-                success:function(data){
+                success:function(response){
+
+                    console.log(response);
                     $('#generar-gafete').modal('hide');
                     $('#error-gafete-nombre, #error-gafete-apellidopaterno, #error-gafete-apellidomaterno, #error-gafete-clave, #error-gafete-image').addClass('hidden');
                     $('#error-gafete-nombre, #error-gafete-apellidopaterno, #error-gafete-apellidomaterno, #error-gafete-clave, #error-gafete-image').text('');
