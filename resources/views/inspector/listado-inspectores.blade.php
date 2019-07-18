@@ -290,6 +290,61 @@
     </div>
 </div>
 
+<!-- Alerta de Generando PDF -->
+<div class="modal fade" id="creando-gafete" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-registro-correcto">El gafete ha sido creado</h3>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <div class="spinner-border text-success" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="modal-text">
+                        <h4>El gafete se creo correctamente</h4>
+                        <p>En breve el archivo PDF sera descargado</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alerta de Descargando PDF -->
+<div class="modal fade" id="descargando-gafete" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-registro-correcto">El gafete se esta descargando</h3>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <div class="spinner-border text-success" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="modal-text">
+                        <h4>Descarga en proceso</h4>
+                        <p>En breve el archivo PDF sera descargado</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Alerta de actualización -->
 <div class="modal fade" id="actualizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-correcta" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
