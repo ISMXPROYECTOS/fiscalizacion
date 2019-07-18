@@ -7,6 +7,14 @@ $(document).ready(function(){
 
     $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
     $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').text('');
+
+    $(document).on('click', '#btn-cancelar', function(e){
+        $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
+        $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
+
+        $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
+        $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').text('');
+    });
     
     function viewData(){
         $('#datatable-usuarios').DataTable({
@@ -112,6 +120,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
+                        $('#editar-usuario').modal({backdrop: 'static', keyboard: false})
                         $('#editar-usuario').modal('show');
                         $('#id-edit').val(response.id);
                         $('#usuario-edit').val(response.usuario);
@@ -179,6 +188,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
+                        $('#editar-activo').modal({backdrop: 'static', keyboard: false})
                         $('#editar-activo').modal('show');
                         $('#id-edit-activo').val(response.id);
                         $('#activo-edit').val(response.activo);

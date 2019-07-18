@@ -9,6 +9,15 @@ $(document).ready(function(){
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').addClass('hidden');
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
 
+    $(document).on('click', '#btn-cancelar', function(e){
+
+        $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
+        $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').text('');
+
+        $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').addClass('hidden');
+        $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
+    });
+
     // Esta función muetra los inspectores en una tabla
     function viewData(){
         // Selecciona la tabla con el id datatable, esta funcion se relaciona con el metodo tbody del InspectorController
@@ -130,6 +139,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
+                        $('#editar-inspector').modal({backdrop: 'static', keyboard: false})
                         $('#editar-inspector').modal('show');
                         $('#id-edit').val(response.id);
                         $('#nombre-edit').val(response.nombre);
@@ -204,6 +214,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
+                        $('#editar-estatus').modal({backdrop: 'static', keyboard: false})
                         $('#editar-estatus').modal('show');
                         $('#id-edit-estatus').val(response.id);
                         $('#estatus-edit').val(response.estatus);

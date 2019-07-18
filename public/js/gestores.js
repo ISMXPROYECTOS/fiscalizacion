@@ -8,6 +8,16 @@ $(document).ready(function(){
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').addClass('hidden');
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
 
+    $(document).on('click', '#btn-cancelar', function(e){
+
+        $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').addClass('hidden');
+        $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').text('');
+
+        $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').addClass('hidden');
+        $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
+
+    });
+
     function viewData(){
         $('#datatable').DataTable({
             'serverSide': true,
@@ -111,6 +121,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
+                        $('#editar-gestor').modal({backdrop: 'static', keyboard: false})
                         $('#editar-gestor').modal('show');
                         $('#id-edit').val(response.id);
                         $('#nombre-edit').val(response.nombre);
@@ -182,6 +193,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
+                        $('#editar-estatus').modal({backdrop: 'static', keyboard: false})
                         $('#editar-estatus').modal('show');
                         $('#id-edit-estatus').val(response.id);
                         $('#estatus-edit').val(response.estatus);

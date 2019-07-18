@@ -161,7 +161,7 @@ return [
 
         'clave' => [
             "required" => 'Es necesario ingresar una clave valida',
-            "unique" => 'Esta clave ya se ha registrado anteriorment',
+            "unique" => 'Esta clave ya se ha registrado anteriormente',
         ],
 
         'usuario' => [
@@ -176,6 +176,19 @@ return [
             "required" => 'Ingresa una contraseña correcta',
             "confirmed" => 'Las contraseñas no coinciden',
             "min" => 'La contraseña debe ser de almenos 6 caracteres' 
+        ],
+
+        'gafete-image' => [
+            "required" => 'Es necesario ingresar una imagen valida',
+            "image" => 'Ingresa una imagen valida'
+        ],
+
+        'formato' => [
+            "required" => 'El campo :attribute es necesario para continuar',
+        ],
+
+        'anio' => [
+            "required" => 'Es necesario ingresar el año del ejercicio fiscal',
         ],
 
 

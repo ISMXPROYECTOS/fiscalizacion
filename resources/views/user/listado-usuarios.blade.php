@@ -3,8 +3,8 @@
 <header class="page-header">
     <h2>Catalogo de Usuarios</h2>
 </header>
-<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-usuario">
-    <i class="fas fa-user-plus"></i> Agregar Usuario
+<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-usuario" data-backdrop="static" data-keyboard="false">
+<i class="fas fa-user-plus"></i> Agregar Usuario
 </button>
 <div class="row">
     <div class="col">
@@ -31,9 +31,6 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-crear-usuario">Agregar Usuario</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
         </div>
         <div class="modal-body">
             <form id="formulario-usuario" role="form">
@@ -78,7 +75,7 @@
                 <hr>
                 <div class="form-group row mb-0">
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
                     </div>
                     <div class="col-md-6">
                         <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Usuario') }}</button>
@@ -89,42 +86,12 @@
     </div>
 </div>
 </div>
-<!-- Alerta de registro -->
-<div class="modal fade" id="registro-correcto" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-registro-correcto">Registro Exitoso</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="modal-wrapper">
-                <div class="modal-icon">
-                    <i class="fas fa-check"></i>
-                </div>
-                <div class="modal-text">
-                    <h4>Registro Exitoso</h4>
-                    <p>Se ha registrado al usuario correctamente.</p>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-        </div>
-    </div>
-</div>
-</div>
 <!-- Modal para Editar -->
 <div class="modal fade" id="editar-usuario" tabindex="-1" role="dialog" aria-labelledby="modal-editar-usuario" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-editar-usuario">Editar Usuario</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
         </div>
         <div class="modal-body">
             <form class="formulario-usuario" role="form">
@@ -170,7 +137,7 @@
                 <hr>
                 <div class="form-group row mb-0">
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
                     </div>
                     <div class="col-md-6">
                         <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-editar">{{ __('Guardar') }}</button>
@@ -181,52 +148,73 @@
     </div>
 </div>
 </div>
+
 <!-- Modal para Editar Estatus -->
 <div class="modal fade" id="editar-activo" tabindex="-1" role="dialog" aria-labelledby="modal-editar-activo" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-editar-activo">Estatus Usuario</h3>
+        </div>
+        <div class="modal-body">
+            <form class="formulario-activo" role="form">
+                @csrf
+                <input type="hidden" id="id-edit-activo">
+                <div class="form-group">
+                    <label for="activo-edit">{{ __('Estatus') }}</label>
+                    <select id="activo-edit" class="form-control">
+                        <option value="">Seleccionar</option>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                    <p class="text-danger" id="error-activo-edit"></p>
+                </div>
+                <hr>
+                <div class="form-group row mb-0">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-activo">{{ __('Guardar') }}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Alerta de registro -->
+<div class="modal fade" id="registro-correcto" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-editar-activo">Estatus Usuario</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+                <h3 class="modal-title" id="modal-registro-correcto">Registro Exitoso</h3>
             </div>
             <div class="modal-body">
-                <form class="formulario-activo" role="form">
-                    @csrf
-                    <input type="hidden" id="id-edit-activo">
-                    <div class="form-group">
-                        <label for="activo-edit">{{ __('Estatus') }}</label>
-                        <select id="activo-edit" class="form-control">
-                            <option value="">Seleccionar</option>
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
-                        </select>
-                        <p class="text-danger" id="error-activo-edit"></p>
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="fas fa-check"></i>
                     </div>
-                    <hr>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-activo">{{ __('Guardar') }}</button>
-                        </div>
+                    <div class="modal-text">
+                        <h4>Registro Exitoso</h4>
+                        <p>Se ha registrado al usuario correctamente.</p>
                     </div>
-                </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Alerta de actualización -->
 <div class="modal fade" id="actualizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-correcta" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-actualizacion-correcta">Actualización Exitosa</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
         </div>
         <div class="modal-body">
             <div class="modal-wrapper">
@@ -245,7 +233,6 @@
     </div>
 </div>
 </div>
-
 @endsection
 @section('scripts')
 <script src="{{ asset('js/user.js') }}" defer></script>

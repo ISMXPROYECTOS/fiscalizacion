@@ -7,6 +7,15 @@ $(document).ready(function(){
     $('#error-anio-edit, #error-activo-edit').addClass('hidden');
     $('#error-anio-edit, #error-activo-edit').text('');
 
+    $(document).on('click', '#btn-cancelar', function(e){
+
+        $('#error-anio').addClass('hidden');
+        $('#error-anio').text('');
+
+        $('#error-anio-edit, #error-activo-edit').addClass('hidden');
+        $('#error-anio-edit, #error-activo-edit').text('');
+    });
+
     // Esta función muetra los años fiscales en una tabla
     function viewData(){
         $('#datatable').DataTable({
@@ -97,6 +106,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
+                        $('#editar-ejercicio-fiscal').modal({backdrop: 'static', keyboard: false})
                         $('#editar-ejercicio-fiscal').modal('show');
                         $('#id-edit').val(response.id);
                         $('#ejercicio-fiscal-edit').val(response.anio);
@@ -158,6 +168,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
+                        $('#editar-activo').modal({backdrop: 'static', keyboard: false})
                         $('#editar-activo').modal('show');
                         $('#id-edit-activo').val(response.id);
                         $('#activo-edit').val(response.activo);

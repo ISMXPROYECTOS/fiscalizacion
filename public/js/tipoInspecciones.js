@@ -4,8 +4,18 @@ $(document).ready(function(){
 
     $('#error-nombre, #error-clave, #error-formato').addClass('hidden');
     $('#error-nombre, #error-clave, #error-formato').text('');
+    
     $('#error-nombre-edit, #error-clave-edit, #error-formato-edit').addClass('hidden');
     $('#error-nombre-edit, #error-clave-edit, #error-formato-edit').text('');
+
+    $(document).on('click', '#btn-cancelar', function(e){
+
+        $('#error-nombre, #error-clave, #error-formato').addClass('hidden');
+        $('#error-nombre, #error-clave, #error-formato').text('');
+
+        $('#error-nombre-edit, #error-clave-edit, #error-formato-edit').addClass('hidden');
+        $('#error-nombre-edit, #error-clave-edit, #error-formato-edit').text('');
+    });
     
     function viewData(){
         $('#datatable').DataTable({

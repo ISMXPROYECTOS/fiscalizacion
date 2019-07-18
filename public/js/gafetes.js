@@ -2,8 +2,14 @@ $(document).ready(function(){
 
 	var url = "http://localhost/fiscalizacion/public";
 
-    $('#error-gafete-nombre, #error-gafete-apellidopaterno, #error-gafete-apellidomaterno, #error-gafete-clave, #error-gafete-image').addClass('hidden');
-    $('#error-gafete-nombre, #error-gafete-apellidopaterno, #error-gafete-apellidomaterno, #error-gafete-clave, #error-gafete-image').text('');
+    $('#error-gafete-image').addClass('hidden');
+    $('#error-gafete-image').text('');
+
+    $(document).on('click', '#btn-cancelar', function(e){
+
+        $('#error-gafete-image').addClass('hidden');
+        $('#error-gafete-image').text('');
+    });
 
     function informacionGafete(){
     	$(document).on('click', '.generar-gafete', function(){
@@ -13,11 +19,13 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (typeof response == 'string') {
+                        $('#imprimir-gafete').modal({backdrop: 'static', keyboard: false})
                         $('#imprimir-gafete').modal('show');
                         $('#btn-descargar').click(function(){
                             pdfGafete(response);
                         });
                     } else {
+                        $('#generar-gafete').modal({backdrop: 'static', keyboard: false})
                         $('#generar-gafete').modal('show');
                         $('#gafete-id').val(response.id);
                         $('#gafete-nombre').text(response.nombre);
@@ -46,16 +54,17 @@ $(document).ready(function(){
                 cache: false,
                 processData: false,
                 success:function(response){
+                    $("#formulario-generar-gafete")[0].reset();
                     $('#generar-gafete').modal('hide');
-                    $('#error-gafete-nombre, #error-gafete-apellidopaterno, #error-gafete-apellidomaterno, #error-gafete-clave, #error-gafete-image').addClass('hidden');
-                    $('#error-gafete-nombre, #error-gafete-apellidopaterno, #error-gafete-apellidomaterno, #error-gafete-clave, #error-gafete-image').text('');
+                    $('#error-gafete-image').addClass('hidden');
+                    $('#error-gafete-image').text('');
 
                     pdfGafete(response.id);
                 },
 
                 error: function(response) {
-                    $('#error-gafete-nombre, #error-gafete-apellidopaterno, #error-gafete-apellidomaterno, #error-gafete-clave, #error-gafete-image').addClass('hidden');
-                    $('#error-gafete-nombre, #error-gafete-apellidopaterno, #error-gafete-apellidomaterno, #error-gafete-clave, #error-gafete-image').text('');
+                    $('#error-gafete-image').addClass('hidden');
+                    $('#error-gafete-image').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i).removeClass('hidden');
                         $('#error-'+i).text(item[0]);

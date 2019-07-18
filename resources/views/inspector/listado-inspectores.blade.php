@@ -3,7 +3,7 @@
 <header class="page-header">
     <h2>Catalogo de Inspectores</h2>
 </header>
-<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspector">
+<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspector" data-backdrop="static" data-keyboard="false">
     <i class="fas fa-user-plus"></i> Agregar Inspector
 </button>
 <div class="row">
@@ -35,9 +35,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-crear-inspector">Agregar Inspector</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <form id="formulario-inspector" role="form">
@@ -62,8 +59,9 @@
                         </div>
 
                         <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-apellidopaterno"></p>
-                            <p class="text-danger" id="error-apellidomaterno"></p>
+                            <p class="text-danger mb-0" id="error-apellidopaterno"></p>
+                            <p class="text-danger mb-0" id="error-apellidomaterno"></p>
+                            <br>
                         </div>
                     </div>
                     
@@ -86,12 +84,10 @@
                     </div>
                     <hr>
 
-                    
-                    
                     <div class="form-group row mb-0">
 
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
                         </div>
                         <div class="col-md-6">
 
@@ -113,9 +109,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-editar-inspector">Editar Inspector</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <form class="formulario-gestor" role="form">
@@ -142,8 +135,9 @@
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-apellidopaterno-edit"></p>
-                            <p class="text-danger" id="error-apellidomaterno-edit"></p>
+                            <p class="text-danger mb-0" id="error-apellidopaterno-edit"></p>
+                            <p class="text-danger mb-0" id="error-apellidomaterno-edit"></p>
+                            <br>
                         </div>
                     </div>
                     <div class="form-group">
@@ -154,7 +148,7 @@
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-editar">{{ __('Guardar') }}</button>
@@ -172,9 +166,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-editar-estatus">Estatus Inspector</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <form class="formulario-estatus" role="form">
@@ -195,7 +186,7 @@
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
                         </div>
                         <div class="col-md-6">
                             <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-estatus">{{ __('Guardar') }}</button>
@@ -213,19 +204,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-generar-gafete">Generar Gafete</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <form id="formulario-generar-gafete" role="form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="gafete-id" id="gafete-id">
                     <div class="form-group">
-                        <p>Nombre Completo: <b id="gafete-nombre"></b></p>
-                        <p>Apellido Paterno: <b id="gafete-apellidopaterno"></b></p>
-                        <p>Apellido Materno: <b id="gafete-apellidomaterno"></b></p>
-                        <p>Clave de Inspector: <b id="gafete-clave"></b></p>
+                        <p class="mb-0">Nombre Completo: <b id="gafete-nombre"></b></p>
+                        <p class="mb-0">Apellido Paterno: <b id="gafete-apellidopaterno"></b></p>
+                        <p class="mb-0">Apellido Materno: <b id="gafete-apellidomaterno"></b></p>
+                        <p class="mb-0">Clave de Inspector: <b id="gafete-clave"></b></p>
                     </div>
 
                     <div class="form-group">
@@ -236,7 +224,7 @@
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
                         </div>
                         <div class="col-md-6">
                             <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-generar-gafete">{{ __('Crear Gafete') }}</button>
@@ -254,9 +242,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-imprimir-gafete">Imprimir Gafete</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <div class="modal-wrapper">
@@ -267,15 +252,14 @@
                         <h4>Este usuario ya cuenta con un gafete</h4>
                         <p>Para generar nuevamente el gafete, da click en el boton "Descargar"</p>
                     </div>
-                </div>
+                </div>    
+            </div>
 
-                <hr>
-                  
-                <button type="button" class="btn btn-success pull-right btn-primary-custom" id="btn-descargar" data-dismiss="modal">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
+                <button type="button" class="btn btn-success btn-primary-custom" id="btn-descargar" data-dismiss="modal">
                     Descargar
                 </button>
-                    
-                
             </div>
         </div>
     </div>
@@ -287,9 +271,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-registro-correcto">Registro Exitoso</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <div class="modal-wrapper">
@@ -315,9 +296,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-actualizacion-correcta">Actualización Exitosa</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <div class="modal-wrapper">

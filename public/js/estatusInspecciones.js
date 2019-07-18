@@ -4,8 +4,18 @@ $(document).ready(function(){
 
     $('#error-nombre, #error-clave').addClass('hidden');
     $('#error-nombre, #error-clave').text('');
+
     $('#error-nombre-edit, #error-clave-edit').addClass('hidden');
     $('#error-nombre-edit, #error-clave-edit').text('');
+
+    $(document).on('click', '#btn-cancelar', function(e){
+
+        $('#error-nombre, #error-clave').addClass('hidden');
+        $('#error-nombre, #error-clave').text('');
+        
+        $('#error-nombre-edit, #error-clave-edit').addClass('hidden');
+        $('#error-nombre-edit, #error-clave-edit').text('');
+    });
     
     function viewData(){
         $('#datatable').DataTable({
@@ -86,6 +96,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
+                        $('#editar-estatus-inspeccion').modal({backdrop: 'static', keyboard: false});
                         $('#editar-estatus-inspeccion').modal('show');
                         $('#id-edit').val(response.id);
                         $('#nombre-edit').val(response.nombre);
