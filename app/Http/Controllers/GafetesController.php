@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\URL;
 class GafetesController extends Controller
 {
 	public function registrar($id){
+
+
 		$inspector = Inspector::find($id);
     	return $inspector;
 	}
