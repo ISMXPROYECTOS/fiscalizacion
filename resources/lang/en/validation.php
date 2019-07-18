@@ -191,6 +191,28 @@ return [
             "required" => 'Es necesario ingresar el año del ejercicio fiscal',
         ],
 
+        'tipoinspeccion' => [
+            "required" => 'Es necesario seleccionar un tipo de inspección',
+        ],
+
+        'tipoinspeccion-asignar' => [
+            "required" => 'Es necesario seleccionar un tipo de inspección',
+        ],
+        'ejerciciofiscal' => [
+            "required" => 'Es necesario seleccionar el año de ejercicio fiscal',
+        ],
+        'cantidad' => [
+            "required" => 'Es necesario seleccionar una cantidad',
+        ],
+
+        'cantidad-asignar' => [
+            "required" => 'Es necesario seleccionar una cantidad',
+        ],
+
+        'inspectores-asignar.*' => [
+            "required" => 'Es necesario seleccionar al menos a un inspector',
+        ]
+
 
     ],
 

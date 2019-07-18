@@ -27,7 +27,7 @@
                 value="{{ $ejercicioFiscal->id }}">
             @endif
         @endforeach
-        <p class="text-danger" id="error-ejerciciofiscal-asignar"></p>
+        <p class="text-danger mb-0">{{ $errors->first('ejerciciofiscal-asignar') }}</p>
     </div>
     <div class="row mb-3">
         <div class="col-md-8">
@@ -41,7 +41,7 @@
                     </option>
                     @endforeach
                 </select>
-                <p class="text-danger" id="error-tipoinspeccion-asignar"></p>
+                <p class="text-danger mb-0">{{ $errors->first('tipoinspeccion-asignar') }}</p>
             </div>
         </div>
         <div class="col-md-4">
@@ -66,11 +66,12 @@
             <option value="250">250</option>
             <option value="300">300</option>
         </select>
-        <p class="text-danger" id="error-cantidad-asignar"></p>
+        <p class="text-danger mb-0">{{ $errors->first('cantidad-asignar') }}</p>
     </div>
     @php $var = 1; @endphp
     <label for="inspectores-asignar">Inspectores </label>
     <p class="text-danger" id="error-inspectores-asignar"></p>
+    <p class="text-danger mb-0">{{ $errors->first('inspectores-asignar') }}</p>
     @foreach($inspectores as $inspector)
         @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
             <div class="form-check">

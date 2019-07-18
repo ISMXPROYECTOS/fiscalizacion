@@ -227,6 +227,8 @@ class InspeccionController extends Controller
 
 	public function asignarInspecciones(Request $request){
 
+
+
 		// Valida cada array en cada posición con el .*
 		$validate = $this->validate($request, [
 			'ejerciciofiscal-asignar' => 'required|string',
@@ -234,6 +236,11 @@ class InspeccionController extends Controller
             'cantidad-asignar' => 'required|string',
             'inspectores-asignar.*' => 'required|string'
         ]);
+
+        var_dump($this->validate($request));
+        die();
+
+
 
 		$data = $request->all();
     	$ejerciciofiscal = $request->input('ejerciciofiscal-asignar');
