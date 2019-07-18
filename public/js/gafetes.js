@@ -25,6 +25,7 @@ $(document).ready(function(){
                             $('#btn-descargar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Descargando...');
                             $('#descargando-gafete').modal('show');
                             pdfGafete(response);
+
                         });
                     } else {
                         $('#generar-gafete').modal({backdrop: 'static', keyboard: false})
@@ -35,6 +36,8 @@ $(document).ready(function(){
                         $('#gafete-apellidomaterno').text(response.apellidomaterno);
                         $('#gafete-clave').text(response.clave);
                     }
+
+                    $('#btn-descargar').text('Crear Gafete');
                 }
             });
 
