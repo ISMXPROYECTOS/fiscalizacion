@@ -222,34 +222,15 @@
                     @csrf
                     <input type="hidden" name="gafete-id" id="gafete-id">
                     <div class="form-group">
-                        <label for="gafete-nombre">{{ __('Nombre Completo') }}</label>
-                        <input id="gafete-nombre" name="gafete-nombre" type="text" class="form-control" required>
-                        <p class="text-danger" id="error-gafete-nombre"></p>
+                        <p>Nombre Completo: <b id="gafete-nombre"></b></p>
+                        <p>Apellido Paterno: <b id="gafete-apellidopaterno"></b></p>
+                        <p>Apellido Materno: <b id="gafete-apellidomaterno"></b></p>
+                        <p>Clave de Inspector: <b id="gafete-clave"></b></p>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="gafete-apellidopaterno">{{ __('Apellido Paterno') }}</label>
-                                <input id="gafete-apellidopaterno" name="gafete-apellidopaterno" type="text" class="form-control"> 
-                                <p class="text-danger" id="error-gafete-apellidopaterno"></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="gafete-apellidomaterno">{{ __('Apellido Materno') }}</label>
-                                <input id="gafete-apellidomaterno" name="gafete-apellidomaterno" type="text" class="form-control">
-                                <p class="text-danger" id="error-gafete-apellidomaterno"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="gafete-clave">{{ __('Clave') }}</label>
-                        <input id="gafete-clave" name="gafete-clave" type="text" class="form-control">
-                        <p class="text-danger" id="error-gafete-clave"></p>
-                    </div>
+
                     <div class="form-group">
                         <label for="gafete-image">Foto del Inspector (99px x 142px)</label>
-                        <input id="gafete-image" name="gafete-image" type="file" class="form-control-file" >
+                        <input  name="gafete-image" type="file" class="form-control-file" >
                         <p class="text-danger" id="error-gafete-image"></p>
                     </div>
                     <hr>

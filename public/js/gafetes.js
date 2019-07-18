@@ -20,10 +20,10 @@ $(document).ready(function(){
                     } else {
                         $('#generar-gafete').modal('show');
                         $('#gafete-id').val(response.id);
-                        $('#gafete-nombre').val(response.nombre);
-                        $('#gafete-apellidopaterno').val(response.apellidopaterno);
-                        $('#gafete-apellidomaterno').val(response.apellidomaterno);
-                        $('#gafete-clave').val(response.clave);
+                        $('#gafete-nombre').text(response.nombre);
+                        $('#gafete-apellidopaterno').text(response.apellidopaterno);
+                        $('#gafete-apellidomaterno').text(response.apellidomaterno);
+                        $('#gafete-clave').text(response.clave);
                     }
                 }
             });

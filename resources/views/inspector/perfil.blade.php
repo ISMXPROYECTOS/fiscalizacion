@@ -35,7 +35,7 @@
 					<div class="tab-content">
 						<h4 class="mb-3">Datos del Inspector</h4>
 						<div class="form-group">
-							<img src="{{ asset('img/inspectores/'. $gafete->imageninspector) }}" alt="Foto-del-inspector">
+							<img src="{{ asset('img/inspectores/'.$gafete->imageninspector) }}" alt="Foto-del-inspector">
 						</div>
 						<div class="form-group">
 							<label for="nombre">Nombre</label>

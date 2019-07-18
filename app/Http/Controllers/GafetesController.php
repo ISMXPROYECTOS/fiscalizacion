@@ -34,30 +34,40 @@ class GafetesController extends Controller
 	
 		// Validamos los campos que estamos enviando por AJAX
 		$validate = $request->validate([
-			'gafete-nombre' => 'required|string|max:50',
-            'gafete-apellidopaterno' => 'required|string|max:30',
-            'gafete-apellidomaterno' => 'required|string|max:30',
-            'gafete-clave' => 'required|string|max:50',
-            'gafete-image' => 'required|image|mimes:jpeg,png,jpg,gif'
+            'gafete-image' => 'required|image|mimes:jpeg,png,jpg'
 	    ]);
 
 	    $vigencia = new DateTime();
 
-		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
-		$folio_gafete = $ejercicio_fiscal->anio . '/INSPECTOR';
+	    $inspector = Inspector::find($request->input('gafete-id'));
+	    $gafetes = Gafete::where('inspector_id', $inspector->id)->get();
 
+		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		
 		$vigencia->modify('last day of december'.$ejercicio_fiscal->anio);
 
-		$inspector = Inspector::find($request->input('gafete-id'));
 
-		$nombre_qr = "QR".date("Y").'INS'.$inspector->id;
+		$imagen = $request->file('gafete-image'); 
+
+		if (count($gafetes) < 1) {
+			$folio_gafete = $ejercicio_fiscal->anio . '/INSPECTOR/1';
+
+			$nombre_qr = "1-QR-".date("Y").'-INSPECTOR-'.$inspector->nombre;
+
+			$nombre_imagen = '1-'.$ejercicio_fiscal->anio.'-INSPECTOR-'.$inspector->nombre.'.'.$imagen->getClientOriginalExtension();
+		} else {
+			$total_gafetes = count($gafetes)+1;
+			$folio_gafete = $ejercicio_fiscal->anio . '/INSPECTOR/'.$total_gafetes;
+
+			$nombre_qr = $total_gafetes."-QR-".date("Y").'-INSPECTOR-'.$inspector->nombre;
+
+			$nombre_imagen = $total_gafetes.'-'.$ejercicio_fiscal->anio .'-INSPECTOR-'.$inspector->nombre.'.'.$imagen->getClientOriginalExtension();
+		}
+
 		$qr = \QrCode::format('png')
 			->size(500)
 			->generate(url('/inspectores/perfil/'.$inspector->hash), public_path('img/qrs/'.$nombre_qr.'.png'));
-
-		$imagen = $request->file('gafete-image'); 
-		$nombre_imagen = $ejercicio_fiscal->anio .'INS'. $request->input('gafete-id').'.'.$imagen
-			->getClientOriginalExtension();
+		
 		$imagen->move(public_path('img/inspectores'), $nombre_imagen);
 
 		$datos = [

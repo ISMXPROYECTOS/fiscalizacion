@@ -129,7 +129,8 @@ class InspectorController extends Controller
 	public function perfil($hash){
 
 		$inspector = Inspector::where('hash', $hash)->first();
-		$gafete = Gafete::find($inspector->id);
+		$gafetes = Gafete::where('inspector_id', $inspector->id)->get();
+		$gafete = $gafetes->last();
 
 		return view('inspector.perfil',[
 			'inspector' => $inspector,
