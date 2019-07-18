@@ -12,7 +12,12 @@ $(document).ready(function(){
                 url: url + '/gafetes/registrar/' + id,
                 type: 'get',
                 success: function (response) {
-                    if (response != ""){
+                    if (typeof response == 'string') {
+                        $('#imprimir-gafete').modal('show');
+                        $('#btn-descargar').click(function(){
+                            pdfGafete(response);
+                        });
+                    } else {
                         $('#generar-gafete').modal('show');
                         $('#gafete-id').val(response.id);
                         $('#gafete-nombre').val(response.nombre);
@@ -41,11 +46,11 @@ $(document).ready(function(){
                 cache: false,
                 processData: false,
                 success:function(response){
-
-                    console.log(response);
                     $('#generar-gafete').modal('hide');
                     $('#error-gafete-nombre, #error-gafete-apellidopaterno, #error-gafete-apellidomaterno, #error-gafete-clave, #error-gafete-image').addClass('hidden');
                     $('#error-gafete-nombre, #error-gafete-apellidopaterno, #error-gafete-apellidomaterno, #error-gafete-clave, #error-gafete-image').text('');
+
+                    pdfGafete(response.id);
                 },
 
                 error: function(response) {
@@ -61,5 +66,9 @@ $(document).ready(function(){
     }
 
     generarGafete();
+
+    function pdfGafete(id){
+        window.location.replace(url + "/pdf/ver-gafete/" + id);
+    }
 
 });

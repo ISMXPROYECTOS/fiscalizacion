@@ -22,11 +22,11 @@ class PdfController extends Controller
 
 	public function verGafete($id){
 
-		$gafete = Gafete::where('inspector_id', $id)->get();
+		$gafete = Gafete::find($id);
 
-		$pdf = PDF::loadView('gafete.gafete', ['gafete' => $gafete->last()]);
+		$pdf = PDF::loadView('gafete.gafete', ['gafete' => $gafete]);
 
-		return $pdf->stream();
+		return $pdf->download();
 	}	
 
 }

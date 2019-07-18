@@ -16,21 +16,21 @@ class GafetesController extends Controller
 {
 	public function registrar($id){
 
+		$gafetes = Gafete::whereYear('vigencia', date('Y'))
+							->where('inspector_id', $id)
+							->get();
 
-		$inspector = Inspector::find($id);
-    	return $inspector;
+		if (count($gafetes) >= 1) {
+			return $gafetes->last()->id;
+		} else {
+			$inspector = Inspector::find($id);
+    		return $inspector;
+		}
+
+		
 	}
 
 	public function generar(Request $request){
-
-		// Este metodo debe crear un gafete de inspector que incluya ejercicio fiscal, inspector, folio, created_at, fecha vence, qr, estatus
-
-		// el gafete a mostrar debe tener: Nombre, Apellido, Puesto, Vigencia, Foto
-
-		// el codigo qr debe mandarnos a una vista rellenada por los datos del inspector
-
-		// primero recibimos el inspector al que queremos generar su gafete
-
 	
 		// Validamos los campos que estamos enviando por AJAX
 		$validate = $request->validate([
@@ -59,8 +59,6 @@ class GafetesController extends Controller
 		$nombre_imagen = $ejercicio_fiscal->anio .'INS'. $request->input('gafete-id').'.'.$imagen
 			->getClientOriginalExtension();
 		$imagen->move(public_path('img/inspectores'), $nombre_imagen);
-
-
 
 		$datos = [
 			'ejerciciofiscal_id' => $ejercicio_fiscal->id,

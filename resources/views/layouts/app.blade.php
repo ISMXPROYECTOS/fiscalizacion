@@ -7,7 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name', 'Sistema de Fiscalización') }}</title>
         <!-- Web Fonts  -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+        <!--<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">-->
         <!-- Vendor CSS -->
         <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" />
         <link rel="stylesheet" href="{{ asset('vendor/animate/animate.css') }}">

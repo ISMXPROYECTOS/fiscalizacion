@@ -3,11 +3,6 @@
     Generar gafete
 </button>
 
-@if($gafetes)
-	<p>hola</p>
-@endif
-
-
 
 
 

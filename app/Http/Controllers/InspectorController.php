@@ -11,13 +11,7 @@ class InspectorController extends Controller
 {
 	// Muetra la vista del listado de los inspectores
 	public function listadoInspectores(){
-
-		$gafetes = Gafete::whereYear('vigencia', date('Y'))->get();
-
-
-		return view('inspector.listado-inspectores', [
-			'gafetes' => $gafetes
-		]);
+		return view('inspector.listado-inspectores');
 	}
 
 	// Solicita a la base de datos todos los inspectores que exiten

@@ -80,7 +80,7 @@ Route::get('/inspecciones/informacion/{id}', 'InspeccionController@verMasInforma
 
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@inspeccionesPdf')->name('pdf');
-Route::get('/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete');
+Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete');
 
 /* Rutas Tipos Inspecciones*/
 

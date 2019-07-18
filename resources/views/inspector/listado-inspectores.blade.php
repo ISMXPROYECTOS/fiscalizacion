@@ -267,6 +267,39 @@
     </div>
 </div>
 
+<!-- Modal para Imprimir Gafete (PDF) -->
+<div class="modal fade" id="imprimir-gafete" tabindex="-1" role="dialog" aria-labelledby="modal-imprimir-gafete" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-imprimir-gafete">Imprimir Gafete</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="far fa-address-card"></i>
+                    </div>
+                    <div class="modal-text">
+                        <h4>Este usuario ya cuenta con un gafete</h4>
+                        <p>Para generar nuevamente el gafete, da click en el boton "Descargar"</p>
+                    </div>
+                </div>
+
+                <hr>
+                  
+                <button type="button" class="btn btn-success pull-right btn-primary-custom" id="btn-descargar" data-dismiss="modal">
+                    Descargar
+                </button>
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Alerta de registro -->
 <div class="modal fade" id="registro-correcto" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
