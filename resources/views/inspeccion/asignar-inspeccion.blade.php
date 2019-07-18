@@ -70,29 +70,15 @@
     </div>
     @php $var = 1; @endphp
     <label for="inspectores-asignar">Inspectores </label>
-
     <p class="text-danger" id="error-inspectores-asignar"></p>
     @foreach($inspectores as $inspector)
         @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
             <div class="form-check">
                 <input name="inspectores-asignar[]" class="form-check-input" type="checkbox" value="{{ $inspector->id}}" id="inspector-{{ $var }}">
                 <label class="form-check-label" for="inspector-{{ $var }}">
-                    {{ $inspector->nombre }} {{ $inspector->apellidopaterno }} 
-
-                    
+                    {{ $inspector->nombre }} {{ $inspector->apellidopaterno }}
                 </label>
-
                 <b><p id="folios-{{ $var }}"></p></b>
-
-                
-                <!-- <div class="row">
-                    <div class="col-md-4">
-                        <h5>Folio inicio: <b id="folio-inicio-{{ $var }}"></b></h5>
-                    </div>
-                    <div class="col-md-4">
-                        <h5>Folio fin: <b id="folio-fin-{{ $var }}"></b></h5>
-                    </div>
-                </div> -->
             </div>
         @endif
         @php $var++; @endphp

@@ -4,7 +4,7 @@
     <h2>Catalogo de Inspectores</h2>
 </header>
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspector">
-<i class="fas fa-user-plus"></i> Agregar Inspector
+    <i class="fas fa-user-plus"></i> Agregar Inspector
 </button>
 <div class="row">
     <div class="col">
@@ -17,7 +17,9 @@
                     <th>Apellido Materno</th>
                     <th>Clave</th>
                     <th>Estatus</th>
-                    <th>Acción</th>
+                    <th>Editar</th>
+                    <th>Cambiar Estatus</th>
+                    <th>Gafete</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -83,72 +85,20 @@
                         <p class="text-danger" id="error-estatus"></p>
                     </div>
                     <hr>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspector') }}</button>
-                            
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Modal para Editar -->
-<div class="modal fade" id="editar-inspector" tabindex="-1" role="dialog" aria-labelledby="modal-editar-inspector" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-editar-inspector">Editar Inspector</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="formulario-gestor" role="form">
-                    @csrf
-                    <input type="hidden" id="id-edit">
-                    <div class="form-group">
-                        <label for="nombre-edit">{{ __('Nombre Completo') }}</label>
-                        <input id="nombre-edit" type="text" class="form-control" required>
-                        <p class="text-danger" id="error-nombre-edit"></p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="apellidopaterno-edit">{{ __('Apellido Paterno') }}</label>
-                                <input id="apellidopaterno-edit" type="text" class="form-control">
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="apellidomaterno-edit">{{ __('Apellido Materno') }}</label>
-                                <input id="apellidomaterno-edit" type="text" class="form-control">
-                                
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-apellidopaterno-edit"></p>
-                            <p class="text-danger" id="error-apellidomaterno-edit"></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="clave-edit">{{ __('Clave') }}</label>
-                        <input id="clave-edit" type="text" class="form-control">
-                        <p class="text-danger" id="error-clave-edit"></p>
-                    </div>
-                    <hr>
+                    
+                    
                     <div class="form-group row mb-0">
+
                         <div class="col-md-6">
                             <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-editar">{{ __('Guardar') }}</button>
+
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">
+                                {{ __('Crear Inspector') }} 
+                            </button>
+                            
                         </div>
                     </div>
                 </form>
@@ -281,18 +231,15 @@
                             <div class="form-group">
                                 <label for="gafete-apellidopaterno">{{ __('Apellido Paterno') }}</label>
                                 <input id="gafete-apellidopaterno" name="gafete-apellidopaterno" type="text" class="form-control"> 
+                                <p class="text-danger" id="error-gafete-apellidopaterno"></p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="gafete-apellidomaterno">{{ __('Apellido Materno') }}</label>
                                 <input id="gafete-apellidomaterno" name="gafete-apellidomaterno" type="text" class="form-control">
-                                
+                                <p class="text-danger" id="error-gafete-apellidomaterno"></p>
                             </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-gafete-apellidopaterno"></p>
-                            <p class="text-danger" id="error-gafete-apellidomaterno"></p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -300,12 +247,11 @@
                         <input id="gafete-clave" name="gafete-clave" type="text" class="form-control">
                         <p class="text-danger" id="error-gafete-clave"></p>
                     </div>
-
                     <div class="form-group">
                         <label for="gafete-image">Foto del Inspector (99px x 142px)</label>
                         <input id="gafete-image" name="gafete-image" type="file" class="form-control-file" >
+                        <p class="text-danger" id="error-gafete-image"></p>
                     </div>
-
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
@@ -376,8 +322,6 @@
         </div>
     </div>
 </div>
-
-
 
 @endsection
 @section('scripts')

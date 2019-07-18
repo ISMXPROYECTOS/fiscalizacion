@@ -36,7 +36,8 @@ $(document).ready(function(){
                     }
                 },
                 {data: 'vigencia'},
-                {data: 'btn'},
+                {data: 'editar'},
+                {data: 'cambiarestatus'},
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',
@@ -73,7 +74,12 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Usuario...');
+                },
                 success: function (response) {
+
+                    $('#btn-enviar').text('Crear Usuario');
                     $("#formulario-usuario")[0].reset();
                     $('#crear-usuario').modal('hide');
                     $('#registro-correcto').modal('show');
@@ -82,6 +88,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-enviar').text('Crear Usuario');
                     $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
                     $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
@@ -136,7 +143,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-editar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Guardando...');
+                },
                 success: function (response) {
+                    $('#btn-editar').text('Guardar');
                     $('#editar-usuario').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').addClass('hidden');
@@ -144,6 +155,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-editar').text('Guardar');
                     $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').addClass('hidden');
                     $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
@@ -190,7 +202,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-activo').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Guardando...');
+                },
                 success: function (response) {
+                    $('#btn-activo').text('Guardar');
                     $('#editar-activo').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     $('#error-activo-edit').addClass('hidden');
@@ -198,6 +214,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-activo').text('Guardar');
                     $('#error-activo-edit').addClass('hidden');
                     $('#error-activo-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {

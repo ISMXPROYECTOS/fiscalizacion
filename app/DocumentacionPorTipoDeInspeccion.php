@@ -10,13 +10,13 @@ class DocumentacionPorTipoDeInspeccion extends Model
 	protected $table = 'documentacionxtipodeinspeccion';
 
 	/* Relación muchos a uno */
-	public function tipoDeInspeccion(){
-		return $this->belongsTo('App\TipoDeInspeccion', 'IDTIPOINSPECCION');
+	public function tipoInspeccion(){
+		return $this->belongsTo('App\TipoDeInspeccion', 'tipoinspeccion_id');
 	}
 
     /* Relación muchos a uno */
 	public function documentacionRequerida(){
-		return $this->belongsTo('App\DocumentacionRequerida', 'IDDOCUMENTACIONREQUERIDA');
+		return $this->belongsTo('App\DocumentacionRequerida', 'documentacionrequerida_id');
 	}
 
 }

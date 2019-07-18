@@ -2,6 +2,10 @@ $(document).ready(function(){
 
 	var url = "http://localhost/fiscalizacion/public";
 
+	$('#btn-asignar').click(function(){
+		$('#btn-asignar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Asignando Inspecciones...');
+	});
+
 	$('#tipoinspeccion-asignar').change(function(){
 		if ($('#tipoinspeccion-asignar').val() == '') {
 			$('#cantidadexistente-asignar').val('');

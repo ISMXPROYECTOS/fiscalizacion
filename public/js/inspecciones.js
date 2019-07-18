@@ -7,25 +7,27 @@ $(document).ready(function(){
     $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').text('');
     $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').addClass('hidden');
     $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').text('');
-    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-formavalorada-edit, #error-giro-edit').addClass('hidden');
-    $('#error-subgiro-edit, #error-ejerciciofiscal-edit, #error-estatus-edit, #error-colonia-edit, #error-domicilio-edit').addClass('hidden');
-    $('#error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit, #error-fechavence-edit').addClass('hidden');
-    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-formavalorada-edit, #error-giro-edit').text('');
-    $('#error-subgiro-edit, #error-ejerciciofiscal-edit, #error-estatus-edit, #error-colonia-edit, #error-domicilio-edit').text('');
-    $('#error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit, #error-fechavence-edit').text('');
+    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-ejerciciofiscal-edit').addClass('hidden');
+    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-ejerciciofiscal-edit').text('');
+    $('#error-colonia-edit, #error-domicilio-edit, #error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit').addClass('hidden');
+    $('#error-colonia-edit, #error-domicilio-edit, #error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit').text('');
+    $('#error-estatusinspeccion-edit').addClass('hidden');
+    $('#error-estatusinspeccion-edit').text('');
 
     function viewData(){
         $('#datatable').DataTable({
             'serverSide': true,
             'destroy': true,
+            'order': [ 2, 'asc' ],
             'ajax': url + '/inspecciones/listado',
             'columns': [
                 {data: 'folio'},
-                {data: 'idtipoinspeccion'},
-                {data: 'idestatusinspeccion'},
-                {data: 'idinspector'},
+                {data: 'tipoInspeccion'},
+                {data: 'estatusInspeccion'},
+                {data: 'inspector'},
                 {data: 'nombrelocal'},
-                {data: 'btn'},
+                {data: 'editar'},
+                {data: 'informacion'},
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',
@@ -57,21 +59,16 @@ $(document).ready(function(){
                     if (response != ""){
                         $('#editar-inspeccion').modal('show');
                         $('#id-edit').val(response.id);
-                        $('#inspector-edit').val(response.idinspector);
-                        $('#gestor-edit').val(response.idgestores);
-                        $('#tipoinspeccion-edit').val(response.idtipoinspeccion);
-                        $('#formavalorada-edit').val(response.idformavalorada);
-                        $('#giro-edit').val(response.idgiro);
-                        $('#subgiro-edit').val(response.idsubgirocomercial);
-                        $('#ejerciciofiscal-edit').val(response.idejerciciofiscal);
-                        $('#estatus-edit').val(response.idestatusinspeccion);
-                        $('#colonia-edit').val(response.idcolonia);
+                        $('#inspector-edit').val(response.inspector_id);
+                        $('#gestor-edit').val(response.gestores_id);
+                        $('#tipoinspeccion-edit').val(response.tipoinspeccion_id);
+                        $('#ejerciciofiscal-edit').val(response.ejerciciofiscal_id);
+                        $('#colonia-edit').val(response.colonia_id);
                         $('#local-edit').val(response.nombrelocal);
                         $('#domicilio-edit').val(response.domicilio);
                         $('#encargado-edit').val(response.nombreencargado);
                         $('#puestoencargado-edit').val(response.cargoencargado);
                         $('#diasvence-edit').val(response.diasvence);
-                        $('#fechavence-edit').val(response.fechavence);
                     }
                 }
             });
@@ -87,18 +84,13 @@ $(document).ready(function(){
                 'inspector' : $('#inspector-edit').val(),
                 'gestor' : $('#gestor-edit').val(),
                 'tipoinspeccion' : $('#tipoinspeccion-edit').val(),
-                'formavalorada' : $('#formavalorada-edit').val(),
-                'giro' : $('#giro-edit').val(),
-                'subgiro' : $('#subgiro-edit').val(),
                 'ejerciciofiscal' : $('#ejerciciofiscal-edit').val(),
-                'estatus' : $('#estatus-edit').val(),
                 'colonia' : $('#colonia-edit').val(),
                 'local' : $('#local-edit').val(),
                 'domicilio' : $('#domicilio-edit').val(),
                 'encargado' : $('#encargado-edit').val(),
                 'puestoencargado' : $('#puestoencargado-edit').val(),
-                'diasvence' : $('#diasvence-edit').val(),
-                'fechavence' : $('#fechavence-edit').val()
+                'diasvence' : $('#diasvence-edit').val()
             }
             $.ajax({
                 url: url + '/inspecciones/actualizar',
@@ -106,24 +98,20 @@ $(document).ready(function(){
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 success: function (response) {
-                    $('#editar-inspector').modal('hide');
+                    $('#editar-inspeccion').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-                    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-formavalorada-edit, #error-giro-edit').addClass('hidden');
-                    $('#error-subgiro-edit, #error-ejerciciofiscal-edit, #error-estatus-edit, #error-colonia-edit, #error-domicilio-edit').addClass('hidden');
-                    $('#error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit, #error-fechavence-edit').addClass('hidden');
-                    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-formavalorada-edit, #error-giro-edit').text('');
-                    $('#error-subgiro-edit, #error-ejerciciofiscal-edit, #error-estatus-edit, #error-colonia-edit, #error-domicilio-edit').text('');
-                    $('#error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit, #error-fechavence-edit').text('');
+                    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-ejerciciofiscal-edit').addClass('hidden');
+                    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-ejerciciofiscal-edit').text('');
+                    $('#error-colonia-edit, #error-domicilio-edit, #error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit').addClass('hidden');
+                    $('#error-colonia-edit, #error-domicilio-edit, #error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit').text('');
                     viewData();
                 },
 
                 error: function(response) {
-                    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-formavalorada-edit, #error-giro-edit').addClass('hidden');
-                    $('#error-subgiro-edit, #error-ejerciciofiscal-edit, #error-estatus-edit, #error-colonia-edit, #error-domicilio-edit').addClass('hidden');
-                    $('#error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit, #error-fechavence-edit').addClass('hidden');
-                    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-formavalorada-edit, #error-giro-edit').text('');
-                    $('#error-subgiro-edit, #error-ejerciciofiscal-edit, #error-estatus-edit, #error-colonia-edit, #error-domicilio-edit').text('');
-                    $('#error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit, #error-fechavence-edit').text('');
+                    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-ejerciciofiscal-edit').addClass('hidden');
+                    $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-ejerciciofiscal-edit').text('');
+                    $('#error-colonia-edit, #error-domicilio-edit, #error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit').addClass('hidden');
+                    $('#error-colonia-edit, #error-domicilio-edit, #error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);
@@ -135,5 +123,5 @@ $(document).ready(function(){
     }
 
     updateData();
-
+    
 });

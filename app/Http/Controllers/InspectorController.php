@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Inspector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Inspector;
+use App\Gafete;
 
 class InspectorController extends Controller
 {
 	// Muetra la vista del listado de los inspectores
 	public function listadoInspectores(){
-		return view('inspector.listado-inspectores');
+
+		$gafetes = Gafete::whereYear('vigencia', date('Y'))->get();
+
+
+		return view('inspector.listado-inspectores', [
+			'gafetes' => $gafetes
+		]);
 	}
 
 	// Solicita a la base de datos todos los inspectores que exiten
@@ -22,8 +29,10 @@ class InspectorController extends Controller
 	public function tbody(){
 		return datatables()
 			->eloquent(Inspector::query())
-			->addColumn('btn', 'inspector/actions-inspectores')
-			->rawColumns(['btn'])->toJson();
+			->addColumn('editar', 'inspector/boton-editar')
+			->addColumn('cambiarestatus', 'inspector/boton-estatus')
+			->addColumn('gafete', 'inspector/boton-gafete')
+			->rawColumns(['editar', 'cambiarestatus', 'gafete'])->toJson();
 	}
 
 	public function create(Request $request){
@@ -39,7 +48,7 @@ class InspectorController extends Controller
 
 	    // Se reciben los datos del formulario creando un Array de datos 
 		$datos = [
-			'idusuario' => \Auth::user()->id,
+			'usuario_id' => \Auth::user()->id,
 			'nombre' => $request->input('nombre'),
             'apellidopaterno' => $request->input('apellidopaterno'),
             'apellidomaterno' => $request->input('apellidomaterno'),
@@ -83,7 +92,7 @@ class InspectorController extends Controller
 		$clave = $request->input('clave');
 
         // Una ves verificados los datos y creados las variables se actualiza en la BD
-		$inspector->idusuario = $idUser;
+		$inspector->usuario_id = $idUser;
 		$inspector->nombre = $nombre;
 		$inspector->apellidopaterno = $apellidopaterno;
 		$inspector->apellidomaterno = $apellidomaterno;
@@ -114,6 +123,7 @@ class InspectorController extends Controller
 		$estatus = $request->input('estatus');
 
         // Una ves verificados los datos y creados las variables se actualiza en la BD
+        $inspector->usuario_id = $idUser;
 		$inspector->estatus = $estatus;
 		$inspector->update();
 
@@ -124,10 +134,13 @@ class InspectorController extends Controller
 
 	public function perfil($hash){
 
-
 		$inspector = Inspector::where('hash', $hash)->first();
+		$gafete = Gafete::find($inspector->id);
 
-		var_dump($inspector);
+		return view('inspector.perfil',[
+			'inspector' => $inspector,
+			'gafete' => $gafete
+		]);
 
 	}
 

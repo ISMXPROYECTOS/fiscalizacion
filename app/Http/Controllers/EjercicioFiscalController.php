@@ -16,8 +16,9 @@ class EjercicioFiscalController extends Controller
 	public function tbody(){
 		return datatables()
 			->eloquent(EjercicioFiscal::query())
-			->addColumn('btn', 'ejercicioFiscal/actions-ejercicios-fiscales')
-			->rawColumns(['btn'])->toJson();
+			->addColumn('editar', 'ejercicioFiscal/boton-editar')
+			->addColumn('cambiarestatus', 'ejercicioFiscal/boton-estatus')
+			->rawColumns(['editar', 'cambiarestatus'])->toJson();
 	}
 
 	// Valida la información antes de agregarla a la base de datos y despues regresa a la función el registro

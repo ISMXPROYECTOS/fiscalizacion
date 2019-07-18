@@ -3,12 +3,12 @@
 <header class="page-header">
     <h2>Inspecciones</h2>
 </header>
-<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspeccion">
+<!--<button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspeccion">
     <i class="fas fa-user-plus"></i> Agregar Inspección
 </button>
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#asignar-inspeccion">
     <i class="fas fa-user-plus"></i> Asignar Inspecciones
-</button>
+</button> -->
 <a class="btn btn-success mb-3" href="{{ route('pdf') }}">
     <i class="fas fa-file-pdf"></i> PDF
 </a>
@@ -22,7 +22,8 @@
                     <th>Estatus</th>
                     <th>Inspector</th>
                     <th>Nombre del Local</th>
-                    <th>Acción</th>
+                    <th>Editar</th>
+                    <th>Ver Más</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -282,96 +283,32 @@
                             <p class="text-danger" id="error-gestor-edit"></p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="tipoinspeccion-edit">{{ __('Tipo de Inspección') }}</label>
-                                <select id="tipoinspeccion-edit" class="form-control">
-                                    <option value="" selected="selected">Seleccionar</option>
-                                    @foreach($tiposInspecciones as $tipoInspeccion)
-                                        <option value="{{ $tipoInspeccion->id}}">{{ $tipoInspeccion->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="formavalorada-edit">{{ __('Forma Valorada') }}</label>
-                                <select id="formavalorada-edit" class="form-control">
-                                    <option value="">Seleccionar</option>
-                                    @foreach($formasValoradas as $formaValorada)
-                                        <option value="{{ $formaValorada->id}}">{{ $formaValorada->nombreencargado }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-tipoinspeccion-edit"></p>
-                            <p class="text-danger" id="error-formavalorada-edit"></p>
-                        </div>
+                    <div class="form-group">
+                        <label for="tipoinspeccion-edit">{{ __('Tipo de Inspección') }}</label>
+                        <select id="tipoinspeccion-edit" class="form-control">
+                            <option value="" selected="selected">Seleccionar</option>
+                            @foreach($tiposInspecciones as $tipoInspeccion)
+                                <option value="{{ $tipoInspeccion->id}}">{{ $tipoInspeccion->nombre }}</option>
+                            @endforeach
+                        </select>
+                        <p class="text-danger" id="error-tipoinspeccion-edit"></p>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="giro-edit">{{ __('Giro Comercial') }}</label>
-                                <select id="giro-edit" class="form-control">
-                                    <option value="">Seleccionar</option>
-                                    @foreach($giros as $giro)
-                                        <option value="{{ $giro->id}}">{{ $giro->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="subgiro-edit">{{ __('Subgiro Comercial') }}</label>
-                                <select id="subgiro-edit" class="form-control">
-                                    <option value="">Seleccionar</option>
-                                    @foreach($subgiros as $subgiro)
-                                        <option value="{{ $subgiro->id}}">{{ $subgiro->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-giro-edit"></p>
-                            <p class="text-danger" id="error-subgiro-edit"></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="ejerciciofiscal-edit">{{ __('Ejercicio Fiscal') }}</label>
-                                <select id="ejerciciofiscal-edit" class="form-control">
-                                    <option value="">Seleccionar</option>
-                                    @foreach($ejerciciosFiscales as $ejercicioFiscal)
-                                        <option value="{{ $ejercicioFiscal->id}}">{{ $ejercicioFiscal->anio }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="estatus-edit">{{ __('Estatus') }}</label>
-                                <select id="estatus-edit" class="form-control">
-                                    <option value="">Seleccionar</option>
-                                    @foreach($estatusInspecciones as $estatus)
-                                        <option value="{{ $estatus->id}}">{{ $estatus->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-ejerciciofiscal-edit"></p>
-                            <p class="text-danger" id="error-estatus-edit"></p>
-                        </div>
+                    <div class="form-group">
+                        <label for="ejerciciofiscal-edit">{{ __('Ejercicio Fiscal') }}</label>
+                        <select id="ejerciciofiscal-edit" class="form-control">
+                            <option value="">Seleccionar</option>
+                            @foreach($ejerciciosFiscales as $ejercicioFiscal)
+                                <option value="{{ $ejercicioFiscal->id}}">{{ $ejercicioFiscal->anio }}</option>
+                            @endforeach
+                        </select>
+                        <p class="text-danger" id="error-estatus-edit"></p>
                     </div>
                     <div class="form-group">
                         <label for="colonia-edit">{{ __('Colonia') }}</label>
                         <select id="colonia-edit" class="form-control">
                             <option value="">Seleccionar</option>
                             @foreach($colonias as $colonia)
-                                <option value="{{ $colonia->id}}">{{ $colonia->nombrecolonia }}</option>
+                                <option value="{{ $colonia->id}}">{{ $colonia->nombre }}</option>
                             @endforeach
                         </select>
                         <p class="text-danger" id="error-colonia-edit"></p>
@@ -404,24 +341,17 @@
                             <p class="text-danger" id="error-puestoencargado-edit"></p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="diasvence-edit">{{ __('Días de vencimiento') }}</label>
-                                <input id="diasvence-edit" type="number" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="form-group">
-                                <label for="fechavence-edit">{{ __('Fecha de vencimiento') }}</label>
-                                <input id="fechavence-edit" type="date" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-6">
-                            <p class="text-danger" id="error-diasvence-edit"></p>
-                            <p class="text-danger" id="error-fechavence-edit"></p>
-                        </div>
+                    <div class="form-group">
+                        <label for="diasvence-edit">{{ __('Días de vencimiento') }}</label>
+                        <input id="diasvence-edit" type="number" class="form-control">
+                        <p class="text-danger" id="error-diasvence-edit"></p>
                     </div>
+                    <!--<div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label for="fechavence-edit">{{ __('Fecha de vencimiento') }}</label>
+                            <input id="fechavence-edit" type="date" class="form-control" required>
+                        </div>
+                    </div>-->
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
@@ -449,18 +379,16 @@
             <div class="modal-body">
                 <form class="formulario-estatus" role="form">
                     @csrf
-                    <input type="hidden" id="id-edit-estatus">
+                    <input type="hidden" id="id-edit-estatusinspeccion">
                     <div class="form-group">
-                        <label for="estatus-edit">{{ __('Estatus') }}</label>
-                        <select id="estatus-edit" class="form-control">
+                        <label for="estatusinspeccion-edit">{{ __('Estatus') }}</label>
+                        <select id="estatusinspeccion-edit" class="form-control">
                             <option value="">Seleccionar</option>
-                            <option value="A">Activo</option>
-                            <option value="B">Baja</option>
-                            <option value="S">Suspendido</option>
-                            <option value="V">Vigente</option>
+                            @foreach($estatusInspecciones as $estatus)
+                                <option value="{{ $estatus->id }}">{{ $estatus->nombre }}</option>
+                            @endforeach
                         </select>
-
-                        <p class="text-danger" id="error-estatus-edit"></p>
+                        <p class="text-danger" id="error-estatusinspeccion-edit"></p>
                     </div>
                     <hr>
                     <div class="form-group row mb-0">

@@ -11,7 +11,7 @@ class Municipio extends Model
 
 	/* Relación muchos a uno */
 	public function estado(){
-		return $this->belongsTo('App\Estado', 'IDESTADO');
+		return $this->belongsTo('App\Estado', 'estado_id');
 	}
 
 	/* Relación uno a mucho */

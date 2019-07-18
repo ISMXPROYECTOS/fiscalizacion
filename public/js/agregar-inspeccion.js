@@ -2,11 +2,13 @@ $(document).ready(function(){
 
 	var url = "http://localhost/fiscalizacion/public";
 
+	$('#btn-enviar').click(function(){
+		$('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Inspecciones...');
+	});
+
 	$('#ejerciciofiscal').attr('disabled', '');
 	$('#cantidad').attr('disabled', '');
-
-
-
+	
 	$('#tipoinspeccion').change(function(){
 		if ($('#tipoinspeccion').val() != '') {
 			$('#ejerciciofiscal').removeAttr('disabled');

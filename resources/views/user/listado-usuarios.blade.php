@@ -16,7 +16,8 @@
                     <th>Activo</th>
                     <th>Rol</th>
                     <th>Fecha límite</th>
-                    <th>Acción</th>
+                    <th>Editar</th>
+                    <th>Cambiar Estatus</th>
                 </tr>
             </thead>
         <tbody></tbody>

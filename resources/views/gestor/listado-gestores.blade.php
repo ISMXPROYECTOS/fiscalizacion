@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col">
         
-        <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable-gestores">
+        <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -22,7 +22,8 @@
                     <th>E-mail</th>
                     <th>INE</th>
                     <th>Estatus</th>
-                    <th>Acción</th>
+                    <th>Editar</th>
+                    <th>Cambiar Estatus</th>
                 </tr>
             </thead>
             <tbody></tbody>

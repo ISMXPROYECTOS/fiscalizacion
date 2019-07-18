@@ -13,7 +13,8 @@
                 <tr>
                     <th>Año</th>
                     <th>Activo</th>
-                    <th>Acción</th>
+                    <th>Editar</th>
+                    <th>Cambiar Estatus</th>
                 </tr>
             </thead>
             <tbody></tbody>

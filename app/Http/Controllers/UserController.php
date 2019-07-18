@@ -34,8 +34,9 @@ class UserController extends Controller
 	public function tbody(){
 		return datatables()
 			->eloquent(User::query())
-			->addColumn('btn', 'user/actions-usuarios')
-			->rawColumns(['btn'])->toJson();
+			->addColumn('editar', 'user/boton-editar')
+			->addColumn('cambiarestatus', 'user/boton-estatus')
+			->rawColumns(['editar', 'cambiarestatus'])->toJson();
 	}
 
 	public function create(Request $request){

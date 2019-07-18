@@ -49,7 +49,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Estatus...');
+                },
                 success: function (response) {
+                    $('#btn-enviar').text('Crear Estatus');
                     $("#formulario-estatus-inspeccion")[0].reset();
                     $('#crear-estatus-inspeccion').modal('hide');
                     $('#registro-correcto').modal('show');
@@ -58,6 +62,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-enviar').text('Crear Estatus');
                     $('#error-nombre, #error-clave').addClass('hidden');
                     $('#error-nombre, #error-clave').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
@@ -105,7 +110,11 @@ $(document).ready(function(){
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                beforeSend: function(){
+                    $('#btn-editar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Guardando...');
+                },
                 success: function (response) {
+                    $('#btn-editar').text('Guardar');
                     $('#editar-estatus-inspeccion').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     $('#error-nombre-edit, #error-clave-edit').addClass('hidden');
@@ -113,6 +122,7 @@ $(document).ready(function(){
                     viewData();
                 },
                 error: function(response) {
+                    $('#btn-editar').text('Guardar');
                     $('#error-nombre-edit, #error-clave-edit').addClass('hidden');
                     $('#error-nombre-edit, #error-clave-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
