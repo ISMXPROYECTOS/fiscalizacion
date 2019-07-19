@@ -2,15 +2,6 @@ $(document).ready(function(){
 
 	var url = "http://localhost/fiscalizacion/public";
 
-    $('#error-gafete-image').addClass('hidden');
-    $('#error-gafete-image').text('');
-
-    $(document).on('click', '#btn-cancelar', function(e){
-
-        $('#error-gafete-image').addClass('hidden');
-        $('#error-gafete-image').text('');
-    });
-
     function informacionGafete(){
     	$(document).on('click', '.generar-gafete', function(){
             var id = $(this).attr('id');

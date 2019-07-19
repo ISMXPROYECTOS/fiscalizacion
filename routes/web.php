@@ -81,6 +81,8 @@ Route::get('/inspecciones/informacion/{id}', 'InspeccionController@verMasInforma
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@inspeccionesPdf')->name('pdf');
 Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete');
+Route::get('/pdf/validar-acta-inspeccion/{id}', 'PdfController@validarActaInspeccion');
+Route::get('/pdf/descargar-acta-inspeccion/{id}', 'PdfController@descargarActaInspeccion');
 
 /* Rutas Tipos Inspecciones*/
 

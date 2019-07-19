@@ -26,7 +26,7 @@ $(document).ready(function(){
                 {data: 'estatusInspeccion'},
                 {data: 'inspector'},
                 {data: 'nombrelocal'},
-                {data: 'editar'},
+                {data: 'imprimir'},
                 {data: 'informacion'},
             ],
             'language': {

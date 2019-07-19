@@ -10,15 +10,25 @@ use App\Gafete;
 
 class PdfController extends Controller
 {
-	public function inspeccionesPdf(){
+	public function validarActaInspeccion($id){
 
+		$inspecciones = Inspeccion::find($id);
 
-		//return view('gafete.gafete');
+		if ($inspecciones->estatusinspeccion_id == 1) {
+			return 'false';
+		} else {
+			return $inspecciones;
+		}
+		
+	}
 
-		$inspecciones = Inspeccion::all();
-		$pdf = PDF::loadView('pdf.pdf', ['inspecciones' => $inspecciones]);
+	public function descargarActaInspeccion($id){
 
-		return $pdf->stream();
+		$inspecciones = Inspeccion::find($id);
+
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones]);
+		return $pdf->download();
+		
 	}
 
 	public function verGafete($id){

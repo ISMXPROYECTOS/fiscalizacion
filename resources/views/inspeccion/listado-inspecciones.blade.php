@@ -22,7 +22,7 @@
                     <th>Estatus</th>
                     <th>Inspector</th>
                     <th>Nombre del Local</th>
-                    <th>Editar</th>
+                    <th>Imprimir</th>
                     <th>Ver Más</th>
                 </tr>
             </thead>
@@ -435,4 +435,5 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('js/inspecciones.js') }}" defer></script>
+<script src="{{ asset('js/acta-inspeccion.js') }}" defer></script>
 @endsection

@@ -73,9 +73,9 @@ class InspeccionController extends Controller
 					return $inspeccion->inspector->nombre;
 				}
 			})
-			->addColumn('editar', 'inspeccion/boton-editar')
+			->addColumn('imprimir', 'inspeccion/boton-pdf')
 			->addColumn('informacion', 'inspeccion/boton-informacion')
-			->rawColumns(['editar', 'informacion'])
+			->rawColumns(['imprimir', 'informacion'])
 			->toJson();
 	}
 
@@ -220,8 +220,10 @@ class InspeccionController extends Controller
 
 	public function verMasInformacion($id){
 		$inspeccion = Inspeccion::find($id);
+		$gestores = Gestor::all();
 		return view('inspeccion.informacion-completa', [
-			'inspeccion' => $inspeccion
+			'inspeccion' => $inspeccion,
+			'gestores' => $gestores
 		]);
 	}
 
@@ -236,11 +238,6 @@ class InspeccionController extends Controller
             'cantidad-asignar' => 'required|string',
             'inspectores-asignar.*' => 'required|string'
         ]);
-
-        var_dump($this->validate($request));
-        die();
-
-
 
 		$data = $request->all();
     	$ejerciciofiscal = $request->input('ejerciciofiscal-asignar');
