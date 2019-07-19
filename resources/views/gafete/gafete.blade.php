@@ -1,22 +1,72 @@
 <!DOCTYPE html>
-<html lang="en" style="margin: 0px">
-	<head>
-		<!-- Required meta tags -->
-		<meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        
-		<title>Gafete Inspector</title>
-		<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" />
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" />
+	<style>
+		*{
+			margin:0;
+			padding:0
+		}
+
+		.qr{
+			width: 100px;
+		}
+
+		.qr-vigencia{
+			width: 100%;
+		}
+
+		.text-left{
+			text-align: left !important;
+		}
+
+		.em-8{
+			font-size: .8em;
+			
+		}
+
+		.em-6{
+			font-size: .6em
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="container text-center">
+
 		
-	</head>
-	<body>
-		<div class="row">
-			<div class="col-lg-6">hola</div>
-			<div class="col-lg-6">hola</div>
+		<img src="{{ asset('img/header-gafete.jpg') }}" width="100%" class="mb-4">
+
+		<div class="img-container">
+			<img src="{{ asset('img/inspectores/'. $gafete->imageninspector) }}" alt="" class="img-inspector mt-3 ">
 		</div>
-		
+
+		@if(is_object($gafete->inspector))
+			<h6><b>{{ $gafete->inspector->nombre }} {{ $gafete->inspector->apellidopaterno }} {{ $gafete->inspector->apellidomaterno }}</b></h6>
+		@endif
+
+		<h6>Fiscal</h6>
+
+		<table class="qr-vigencia">
+			<tr>
+				<td>
+					<img src="{{ asset('img/qrs/'.$gafete->codigoqr.'.png') }}" alt="" class="qr mt-3">
+					<p class="em-6">Verifica con tu celular</p>
+				</td>
+				<td>
+					<h6 class="em-8 text-left">Expedido: {{ date('j/m/Y', strtotime($gafete->created_at)) }} </h6>
+					<h6 class="em-8 text-left">Vigencia: {{ date('j/m/Y', strtotime($gafete->vigencia)) }} </h6>
+				</td>
+			</tr>
+		</table>
+
+		<img src="{{ asset('img/footer-gafete.jpg') }}" width="100%">
+
+	</div>
+
 	
 	
 </body>
