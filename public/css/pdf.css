@@ -1,0 +1,32 @@
+html, body{
+	margin: 0 !important;
+}
+
+body{
+	background-image: url("../img/pattern.png");
+}
+
+.qr{
+	width: 100px;
+}
+
+.qr-vigencia{
+	width: 100%;
+}
+
+.text-left{
+	text-align: left !important;
+}
+
+.em-8{
+	font-size: .8em;
+
+}
+
+.em-6{
+	font-size: .6em
+}
+
+.footer-img{
+	margin-top: 354px;
+}

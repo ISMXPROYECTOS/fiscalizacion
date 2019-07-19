@@ -4,41 +4,13 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" />
-	<style>
-		*{
-			margin:0;
-			padding:0
-		}
-
-		.qr{
-			width: 100px;
-		}
-
-		.qr-vigencia{
-			width: 100%;
-		}
-
-		.text-left{
-			text-align: left !important;
-		}
-
-		.em-8{
-			font-size: .8em;
-			
-		}
-
-		.em-6{
-			font-size: .6em
-		}
-
-	</style>
+	<link rel="stylesheet" href="{{ asset('css/pdf.css') }}" />
+	
 </head>
 <body>
-
+	<img src="{{ asset('img/header-gafete.png') }}" width="100%">
 	<div class="container text-center">
 
-		
-		<img src="{{ asset('img/header-gafete.jpg') }}" width="100%" class="mb-4">
 
 		<div class="img-container">
 			<img src="{{ asset('img/inspectores/'. $gafete->imageninspector) }}" alt="" class="img-inspector mt-3 ">
@@ -57,17 +29,15 @@
 					<p class="em-6">Verifica con tu celular</p>
 				</td>
 				<td>
+					@if(is_object($gafete->inspector))
+						<h6 class="text-left">CLAVE: <b>{{ $gafete->inspector->clave }}</b></h6>
+					@endif
 					<h6 class="em-8 text-left">Expedido: {{ date('j/m/Y', strtotime($gafete->created_at)) }} </h6>
 					<h6 class="em-8 text-left">Vigencia: {{ date('j/m/Y', strtotime($gafete->vigencia)) }} </h6>
 				</td>
 			</tr>
 		</table>
-
-		<img src="{{ asset('img/footer-gafete.jpg') }}" width="100%">
-
-	</div>
-
-	
-	
+	</div>	
+	<img src="{{ asset('img/footer-gafete.jpg') }}" width="100%" class="footer-img">
 </body>
 </html>
