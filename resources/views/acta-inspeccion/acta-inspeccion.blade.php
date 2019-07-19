@@ -8,6 +8,10 @@
 	
 </head>
 <body>
-	<img src="{{ asset('img/header-acta-inspeccion.png') }}" width="100%">
+	<img src="{{ asset('img/header-acta-inspeccion.png') }}" width="100%" class="mb-2">
+	<div class="container">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore ipsam ratione velit eveniet debitis inventore alias voluptatibus facere maiores fuga sint tempore aliquid fugiat voluptatum quam molestias accusantium, doloremque dolorum.</p>
+	</div>
+	
 </body>
 </html>
