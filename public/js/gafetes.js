@@ -37,7 +37,7 @@ $(document).ready(function(){
                         $('#gafete-clave').text(response.clave);
                     }
 
-                    $('#btn-descargar').text('Crear Gafete');
+                    $('#btn-descargar').text('Descargar');
                 }
             });
 

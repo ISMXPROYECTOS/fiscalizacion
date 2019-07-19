@@ -217,7 +217,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="gafete-image">Foto del Inspector (99px x 142px)</label>
+                        <label for="gafete-image">Foto del Inspector (110px x 132px)</label>
                         <input  name="gafete-image" type="file" class="form-control-file" >
                         <p class="text-danger" id="error-gafete-image"></p>
                     </div>
