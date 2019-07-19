@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" />
-	<link rel="stylesheet" href="{{ asset('css/pdf.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/gafete.css') }}" />
 	
 </head>
 <body>
