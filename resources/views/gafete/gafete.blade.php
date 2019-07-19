@@ -1,43 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" style="margin: 0px">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        
 		<title>Gafete Inspector</title>
 		<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" />
-		<link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
+		
 	</head>
-	<body>		
-			<img src="{{ asset('img/header-gafete.jpg') }}" alt="" class="mb-2">
+	<body>
+		<div class="row">
+			<div class="col-lg-6">hola</div>
+			<div class="col-lg-6">hola</div>
+		</div>
+		
 	
-			<table >
-			  <tr>
-			    <td style="width: 33%"> </td>
-			    <td style="width: 33%">
-			    	<div class="div-imagen-inspector">
-						<img src="{{ asset('img/inspectores/'. $gafete->imageninspector) }}" alt="" class="img-inspector"></td>
-					</div>
-			    </td>
-			    <td style="width: 33%"> </td>
-			  </tr>
-			</table>
-
-			@if(is_object($gafete->inspector))
-			<h6><b>{{ $gafete->inspector->nombre }} {{ $gafete->inspector->apellidopaterno }} {{ $gafete->inspector->apellidomaterno }}</b></h6>
-			@endif
-			<h6>Inspector</h6>
-
-			<table >
-			  <tr>
-			    <td>Aqui ira QR</td>
-			    <td>
-			    	<h6>Expedido: {{ $gafete->vigencia }} </h6>
-					<h6>Vigencia: {{ $gafete->vigencia }} </h6>
-			    </td>
-			  </tr>
-			</table>
-			
-			<h6>@if(is_object($gafete->inspector)) Estatus: {{ $gafete->inspector->estatus }} @endif</h6>
-			
 	
-	</body>
+</body>
 </html>

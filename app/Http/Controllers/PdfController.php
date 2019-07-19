@@ -26,6 +26,7 @@ class PdfController extends Controller
 		$gafete = Gafete::find($id);
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
+		
 		$customPaper = array(0,0,425.00,328);
 		$pdf = PDF::loadView('gafete.gafete', ['gafete' => $gafete])->setPaper($customPaper, "landscape");
 
