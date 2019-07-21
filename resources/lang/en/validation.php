@@ -209,10 +209,9 @@ return [
             "required" => 'Es necesario seleccionar una cantidad',
         ],
 
-        'inspectores-asignar.*' => [
-            "required" => 'Es necesario seleccionar al menos a un inspector',
+        'ejerciciofiscal-asignar' => [
+            "required" => 'Es necesario seleccionar el año de ejercicio fiscal',
         ]
-
 
     ],
 

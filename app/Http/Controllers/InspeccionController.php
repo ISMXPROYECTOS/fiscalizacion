@@ -236,8 +236,10 @@ class InspeccionController extends Controller
 			'ejerciciofiscal-asignar' => 'required|string',
 			'tipoinspeccion-asignar' => 'required|string',
             'cantidad-asignar' => 'required|string',
-            'inspectores-asignar.*' => 'required|string'
+            'inspectores-asignar.*' => 'required|string',
         ]);
+
+
 
 		$data = $request->all();
     	$ejerciciofiscal = $request->input('ejerciciofiscal-asignar');
@@ -254,6 +256,10 @@ class InspeccionController extends Controller
 		$inspecciones = Inspeccion::where('estatusinspeccion_id', $id_estatus_anterior)
 									->where('tipoinspeccion_id', $tipoinspeccion)->get();
 		$tipos_inspecciones = TipoDeInspeccion::find($tipoinspeccion);
+
+		if ($inspectores == null) {
+			return back()->withErrors('Es necesario seleccionar al menos a un Inspector.');
+		} 
 		$total_inspectores = count($inspectores);
 		$total_inspecciones = $cantidad * $total_inspectores;
 		$numero_inspecciones = count($inspecciones);
@@ -277,8 +283,9 @@ class InspeccionController extends Controller
 		}
 	}
 
-	public function obtenerTotalInspecciones($id){
+	public function obtenerTotalInspecciones($id, $anio){
 		$total_inspecciones = Inspeccion::where('tipoinspeccion_id', $id)
+										->where('ejerciciofiscal_id', $anio)
 										->where('estatusinspeccion_id', 1)
 										->get();
 		return count($total_inspecciones);
@@ -343,6 +350,8 @@ class InspeccionController extends Controller
 			'inspectores-asignar.*' => 'required|string'
         ]);
 
+
+
         $data = $request->all();
         $tipo_inspeccion_id = $request->input('tipoinspeccion-asignar');
     	$cantidad = $request->input('cantidad-asignar');
@@ -350,7 +359,9 @@ class InspeccionController extends Controller
     	$inspectores = array_get($data, 'inspectores-asignar');
 
     	$inspecciones = Inspeccion::where('estatusinspeccion_id', 1)
-							->where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
+    						->where('ejerciciofiscal_id', $ejercicio_fiscal_id)
+							->where('tipoinspeccion_id', $tipo_inspeccion_id)
+							->get();
 		
 		$datos = [];
 		$inspectores_array = [];
@@ -361,38 +372,52 @@ class InspeccionController extends Controller
 				'mensaje' => 'Es necesario seleccionar a un Inspector'
 			], 422);
 		} 
+
+
 		
 		$total_inspectores = count($inspectores);
 		$total_inspecciones = count($inspecciones);
 
-		if ($total_inspectores == 1) {
-			$datos = [
-				$total_inspectores => [
-					'folioinicio' => $inspecciones[0]->folio,
-					'foliofin' => $inspecciones[$cantidad-1]->folio,
-					'inspector' => $inspectores
-				]
-			];
-
-			return $datos;
+		if ($cantidad > $total_inspecciones) {
+			return response()->json([
+				'error' => true,
+				'mensaje' => 'No cuentas con la cantidas suficiente de Inspecciones para asignar. Favor de agregar mas inspecciones.'
+			], 422);
 		} else {
-			for ($i = 0; $i < $total_inspectores; $i++) {
-				$cantidad_final = $cantidad * ($i + 1);
-				if ($i == 0) {
-					$inspectores_array['folioinicio'] = $inspecciones[0]->folio;
-					$inspectores_array['foliofin'] =  $inspecciones[$cantidad-1]->folio;
-					$inspectores_array['inspector'] = $inspectores[$i];
-					$datos[$inspectores[$i]] = $inspectores_array;
+			if ($total_inspectores == 1) {
+				$datos = [
+					$total_inspectores => [
+						'folioinicio' => $inspecciones[0]->folio,
+						'foliofin' => $inspecciones[$cantidad-1]->folio,
+						'inspector' => $inspectores
+					]
+				];
+
+				return $datos;
+			} else {
+				if ($cantidad*$total_inspectores > $total_inspecciones) {
+					return response()->json([
+						'error' => true,
+						'mensaje' => 'No cuentas con la cantidas suficiente de Inspecciones para asignar. Favor de agregar mas inspecciones.'
+					], 422);
 				} else {
-					$inspectores_array['folioinicio'] = $inspecciones[$cantidad_final-$cantidad]->folio;
-					$inspectores_array['foliofin'] =  $inspecciones[$cantidad_final-1]->folio;
-					$inspectores_array['inspector'] = $inspectores[$i];
-					$datos[$inspectores[$i]] = $inspectores_array;
+					for ($i = 0; $i < $total_inspectores; $i++) {
+						$cantidad_final = $cantidad * ($i + 1);
+						if ($i == 0) {
+							$inspectores_array['folioinicio'] = $inspecciones[0]->folio;
+							$inspectores_array['foliofin'] =  $inspecciones[$cantidad-1]->folio;
+							$inspectores_array['inspector'] = $inspectores[$i];
+							$datos[$inspectores[$i]] = $inspectores_array;
+						} else {
+							$inspectores_array['folioinicio'] = $inspecciones[$cantidad_final-$cantidad]->folio;
+							$inspectores_array['foliofin'] =  $inspecciones[$cantidad_final-1]->folio;
+							$inspectores_array['inspector'] = $inspectores[$i];
+							$datos[$inspectores[$i]] = $inspectores_array;
+						}
+					}
 				}
 			}
-
 		}
-
 		return $datos;
 	}
 

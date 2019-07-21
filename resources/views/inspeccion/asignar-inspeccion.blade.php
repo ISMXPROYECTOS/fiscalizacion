@@ -19,14 +19,13 @@
 <form method="POST" action="{{ route('asignar-inspecciones') }}" id="formulario-asignar-inspeccion">
     @csrf
     <div class="form-group">
-        <label for="ejerciciofiscal-asignar">Año</label>
-        @foreach ($ejerciciosFiscales as $ejercicioFiscal)
-            @if ($ejercicioFiscal->anio == date('Y'))
-                <input type="text" class="form-control" disabled="" value="{{ $ejercicioFiscal->anio }}">
-                <input type="hidden" name="ejerciciofiscal-asignar" id="ejerciciofiscal-asignar"
-                value="{{ $ejercicioFiscal->id }}">
-            @endif
-        @endforeach
+        <label for="ejerciciofiscal-asignar">Ejercicio Fiscal</label>
+        <select name="ejerciciofiscal-asignar" class="form-control" id="ejerciciofiscal-asignar">
+            <option value="">Seleccionar</option>
+            @foreach ($ejerciciosFiscales as $ejercicioFiscal)
+            <option value="{{ $ejercicioFiscal->id}}">{{ $ejercicioFiscal->anio }}</option>
+            @endforeach
+        </select>
         <p class="text-danger mb-0">{{ $errors->first('ejerciciofiscal-asignar') }}</p>
     </div>
     <div class="row mb-3">
@@ -70,8 +69,8 @@
     </div>
     @php $var = 1; @endphp
     <label for="inspectores-asignar">Inspectores </label>
-    <p class="text-danger" id="error-inspectores-asignar"></p>
-    <p class="text-danger mb-0">{{ $errors->first('inspectores-asignar') }}</p>
+    <p class="text-danger mb-0" id="error-inspectores-asignar"></p>
+    <p class="text-danger mb-0">{{ $errors->first('inspectores-asignar.*') }}</p>
     @foreach($inspectores as $inspector)
         @if($inspector->estatus == 'A' or $inspector->estatus == 'V')
             <div class="form-check">
@@ -79,7 +78,7 @@
                 <label class="form-check-label" for="inspector-{{ $var }}">
                     {{ $inspector->nombre }} {{ $inspector->apellidopaterno }}
                 </label>
-                <b><p id="folios-{{ $var }}"></p></b>
+                <b><p class="folios-reset mb-0" id="folios-{{ $var }}"></p></b>
             </div>
         @endif
         @php $var++; @endphp
