@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,6 +17,8 @@ use App\SubgiroComercial;
 use App\EjercicioFiscal;
 use App\EstatusInspeccion;
 use App\Colonia;
+
+
 
 class InspeccionController extends Controller
 {
@@ -150,10 +153,12 @@ class InspeccionController extends Controller
 				'folio' => $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio
 			];
 
-			Inspeccion::create($datos);
+			Inspeccion::create($datos);		
 		}
-    	
-    	 return redirect('inspecciones/agregar')->with('status', 'Se ha creado correctamente');
+
+		$id_forma_valorada = $forma_valorada->last()->id;
+		
+    	return redirect('inspecciones/agregar')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
 	}
 
 	public function editarInspeccion($id){

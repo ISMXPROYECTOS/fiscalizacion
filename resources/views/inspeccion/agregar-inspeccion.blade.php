@@ -10,6 +10,8 @@
     </div>
 @endif
 
+
+
     <div class="row">
         <div class="col-md-4">
             <h4 >Folio inicio: <b id="folio-inicio"></b></h4>
@@ -76,11 +78,21 @@
         <div class="form-group row mb-0">
             <div class="col-md-4">
                 <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspecciones') }}</button>
+                
             </div>
         </div>         
     </form>
 @endsection
 
 @section('scripts')
+
+@if (session('idfv'))
+    <script>
+        var url = "http://localhost/fiscalizacion/public";
+        window.location.replace(url + "/pdf/descargar-acta-inspeccion-multiple/" + {{ session('idfv') }});
+    </script>
+@endif
+
+
 <script src="{{ asset('js/agregar-inspeccion.js') }}" defer></script>
 @endsection

@@ -3,4 +3,8 @@ html, body{
 	font-size: .9em;
 }
 
+.page_break{
+	page-break-before: always; 
+}
+
 
