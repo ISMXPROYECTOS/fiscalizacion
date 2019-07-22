@@ -92,5 +92,5 @@
 </form>
 @endsection
 @section('scripts')
-<script src="{{ asset('js/asignar-inspeccion.js') }}" defer></script>
+<script src="{{ asset('js/asignar-inspeccion.js') }}"></script>
 @endsection
