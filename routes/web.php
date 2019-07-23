@@ -22,6 +22,13 @@ Auth::routes();
 /* Rutas Home */
 Route::get('/', 'HomeController@index')->name('home');
 
+/* Rutas Colonias */
+Route::get('/colonias', 'ColoniaController@listadoColonias')->name('listado-colonias');
+Route::get('/colonias/listado', 'ColoniaController@tbody');
+Route::post('/colonias/nuevo', 'ColoniaController@create');
+Route::get('/colonias/editar/{id}', 'ColoniaController@editarColonia');
+Route::post('/colonias/actualizar', 'ColoniaController@update');
+
 /* Rutas Inspectores */
 Route::get('/inspectores', 'InspectorController@listadoInspectores')->name('listado-inspectores');
 Route::get('/inspectores/listado', 'InspectorController@tbody');

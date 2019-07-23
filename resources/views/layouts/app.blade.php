@@ -136,9 +136,8 @@
                                             </li>
                                             @endif
                                             <li>
-                                                <a class="nav-link" href="#">
-                                                    
-                                                    <span>Estados, Municipios y Colonias</span>
+                                                <a class="nav-link" href="{{ route('listado-colonias') }}">
+                                                    <span>Colonias</span>
                                                 </a>
                                             </li>
                                             <li>
