@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Gestor;
+use App\Inspeccion;
 use Illuminate\Http\Request;
 
 class GestorController extends Controller
@@ -16,7 +17,8 @@ class GestorController extends Controller
 			->eloquent(Gestor::query())
 			->addColumn('editar', 'gestor/boton-editar')
 			->addColumn('cambiarestatus', 'gestor/boton-estatus')
-			->rawColumns(['editar', 'cambiarestatus'])->toJson();
+			->addColumn('inspecciones', 'gestor/boton-inspecciones')
+			->rawColumns(['editar', 'cambiarestatus', 'inspecciones'])->toJson();
 	}
 
 	public function create(Request $request){
@@ -122,6 +124,18 @@ class GestorController extends Controller
 
         return $gestor;
 
+	}
+
+	public function inspeccionesPorGestor($id){
+		return datatables()
+			->eloquent(Inspeccion::where('gestores_id', $id))
+			->addColumn('tipoInspeccion', function(Inspeccion $inspeccion){
+				return $inspeccion->tipoInspeccion->clave;
+			})
+			->addColumn('estatusInspeccion', function(Inspeccion $inspeccion){
+				return $inspeccion->estatusInspeccion->nombre;
+			})
+			->toJson();
 	}
 
 }

@@ -39,20 +39,18 @@ Route::post('/inspectores/estatus', 'InspectorController@updateEstatus');
 Route::get('/inspectores/perfil/{hash}', 'InspectorController@perfil');
 
 /* Rutas Gestores */
-
 Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');
 Route::get('/gestores/listado', 'GestorController@tbody');
 Route::post('/gestores/nuevo', 'GestorController@create');
 Route::get('/gestores/editar/{id}', 'GestorController@editarGestor');
 Route::post('/gestores/actualizar', 'GestorController@update');
 Route::post('/gestores/estatus', 'GestorController@updateEstatus');
+Route::get('/gestores/inspecciones/{id}', 'GestorController@inspeccionesPorGestor');
 
 /* Rutas Usuarios */
-
 Route::group(['middleware' => 'admin'], function () {
 	Route::get('/usuarios', 'UserController@listadoUsuarios')->name('listado-usuarios');
 });
-
 Route::get('/usuarios/cambio-de-contraseña', 'UserController@cambiarPassword')->name('cambiar-password');
 Route::post('/usuarios/actualizar-contraseña', 'UserController@updatePassword')->name('actualizar-password');
 Route::get('/usuarios/listado', 'UserController@tbody');
@@ -63,7 +61,6 @@ Route::post('/usuarios/estatus', 'UserController@updateEstatus');
 Route::get('/usuarios/verificar/{username}', 'UserController@verificarUsuario');
 
 /* Rutas Ejercicios Fiscales */
-
 Route::get('/ejercicios-fiscales', 'EjercicioFiscalController@listadoEjerciciosFiscales')->name('listado-ejercicios-fiscales');
 Route::get('/ejercicios-fiscales/listado', 'EjercicioFiscalController@tbody');
 Route::post('/ejercicios-fiscales/nuevo', 'EjercicioFiscalController@create');

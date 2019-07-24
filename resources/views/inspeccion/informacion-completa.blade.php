@@ -18,7 +18,6 @@
             <hr>
             <div class="form-group ">
                 <label for="usuario">{{ __('Nombre del Local') }}</label>
-                
                 <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
                 @if ($errors->has('usuario'))
                 <span class="invalid-feedback" role="alert">
@@ -30,7 +29,6 @@
                 <div class="col-lg-6">
                     <div class="form-group ">
                         <label for="usuario">{{ __('Domicilio') }}</label>
-                        
                         <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
                         @if ($errors->has('usuario'))
                         <span class="invalid-feedback" role="alert">
@@ -42,7 +40,6 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="role">{{ __('Colonia') }}</label>
-                        
                         <select name="role" id="role" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" value="{{ old('role') }}" required autofocus>
                             <option value="">Seleccionar</option>
                             <option value="ROLE_ADMIN">Administrador</option>
@@ -57,10 +54,8 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group ">
                 <label for="usuario">{{ __('Nombre del encargado') }}</label>
-                
                 <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
                 @if ($errors->has('usuario'))
                 <span class="invalid-feedback" role="alert">
@@ -69,11 +64,9 @@
                 @endif
             </div>
             <div class="row mb-3">
-                
                 <div class="col-lg-4">
                     <div class="form-group ">
                         <label for="usuario">{{ __('Puesto del encargado') }}</label>
-                        
                         <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
                         @if ($errors->has('usuario'))
                         <span class="invalid-feedback" role="alert">
@@ -85,7 +78,6 @@
                 <div class="col-lg-4">
                     <div class="form-group ">
                         <label for="usuario">{{ __('Identificación del encargado') }}</label>
-                        
                         <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
                         @if ($errors->has('usuario'))
                         <span class="invalid-feedback" role="alert">
@@ -97,7 +89,6 @@
                 <div class="col-lg-4">
                     <div class="form-group ">
                         <label for="usuario">{{ __('Folio de Identificación del encargado') }}</label>
-                        
                         <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
                         @if ($errors->has('usuario'))
                         <span class="invalid-feedback" role="alert">
@@ -113,7 +104,6 @@
                 <div class="col-lg-4">
                     <div class="form-group ">
                         <label for="usuario">{{ __('Hora en que se realizo la inspección') }}</label>
-                        
                         <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
                         @if ($errors->has('usuario'))
                         <span class="invalid-feedback" role="alert">
@@ -175,15 +165,12 @@
                     <hr>
                     <div class="form-group">
                         <label for="role">{{ __('Gestor') }}</label>
-                        
-                        
                         <select name="role" id="role" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" value="{{ old('role') }}" required autofocus>
                             <option value="">Seleccionar</option>
                             @foreach($gestores as $gestor)
                             <option value="{{ $gestor->id}}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }} {{ $gestor->apellidomaterno }}</option>
                             @endforeach
                         </select>
-                        
                         @if ($errors->has('role'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('role') }}</strong>
@@ -202,10 +189,7 @@
                     <h3>Prorroga </h3>
                     <hr>
                     <div class="form-group ">
-                        
-                        
                         <label for="usuario">{{ __('Dias de Prorroga') }}</label>
-                        
                         <input id="usuario" type="text" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
                         @if ($errors->has('usuario'))
                         <span class="invalid-feedback" role="alert">

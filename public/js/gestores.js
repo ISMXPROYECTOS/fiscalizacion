@@ -46,6 +46,7 @@ $(document).ready(function(){
                 },
                 {data: 'editar'},
                 {data: 'cambiarestatus'},
+                {data: 'inspecciones'},
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',
@@ -243,5 +244,41 @@ $(document).ready(function(){
     }
 
     updateEstatus();
+
+    function inspeccionesPorGestor(){
+        $(document).on('click', '.inspecciones', function(e){
+            e.preventDefault();
+            var id = $(this).attr('id');
+            $('#inspecciones').modal({backdrop: 'static', keyboard: false})
+            $('#inspecciones').modal('show');
+            $('#inspecciones-datatable').DataTable({
+                'serverSide': true,
+                'destroy': true,
+                'order': [ 1, 'asc' ],
+                'ajax': url + '/gestores/inspecciones/' + id,
+                'columns': [
+                    {data: 'folio'},
+                    {data: 'tipoInspeccion'},
+                    {data: 'estatusInspeccion'},
+                ],
+                'language': {
+                    'info': 'Total de registros _TOTAL_',
+                    'paginate': {
+                        'next': 'Siguiente',
+                        'previous': 'Anterior',
+                    },
+                    'lengthMenu': 'Mostrar _MENU_ registros',
+                    'loadingRecords': 'Cargando...',
+                    'processing': 'Procesando...',
+                    'emptyTable': 'No se encontraron registros',
+                    'zeroRecords': 'No se encontraron registros',
+                    'infoEmpty': '',
+                    'infoFiltered': ''
+                }
+            });
+        });
+    }
+
+    inspeccionesPorGestor();
 
 });

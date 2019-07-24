@@ -2,15 +2,12 @@
 @section('content')
 <header class="page-header">
     <h2>Catalogo de Gestores</h2>
-    
-  
 </header>
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-gestor" data-backdrop="static" data-keyboard="false">
 <i class="fas fa-user-plus"></i> Agregar Gestor
 </button>
 <div class="row">
     <div class="col">
-        
         <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
             <thead>
                 <tr>
@@ -24,13 +21,13 @@
                     <th>Estatus</th>
                     <th>Editar</th>
                     <th>Cambiar Estatus</th>
+                    <th>Ver Inspecciones</th>
                 </tr>
             </thead>
-            <tbody></tbody>
         </table>
-        
     </div>
 </div>
+
 <!-- Modal para Crear -->
 <div class="modal fade" id="crear-gestor" tabindex="-1" role="dialog" aria-labelledby="moda-crear-gestor" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -51,14 +48,12 @@
                             <div class="form-group">
                                 <label for="apellidopaterno">{{ __('Apellido Paterno') }}</label>
                                 <input id="apellidopaterno" type="text" class="form-control">
-                                
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="apellidomaterno">{{ __('Apellido Materno') }}</label>
                                 <input id="apellidomaterno" type="text" class="form-control">
-                                
                             </div>
                         </div>
 
@@ -73,14 +68,12 @@
                             <div class="form-group">
                                 <label for="telefono">{{ __('Teléfono') }}</label>
                                 <input id="telefono" type="number" class="form-control">
-                                
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="celular">{{ __('Celular') }}</label>
                                 <input id="celular" type="number" class="form-control">
-                                
                             </div>
                         </div>
 
@@ -210,6 +203,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal para Editar Estatus -->
 <div class="modal fade" id="editar-estatus" tabindex="-1" role="dialog" aria-labelledby="modal-editar-estatus" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -243,6 +237,28 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para inspecciones por gestor -->
+<div class="modal fade" id="inspecciones" tabindex="-1" role="dialog" aria-labelledby="modal-inspecciones" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-inspecciones">Inspecciones</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table table-responsive-lg table-bordered table-striped mb-0" id="inspecciones-datatable">
+                    <thead>
+                        <tr>
+                            <th>Folio Inspección</th>
+                            <th>Tipo Inspección</th>
+                            <th>Estatus</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
