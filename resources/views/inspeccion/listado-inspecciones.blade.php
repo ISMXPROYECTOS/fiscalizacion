@@ -23,7 +23,7 @@
                     <th>Inspector</th>
                     <th>Nombre del Local</th>
                     <th>Imprimir</th>
-                    <th>Ver Más</th>
+                    <th>Ver Inspección</th>
                 </tr>
             </thead>
             <tbody></tbody>

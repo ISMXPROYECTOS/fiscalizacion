@@ -24,9 +24,10 @@ $(document).ready(function(){
             'destroy': true,
             'ajax': url + '/gestores/listado',
             'columns': [
-                {data: 'nombre'},
-                {data: 'apellidopaterno'},
-                {data: 'apellidomaterno'},
+                {"render": function ( data, type, row ) {
+                            return (row.nombre + ' ' + row.apellidopaterno + ' ' + row.apellidomaterno);
+                        }
+                }, 
                 {data: 'telefono'},
                 {data: 'celular'},
                 {data: 'correoelectronico'},

@@ -40,6 +40,10 @@ html .btn-primary:active, html .btn-primary.active, .show > html .btn-primary.dr
     box-shadow: none !important;
 }
 
+.btn.btn-sm {
+  padding: 0.1rem 0.3rem !important;
+}
+
 /* Modals */
 
 .modal-header{

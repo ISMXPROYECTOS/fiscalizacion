@@ -12,9 +12,7 @@
         <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
+                    <th>Nombre Completo</th>
                     <th>Clave</th>
                     <th>Estatus</th>
                     <th>Editar</th>

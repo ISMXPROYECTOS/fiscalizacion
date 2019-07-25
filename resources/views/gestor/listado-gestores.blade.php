@@ -12,8 +12,6 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
                     <th>Teléfono</th>
                     <th>Celular</th>
                     <th>E-mail</th>
@@ -244,7 +242,7 @@
 
 <!-- Modal para inspecciones por gestor -->
 <div class="modal fade" id="inspecciones" tabindex="-1" role="dialog" aria-labelledby="modal-inspecciones" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-inspecciones">Inspecciones</h3>
@@ -259,6 +257,9 @@
                         </tr>
                     </thead>
                 </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
