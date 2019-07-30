@@ -71,6 +71,8 @@ Route::post('/ejercicios-fiscales/estatus', 'EjercicioFiscalController@updateEst
 /* Rutas Inspecciones*/
 Route::get('/inspecciones', 'InspeccionController@listadoInspecciones')->name('listado-inspecciones');
 Route::get('/inspecciones/agregar', 'InspeccionController@vistaAgregarInspeccion')->name('vista-agregar-inspecciones');
+Route::get('/inspecciones/agregar-por-zonas', 'InspeccionController@vistaAgregarInspeccionPorZona')->name('vista-agregar-inspecciones-por-zona');
+Route::get('/inspecciones/agregar-manual', 'InspeccionController@vistaAgregarInspeccionManual')->name('vista-agregar-inspecciones-manual');
 Route::get('/inspecciones/asignar', 'InspeccionController@vistaAsignarInspeccion')->name('vista-asignar-inspecciones');
 Route::get('/inspecciones/listado', 'InspeccionController@tbody');
 Route::post('/inspecciones/nuevo', 'InspeccionController@create')->name('crear-inspeccion');

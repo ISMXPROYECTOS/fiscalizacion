@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,14 +17,32 @@ use App\EjercicioFiscal;
 use App\EstatusInspeccion;
 use App\Colonia;
 
-
-
 class InspeccionController extends Controller
 {
 	public function vistaAgregarInspeccion(){
 		$tiposInspecciones = TipoDeInspeccion::all();
 		$ejerciciosFiscales = EjercicioFiscal::all();
 		return view('inspeccion.agregar-inspeccion', [
+			'tiposInspecciones' => $tiposInspecciones,
+			'ejerciciosFiscales' => $ejerciciosFiscales
+		]);
+	}
+
+	public function vistaAgregarInspeccionPorZona(){
+		$tiposInspecciones = TipoDeInspeccion::all();
+		$ejerciciosFiscales = EjercicioFiscal::all();
+		$colonias = Colonia::all();
+		return view('inspeccion.agregar-inspeccion-por-zona', [
+			'tiposInspecciones' => $tiposInspecciones,
+			'ejerciciosFiscales' => $ejerciciosFiscales,
+			'colonias' => $colonias
+		]);
+	}
+
+	public function vistaAgregarInspeccionManual(){
+		$tiposInspecciones = TipoDeInspeccion::all();
+		$ejerciciosFiscales = EjercicioFiscal::all();
+		return view('inspeccion.agregar-inspeccion-manual', [
 			'tiposInspecciones' => $tiposInspecciones,
 			'ejerciciosFiscales' => $ejerciciosFiscales
 		]);

@@ -130,7 +130,6 @@
                                             </li>
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-usuarios') }}">
-                                                    
                                                     <span>Usuarios</span>
                                                 </a>
                                             </li>
@@ -177,6 +176,18 @@
                                         <a class="nav-link" href="{{ route('vista-agregar-inspecciones') }}">
                                             <i class="fas fa-folder-plus"></i>
                                             <span>Agregar Inspección</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="{{ route('vista-agregar-inspecciones-por-zona') }}">
+                                            <i class="fas fa-folder-plus"></i>
+                                            <span>Agregar Inspección Por Zona</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" href="{{ route('vista-agregar-inspecciones-manual') }}">
+                                            <i class="fas fa-folder-plus"></i>
+                                            <span>Agregar Inspección Manual</span>
                                         </a>
                                     </li>
                                     <li>
