@@ -250,9 +250,6 @@ class InspeccionController extends Controller
 	}
 
 	public function asignarInspecciones(Request $request){
-
-
-
 		// Valida cada array en cada posición con el .*
 		$validate = $this->validate($request, [
 			'ejerciciofiscal-asignar' => 'required|string',
@@ -261,17 +258,16 @@ class InspeccionController extends Controller
             'inspectores-asignar.*' => 'required|string',
         ]);
 
-
-
 		$data = $request->all();
     	$ejerciciofiscal = $request->input('ejerciciofiscal-asignar');
     	$tipoinspeccion = $request->input('tipoinspeccion-asignar');
     	$cantidad = $request->input('cantidad-asignar');
 		$inspectores = array_get($data, 'inspectores-asignar');
 
+		$hoy = new \DateTime();
+		$hoy->format('d-m-Y H:i:s');
 		$estatus_anterior = EstatusInspeccion::where('clave', 'NA')->first();
     	$id_estatus_anterior = $estatus_anterior->id;
-		
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'A')->first();
     	$id_estatus_nuevo = $estatus_nuevo->id;
 
@@ -293,6 +289,7 @@ class InspeccionController extends Controller
 						if ($inspecciones[$b]->tipoinspeccion_id == $tipos_inspecciones->id && $inspecciones[$b]->estatusinspeccion_id == $id_estatus_anterior) {
 							$inspecciones[$b]->inspector_id = $inspectores[$i];
 							$inspecciones[$b]->estatusinspeccion_id = $id_estatus_nuevo;
+							$inspecciones[$b]->fechaasignada = $hoy;
 							$inspecciones[$b]->update();
 							break;
 						}

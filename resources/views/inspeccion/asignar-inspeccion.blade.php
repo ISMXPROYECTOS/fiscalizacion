@@ -3,19 +3,16 @@
 <header class="page-header">
     <h2>Agregar Inspecciones</h2>
 </header>
-
 @if (session('status'))
     <div class="alert alert-success">
         {{ session('status') }}
     </div>
 @endif
-
 @if (session('error'))
     <div class="alert alert-danger">
         {{ session('error') }}
     </div>
 @endif
-
 <form method="POST" action="{{ route('asignar-inspecciones') }}" id="formulario-asignar-inspeccion">
     @csrf
     <div class="form-group">
@@ -23,7 +20,9 @@
         <select name="ejerciciofiscal-asignar" class="form-control" id="ejerciciofiscal-asignar">
             <option value="">Seleccionar</option>
             @foreach ($ejerciciosFiscales as $ejercicioFiscal)
-            <option value="{{ $ejercicioFiscal->id}}">{{ $ejercicioFiscal->anio }}</option>
+                @if($ejercicioFiscal->activo == 1)
+                    <option value="{{ $ejercicioFiscal->id}}">{{ $ejercicioFiscal->anio }}</option>
+                @endif
             @endforeach
         </select>
         <p class="text-danger mb-0">{{ $errors->first('ejerciciofiscal-asignar') }}</p>

@@ -38,7 +38,9 @@
                     <select name="ejerciciofiscal" class="form-control" id="ejerciciofiscal" >
                         <option value="">Seleccionar</option>
                         @foreach($ejerciciosFiscales as $ejercicioFiscal)
-                            <option value="{{ $ejercicioFiscal->id}}">{{ $ejercicioFiscal->anio }}</option>
+                            @if($ejercicioFiscal->activo == 1)
+                                <option value="{{ $ejercicioFiscal->id}}">{{ $ejercicioFiscal->anio }}</option>
+                            @endif
                         @endforeach
                     </select>
                     <p class="text-danger mb-0">{{ $errors->first('ejerciciofiscal') }}</p>
