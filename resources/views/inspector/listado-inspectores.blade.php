@@ -12,7 +12,7 @@
         <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
             <thead>
                 <tr>
-                    <th>Nombre Completo</th>
+                    <th>Nombre</th>
                     <th>Clave</th>
                     <th>Estatus</th>
                     <th>Editar</th>

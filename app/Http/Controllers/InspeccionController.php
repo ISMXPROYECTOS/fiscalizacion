@@ -93,9 +93,9 @@ class InspeccionController extends Controller
 					return $inspeccion->inspector->nombre;
 				}
 			})
-			->addColumn('imprimir', 'inspeccion/boton-pdf')
+			->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
 			->addColumn('informacion', 'inspeccion/boton-informacion')
-			->rawColumns(['imprimir', 'informacion'])
+			->rawColumns(['cambiarestatus', 'informacion'])
 			->toJson();
 	}
 
@@ -238,6 +238,25 @@ class InspeccionController extends Controller
         // Indica que fue correcta la modificación de la inspección
     	return $inspeccion;
 
+	}
+
+	public function updateEstatus(Request $request){
+
+		$id = $request->input('id');
+		$inspeccion = Inspeccion::find($id);
+
+		$validate = $this->validate($request,[
+			'estatusinspeccion' => 'required|string|max:1'
+		]);
+
+		$idUser = \Auth::user()->id;
+		$estatus = $request->input('estatusinspeccion');
+
+		$inspeccion->estatusinspeccion_id = $estatus;
+		$inspeccion->usuario_id = $idUser;
+		$inspeccion->update();
+
+    	return $inspeccion;
 	}
 
 	public function verMasInformacion($id){

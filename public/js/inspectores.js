@@ -29,10 +29,11 @@ $(document).ready(function(){
             'ajax': url + '/inspectores/listado',
             // Se seleccionan los campos que se desean mostrar en la tabla
             'columns': [
-                {"render": function ( data, type, row ) {
-                            return (row.nombre + ' ' + row.apellidopaterno + ' ' + row.apellidomaterno);
-                        }
-                }, 
+                {data: 'nombre',
+                    'render': function ( data, type, row ) {
+                        return (row.nombre + ' ' + row.apellidopaterno + ' ' + row.apellidomaterno);
+                    }
+                },
                 {data: 'clave'},
                 // Este campo contiene una funcion la cual selecciona la columna estatus y
                 // realiza el cambio del caracter A por la palabra Activo 

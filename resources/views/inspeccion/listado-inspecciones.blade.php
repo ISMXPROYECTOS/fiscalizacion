@@ -9,9 +9,9 @@
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#asignar-inspeccion">
     <i class="fas fa-user-plus"></i> Asignar Inspecciones
 </button> -->
-<a class="btn btn-success mb-3" href="{{ route('pdf') }}">
+<!--<a class="btn btn-success mb-3" href="{{ route('pdf') }}">
     <i class="fas fa-file-pdf"></i> PDF
-</a>
+</a>-->
 <div class="row">
     <div class="col">
         <table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
@@ -22,7 +22,7 @@
                     <th>Estatus</th>
                     <th>Inspector</th>
                     <th>Nombre del Local</th>
-                    <th>Imprimir</th>
+                    <th>Estatus</th>
                     <th>Ver Inspección</th>
                 </tr>
             </thead>
@@ -30,6 +30,7 @@
         </table>
     </div>
 </div>
+
 <!-- Modal para Crear -->
 <div class="modal fade" id="crear-inspeccion" tabindex="-1" role="dialog" aria-labelledby="modal-crear-inspeccion" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -237,6 +238,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal para Editar -->
 <div class="modal fade" id="editar-inspeccion" tabindex="-1" role="dialog" aria-labelledby="modal-editar-inspeccion" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -366,6 +368,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal para Editar Estatus -->
 <div class="modal fade" id="editar-estatus" tabindex="-1" role="dialog" aria-labelledby="modal-editar-estatus" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -404,6 +407,7 @@
         </div>
     </div>
 </div>
+
 <!-- Alerta de actualización -->
 <div class="modal fade" id="actualizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-correcta" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

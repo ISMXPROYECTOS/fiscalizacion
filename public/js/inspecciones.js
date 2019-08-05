@@ -26,7 +26,7 @@ $(document).ready(function(){
                 {data: 'estatusInspeccion'},
                 {data: 'inspector'},
                 {data: 'nombrelocal'},
-                {data: 'imprimir'},
+                {data: 'cambiarestatus'},
                 {data: 'informacion'},
             ],
             'language': {
@@ -123,5 +123,58 @@ $(document).ready(function(){
     }
 
     updateData();
+
+    function editEstatus(){
+        $(document).on('click', '.estatus', function(e){
+            e.preventDefault();
+            var id = $(this).attr('id');
+             $.ajax({
+                url: url + '/inspecciones/editar/' + id,
+                type: 'get',
+                success: function (response) {
+                    if (response != ""){
+                        $('#editar-estatus').modal('show');
+                        $('#id-edit-estatusinspeccion').val(response.id);
+                        $('#estatusinspeccion-edit').val(response.estatusinspeccion_id);
+                    }
+                }
+            });
+        });
+    }
+
+    editEstatus();
+
+    function updateEstatus(){
+        $('#btn-estatus').click(function(){
+            var data = {
+                'id' : $('#id-edit-estatusinspeccion').val(),
+                'estatusinspeccion' : $('#estatusinspeccion-edit').val()
+            }
+            $.ajax({
+                url: url + '/inspecciones/estatus',
+                data: data,
+                type: 'post',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    $('#editar-estatus').modal('hide');
+                    $('#actualizacion-correcta').modal('show');
+                    $('#error-estatusinspeccion-edit').addClass('hidden');
+                    $('#error-estatusinspeccion-edit').text('');
+                    viewData();
+                },
+                error: function(response) {
+                    $('#error-estatusinspeccion-edit').addClass('hidden');
+                    $('#error-estatusinspeccion-edit').text('');
+                    $.each(response.responseJSON.errors, function(i, item) {
+                        $('#error-'+i+'-edit').removeClass('hidden');
+                        $('#error-'+i+'-edit').text(item[0]);
+                    });
+                }
+            });
+
+        });
+    }
+
+    updateEstatus();
     
 });

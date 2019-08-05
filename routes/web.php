@@ -78,6 +78,7 @@ Route::get('/inspecciones/listado', 'InspeccionController@tbody');
 Route::post('/inspecciones/nuevo', 'InspeccionController@create')->name('crear-inspeccion');
 Route::get('/inspecciones/editar/{id}', 'InspeccionController@editarInspeccion');
 Route::post('/inspecciones/actualizar', 'InspeccionController@update');
+Route::post('/inspecciones/estatus', 'InspeccionController@updateEstatus');
 Route::post('/inspecciones/asignar-nuevo', 'InspeccionController@asignarInspecciones')->name('asignar-inspecciones');
 Route::post('/inspecciones/obtener-folios', 'InspeccionController@obtenerFolios');
 Route::get('/inspecciones/obtener-total-inspecciones/{id}/{anio}', 'InspeccionController@obtenerTotalInspecciones');
