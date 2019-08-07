@@ -61,8 +61,9 @@
 	    </div>
 
         <label id="comercios-label" class="hidden">Comercios</label>
-        <div id="comercios" style="overflow: auto; height: 20em;" class="hidden">
-            
+        <div id="comercios" class="hidden">
+            <button type="button" class="btn btn-secondary btn-sm mb-2" id="seleccionar-todos">Seleccionar todos</button>
+            <button type="button" class="btn btn-secondary btn-sm mb-2" id="deseleccionar-todos">Deseleccionar todos</button>
         </div>
         
 
