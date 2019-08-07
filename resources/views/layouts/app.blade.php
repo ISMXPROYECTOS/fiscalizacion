@@ -185,12 +185,6 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="{{ route('vista-agregar-inspecciones-manual') }}">
-                                            <i class="fas fa-folder-plus"></i>
-                                            <span>Agregar Inspección Manual</span>
-                                        </a>
-                                    </li>
-                                    <li>
                                         <a class="nav-link" href="{{ route('vista-asignar-inspecciones') }}">
                                             <i class="fas fa-arrow-alt-circle-right"></i>
                                             <span>Asignar Inspección</span>

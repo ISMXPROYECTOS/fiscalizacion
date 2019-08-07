@@ -48,17 +48,24 @@
 			</div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label>Colonia</label>
-                    <select name="colonia" class="form-control" id="colonia" >
-                        <option value="">Seleccionar</option>
-                        @foreach($colonias as $colonia)
-                            <option value="{{ $colonia->id}}">{{ $colonia->nombre }}</option>
-                        @endforeach
-                    </select>
-                    <p class="text-danger mb-0">{{ $errors->first('colonia') }}</p>
+                    <label>Buscar por Supermanzana</label>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" name="calle" id="calle" placeholder="ej. SM-095">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="buscar-sm">Buscar</button>
+                      </div>
+                    </div>
+                    <p class="text-danger mb-0">{{ $errors->first('calle') }}</p>
                 </div>
             </div>
 	    </div>
+
+        <label id="comercios-label" class="hidden">Comercios</label>
+        <div id="comercios" style="overflow: auto; height: 20em;" class="hidden">
+            
+        </div>
+        
+
         <br>
         <div class="form-group row mb-0">
             <div class="col-md-4">

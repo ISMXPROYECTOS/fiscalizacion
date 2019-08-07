@@ -85,6 +85,8 @@ Route::get('/inspecciones/obtener-total-inspecciones/{id}/{anio}', 'InspeccionCo
 Route::post('/inspecciones/obtener-folios-inspecciones', 'InspeccionController@obtenerFoliosInspecciones');
 Route::get('/inspecciones/informacion/{id}', 'InspeccionController@verMasInformacion')->name('ver-mas');
 
+
+
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@inspeccionesPdf')->name('pdf');
 Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete');
@@ -113,4 +115,8 @@ Route::post('/estatus-inspecciones/actualizar', 'EstatusInspeccionController@upd
 
 Route::get('/gafetes/registrar/{id}', 'GafetesController@registrar');
 Route::post('/gafetes/generar', 'GafetesController@generar');
+
+/* Rutas Comercios */
+
+Route::get('/comercios/buscar/supermanzana/{calle}', 'ComercioController@buscarComercios');
 
