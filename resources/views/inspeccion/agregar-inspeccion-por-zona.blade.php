@@ -61,23 +61,8 @@
 	    </div>
 
 
-        <div class="row">
-            <div class="col">
-                <table class="table table-responsive-lg table-bordered mb-0 hidden" id="comercios-datatable">
-                    <thead>
-                        <tr>
-                            <th>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="seleccionar-todos">
-                                </div>
-                            </th>
-                            <th>Razon Social</th>
-                            <th>Nombre Comercial</th>
-                            <th>Ubicación</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
+        <div id="comercios" class="hidden">
+            
         </div>
         
 
@@ -90,5 +75,5 @@
     </form>
 @endsection
 @section('scripts')
-<script src="{{ asset('js/agregar-inspeccion-por-zona.js') }}" defer></script>
+<script src="{{ asset('js/agregar-inspeccion-por-sm.js') }}" defer></script>
 @endsection
