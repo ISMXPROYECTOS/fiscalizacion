@@ -411,8 +411,6 @@ class InspeccionController extends Controller
 			], 422);
 		} 
 
-
-		
 		$total_inspectores = count($inspectores);
 		$total_inspecciones = count($inspecciones);
 

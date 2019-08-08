@@ -55,15 +55,29 @@
                         <button class="btn btn-outline-secondary" type="button" id="buscar-sm">Buscar</button>
                       </div>
                     </div>
-                    <p class="text-danger mb-0">{{ $errors->first('calle') }}</p>
+                    <p class="text-danger mb-0 hidden" id="error-sm">{{ $errors->first('calle') }}</p>
                 </div>
             </div>
 	    </div>
 
-        <label id="comercios-label" class="hidden">Comercios</label>
-        <div id="comercios" class="hidden">
-            <button type="button" class="btn btn-secondary btn-sm mb-2" id="seleccionar-todos">Seleccionar todos</button>
-            <button type="button" class="btn btn-secondary btn-sm mb-2" id="deseleccionar-todos">Deseleccionar todos</button>
+
+        <div class="row">
+            <div class="col">
+                <table class="table table-responsive-lg table-bordered mb-0 hidden" id="comercios-datatable">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="seleccionar-todos">
+                                </div>
+                            </th>
+                            <th>Razon Social</th>
+                            <th>Nombre Comercial</th>
+                            <th>Ubicación</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
         
 

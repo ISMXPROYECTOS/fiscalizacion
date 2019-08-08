@@ -206,6 +206,10 @@ ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus
   border-radius: 5px;
 }
 
+#seleccionar-todos{
+  position: unset !important;
+}
+
 
 /* Responsive */
 

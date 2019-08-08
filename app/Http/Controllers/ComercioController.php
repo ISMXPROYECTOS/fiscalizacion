@@ -8,8 +8,10 @@ use App\Comercio;
 class ComercioController extends Controller
 {
     public function buscarComercios($calle){
-    	
-    	$comercios = Comercio::where('calle', 'like', '%'. $calle .'%')->get();
-    	return $comercios;
+		return datatables()
+			->eloquent(Comercio::where('calle', 'like', '%'. $calle .'%'))
+			->addColumn('checkbox', 'inspeccion/boton-checkbox')
+			->rawColumns(['checkbox'])
+			->toJson();    	
     }
 }
