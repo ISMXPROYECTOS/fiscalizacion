@@ -17,7 +17,7 @@
     </div>
 </div>
 <hr>
-<form method="POST" action="{{ route('crear-inspeccion') }}" id="formulario-crear-inspeccion-por-sm">
+<form method="POST" action="{{ route('crear-inspeccion-por-sm') }}" id="formulario-crear-inspeccion-por-sm">
     @csrf
     <div class="row">
         <div class="col-md-4">
@@ -92,5 +92,13 @@
 </form>
 @endsection
 @section('scripts')
+
+@if (session('idfv'))
+    <script>
+        var url = "http://localhost/fiscalizacion/public";
+        window.location.replace(url + "/pdf/descargar-acta-inspeccion-multiple/" + {{ session('idfv') }});
+    </script>
+@endif
+
 <script src="{{ asset('js/agregar-inspeccion-por-sm.js') }}" defer></script>
 @endsection
