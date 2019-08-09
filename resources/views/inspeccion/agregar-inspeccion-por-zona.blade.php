@@ -17,7 +17,7 @@
     </div>
 </div>
 <hr>
-<form method="POST" action="{{ route('crear-inspeccion') }}" id="formulario-crear-inspeccion">
+<form method="POST" action="{{ route('crear-inspeccion') }}" id="formulario-crear-inspeccion-por-sm">
     @csrf
     <div class="row">
         <div class="col-md-4">
@@ -49,18 +49,21 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label>Buscar por Supermanzana</label>
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <input type="text" class="form-control" name="calle" id="calle" placeholder="ej. SM-095">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="buscar-sm">Buscar</button>
                     </div>
                 </div>
-                <p class="text-danger mb-0 hidden" id="error-sm">{{ $errors->first('calle') }}</p>
+                <p class="text-danger mb-0" id="error-sm">{{ $errors->first('calle') }}</p>
             </div>
         </div>
     </div>
-    <div id="comercios" class="hidden">
-        <table class="table table-sm" >
+    <div id="comercios" class="hidden mt-3">
+
+        <p class="text-danger mb-0" id="error-comercios"></p>
+        <p class=" mb-0" id="error-results"></p>
+        <table class="table table-sm" id="tabla-comercios">
             <thead class="thead-dark">
                 <tr>
                     <th>

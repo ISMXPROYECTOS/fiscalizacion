@@ -7,7 +7,9 @@ $(document).ready(function(){
     */
 
     
-
+    $('#error-comercios').addClass('hidden');
+    $('#error-results').addClass('hidden');
+    $('#error-sm').addClass('hidden');
    
 
     $('#ejerciciofiscal').attr('disabled', '');
@@ -34,31 +36,24 @@ $(document).ready(function(){
  
         $('#buscar-sm').click(function(){
             var calle = $('#calle').val();
-            $( ".results").remove();
-            $.ajax({
-                url: url + '/comercios/buscar/supermanzana/' + calle,
-                type: 'get',
-                success: function (response) {
+            
+            if (calle == '') {
+                var calle = null;
+                $.ajax({
+                    url: url + '/comercios/buscar/supermanzana/' + calle,
+                    type: 'get',
+                    success: function (response) {
+       
+                        $('#comercios').removeClass('hidden');
+                        $('#error-sm').addClass('hidden');
 
-                    $('#comercios-label').removeClass('hidden');
-                    $('#comercios').removeClass('hidden');
-                    $('#no-results').remove();
-                    if (response == '') {
-                        $('#seleccionar-todos').addClass('hidden');
-                        $('#comercios').append("<p id='no-results'>No se encontraron resultados</p>");
-                    } else {
-                        $('#seleccionar-todos').removeClass('hidden');
-                        $('#no-results').remove();
+                        $('#tabla-comercios').addClass('hidden');
+              
+                       
                         $.each(response, function( key, value ){
-                        
-                            /*$('#comercios').append("<div class='form-check results' id='empresa-"+key+"'>"+
-                                "<input class='form-check-input' type='checkbox' value='"+ value.id +"' id='"+ value.id +"'>"+
-                                "<label class='form-check-label' for='"+ value.id +"'>"+ value.nombreestablecimiento +"</label>"+
-                                "</div>"
-                            );*/
-
+                
                             $('#tbody-comercios').append(
-                                "<tr>"+
+                                "<tr class='results'>"+
                                     "<th>"+
                                         "<div class='form-check'>"+
                                           "<input class='form-check-input check' type='checkbox' value='"+ value.id +"' id='comercio-"+ value.id +"' name='comercio[]'>"+
@@ -70,52 +65,122 @@ $(document).ready(function(){
                                 "</tr>");
                         });
                         obtenerFoliosPorSM();
+                   
+                    },
+                    error: function(response) {
+                        $('#error-sm').removeClass('hidden');
+                        $('#error-sm').text(response.responseJSON.mensaje);
                     }
-                }
-            });
+                });
+            } else {
+                $('.results').remove();
+                $.ajax({
+                    url: url + '/comercios/buscar/supermanzana/' + calle,
+                    type: 'get',
+                    success: function (response) {
+                        $('#comercios').removeClass('hidden');
+                        $('#tabla-comercios').removeClass('hidden');
+                        $('#error-results').addClass('hidden');
+                        $('#error-comercios').addClass('hidden');
+                        $('#error-sm').addClass('hidden');
+                        $.each(response, function( key, value ){
+                
+                            $('#tbody-comercios').append(
+                                "<tr class='results'>"+
+                                    "<th>"+
+                                        "<div class='form-check'>"+
+                                          "<input class='form-check-input check' type='checkbox' value='"+ value.id +"' id='comercio-"+ value.id +"' name='comercio[]'>"+
+                                        "</div>"+
+                                    "</th>"+
+                                    "<td>"+ value.denominacion +"</td>"+
+                                    "<td>"+ value.nombreestablecimiento +"</td>"+
+                                    "<td>"+ value.domiciliofiscal +"</td>"+
+                                "</tr>");
+                        });
+                        obtenerFoliosPorSM();
+                        
+                    },
+                    error: function(response) {
+                        $('#tabla-comercios').addClass('hidden');
+                        $('#comercios').removeClass('hidden');
+                        $('#error-results').removeClass('hidden');
+                        $('#error-results').text(response.responseJSON.mensaje);
+
+                        $('#error-comercios').addClass('hidden');
+                    }
+                });
+            }
         });
     }
 
 
     busquedaDeComerciosPorSM();
 
+    function seleccionarTodosObtenerFoliosPorSM(){
+        $("#seleccionar-todos").click(function() {
+            $(".check").prop("checked", this.checked);
+            var data = {
+                'tipoinspeccion' :$('#tipoinspeccion').val(),
+                'cantidad' : $('.check:checked').length,
+                'ejerciciofiscal' : $('#ejerciciofiscal').val()
+            }
 
+            obtenerFoliosPorSMAjax(data);
+
+        });
+    }
+
+    seleccionarTodosObtenerFoliosPorSM();
 
     function obtenerFoliosPorSM(){
-       
 
         $('.check').each(function(key, value){
-            $("#seleccionar-todos").click(function() {
-                $(".check").prop("checked", this.checked);
-                console.log($('.check:checked').length);
-
-                // hacer una petición ajax con la cantidad
-            });
-
             $('#'+value.id).click(function(){
                 if ($(".check").length == $(".check:checked").length) {
                     $("#seleccionar-todos").prop("checked", true);
+                    var data = {
+                        'tipoinspeccion' :$('#tipoinspeccion').val(),
+                        'cantidad' : $('.check:checked').length,
+                        'ejerciciofiscal' : $('#ejerciciofiscal').val()
+                    }
+
+                    obtenerFoliosPorSMAjax(data);
                 } else {
                     $("#seleccionar-todos").prop("checked", false);
+                    var data = {
+                        'tipoinspeccion' :$('#tipoinspeccion').val(),
+                        'cantidad' : $('.check:checked').length,
+                        'ejerciciofiscal' : $('#ejerciciofiscal').val()
+                    }
+
+                    obtenerFoliosPorSMAjax(data);
                 }
-                //console.log(key, value);
-                /*if ($('#'+value.id).is(':checked')) {
-                    alert('checked');
-                    //$('#'+value.id).attr('checked', true);
-                } else {
-                    //$('#inspector-'+$(this).val()).attr('checked', false);
-                    alert('unchecked');
-                    //$('#folios-'+$(this).val()).text('');
-                }*/
-
-                // hacer una petición ajax con la cantidad
-
-                console.log($('.check:checked').length);
             }); 
         }); 
     }
 
     obtenerFoliosPorSM();
+
+    function obtenerFoliosPorSMAjax(data){
+        $.ajax({
+            url: url + '/inspecciones/obtener-folios',
+            data: data,
+            type: 'post',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            success: function (response) {
+                $('#error-comercios').addClass('hidden');
+                $('#folio-inicio').text(response.folioinicio);
+                $('#folio-fin').text(response.foliofin);
+            },
+
+            error: function(response) {
+                $('#error-comercios').removeClass('hidden');
+                $('#error-comercios').text(response.responseJSON.mensaje);
+                $('#folio-inicio').text('');
+                $('#folio-fin').text('');
+            }
+        });
+    }
 
     
 });

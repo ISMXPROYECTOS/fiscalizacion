@@ -341,42 +341,51 @@ class InspeccionController extends Controller
     	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
 		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 
-		if ($forma_valorada->count() == 0) {
-			$folio_inicio = 1;
-			$folio_fin = $folio_inicio + $cantidad -1;
-
-			$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
-			$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
-
-			$tipo_inspeccion = TipoDeInspeccion::find($tipo_inspeccion_id);
-			$tipo_inspeccion_clave = $tipo_inspeccion->clave;
-
-			$inicio_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_inicio;
-			$fin_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_fin;
-
-			return [
-				'folioinicio' => $inicio_folio,
-				'foliofin' => $fin_folio
-			];
-
+		if ($cantidad  == 0) {
+			return response()->json([
+				'error' => true,
+				'mensaje' => 'Selecciona al menos una empresa.'
+			], 422);
 		} else {
-			$folio_inicio = $forma_valorada->last()->foliofin + 1;
-			$folio_fin = $folio_inicio + $cantidad - 1;
+			if ($forma_valorada->count() == 0) {
+				$folio_inicio = 1;
+				$folio_fin = $folio_inicio + $cantidad -1;
 
-			$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
-			$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
+				$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
+				$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
 
-			$tipo_inspeccion = TipoDeInspeccion::find($tipo_inspeccion_id);
-			$tipo_inspeccion_clave = $tipo_inspeccion->clave;
+				$tipo_inspeccion = TipoDeInspeccion::find($tipo_inspeccion_id);
+				$tipo_inspeccion_clave = $tipo_inspeccion->clave;
 
-			$inicio_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_inicio;
-			$fin_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_fin;
+				$inicio_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_inicio;
+				$fin_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_fin;
 
-			return [
-				'folioinicio' => $inicio_folio,
-				'foliofin' => $fin_folio
-			];
+				return [
+					'folioinicio' => $inicio_folio,
+					'foliofin' => $fin_folio
+				];
+
+			} else {
+				$folio_inicio = $forma_valorada->last()->foliofin + 1;
+				$folio_fin = $folio_inicio + $cantidad - 1;
+
+				$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
+				$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
+
+				$tipo_inspeccion = TipoDeInspeccion::find($tipo_inspeccion_id);
+				$tipo_inspeccion_clave = $tipo_inspeccion->clave;
+
+				$inicio_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_inicio;
+				$fin_folio = $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio_fin;
+
+				return [
+					'folioinicio' => $inicio_folio,
+					'foliofin' => $fin_folio
+				];
+			}
+
 		}
+		
 	}
 
 	public function obtenerFoliosInspecciones(Request $request){
