@@ -165,7 +165,12 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-encargados') }}">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <span>Encargados</span>
+                                        </a>
+                                    </li>
                                     <li>
                                         <a class="nav-link" href="{{ route('listado-ejercicios-fiscales') }}">
                                             <i class="fas fa-calendar-alt"></i>

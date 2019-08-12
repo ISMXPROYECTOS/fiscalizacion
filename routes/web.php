@@ -113,3 +113,10 @@ Route::post('/gafetes/generar', 'GafetesController@generar');
 /* Rutas Comercios */
 Route::get('/comercios/buscar/supermanzana/{calle}', 'ComercioController@buscarComercios');
 
+/* Rutas Configuracion */
+Route::get('/configuracion', 'ConfiguracionController@listadoEncargados')->name('listado-encargados');
+Route::get('/configuracion/listado', 'ConfiguracionController@tbody');
+Route::post('/configuracion/nuevo', 'ConfiguracionController@create');
+Route::get('/configuracion/editar/{id}', 'ConfiguracionController@editarEncargado');
+Route::post('/configuracion/actualizar', 'ConfiguracionController@update');
+Route::post('/configuracion/estatus', 'ConfiguracionController@updateEstatus');
