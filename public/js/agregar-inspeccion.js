@@ -26,7 +26,6 @@ $(document).ready(function(){
 	});
 	
 	$('#cantidad').change(function(){
-
 		var data = {
 			'tipoinspeccion' :$('#tipoinspeccion').val(),
 			'cantidad' : $('#cantidad').val(),

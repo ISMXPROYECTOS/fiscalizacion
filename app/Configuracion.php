@@ -13,4 +13,13 @@ class Configuracion extends Model
 	public function formaValorada(){
 		return $this->hasMany('App\FormaValorada');
 	}
+
+	/**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nombre', 'apellidopaterno', 'apellidomaterno', 'puesto', 'activo'
+    ];
 }

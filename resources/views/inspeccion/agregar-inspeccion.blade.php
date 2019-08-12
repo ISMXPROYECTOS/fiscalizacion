@@ -20,7 +20,7 @@
 	<form method="POST" action="{{ route('crear-inspeccion') }}" id="formulario-crear-inspeccion">
         @csrf
 		<div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Tipo de Inspección</label>
                     <select name="tipoinspeccion" class="form-control" id="tipoinspeccion"  >
@@ -32,7 +32,7 @@
                     <p class="text-danger mb-0">{{ $errors->first('tipoinspeccion') }}</p>   
                 </div>
             </div>
-			<div class="col-md-4">
+			<div class="col-md-3">
                 <div class="form-group">
                     <label>Ejercicio Fiscal</label>
                     <select name="ejerciciofiscal" class="form-control" id="ejerciciofiscal" >
@@ -45,10 +45,8 @@
                     </select>
                     <p class="text-danger mb-0">{{ $errors->first('ejerciciofiscal') }}</p>
                 </div>
-				
 			</div>
-
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Cantidad</label>
                     <select name="cantidad" class="form-control" id="cantidad" >
@@ -65,6 +63,18 @@
                         <option value="300">300</option>
                     </select>
                     <p class="text-danger mb-0">{{ $errors->first('cantidad') }}</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Encargado</label>
+                    <select name="encargadoGob" class="form-control" id="encargadoGob">
+                        <option value="">Seleccionar</option>
+                        @foreach($encargadosGob as $encargadoGob)
+                            <option value="{{ $encargadoGob->id}}">{{ $encargadoGob->nombre }} {{ $encargadoGob->apellidopaterno }} {{ $encargadoGob->apellidomaterno }} </option>
+                        @endforeach
+                    </select>
+                    <p class="text-danger mb-0">{{ $errors->first('encargadoGob') }}</p>   
                 </div>
             </div>
 	    </div>

@@ -16,15 +16,18 @@ use App\SubgiroComercial;
 use App\EjercicioFiscal;
 use App\EstatusInspeccion;
 use App\Colonia;
+use App\Configuracion;
 
 class InspeccionController extends Controller
 {
 	public function vistaAgregarInspeccion(){
 		$tiposInspecciones = TipoDeInspeccion::all();
 		$ejerciciosFiscales = EjercicioFiscal::all();
+		$encargadosGob = Configuracion::all();
 		return view('inspeccion.agregar-inspeccion', [
 			'tiposInspecciones' => $tiposInspecciones,
-			'ejerciciosFiscales' => $ejerciciosFiscales
+			'ejerciciosFiscales' => $ejerciciosFiscales,
+			'encargadosGob' => $encargadosGob
 		]);
 	}
 
@@ -36,15 +39,6 @@ class InspeccionController extends Controller
 			'tiposInspecciones' => $tiposInspecciones,
 			'ejerciciosFiscales' => $ejerciciosFiscales,
 			'colonias' => $colonias
-		]);
-	}
-
-	public function vistaAgregarInspeccionManual(){
-		$tiposInspecciones = TipoDeInspeccion::all();
-		$ejerciciosFiscales = EjercicioFiscal::all();
-		return view('inspeccion.agregar-inspeccion-manual', [
-			'tiposInspecciones' => $tiposInspecciones,
-			'ejerciciosFiscales' => $ejerciciosFiscales
 		]);
 	}
 
@@ -105,12 +99,14 @@ class InspeccionController extends Controller
 		$validate = $this->validate($request, [
             'cantidad' => 'required|string',
             'ejerciciofiscal' => 'required|string',
-            'tipoinspeccion' => 'required|string'
+            'tipoinspeccion' => 'required|string',
+            'encargadoGob' => 'required'
         ]);
 
     	$cantidad = $request->input('cantidad');
     	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
     	$tipo_inspeccion_id = $request->input('tipoinspeccion');
+    	$encargado_gob_id = $request->input('encargadoGob');
     	$usuario = Auth::user();
     	
     	$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
@@ -122,7 +118,7 @@ class InspeccionController extends Controller
 				'usuario_id' => $usuario->id,
 				'tipoinspeccion_id' => $tipo_inspeccion_id,
 				'ejerciciofiscal_id' => $ejercicio_fiscal_id,
-				'configuracion_id' => 1,
+				'configuracion_id' => $encargado_gob_id,
 				'folioinicio' => 1,
 				'foliofin' => $cantidad
 			];
@@ -139,7 +135,7 @@ class InspeccionController extends Controller
 				'usuario_id' => $usuario->id,
 				'tipoinspeccion_id' => $tipo_inspeccion_id,
 				'ejerciciofiscal_id' => $ejercicio_fiscal_id,
-				'configuracion_id' => 1,
+				'configuracion_id' => $encargado_gob_id,
 				'folioinicio' => $nuevo_folio_inicio,
 				'foliofin' => $nuevo_folio_fin
 			];
@@ -329,14 +325,17 @@ class InspeccionController extends Controller
 		$inspeccion = Inspeccion::find($id);
 
 		$validate = $this->validate($request,[
-			'estatusinspeccion' => 'required|string|max:1'
+			'estatusinspeccion' => 'required|string|max:1',
+			'comentario' => 'string|max:255'
 		]);
 
 		$idUser = \Auth::user()->id;
 		$estatus = $request->input('estatusinspeccion');
+		$comentario = $request->input('comentario');
 
-		$inspeccion->estatusinspeccion_id = $estatus;
 		$inspeccion->usuario_id = $idUser;
+		$inspeccion->estatusinspeccion_id = $estatus;
+		$inspeccion->comentario = $comentario;
 		$inspeccion->update();
 
     	return $inspeccion;

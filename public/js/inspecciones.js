@@ -11,8 +11,8 @@ $(document).ready(function(){
     $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-ejerciciofiscal-edit').text('');
     $('#error-colonia-edit, #error-domicilio-edit, #error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit').addClass('hidden');
     $('#error-colonia-edit, #error-domicilio-edit, #error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit').text('');
-    $('#error-estatusinspeccion-edit').addClass('hidden');
-    $('#error-estatusinspeccion-edit').text('');
+    $('#error-estatusinspeccion-edit, #error-comentario-edit').addClass('hidden');
+    $('#error-estatusinspeccion-edit, #error-comentario-edit').text('');
 
     function viewData(){
         $('#datatable').DataTable({
@@ -136,6 +136,7 @@ $(document).ready(function(){
                         $('#editar-estatus').modal('show');
                         $('#id-edit-estatusinspeccion').val(response.id);
                         $('#estatusinspeccion-edit').val(response.estatusinspeccion_id);
+                        $('#comentario-edit').val(response.comentario);
                     }
                 }
             });
@@ -148,7 +149,8 @@ $(document).ready(function(){
         $('#btn-estatus').click(function(){
             var data = {
                 'id' : $('#id-edit-estatusinspeccion').val(),
-                'estatusinspeccion' : $('#estatusinspeccion-edit').val()
+                'estatusinspeccion' : $('#estatusinspeccion-edit').val(),
+                'comentario' : $('#comentario-edit').val()
             }
             $.ajax({
                 url: url + '/inspecciones/estatus',

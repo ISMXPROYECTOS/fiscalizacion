@@ -68,13 +68,10 @@ Route::get('/ejercicios-fiscales/editar/{id}', 'EjercicioFiscalController@editar
 Route::post('/ejercicios-fiscales/actualizar', 'EjercicioFiscalController@update');
 Route::post('/ejercicios-fiscales/estatus', 'EjercicioFiscalController@updateEstatus');
 
-
-
 /* Rutas Inspecciones*/
 Route::get('/inspecciones', 'InspeccionController@listadoInspecciones')->name('listado-inspecciones');
 Route::get('/inspecciones/agregar', 'InspeccionController@vistaAgregarInspeccion')->name('vista-agregar-inspecciones');
 Route::get('/inspecciones/agregar-por-zonas', 'InspeccionController@vistaAgregarInspeccionPorZona')->name('vista-agregar-inspecciones-por-zona');
-Route::get('/inspecciones/agregar-manual', 'InspeccionController@vistaAgregarInspeccionManual')->name('vista-agregar-inspecciones-manual');
 Route::get('/inspecciones/asignar', 'InspeccionController@vistaAsignarInspeccion')->name('vista-asignar-inspecciones');
 Route::get('/inspecciones/listado', 'InspeccionController@tbody');
 Route::post('/inspecciones/nuevo', 'InspeccionController@create')->name('crear-inspeccion');
@@ -88,18 +85,14 @@ Route::get('/inspecciones/obtener-total-inspecciones/{id}/{anio}', 'InspeccionCo
 Route::post('/inspecciones/obtener-folios-inspecciones', 'InspeccionController@obtenerFoliosInspecciones');
 Route::get('/inspecciones/informacion/{id}', 'InspeccionController@verMasInformacion')->name('ver-mas');
 
-
-
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@inspeccionesPdf')->name('pdf');
 Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete');
 Route::get('/pdf/validar-acta-inspeccion/{id}', 'PdfController@validarActaInspeccion');
 Route::get('/pdf/descargar-acta-inspeccion/{id}', 'PdfController@descargarActaInspeccion');
-
 Route::get('/pdf/descargar-acta-inspeccion-multiple/{id}', 'PdfController@descargarActaInspeccinMultiple');
 
 /* Rutas Tipos Inspecciones*/
-
 Route::get('/tipo-inspecciones', 'TipoInspeccionController@listadoTipoInspecciones')->name('listado-tipo-inspecciones');
 Route::get('/tipo-inspecciones/listado', 'TipoInspeccionController@tbody');
 Route::post('/tipo-inspecciones/nuevo', 'TipoInspeccionController@create');
@@ -107,7 +100,6 @@ Route::get('/tipo-inspecciones/editar/{id}', 'TipoInspeccionController@editarTip
 Route::post('/tipo-inspecciones/actualizar', 'TipoInspeccionController@update');
 
 /* Rutas Estatus Inspecciones */
-
 Route::get('/estatus-inspecciones', 'EstatusInspeccionController@listadoEstatusInspecciones')->name('listado-estatus-inspecciones');
 Route::get('/estatus-inspecciones/listado', 'EstatusInspeccionController@tbody');
 Route::post('/estatus-inspecciones/nuevo', 'EstatusInspeccionController@create');
@@ -115,11 +107,9 @@ Route::get('/estatus-inspecciones/editar/{id}', 'EstatusInspeccionController@edi
 Route::post('/estatus-inspecciones/actualizar', 'EstatusInspeccionController@update');
 
 /* Rutas Gafetes */
-
 Route::get('/gafetes/registrar/{id}', 'GafetesController@registrar');
 Route::post('/gafetes/generar', 'GafetesController@generar');
 
 /* Rutas Comercios */
-
 Route::get('/comercios/buscar/supermanzana/{calle}', 'ComercioController@buscarComercios');
 

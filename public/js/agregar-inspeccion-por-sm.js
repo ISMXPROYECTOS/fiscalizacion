@@ -31,7 +31,6 @@ $(document).ready(function(){
         $('#calle').removeAttr('disabled');
     });
 
-
     function busquedaDeComerciosPorSM(){
  
         $('#buscar-sm').click(function(){
@@ -43,15 +42,11 @@ $(document).ready(function(){
                     url: url + '/comercios/buscar/supermanzana/' + calle,
                     type: 'get',
                     success: function (response) {
-       
                         $('#comercios').removeClass('hidden');
                         $('#error-sm').addClass('hidden');
-
                         $('#tabla-comercios').addClass('hidden');
-              
-                       
+
                         $.each(response, function( key, value ){
-                
                             $('#tbody-comercios').append(
                                 "<tr class='results'>"+
                                     "<th>"+
@@ -64,8 +59,8 @@ $(document).ready(function(){
                                     "<td>"+ value.domiciliofiscal +"</td>"+
                                 "</tr>");
                         });
+
                         obtenerFoliosPorSM();
-                   
                     },
                     error: function(response) {
                         $('#error-sm').removeClass('hidden');
@@ -83,8 +78,8 @@ $(document).ready(function(){
                         $('#error-results').addClass('hidden');
                         $('#error-comercios').addClass('hidden');
                         $('#error-sm').addClass('hidden');
+
                         $.each(response, function( key, value ){
-                
                             $('#tbody-comercios').append(
                                 "<tr class='results'>"+
                                     "<th>"+
@@ -97,22 +92,20 @@ $(document).ready(function(){
                                     "<td>"+ value.domiciliofiscal +"</td>"+
                                 "</tr>");
                         });
+
                         obtenerFoliosPorSM();
-                        
                     },
                     error: function(response) {
                         $('#tabla-comercios').addClass('hidden');
                         $('#comercios').removeClass('hidden');
                         $('#error-results').removeClass('hidden');
                         $('#error-results').text(response.responseJSON.mensaje);
-
                         $('#error-comercios').addClass('hidden');
                     }
                 });
             }
         });
     }
-
 
     busquedaDeComerciosPorSM();
 
@@ -124,7 +117,7 @@ $(document).ready(function(){
                 'cantidad' : $('.check:checked').length,
                 'ejerciciofiscal' : $('#ejerciciofiscal').val()
             }
-
+            
             obtenerFoliosPorSMAjax(data);
 
         });

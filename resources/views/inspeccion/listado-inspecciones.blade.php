@@ -393,6 +393,11 @@
                         </select>
                         <p class="text-danger" id="error-estatusinspeccion-edit"></p>
                     </div>
+                    <div class="form-group">
+                        <label for="comentario-edit">Comentario</label>
+                        <input type="text" id="comentario-edit" class="form-control">
+                        <p class="text-danger" id="error-comentario-edit"></p>
+                    </div>
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
