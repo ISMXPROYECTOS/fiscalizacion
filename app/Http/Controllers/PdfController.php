@@ -16,6 +16,14 @@ class PdfController extends Controller
 		return view('pdf.listado-de-inspecciones-para-descargar');
 	}
 
+	public function tbody(){
+		return datatables()
+			->eloquent(FormaValorada::query())
+			->addColumn('descargar', 'pdf/boton-descargar')
+			->rawColumns(['descargar'])
+			->toJson();
+	}
+
 	public function validarActaInspeccion($id){
 
 		$inspecciones = Inspeccion::find($id);

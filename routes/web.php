@@ -86,7 +86,8 @@ Route::post('/inspecciones/obtener-folios-inspecciones', 'InspeccionController@o
 Route::get('/inspecciones/informacion/{id}', 'InspeccionController@verMasInformacion')->name('ver-mas');
 
 /* Rutas PDF */
-Route::get('/pdf/descarga-de-inspecciones', 'PdfController@listadoInspeccionesParaDescargar')->name('listado-de-inspecciones-para-descargar');
+Route::get('/pdf', 'PdfController@listadoInspeccionesParaDescargar')->name('listado-de-inspecciones-para-descargar');
+Route::get('/pdf/listado', 'PdfController@tbody');
 
 Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete');
 Route::get('/pdf/validar-acta-inspeccion/{id}', 'PdfController@validarActaInspeccion');

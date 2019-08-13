@@ -444,5 +444,4 @@
 @endsection
 @section('scripts')
 <script src="{{ asset('js/inspecciones.js') }}" defer></script>
-<script src="{{ asset('js/acta-inspeccion.js') }}" defer></script>
 @endsection
