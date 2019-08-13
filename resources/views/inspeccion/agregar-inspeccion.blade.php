@@ -71,7 +71,9 @@
                     <select name="encargadoGob" class="form-control" id="encargadoGob">
                         <option value="">Seleccionar</option>
                         @foreach($encargadosGob as $encargadoGob)
-                            <option value="{{ $encargadoGob->id}}">{{ $encargadoGob->nombre }} {{ $encargadoGob->apellidopaterno }} {{ $encargadoGob->apellidomaterno }} </option>
+                            @if($encargadoGob->activo == 1)
+                                <option value="{{ $encargadoGob->id}}">{{ $encargadoGob->nombre }} {{ $encargadoGob->apellidopaterno }} {{ $encargadoGob->apellidomaterno }} </option>
+                            @endif
                         @endforeach
                     </select>
                     <p class="text-danger mb-0">{{ $errors->first('encargadoGob') }}</p>   

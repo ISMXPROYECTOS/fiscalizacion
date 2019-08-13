@@ -17,6 +17,7 @@ use App\EjercicioFiscal;
 use App\EstatusInspeccion;
 use App\Colonia;
 use App\Configuracion;
+use App\Comercio;
 
 class InspeccionController extends Controller
 {
@@ -34,11 +35,13 @@ class InspeccionController extends Controller
 	public function vistaAgregarInspeccionPorZona(){
 		$tiposInspecciones = TipoDeInspeccion::all();
 		$ejerciciosFiscales = EjercicioFiscal::all();
+		$encargadosGob = Configuracion::all();
 		$colonias = Colonia::all();
 		return view('inspeccion.agregar-inspeccion-por-zona', [
 			'tiposInspecciones' => $tiposInspecciones,
 			'ejerciciosFiscales' => $ejerciciosFiscales,
-			'colonias' => $colonias
+			'colonias' => $colonias,
+			'encargadosGob' => $encargadosGob
 		]);
 	}
 
@@ -180,16 +183,16 @@ class InspeccionController extends Controller
 		$validate = $this->validate($request, [
             'comercio.*' => 'required|string',
             'ejerciciofiscal' => 'required|string',
-            'tipoinspeccion' => 'required|string'
+            'tipoinspeccion' => 'required|string',
+            'encargadoGob' => 'required'
         ]);
-
-    	//$cantidad = $request->input('cantidad');
 
     	$data = $request->all();
 		$comercios = array_get($data, 'comercio');
 		$cantidad = count($comercios);
     	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
     	$tipo_inspeccion_id = $request->input('tipoinspeccion');
+    	$encargado_gob_id = $request->input('encargadoGob');
     	$usuario = Auth::user();
     	
     	$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
@@ -201,7 +204,7 @@ class InspeccionController extends Controller
 				'usuario_id' => $usuario->id,
 				'tipoinspeccion_id' => $tipo_inspeccion_id,
 				'ejerciciofiscal_id' => $ejercicio_fiscal_id,
-				'configuracion_id' => 1,
+				'configuracion_id' => $encargado_gob_id,
 				'folioinicio' => 1,
 				'foliofin' => $cantidad
 			];
@@ -218,7 +221,7 @@ class InspeccionController extends Controller
 				'usuario_id' => $usuario->id,
 				'tipoinspeccion_id' => $tipo_inspeccion_id,
 				'ejerciciofiscal_id' => $ejercicio_fiscal_id,
-				'configuracion_id' => 1,
+				'configuracion_id' => $encargado_gob_id,
 				'folioinicio' => $nuevo_folio_inicio,
 				'foliofin' => $nuevo_folio_fin
 			];
@@ -227,6 +230,8 @@ class InspeccionController extends Controller
 		}
 
 		for ($a = 0; $a < $cantidad; $a++) {
+
+			$datos_comercio = Comercio::find($comercios[$a]);
 
 			$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 			$id_forma_valorada = $forma_valorada->last()->id;
@@ -246,6 +251,8 @@ class InspeccionController extends Controller
 				'usuario_id' => $usuario->id,
 				'ejerciciofiscal_id' => $ejercicio_fiscal_id,
 				'estatusinspeccion_id' => $estatus_inspeccion->id,
+				'nombrelocal' => $datos_comercio->nombreestablecimiento,
+				'domicilio' => $datos_comercio->domiciliofiscal,
 				'folio' => $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio
 			];
 

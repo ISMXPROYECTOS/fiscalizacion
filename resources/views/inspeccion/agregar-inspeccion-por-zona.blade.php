@@ -20,7 +20,7 @@
 <form method="POST" action="{{ route('crear-inspeccion-por-sm') }}" id="formulario-crear-inspeccion-por-sm">
     @csrf
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="form-group">
                 <label>Tipo de Inspección</label>
                 <select name="tipoinspeccion" class="form-control" id="tipoinspeccion">
@@ -32,7 +32,7 @@
                 <p class="text-danger mb-0">{{ $errors->first('tipoinspeccion') }}</p>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="form-group">
                 <label>Ejercicio Fiscal</label>
                 <select name="ejerciciofiscal" class="form-control" id="ejerciciofiscal" >
@@ -46,7 +46,21 @@
                 <p class="text-danger mb-0">{{ $errors->first('ejerciciofiscal') }}</p>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Encargado</label>
+                <select name="encargadoGob" class="form-control" id="encargadoGob">
+                    <option value="">Seleccionar</option>
+                    @foreach($encargadosGob as $encargadoGob)
+                    @if($encargadoGob->activo == 1)
+                    <option value="{{ $encargadoGob->id}}">{{ $encargadoGob->nombre }} {{ $encargadoGob->apellidopaterno }} {{ $encargadoGob->apellidomaterno }} </option>
+                    @endif
+                    @endforeach
+                </select>
+                <p class="text-danger mb-0">{{ $errors->first('encargadoGob') }}</p>   
+            </div>
+        </div>
+        <div class="col-md-3">
             <div class="form-group">
                 <label>Buscar por Supermanzana</label>
                 <div class="input-group">
@@ -69,35 +83,35 @@
                     <th>
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="seleccionar-todos">
-                        </div>
-                    </th>
-                    <th>RAZÓN SOCIAL</th>
-                    <th>NOMBRE COMERCIAL</th>
-                    <th>UBICACIÓN</th>
-                </tr>
-            </thead>
-            <tbody id="tbody-comercios">
-                
-            </tbody>
-        </table>
-        
+                      </div>
+                  </th>
+                  <th>RAZÓN SOCIAL</th>
+                  <th>NOMBRE COMERCIAL</th>
+                  <th>UBICACIÓN</th>
+              </tr>
+          </thead>
+          <tbody id="tbody-comercios">
+
+          </tbody>
+      </table>
+
+  </div>
+
+  <br>
+  <div class="form-group row mb-0">
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspecciones') }}</button>
     </div>
-    
-    <br>
-    <div class="form-group row mb-0">
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspecciones') }}</button>
-        </div>
-    </div>
+</div>
 </form>
 @endsection
 @section('scripts')
 
 @if (session('idfv'))
-    <script>
-        var url = "http://localhost/fiscalizacion/public";
-        window.location.replace(url + "/pdf/descargar-acta-inspeccion-multiple/" + {{ session('idfv') }});
-    </script>
+<script>
+    var url = "http://localhost/fiscalizacion/public";
+    window.location.replace(url + "/pdf/descargar-acta-inspeccion-multiple/" + {{ session('idfv') }});
+</script>
 @endif
 
 <script src="{{ asset('js/agregar-inspeccion-por-sm.js') }}" defer></script>

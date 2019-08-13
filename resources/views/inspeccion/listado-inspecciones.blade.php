@@ -9,7 +9,7 @@
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#asignar-inspeccion">
     <i class="fas fa-user-plus"></i> Asignar Inspecciones
 </button> -->
-<!--<a class="btn btn-success mb-3" href="{{ route('pdf') }}">
+<!--<a class="btn btn-success mb-3" href="{{ route('listado-de-inspecciones-para-descargar') }}">
     <i class="fas fa-file-pdf"></i> PDF
 </a>-->
 <div class="row">

@@ -195,6 +195,12 @@
                                             <span>Asignar Inspección</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-de-inspecciones-para-descargar') }}">
+                                            <i class="fas fa-file-pdf"></i>
+                                            <span>Descargar Inspecciones</span>
+                                        </a>
+                                    </li>
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
                                             <i class="fas fa-wrench"></i>

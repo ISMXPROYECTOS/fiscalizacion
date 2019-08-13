@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <header class="page-header">
-    <h2>Agregar Inspecciones</h2>
+    <h2>Asignar Inspecciones</h2>
 </header>
 @if (session('status'))
     <div class="alert alert-success">
@@ -85,7 +85,7 @@
     <br>
     <div class="form-group row mb-0">
         <div class="col-md-6">
-            <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-asignar">{{ __('Crear Inspecciones') }}</button>
+            <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-asignar">{{ __('Asignar Inspecciones') }}</button>
         </div>
     </div>
 </form>

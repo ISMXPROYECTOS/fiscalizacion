@@ -11,6 +11,11 @@ use App\Gafete;
 
 class PdfController extends Controller
 {
+
+	public function listadoInspeccionesParaDescargar(){
+		return view('pdf.listado-de-inspecciones-para-descargar');
+	}
+
 	public function validarActaInspeccion($id){
 
 		$inspecciones = Inspeccion::find($id);
