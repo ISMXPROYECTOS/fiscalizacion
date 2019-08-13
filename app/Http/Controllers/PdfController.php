@@ -17,6 +17,8 @@ class PdfController extends Controller
 	}
 
 	public function tbody(){
+
+
 		return datatables()
 			->eloquent(FormaValorada::query())
 			->addColumn('descargar', 'pdf/boton-descargar')

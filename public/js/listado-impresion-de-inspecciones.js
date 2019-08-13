@@ -7,7 +7,11 @@ $(document).ready(function(){
 			'destroy': true,
 			'ajax': url + '/pdf/listado',
 			'columns': [
-				{data: 'folioinicio'},
+				{data: 'ejerciciofiscal_id',
+					'render': function ( data, type, row ) {
+                        return(row.anio + ' ' + row.tipoinspeccion_id + ' ' + row.folioinicio);
+                    }
+				},
 				{data: 'foliofin'},
 				{data: 'descargar'},
 			],

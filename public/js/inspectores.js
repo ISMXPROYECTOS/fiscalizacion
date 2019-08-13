@@ -29,7 +29,7 @@ $(document).ready(function(){
             'ajax': url + '/inspectores/listado',
             // Se seleccionan los campos que se desean mostrar en la tabla
             'columns': [
-                {data: 'nombre',
+                {data: 'nombre', data: 'apellidopaterno', data: 'apellidomaterno',
                     'render': function ( data, type, row ) {
                         return (row.nombre + ' ' + row.apellidopaterno + ' ' + row.apellidomaterno);
                     }
