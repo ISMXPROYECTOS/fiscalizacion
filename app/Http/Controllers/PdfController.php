@@ -26,7 +26,7 @@ class PdfController extends Controller
 			->toJson();
 	}
 
-	public function validarActaInspeccion($id){
+	/*public function validarActaInspeccion($id){
 
 		$inspecciones = Inspeccion::find($id);
 
@@ -36,21 +36,21 @@ class PdfController extends Controller
 			return $inspecciones;
 		}
 		
-	}
+	}*/
 
-	public function descargarActaInspeccion($id){
+	/*public function descargarActaInspeccion($id){
 
 		$inspecciones = Inspeccion::all();
 
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones]);
 		return $pdf->download();
 		
-	}
+	}*/
 
-	public function descargarActaInspeccinMultiple($id_forma_valorada){
+	public function descargarPdfInspecciones($id){
 		
-		$inspecciones = Inspeccion::where('formavalorada_id', $id_forma_valorada)->get();
-		$forma_valorada = FormaValorada::find($id_forma_valorada);
+		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
+		$forma_valorada = FormaValorada::find($id);
 
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 

@@ -90,9 +90,10 @@ Route::get('/pdf', 'PdfController@listadoInspeccionesParaDescargar')->name('list
 Route::get('/pdf/listado', 'PdfController@tbody');
 
 Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete');
-Route::get('/pdf/validar-acta-inspeccion/{id}', 'PdfController@validarActaInspeccion');
-Route::get('/pdf/descargar-acta-inspeccion/{id}', 'PdfController@descargarActaInspeccion');
-Route::get('/pdf/descargar-acta-inspeccion-multiple/{id}', 'PdfController@descargarActaInspeccinMultiple');
+//Route::get('/pdf/validar-acta-inspeccion/{id}', 'PdfController@validarActaInspeccion');
+//Route::get('/pdf/descargar-acta-inspeccion/{id}', 'PdfController@descargarActaInspeccion');
+
+Route::get('/pdf/descargar-pdf-inspecciones/{id}', 'PdfController@descargarPdfInspecciones');
 
 /* Rutas Tipos Inspecciones*/
 Route::get('/tipo-inspecciones', 'TipoInspeccionController@listadoTipoInspecciones')->name('listado-tipo-inspecciones');

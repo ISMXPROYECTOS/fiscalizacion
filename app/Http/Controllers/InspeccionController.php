@@ -172,9 +172,11 @@ class InspeccionController extends Controller
 			Inspeccion::create($datos);		
 		}
 
-		$id_forma_valorada = $forma_valorada->last()->id;
+		//$id_forma_valorada = $forma_valorada->last()->id;
 		
-    	return redirect('inspecciones/agregar')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
+    	//return redirect('inspecciones/agregar')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
+
+    	return redirect('inspecciones/agregar')->with('status', 'Se ha creado correctamente');
 	}
 
 	public function crearInspeccionesPorSM(Request $request){
@@ -259,9 +261,11 @@ class InspeccionController extends Controller
 			Inspeccion::create($datos);		
 		}
 
-		$id_forma_valorada = $forma_valorada->last()->id;
+		//$id_forma_valorada = $forma_valorada->last()->id;
 		
-    	return redirect('inspecciones/agregar-por-zonas')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
+    	//return redirect('inspecciones/agregar-por-zonas')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
+
+    	return redirect('inspecciones/agregar-por-zonas')->with('status', 'Se ha creado correctamente');
 	}
 
 	public function editarInspeccion($id){

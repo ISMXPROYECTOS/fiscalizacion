@@ -7,11 +7,7 @@ $(document).ready(function(){
 			'destroy': true,
 			'ajax': url + '/pdf/listado',
 			'columns': [
-				{data: 'ejerciciofiscal_id',
-					'render': function ( data, type, row ) {
-                        return(row.anio + ' ' + row.tipoinspeccion_id + ' ' + row.folioinicio);
-                    }
-				},
+				{data: 'folioinicio'},
 				{data: 'foliofin'},
 				{data: 'descargar'},
 			],
@@ -34,7 +30,7 @@ $(document).ready(function(){
 
 	viewData();
 
-	function validarActaInspeccion(){
+	/*function validarActaInspeccion(){
 		$(document).on('click', '.imprimir', function(){
 			var id = $(this).attr('id');
 			$.ajax({
@@ -53,10 +49,16 @@ $(document).ready(function(){
 		});
 	}
 
-	validarActaInspeccion();
+	validarActaInspeccion();*/
 
-	function pdfActaInspeccion(id){
-		window.location.replace(url + "/pdf/descargar-acta-inspeccion/" + id);
-	}
+
+	$(document).on('click', '.descargar', function(){
+		var id = $(this).attr('id');
+		window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
+	});
+		
+	
+
+
 
 });

@@ -20,5 +20,5 @@
 
 @endsection
 @section('scripts')
-<script src="{{ asset('js/listado-impresion-de-inspecciones.js') }}" defer></script>
+<script src="{{ asset('js/descarga-de-inspecciones.js') }}" defer></script>
 @endsection

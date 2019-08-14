@@ -93,10 +93,10 @@
 @section('scripts')
 
 @if (session('idfv'))
-    <script>
+    <!--<script>
         var url = "http://localhost/fiscalizacion/public";
         window.location.replace(url + "/pdf/descargar-acta-inspeccion-multiple/" + {{ session('idfv') }});
-    </script>
+    </script>-->
 @endif
 
 
