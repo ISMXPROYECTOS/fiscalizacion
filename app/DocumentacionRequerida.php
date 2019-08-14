@@ -14,4 +14,13 @@ class DocumentacionRequerida extends Model
         return $this->hasMany('App\DocumentacionPorTipoDeInspeccion');
     }
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nombre', 'clave', 'activo'
+    ];
+
 }

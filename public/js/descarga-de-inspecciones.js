@@ -9,7 +9,7 @@ $(document).ready(function(){
 			'columns': [
 				{data: 'folioinicio'},
 				{data: 'foliofin'},
-				{data: 'descargar'},
+				{data: 'descargar'}
 			],
 			'language': {
 				'info': 'Total de registros _TOTAL_',

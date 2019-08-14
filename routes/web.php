@@ -123,3 +123,12 @@ Route::post('/configuracion/nuevo', 'ConfiguracionController@create');
 Route::get('/configuracion/editar/{id}', 'ConfiguracionController@editarEncargado');
 Route::post('/configuracion/actualizar', 'ConfiguracionController@update');
 Route::post('/configuracion/estatus', 'ConfiguracionController@updateEstatus');
+
+/* Rutas Documentacion Requerida */
+Route::get('/documentacion-requerida', 'DocumentacionRequeridaController@listadoDocumentacionRequerida')->name('listado-documentacion');
+
+Route::get('/documentacion-requerida/listado', 'DocumentacionRequeridaController@tbody');
+Route::post('/documentacion-requerida/nuevo', 'DocumentacionRequeridaController@create');
+Route::get('/documentacion-requerida/editar/{id}', 'DocumentacionRequeridaController@editarDocumento');
+Route::post('/documentacion-requerida/actualizar', 'DocumentacionRequeridaController@update');
+Route::post('/documentacion-requerida/estatus', 'DocumentacionRequeridaController@updateEstatus');

@@ -18,9 +18,11 @@ class PdfController extends Controller
 
 	public function tbody(){
 
+		$query = FormaValorada::query();
+
 
 		return datatables()
-			->eloquent(FormaValorada::query())
+			->eloquent($query)
 			->addColumn('descargar', 'pdf/boton-descargar')
 			->rawColumns(['descargar'])
 			->toJson();

@@ -152,7 +152,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="#">
+                                                <a class="nav-link" href="{{ route('listado-documentacion') }}">
                                                     
                                                     <span>Documentacion requerida</span>
                                                 </a>
@@ -167,7 +167,7 @@
                                     </li>
                                     <li>
                                         <a class="nav-link" href="{{ route('listado-encargados') }}">
-                                            <i class="fas fa-calendar-alt"></i>
+                                            <i class="fas fa-users"></i>
                                             <span>Encargados</span>
                                         </a>
                                     </li>

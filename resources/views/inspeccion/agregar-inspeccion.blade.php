@@ -48,6 +48,20 @@
 			</div>
             <div class="col-md-3">
                 <div class="form-group">
+                    <label>Encargado</label>
+                    <select name="encargadoGob" class="form-control" id="encargadoGob">
+                        <option value="">Seleccionar</option>
+                        @foreach($encargadosGob as $encargadoGob)
+                            @if($encargadoGob->activo == 1)
+                                <option value="{{ $encargadoGob->id}}">{{ $encargadoGob->nombre }} {{ $encargadoGob->apellidopaterno }} {{ $encargadoGob->apellidomaterno }} </option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <p class="text-danger mb-0">{{ $errors->first('encargadoGob') }}</p>   
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
                     <label>Cantidad</label>
                     <select name="cantidad" class="form-control" id="cantidad" >
                         <option value="">Seleccionar</option>
@@ -65,20 +79,7 @@
                     <p class="text-danger mb-0">{{ $errors->first('cantidad') }}</p>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>Encargado</label>
-                    <select name="encargadoGob" class="form-control" id="encargadoGob">
-                        <option value="">Seleccionar</option>
-                        @foreach($encargadosGob as $encargadoGob)
-                            @if($encargadoGob->activo == 1)
-                                <option value="{{ $encargadoGob->id}}">{{ $encargadoGob->nombre }} {{ $encargadoGob->apellidopaterno }} {{ $encargadoGob->apellidomaterno }} </option>
-                            @endif
-                        @endforeach
-                    </select>
-                    <p class="text-danger mb-0">{{ $errors->first('encargadoGob') }}</p>   
-                </div>
-            </div>
+            
 	    </div>
         <br>
         <div class="form-group row mb-0">

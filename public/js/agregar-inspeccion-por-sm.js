@@ -13,6 +13,7 @@ $(document).ready(function(){
    
 
     $('#ejerciciofiscal').attr('disabled', '');
+    $('#encargadoGob').attr('disabled', '');
     $('#calle').attr('disabled', '');
 
     $('#tipoinspeccion').change(function(){
@@ -21,6 +22,7 @@ $(document).ready(function(){
         } 
 
         $("#ejerciciofiscal").val('');
+        $("#encargadoGob").val('');
         $("#calle").val('');
         $('#folio-inicio').text('');
         $('#folio-fin').text('');
@@ -28,6 +30,10 @@ $(document).ready(function(){
     });
 
     $('#ejerciciofiscal').change(function(){
+        $('#encargadoGob').removeAttr('disabled');
+    });
+
+    $('#encargadoGob').change(function(){
         $('#calle').removeAttr('disabled');
     });
 
