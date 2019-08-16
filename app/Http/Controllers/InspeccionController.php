@@ -249,12 +249,11 @@ class InspeccionController extends Controller
 
 			$datos = [
 				'formavalorada_id' => $id_forma_valorada,
+				'comercio_id' => $datos_comercio->id,
 				'tipoinspeccion_id' => $tipo_inspeccion_id,
 				'usuario_id' => $usuario->id,
 				'ejerciciofiscal_id' => $ejercicio_fiscal_id,
 				'estatusinspeccion_id' => $estatus_inspeccion->id,
-				'nombrelocal' => $datos_comercio->nombreestablecimiento,
-				'domicilio' => $datos_comercio->domiciliofiscal,
 				'folio' => $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio
 			];
 

@@ -80,7 +80,7 @@ class Inspeccion extends Model
      * @var array
      */
     protected $fillable = [
-    	'usuario_id', 'inspector_id', 'gestores_id', 'tipoinspeccion_id', 'formavalorada_id', 'giro_id', 'subgirocomercial_id', 'ejerciciofiscal_id', 'estatusinspeccion_id', 'colonia_id', 'nombrelocal', 'domicilio', 'nombreencargado', 'cargoencargado', 'diasvence', 'fechavence', 'folio',
+    	'usuario_id', 'comercio_id', 'inspector_id', 'gestores_id', 'tipoinspeccion_id', 'formavalorada_id', 'giro_id', 'subgirocomercial_id', 'ejerciciofiscal_id', 'estatusinspeccion_id', 'colonia_id', 'nombrelocal', 'domicilio', 'nombreencargado', 'cargoencargado', 'diasvence', 'fechavence', 'folio',
     ];
     
 }
