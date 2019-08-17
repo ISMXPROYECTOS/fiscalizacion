@@ -5,6 +5,20 @@ html, body{
 
 }
 
+.folio{
+	font-size: 1.2em !important;
+}
+
+.text-justify{
+	text-align: justify;
+}
+
+.page_break{
+	page-break-before: always; 
+}
+
+/* Orden de Inspeccion */
+
 .table-firma{
 	width: 100%;
 }
@@ -26,16 +40,44 @@ html, body{
   	padding: 5px;
 }
 
-.folio{
-	font-size: 1.2em !important;
+/* Fin Orden de Inspección*/
+
+/* Acta de Inspección */
+
+.datos-comercio{
+	font-size: .70em !important;
 }
 
-.text-justify{
-	text-align: justify;
+.acta-inspeccion-text{
+	font-size: .70em !important;
 }
 
-.page_break{
-	page-break-before: always; 
+.documentacion{
+	font-size: .55em;
 }
 
+.doc-row{
+	width: 40%;
+}
 
+.sol-row, .exh-row{
+	width: 5%;
+}
+
+.th-line-height{
+	line-height: 5px;
+}
+
+.observaciones, .footer-text{
+	font-size: .70em !important;
+}
+
+.firma-inspector, .firma-encargada{
+	font-size: .70em !important;
+}
+
+.table-firma .td-datos-inspector{
+	padding-left: 20px;
+}
+
+/* Fin Acta de Inspección */
