@@ -18,6 +18,7 @@ use App\EstatusInspeccion;
 use App\Colonia;
 use App\Configuracion;
 use App\Comercio;
+use App\DocumentacionRequerida;
 
 class InspeccionController extends Controller
 {
@@ -88,6 +89,11 @@ class InspeccionController extends Controller
 			->addColumn('inspector', function(Inspeccion $inspeccion){
 				if(is_object($inspeccion->inspector)) {
 					return $inspeccion->inspector->nombre;
+				}
+			})
+			->addColumn('nombrelocal', function(Inspeccion $inspeccion){
+				if(is_object($inspeccion->comercio)) {
+					return $inspeccion->comercio->nombreestablecimiento;
 				}
 			})
 			->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
@@ -354,9 +360,13 @@ class InspeccionController extends Controller
 	public function verMasInformacion($id){
 		$inspeccion = Inspeccion::find($id);
 		$gestores = Gestor::all();
+		$documentos = DocumentacionRequerida::all();
+		$comercios = Comercio::all();
 		return view('inspeccion.informacion-completa', [
 			'inspeccion' => $inspeccion,
-			'gestores' => $gestores
+			'gestores' => $gestores,
+			'documentos' => $documentos,
+			'comercios' => $comercios
 		]);
 	}
 

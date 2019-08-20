@@ -19,4 +19,18 @@ class DocumentacionPorTipoDeInspeccion extends Model
 		return $this->belongsTo('App\DocumentacionRequerida', 'documentacionrequerida_id');
 	}
 
+	/* Relación muchos a uno */
+	public function inspeccion(){
+		return $this->belongsTo('App\Inspeccion', 'inspeccion_id');
+	}
+
+	/**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'tipoinspeccion_id', 'documentacionrequerida_id', 'inspeccion_id', 'solicitado', 'exhibido', 'observaciones',
+    ];
+
 }

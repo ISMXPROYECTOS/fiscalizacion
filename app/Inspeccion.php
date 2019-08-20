@@ -59,6 +59,16 @@ class Inspeccion extends Model
 		return $this->belongsTo('App\Colonia', 'colonia_id');
 	}
 
+	/* Relación muchos a uno */
+	public function comercio(){
+		return $this->belongsTo('App\Comercio', 'comercio_id');
+	}
+
+	/* Relación uno a mucho */
+    public function documentacionPorTipoDeInspeccion(){
+        return $this->hasMany('App\DocumentacionPorTipoDeInspeccion');
+    }
+
 	/* Relación uno a mucho */
     public function bitacoraDeEstatus(){
         return $this->hasMany('App\BitacoraDeEstatus');
