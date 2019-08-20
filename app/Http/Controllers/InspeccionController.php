@@ -19,6 +19,7 @@ use App\Colonia;
 use App\Configuracion;
 use App\Comercio;
 use App\DocumentacionRequerida;
+use App\DocumentacionPorTipoDeInspeccion;
 
 class InspeccionController extends Controller
 {
@@ -120,6 +121,8 @@ class InspeccionController extends Controller
     	
     	$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
 		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
+
+		$documentacion_requerida = DocumentacionRequerida::all();
 		
 		if ($forma_valorada->count() == 0) {
 
@@ -175,7 +178,22 @@ class InspeccionController extends Controller
 				'folio' => $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio
 			];
 
-			Inspeccion::create($datos);		
+			Inspeccion::create($datos);
+
+			for ($b = 0; $b < count($documentacion_requerida) ; $b++) { 
+
+				$inspeccion = Inspeccion::all();
+				$inspeccion_id = $inspeccion->last()->id;
+
+				$datos = [
+					'tipoinspeccion_id' => $tipo_inspeccion_id,
+					'documentacionrequerida_id' => $documentacion_requerida[$b]->id,
+					'inspeccion_id' => $inspeccion_id
+				];
+
+				DocumentacionPorTipoDeInspeccion::create($datos);
+			}
+
 		}
 
 		//$id_forma_valorada = $forma_valorada->last()->id;
@@ -205,6 +223,8 @@ class InspeccionController extends Controller
     	
     	$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
 		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
+
+		$documentacion_requerida = DocumentacionRequerida::all();
 		
 		if ($forma_valorada->count() == 0) {
 
@@ -263,7 +283,21 @@ class InspeccionController extends Controller
 				'folio' => $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio
 			];
 
-			Inspeccion::create($datos);		
+			Inspeccion::create($datos);	
+
+			for ($b = 0; $b < count($documentacion_requerida) ; $b++) { 
+
+				$inspeccion = Inspeccion::all();
+				$inspeccion_id = $inspeccion->last()->id;
+
+				$datos = [
+					'tipoinspeccion_id' => $tipo_inspeccion_id,
+					'documentacionrequerida_id' => $documentacion_requerida[$b]->id,
+					'inspeccion_id' => $inspeccion_id
+				];
+
+				DocumentacionPorTipoDeInspeccion::create($datos);
+			}	
 		}
 
 		//$id_forma_valorada = $forma_valorada->last()->id;
@@ -360,7 +394,8 @@ class InspeccionController extends Controller
 	public function verMasInformacion($id){
 		$inspeccion = Inspeccion::find($id);
 		$gestores = Gestor::all();
-		$documentos = DocumentacionRequerida::all();
+		$documentos = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $id)->get();
+
 		$comercios = Comercio::all();
 		return view('inspeccion.informacion-completa', [
 			'inspeccion' => $inspeccion,
@@ -566,6 +601,52 @@ class InspeccionController extends Controller
 			}
 		}
 		return $datos;
+	}
+
+	public function actualizarInformacionInspeccion(Request $request){
+
+		$validate = $this->validate($request, [
+			'inspeccion-id' => 'required|string',
+			'encargador' => 'string',
+			'cargo' => 'nullable',
+			'identificacion' => 'nullable',
+			'folioidentificacion' => 'nullable',
+			'fecha' => 'required|date_format:Y-m-d',
+			'hora' => 'required|date_format:H:i',
+			'solicitado.*' => 'string',
+			'exhibido.*' => 'string',
+			'observaciones.*' => 'string|nullable',
+			'observacion' => 'string|nullable'
+        ]);
+
+		$data = $request->all();
+		$inspeccion_id = $request->input('inspeccion-id');
+        $encargado = $request->input('encargado');
+    	$cargo = $request->input('cargo');
+    	$identificacion = $request->input('identificacion');
+    	$folioidentificacion = $request->input('folioidentificacion');
+    	$fecha = $request->input('fecha');
+    	$hora = $request->input('hora');
+    	$solicitado = array_get($data, 'solicitado');
+    	$exhibido = array_get($data, 'exhibido');
+    	$observaciones = array_get($data, 'observaciones');
+    	$observacion = $request->input('observacion');
+
+    	var_dump(count($solicitado));
+    	die();
+
+    	$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $inspeccion_id)->get();
+
+    	for ($i = 0; $i < count($documentacion_requerida); $i++) { 
+    		
+    		$documentacion_requerida[$i]->solicitado = $solicitado[$i];
+			$documentacion_requerida[$i]->exhibido = $exhibido[$i];
+			$documentacion_requerida[$i]->observaciones = $observaciones[$i];
+    		$documentacion_requerida[$i]->update();
+    	}
+
+
+
 	}
 
 }

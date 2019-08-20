@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Document</title>
-		<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" />
+		<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" />
 		<link rel="stylesheet" href="{{ asset('css/acta-inspeccion.css') }}" />
 		
 	</head>

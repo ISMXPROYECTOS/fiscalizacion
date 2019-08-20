@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class DocumentacionPorTipoDeInspeccion extends Model
 {
 	/* Se indica la tabla que este modelo modificará */
-	protected $table = 'documentacionxtipodeinspeccion';
+	protected $table = 'documentacionportipodeinspeccion';
 
 	/* Relación muchos a uno */
 	public function tipoInspeccion(){
