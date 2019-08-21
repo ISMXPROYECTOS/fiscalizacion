@@ -188,7 +188,9 @@ class InspeccionController extends Controller
 				$datos = [
 					'tipoinspeccion_id' => $tipo_inspeccion_id,
 					'documentacionrequerida_id' => $documentacion_requerida[$b]->id,
-					'inspeccion_id' => $inspeccion_id
+					'inspeccion_id' => $inspeccion_id,
+					'solicitado' => 0,
+					'exhibido' => 0
 				];
 
 				DocumentacionPorTipoDeInspeccion::create($datos);
@@ -293,7 +295,9 @@ class InspeccionController extends Controller
 				$datos = [
 					'tipoinspeccion_id' => $tipo_inspeccion_id,
 					'documentacionrequerida_id' => $documentacion_requerida[$b]->id,
-					'inspeccion_id' => $inspeccion_id
+					'inspeccion_id' => $inspeccion_id,
+					'solicitado' => 0,
+					'exhibido' => 0
 				];
 
 				DocumentacionPorTipoDeInspeccion::create($datos);
@@ -613,10 +617,12 @@ class InspeccionController extends Controller
 			'folioidentificacion' => 'nullable',
 			'fecha' => 'required|date_format:Y-m-d',
 			'hora' => 'required|date_format:H:i',
-			'solicitado.*' => 'string',
-			'exhibido.*' => 'string',
+			'solicitado.*' => 'nullable',
+			'exhibido.*' => 'nullable',
 			'observaciones.*' => 'string|nullable',
-			'observacion' => 'string|nullable'
+			'observacion' => 'string|nullable',
+			'gestor' => 'string|nullable',
+			'prorroga' => 'string|nullable'
         ]);
 
 		$data = $request->all();
@@ -631,21 +637,46 @@ class InspeccionController extends Controller
     	$exhibido = array_get($data, 'exhibido');
     	$observaciones = array_get($data, 'observaciones');
     	$observacion = $request->input('observacion');
+    	$gestor = $request->input('gestor');
+    	$prorroga = $request->input('prorroga');
 
-    	var_dump(count($solicitado));
-    	die();
+    	$inspeccion = Inspeccion::find($inspeccion_id);
 
-    	$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $inspeccion_id)->get();
+    	$inspeccion->nombreencargado = $encargado;
+    	$inspeccion->cargoencargado = $cargo;
+    	$inspeccion->identificacion = $identificacion;
+    	$inspeccion->folioidentificacion = $folioidentificacion;
+    	$inspeccion->fecharealizada = $fecha;
+    	$inspeccion->horarealizada = $hora;
+    	$inspeccion->comentario = $observacion;
+    	$inspeccion->gestores_id = $gestor;
+    	$inspeccion->diasvence = $prorroga;
+    	$inspeccion->update();
 
-    	for ($i = 0; $i < count($documentacion_requerida); $i++) { 
+    	
+
+    	for ($i = 0; $i < count($solicitado) ; $i++) {
     		
-    		$documentacion_requerida[$i]->solicitado = $solicitado[$i];
-			$documentacion_requerida[$i]->exhibido = $exhibido[$i];
-			$documentacion_requerida[$i]->observaciones = $observaciones[$i];
-    		$documentacion_requerida[$i]->update();
+
+    		$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $solicitado[$i])->where('inspeccion_id', $inspeccion_id)->first();
+
+
+	        $documentacion_requerida->solicitado = 1;
+			$documentacion_requerida->observaciones = $observaciones[$i];
+	    	$documentacion_requerida->update();
+    		
     	}
 
+    	for ($i = 0; $i < count($exhibido) ; $i++) {
+    		
 
+    		$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $exhibido[$i])->where('inspeccion_id', $inspeccion_id)->first();
+
+
+	        $documentacion_requerida->exhibido = 1;
+	    	$documentacion_requerida->update();
+    		
+    	}
 
 	}
 

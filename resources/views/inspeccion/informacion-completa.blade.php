@@ -76,8 +76,8 @@
 				</div>
 				<div class="col-lg-4">
 					<div class="form-group ">
-						<label for="folioidentifiacion">{{ __('Folio de Identificación del encargado') }}</label>
-						<input id="folioidentifiacion" type="text" class="form-control" name="folioidentifiacion" value="{{ old('folioidentifiacion') }}" autofocus>
+						<label for="folioidentificacion">{{ __('Folio de Identificación del encargado') }}</label>
+						<input id="folioidentificacion" type="text" class="form-control" name="folioidentificacion" value="{{ old('folioidentificacion') }}" autofocus>
 					</div>
 				</div>
 			</div>
@@ -126,8 +126,8 @@
 			  	@foreach($documentos as $documento)
 			    <tr>
 			      <th>{{ $documento->documentacionRequerida->nombre }}</th>
-			      <td><input class="form-check-input" type="checkbox" id="solicitado" name="solicitado[]"></td>
-			      <td><input class="form-check-input" type="checkbox" id="exhibido" name="exhibido[]"></td>
+			      <td><input class="form-check-input" type="checkbox" id="solicitado" value="{{ $documento->documentacionrequerida_id  }}" name="solicitado[]"></td>
+			      <td><input class="form-check-input" type="checkbox" id="exhibido" value="{{ $documento->documentacionrequerida_id }}" name="exhibido[]"></td>
 			      <td><input class="form-control form-control-sm" type="text" name="observaciones[]"></td>
 			    </tr>
 			    @endforeach
