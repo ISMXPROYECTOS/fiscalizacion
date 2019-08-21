@@ -107,19 +107,19 @@ class InspeccionController extends Controller
 
 		// Valida cada array en cada posición con el .*
 		$validate = $this->validate($request, [
-            'cantidad' => 'required|string',
-            'ejerciciofiscal' => 'required|string',
-            'tipoinspeccion' => 'required|string',
-            'encargadoGob' => 'required'
-        ]);
+			'cantidad' => 'required|string',
+			'ejerciciofiscal' => 'required|string',
+			'tipoinspeccion' => 'required|string',
+			'encargadoGob' => 'required'
+		]);
 
-    	$cantidad = $request->input('cantidad');
-    	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
-    	$tipo_inspeccion_id = $request->input('tipoinspeccion');
-    	$encargado_gob_id = $request->input('encargadoGob');
-    	$usuario = Auth::user();
-    	
-    	$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
+		$cantidad = $request->input('cantidad');
+		$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
+		$tipo_inspeccion_id = $request->input('tipoinspeccion');
+		$encargado_gob_id = $request->input('encargadoGob');
+		$usuario = Auth::user();
+		
+		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
 		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 
 		$documentacion_requerida = DocumentacionRequerida::all();
@@ -200,30 +200,30 @@ class InspeccionController extends Controller
 
 		//$id_forma_valorada = $forma_valorada->last()->id;
 		
-    	//return redirect('inspecciones/agregar')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
+		//return redirect('inspecciones/agregar')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
 
-    	return redirect('inspecciones/agregar')->with('status', 'Se ha creado correctamente');
+		return redirect('inspecciones/agregar')->with('status', 'Se ha creado correctamente');
 	}
 
 	public function crearInspeccionesPorSM(Request $request){
 
 		// Valida cada array en cada posición con el .*
 		$validate = $this->validate($request, [
-            'comercio.*' => 'required|string',
-            'ejerciciofiscal' => 'required|string',
-            'tipoinspeccion' => 'required|string',
-            'encargadoGob' => 'required'
-        ]);
+			'comercio.*' => 'required|string',
+			'ejerciciofiscal' => 'required|string',
+			'tipoinspeccion' => 'required|string',
+			'encargadoGob' => 'required'
+		]);
 
-    	$data = $request->all();
+		$data = $request->all();
 		$comercios = array_get($data, 'comercio');
 		$cantidad = count($comercios);
-    	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
-    	$tipo_inspeccion_id = $request->input('tipoinspeccion');
-    	$encargado_gob_id = $request->input('encargadoGob');
-    	$usuario = Auth::user();
-    	
-    	$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
+		$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
+		$tipo_inspeccion_id = $request->input('tipoinspeccion');
+		$encargado_gob_id = $request->input('encargadoGob');
+		$usuario = Auth::user();
+		
+		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
 		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 
 		$documentacion_requerida = DocumentacionRequerida::all();
@@ -306,17 +306,17 @@ class InspeccionController extends Controller
 
 		//$id_forma_valorada = $forma_valorada->last()->id;
 		
-    	//return redirect('inspecciones/agregar-por-zonas')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
+		//return redirect('inspecciones/agregar-por-zonas')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
 
-    	return redirect('inspecciones/agregar-por-zonas')->with('status', 'Se ha creado correctamente');
+		return redirect('inspecciones/agregar-por-zonas')->with('status', 'Se ha creado correctamente');
 	}
 
 	public function editarInspeccion($id){
-    	$inspeccion = Inspeccion::find($id);
-    	return $inspeccion;
-    }
+		$inspeccion = Inspeccion::find($id);
+		return $inspeccion;
+	}
 
-    public function update(Request $request){
+	public function update(Request $request){
 		// Se reciben la id de la inspección y se selecciona para modificarla
 		$id = $request->input('id');
 		$inspeccion = Inspeccion::find($id);
@@ -338,8 +338,8 @@ class InspeccionController extends Controller
 			'local' => 'required|string',
 			'domicilio' => 'required|string|max:75',
 			'encargado' => 'required|string|max:50',
-            'puestoencargado' => 'required|string|max:30',
-            'diasvence' => 'required|string'
+			'puestoencargado' => 'required|string|max:30',
+			'diasvence' => 'required|string'
 		]);
 		// 'fechavence' => 'required|date_format:Y-m-d'
 
@@ -355,7 +355,7 @@ class InspeccionController extends Controller
 		$puestoencargado = $request->input('puestoencargado');
 		$diasvence = $request->input('diasvence');
 
-        // Una ves verificados los datos y creados las variables se actualiza en la BD
+		// Una ves verificados los datos y creados las variables se actualiza en la BD
 		$inspeccion->inspector_id = $inspector;
 		$inspeccion->gestores_id = $gestor;
 		$inspeccion->tipoinspeccion_id = $tipoinspeccion;
@@ -368,8 +368,8 @@ class InspeccionController extends Controller
 		$inspeccion->diasvence = $diasvence;
 		$inspeccion->update();
 
-        // Indica que fue correcta la modificación de la inspección
-    	return $inspeccion;
+		// Indica que fue correcta la modificación de la inspección
+		return $inspeccion;
 
 	}
 
@@ -392,21 +392,35 @@ class InspeccionController extends Controller
 		$inspeccion->comentario = $comentario;
 		$inspeccion->update();
 
-    	return $inspeccion;
+		return $inspeccion;
 	}
 
 	public function verMasInformacion($id){
 		$inspeccion = Inspeccion::find($id);
 		$gestores = Gestor::all();
 		$documentos = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $id)->get();
-
 		$comercios = Comercio::all();
-		return view('inspeccion.informacion-completa', [
-			'inspeccion' => $inspeccion,
-			'gestores' => $gestores,
-			'documentos' => $documentos,
-			'comercios' => $comercios
-		]);
+		$is_edit = false;
+
+		if ($inspeccion->fecharealizada == null && $inspeccion->horarealizada == null) {
+			return view('inspeccion.informacion-completa', [
+				'inspeccion' => $inspeccion,
+				'gestores' => $gestores,
+				'documentos' => $documentos,
+				'comercios' => $comercios,
+				'is_edit' => $is_edit
+			]);
+		}else{
+			$is_edit = true;
+			return view('inspeccion.informacion-completa', [
+				'inspeccion' => $inspeccion,
+				'gestores' => $gestores,
+				'documentos' => $documentos,
+				'comercios' => $comercios,
+				'is_edit' => $is_edit
+			]);
+		}
+
 	}
 
 	public function asignarInspecciones(Request $request){
@@ -414,22 +428,22 @@ class InspeccionController extends Controller
 		$validate = $this->validate($request, [
 			'ejerciciofiscal-asignar' => 'required|string',
 			'tipoinspeccion-asignar' => 'required|string',
-            'cantidad-asignar' => 'required|string',
-            'inspectores-asignar.*' => 'required|string',
-        ]);
+			'cantidad-asignar' => 'required|string',
+			'inspectores-asignar.*' => 'required|string',
+		]);
 
 		$data = $request->all();
-    	$ejerciciofiscal = $request->input('ejerciciofiscal-asignar');
-    	$tipoinspeccion = $request->input('tipoinspeccion-asignar');
-    	$cantidad = $request->input('cantidad-asignar');
+		$ejerciciofiscal = $request->input('ejerciciofiscal-asignar');
+		$tipoinspeccion = $request->input('tipoinspeccion-asignar');
+		$cantidad = $request->input('cantidad-asignar');
 		$inspectores = array_get($data, 'inspectores-asignar');
 
 		$hoy = new \DateTime();
 		$hoy->format('d-m-Y H:i:s');
 		$estatus_anterior = EstatusInspeccion::where('clave', 'NA')->first();
-    	$id_estatus_anterior = $estatus_anterior->id;
+		$id_estatus_anterior = $estatus_anterior->id;
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'A')->first();
-    	$id_estatus_nuevo = $estatus_nuevo->id;
+		$id_estatus_nuevo = $estatus_nuevo->id;
 
 		$inspecciones = Inspeccion::where('estatusinspeccion_id', $id_estatus_anterior)
 									->where('tipoinspeccion_id', $tipoinspeccion)->get();
@@ -444,8 +458,8 @@ class InspeccionController extends Controller
 
 		if ($numero_inspecciones >= $total_inspecciones) {
 			for ($i = 0; $i < $total_inspectores; $i++) {
-	    		for ($a = 0; $a < $cantidad; $a++) {
-	    			for ($b = 0; $b < $numero_inspecciones; $b++) {
+				for ($a = 0; $a < $cantidad; $a++) {
+					for ($b = 0; $b < $numero_inspecciones; $b++) {
 						if ($inspecciones[$b]->tipoinspeccion_id == $tipos_inspecciones->id && $inspecciones[$b]->estatusinspeccion_id == $id_estatus_anterior) {
 							$inspecciones[$b]->inspector_id = $inspectores[$i];
 							$inspecciones[$b]->estatusinspeccion_id = $id_estatus_nuevo;
@@ -453,8 +467,8 @@ class InspeccionController extends Controller
 							$inspecciones[$b]->update();
 							break;
 						}
-	    			}
-	    		}
+					}
+				}
 			}
 			return redirect('inspecciones/asignar')->with('status', 'Se ha asignado correctamente');
 		} else {
@@ -475,11 +489,11 @@ class InspeccionController extends Controller
 			'tipoinspeccion' => 'required|string',
 			'cantidad' => 'required|string',
 			'ejerciciofiscal' => 'required|string'
-        ]);
+		]);
 
-        $tipo_inspeccion_id = $request->input('tipoinspeccion');
-    	$cantidad = $request->input('cantidad');
-    	$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
+		$tipo_inspeccion_id = $request->input('tipoinspeccion');
+		$cantidad = $request->input('cantidad');
+		$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
 		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 
 		if ($cantidad  == 0) {
@@ -536,18 +550,18 @@ class InspeccionController extends Controller
 			'cantidad-asignar' => 'required|string',
 			'ejerciciofiscal-asignar' => 'required|string',
 			'inspectores-asignar.*' => 'required|string'
-        ]);
+		]);
 
 
 
-        $data = $request->all();
-        $tipo_inspeccion_id = $request->input('tipoinspeccion-asignar');
-    	$cantidad = $request->input('cantidad-asignar');
-    	$ejercicio_fiscal_id = $request->input('ejerciciofiscal-asignar');
-    	$inspectores = array_get($data, 'inspectores-asignar');
+		$data = $request->all();
+		$tipo_inspeccion_id = $request->input('tipoinspeccion-asignar');
+		$cantidad = $request->input('cantidad-asignar');
+		$ejercicio_fiscal_id = $request->input('ejerciciofiscal-asignar');
+		$inspectores = array_get($data, 'inspectores-asignar');
 
-    	$inspecciones = Inspeccion::where('estatusinspeccion_id', 1)
-    						->where('ejerciciofiscal_id', $ejercicio_fiscal_id)
+		$inspecciones = Inspeccion::where('estatusinspeccion_id', 1)
+							->where('ejerciciofiscal_id', $ejercicio_fiscal_id)
 							->where('tipoinspeccion_id', $tipo_inspeccion_id)
 							->get();
 		
@@ -609,6 +623,15 @@ class InspeccionController extends Controller
 
 	public function actualizarInformacionInspeccion(Request $request){
 
+		$inspeccion_id = $request->input('inspeccion-id');
+		$inspeccion = Inspeccion::find($inspeccion_id);
+
+		/* Ya sirve solo hay que descomentar
+		if ($inspeccion->estatusInspeccion->clave == 'NA') {
+			return 'Debes asiganar la inspección antes de capturar los datos';
+		}
+		*/
+		
 		$validate = $this->validate($request, [
 			'inspeccion-id' => 'required|string',
 			'encargador' => 'string',
@@ -623,61 +646,51 @@ class InspeccionController extends Controller
 			'observacion' => 'string|nullable',
 			'gestor' => 'string|nullable',
 			'prorroga' => 'string|nullable'
-        ]);
+		]);
 
 		$data = $request->all();
-		$inspeccion_id = $request->input('inspeccion-id');
-        $encargado = $request->input('encargado');
-    	$cargo = $request->input('cargo');
-    	$identificacion = $request->input('identificacion');
-    	$folioidentificacion = $request->input('folioidentificacion');
-    	$fecha = $request->input('fecha');
-    	$hora = $request->input('hora');
-    	$solicitado = array_get($data, 'solicitado');
-    	$exhibido = array_get($data, 'exhibido');
-    	$observaciones = array_get($data, 'observaciones');
-    	$observacion = $request->input('observacion');
-    	$gestor = $request->input('gestor');
-    	$prorroga = $request->input('prorroga');
+		$encargado = $request->input('encargado');
+		$cargo = $request->input('cargo');
+		$identificacion = $request->input('identificacion');
+		$folioidentificacion = $request->input('folioidentificacion');
+		$fecha = $request->input('fecha');
+		$hora = $request->input('hora');
+		$solicitado = array_get($data, 'solicitado');
+		$exhibido = array_get($data, 'exhibido');
+		$observaciones = array_get($data, 'observaciones');
+		$observacion = $request->input('observacion');
+		$gestor = $request->input('gestor');
+		$prorroga = $request->input('prorroga');
 
-    	$inspeccion = Inspeccion::find($inspeccion_id);
+		$inspeccion->nombreencargado = $encargado;
+		$inspeccion->cargoencargado = $cargo;
+		$inspeccion->identificacion = $identificacion;
+		$inspeccion->folioidentificacion = $folioidentificacion;
+		$inspeccion->fecharealizada = $fecha;
+		$inspeccion->horarealizada = $hora;
+		$inspeccion->comentario = $observacion;
+		$inspeccion->gestores_id = $gestor;
+		$inspeccion->diasvence = $prorroga;
+		$inspeccion->update();
+		
+		for ($i = 0; $i < count($solicitado) ; $i++) {
+			
+			$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $solicitado[$i])->where('inspeccion_id', $inspeccion_id)->first();
 
-    	$inspeccion->nombreencargado = $encargado;
-    	$inspeccion->cargoencargado = $cargo;
-    	$inspeccion->identificacion = $identificacion;
-    	$inspeccion->folioidentificacion = $folioidentificacion;
-    	$inspeccion->fecharealizada = $fecha;
-    	$inspeccion->horarealizada = $hora;
-    	$inspeccion->comentario = $observacion;
-    	$inspeccion->gestores_id = $gestor;
-    	$inspeccion->diasvence = $prorroga;
-    	$inspeccion->update();
-
-    	
-
-    	for ($i = 0; $i < count($solicitado) ; $i++) {
-    		
-
-    		$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $solicitado[$i])->where('inspeccion_id', $inspeccion_id)->first();
-
-
-	        $documentacion_requerida->solicitado = 1;
+			$documentacion_requerida->solicitado = 1;
 			$documentacion_requerida->observaciones = $observaciones[$i];
-	    	$documentacion_requerida->update();
-    		
-    	}
+			$documentacion_requerida->update();
+			
+		}
 
-    	for ($i = 0; $i < count($exhibido) ; $i++) {
-    		
+		for ($i = 0; $i < count($exhibido) ; $i++) {
+			
+			$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $exhibido[$i])->where('inspeccion_id', $inspeccion_id)->first();
 
-    		$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $exhibido[$i])->where('inspeccion_id', $inspeccion_id)->first();
-
-
-	        $documentacion_requerida->exhibido = 1;
-	    	$documentacion_requerida->update();
-    		
-    	}
-
+			$documentacion_requerida->exhibido = 1;
+			$documentacion_requerida->update();
+			
+		}
 	}
 
 }

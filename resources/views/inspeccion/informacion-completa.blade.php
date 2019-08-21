@@ -6,7 +6,7 @@
 <h3>Estado de la Inspección</h3>
 
 @if ($errors->any())
-    <p>{{ $errors }}</p>
+	<p>{{ $errors }}</p>
 @endif
 
 <div>
@@ -57,6 +57,57 @@
 				@endif
 			</div>
 			@endif
+			@if ($is_edit == 'true')
+			<div class="form-group ">
+				<label for="encargado">{{ __('Nombre del encargado') }}</label>
+				<input id="encargado" type="text" class="form-control" name="encargado" value="{{ $inspeccion->nombreencargado }}" autofocus>
+			</div>
+			<div class="row mb-3">
+				<div class="col-lg-4">
+					<div class="form-group ">
+						<label for="cargo">{{ __('Puesto del encargado') }}</label>
+						<input id="cargo" type="text" class="form-control" name="cargo" value="{{ $inspeccion->cargoencargado }}" autofocus>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="form-group ">
+						<label for="identificacion">{{ __('Identificación del encargado') }}</label>
+						<input id="identificacion" type="text" class="form-control" name="identificacion" value="{{ $inspeccion->identificacion }}" autofocus>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="form-group ">
+						<label for="folioidentificacion">{{ __('Folio de Identificación del encargado') }}</label>
+						<input id="folioidentificacion" type="text" class="form-control" name="folioidentificacion" value="{{ $inspeccion->folioidentificacion }}" autofocus>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="form-group ">
+						<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
+						<input id="fecharealizada" type="date" class="form-control" name="fecha" value="{{ $inspeccion->fecharealizada }}" required autofocus>
+						
+						@if ($errors->has('hora'))
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $errors->first('hora') }}</strong>
+						</span>
+						@endif
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="form-group ">
+						<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
+						<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ $inspeccion->horarealizada }}" required autofocus>
+						@if ($errors->has('hora'))
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $errors->first('hora') }}</strong>
+						</span>
+						@endif
+					</div>
+				</div>
+			</div>
+			@else
 			<div class="form-group ">
 				<label for="encargado">{{ __('Nombre del encargado') }}</label>
 				<input id="encargado" type="text" class="form-control" name="encargado" value="{{ old('encargado') }}" autofocus>
@@ -106,38 +157,37 @@
 					</div>
 				</div>
 			</div>
+			@endif
 		</div>
 	</div>
 	<div class="card">
 		<div class="card-body">
 			<h3>Documentación Presentada</h3>
 			<hr>
-			
 			<table class="table table-sm">
 			  <thead class="thead-dark">
-			    <tr class="text-center">
-			      <th scope="col">Documento Requerido</th>
-			      <th scope="col">Solicitiado</th>
-			      <th scope="col">Exhibido</th>
-			      <th scope="col">Observaciones</th>
-			    </tr>
+				<tr class="text-center">
+				  <th scope="col">Documento Requerido</th>
+				  <th scope="col">Solicitiado</th>
+				  <th scope="col">Exhibido</th>
+				  <th scope="col">Observaciones</th>
+				</tr>
 			  </thead>
 			  <tbody>
-			  	@foreach($documentos as $documento)
-			    <tr>
-			      <th>{{ $documento->documentacionRequerida->nombre }}</th>
-			      <td><input class="form-check-input" type="checkbox" id="solicitado" value="{{ $documento->documentacionrequerida_id  }}" name="solicitado[]"></td>
-			      <td><input class="form-check-input" type="checkbox" id="exhibido" value="{{ $documento->documentacionrequerida_id }}" name="exhibido[]"></td>
-			      <td><input class="form-control form-control-sm" type="text" name="observaciones[]"></td>
-			    </tr>
-			    @endforeach
+				@foreach($documentos as $documento)
+				<tr>
+				  <th>{{ $documento->documentacionRequerida->nombre }}</th>
+				  <td><input class="form-check-input" type="checkbox" id="solicitado" value="{{ $documento->documentacionrequerida_id  }}" name="solicitado[]"></td>
+				  <td><input class="form-check-input" type="checkbox" id="exhibido" value="{{ $documento->documentacionrequerida_id }}" name="exhibido[]"></td>
+				  <td><input class="form-control form-control-sm" type="text" name="observaciones[]"></td>
+				</tr>
+				@endforeach
 			  </tbody>
 			</table>
-			
 			<div class="form-group">
-			    <label for="observacion">Observaciones</label>
-			    <textarea class="form-control" id="observacion" rows="3" name="observacion"></textarea>
-		  	</div>
+				<label for="observacion">Observaciones</label>
+				<textarea class="form-control" id="observacion" rows="3" name="observacion"></textarea>
+			</div>
 		</div>
 	</div>
 	<div class="card mb-3">
