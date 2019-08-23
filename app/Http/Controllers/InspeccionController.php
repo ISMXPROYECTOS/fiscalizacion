@@ -634,7 +634,8 @@ class InspeccionController extends Controller
 		
 		$validate = $this->validate($request, [
 			'inspeccion-id' => 'required|string',
-			'encargador' => 'string',
+			'establecimiento' => 'required|string|nullable',
+			'encargado' => 'string',
 			'cargo' => 'nullable',
 			'identificacion' => 'nullable',
 			'folioidentificacion' => 'nullable',
@@ -650,6 +651,7 @@ class InspeccionController extends Controller
 
 		$data = $request->all();
 		$encargado = $request->input('encargado');
+		$establecimiento = $request->input('establecimiento');
 		$cargo = $request->input('cargo');
 		$identificacion = $request->input('identificacion');
 		$folioidentificacion = $request->input('folioidentificacion');
@@ -663,6 +665,7 @@ class InspeccionController extends Controller
 		$prorroga = $request->input('prorroga');
 
 		$inspeccion->nombreencargado = $encargado;
+		$inspeccion->comercio_id = $establecimiento;
 		$inspeccion->cargoencargado = $cargo;
 		$inspeccion->identificacion = $identificacion;
 		$inspeccion->folioidentificacion = $folioidentificacion;
@@ -691,6 +694,8 @@ class InspeccionController extends Controller
 			$documentacion_requerida->update();
 			
 		}
+
+		return redirect('/inspecciones/informacion/'.$inspeccion_id)->with('status', 'Se ha capturado la informacion correctamente.');
 	}
 
 }

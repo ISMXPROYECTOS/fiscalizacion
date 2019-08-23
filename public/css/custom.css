@@ -214,6 +214,24 @@ ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus
   position: unset !important;
 }
 
+/* Vista de captura inspeciones */
+
+.documento-requerido-t{
+  width: 50%;
+}
+
+.documento-requerido-nombre{
+  font-size: 0.8em;
+}
+
+.solicitado-t, .exhibido-t{
+  width: 5%;
+}
+
+.observaciones{
+  width: 40%;
+}
+
 
 /* Responsive */
 

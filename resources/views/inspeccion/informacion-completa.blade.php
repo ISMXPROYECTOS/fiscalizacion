@@ -3,26 +3,40 @@
 <header class="page-header">
 	<h2>Folio de Inspección: {{ $inspeccion->folio }}</h2>
 </header>
-<h3>Estado de la Inspección</h3>
+
 
 @if ($errors->any())
 	<p>{{ $errors }}</p>
 @endif
 
-<div>
-	<label for="">Estatus: </label>
-	<label for="">{{ $inspeccion->estatusInspeccion->nombre }}</label>
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+
+<div class="card">
+  <div class="card-body">
+  	<h3>Estado de la Inspección</h3>
+  	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-secondary">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
+  </div>
 </div>
+
+
 <form method="POST" action="{{ route('actualizar-informacion-inspeccion') }}">
 	@csrf
 
-	<input type="text" class="hidden" name="inspeccion-id" value="{{ $inspeccion->id }}">
+	<input type="hidden" name="inspeccion-id" value="{{ $inspeccion->id }}">
 
 	<div class="card">
 		<div class="card-body">
 			<h3>Datos del Comercio</h3>
 			<hr>
 			@if(is_object($inspeccion->comercio))
+			<input type="hidden" name="establecimiento" value="{{ $inspeccion->comercio->id }}">
 			<div class="form-group">
 				<label for="nombrelocal">{{ __('Nombre Establecimiento') }}</label>
 				<input id="nombrelocal" type="text" name="nombrelocal" class="form-control" value="{{ $inspeccion->comercio->nombreestablecimiento }}" required autofocus>
@@ -98,7 +112,7 @@
 				<div class="col-lg-6">
 					<div class="form-group ">
 						<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
-						<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ $inspeccion->horarealizada }}" required autofocus>
+						<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ date('H:i', strtotime($inspeccion->horarealizada)) }}" required autofocus>
 						@if ($errors->has('hora'))
 						<span class="invalid-feedback" role="alert">
 							<strong>{{ $errors->first('hora') }}</strong>
@@ -167,26 +181,26 @@
 			<table class="table table-sm">
 			  <thead class="thead-dark">
 				<tr class="text-center">
-				  <th scope="col">Documento Requerido</th>
-				  <th scope="col">Solicitiado</th>
-				  <th scope="col">Exhibido</th>
-				  <th scope="col">Observaciones</th>
+				  <th scope="col" class="documento-requerido-t">Documento Requerido</th>
+				  <th scope="col" class="solicitado-t">Solicitiado</th>
+				  <th scope="col" class="exhibido-t">Exhibido</th>
+				  <th scope="col" class="observaciones-t">Observaciones</th>
 				</tr>
 			  </thead>
 			  <tbody>
 				@foreach($documentos as $documento)
 				<tr>
-				  <th>{{ $documento->documentacionRequerida->nombre }}</th>
-				  <td><input class="form-check-input" type="checkbox" id="solicitado" value="{{ $documento->documentacionrequerida_id  }}" name="solicitado[]"></td>
-				  <td><input class="form-check-input" type="checkbox" id="exhibido" value="{{ $documento->documentacionrequerida_id }}" name="exhibido[]"></td>
-				  <td><input class="form-control form-control-sm" type="text" name="observaciones[]"></td>
+				  <th class="documento-requerido-nombre">{{ $documento->documentacionRequerida->nombre }}</th>
+				  <td class="text-center"><input class="form-check-input " @if($documento->solicitado == 1) checked @endif type="checkbox" id="solicitado" value="{{ $documento->documentacionrequerida_id  }}" name="solicitado[]"></td>
+				  <td class="text-center"><input class="form-check-input " @if($documento->exhibido == 1) checked @endif type="checkbox" id="exhibido" value="{{ $documento->documentacionrequerida_id }}" name="exhibido[]"></td>
+				  <td><input class="form-control form-control-sm" type="text" value="{{ $documento->observaciones  }}" name="observaciones[]"></td>
 				</tr>
 				@endforeach
 			  </tbody>
 			</table>
 			<div class="form-group">
 				<label for="observacion">Observaciones</label>
-				<textarea class="form-control" id="observacion" rows="3" name="observacion"></textarea>
+				<textarea class="form-control" id="observacion" rows="3"  name="observacion">{{ $documento->inspeccion->comentario }}</textarea>
 			</div>
 		</div>
 	</div>
@@ -197,12 +211,35 @@
 					<h3>Gestor a cargo</h3>
 					<hr>
 					@if(is_object($inspeccion->gestor))
+					<div class="form-group">
+						<label for="gestor">{{ __('Gestor') }}</label>
+						<select name="gestor" id="gestor" class="form-control{{ $errors->has('gestor') ? ' is-invalid' : '' }}" value="{{ old('gestor') }}" autofocus>
+							<option value="">Seleccionar</option>
+							@foreach($gestores as $gestor)
+							<option value="{{ $gestor->id }}" @if($inspeccion->gestor->id == $gestor->id) selected @endif>
+								{{ $gestor->nombre }} {{ $gestor->apellidopaterno }} {{ $gestor->apellidomaterno }}
+							</option>
+							@endforeach
+						</select>
+						@if ($errors->has('gestor'))
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $errors->first('gestor') }}</strong>
+						</span>
+						@endif
+					</div>
+
 					<div id="datos-gestor">
-						<p class="mb-0">Telefono: <b id="telefono-gestor"></b></p>
-						<p class="mb-0">Celular: <b id="celular-gestor"></b></p>
-						<p class="mb-0">Correo: <b id="correo-gestor"></b></p>
-						<p class="mb-0">Identificación (INE): <b id="identificacion-gestor"></b></p>
-						<p class="mb-0">Estado: <b id="estatus-gestor"></b></p>
+						<p class="mb-0">Telefono: <b id="telefono-gestor"> {{$inspeccion->gestor->telefono}}</b></p>
+						<p class="mb-0">Celular: <b id="celular-gestor"> {{$inspeccion->gestor->celular}}</b></p>
+						<p class="mb-0">Correo: <b id="correo-gestor"> {{$inspeccion->gestor->correoelectronico}}</b></p>
+						<p class="mb-0">Identificación (INE): <b id="identificacion-gestor"> {{$inspeccion->gestor->ine}}</b></p>
+						<p class="mb-0">Estado: 
+							<b id="estatus-gestor">
+								 @if($inspeccion->gestor->estatus == 'A')
+								 	Activo
+								 @endif
+							</b>
+						</p>
 					</div>
 					@else
 					<div class="form-group">
@@ -210,7 +247,9 @@
 						<select name="gestor" id="gestor" class="form-control{{ $errors->has('gestor') ? ' is-invalid' : '' }}" value="{{ old('gestor') }}" autofocus>
 							<option value="">Seleccionar</option>
 							@foreach($gestores as $gestor)
-							<option value="{{ $gestor->id }}">{{ $gestor->nombre }} {{ $gestor->apellidopaterno }} {{ $gestor->apellidomaterno }}</option>
+							<option value="{{ $gestor->id }}">
+								{{ $gestor->nombre }} {{ $gestor->apellidopaterno }} {{ $gestor->apellidomaterno }}
+							</option>
 							@endforeach
 						</select>
 						@if ($errors->has('gestor'))
