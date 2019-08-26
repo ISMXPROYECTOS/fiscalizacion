@@ -1,13 +1,43 @@
+@font-face{
+    font-family: arial;
+    src: url(../vendor/fonts/arial.ttf);
+}
+
+@font-face{
+    font-family: arialb;
+    src: url(../vendor/fonts/arialbd.ttf);
+}
+
 html, body{
+	font-family: arial;
 	margin: 0 !important;
 	font-size: .8em;
-	line-height: 1.3;
+	line-height: 1.1;
 
 }
 
-.folio{
-	font-size: 1.2em !important;
+
+/* Estilos Globales */
+
+.mb-0{
+	margin-bottom: 0 !important;
 }
+
+.mb-1{
+	margin-bottom: .25rem !important;
+}
+
+.mt-1{
+	margin-top: .25rem !important;
+}
+
+.container{
+	width: 90%;
+	margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
+
 
 .text-justify{
 	text-align: justify;
@@ -16,6 +46,26 @@ html, body{
 .page_break{
 	page-break-before: always; 
 }
+
+.header-datos{
+	font-family: arialb;
+}
+
+.documentos-requeridos{
+	font-family: arialb;
+}
+
+
+
+/* Fin Estilos Globales */
+
+.folio{
+	font-size: 1.2em !important;
+	margin-top: 0;
+	margin-bottom: 0;
+	float: right;
+}
+
 
 /* Orden de Inspeccion */
 
