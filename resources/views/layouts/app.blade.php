@@ -172,6 +172,12 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a class="nav-link" href="{{ route('listado-comercios') }}">
+                                            <i class="fas fa-users"></i>
+                                            <span>Comercios</span>
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a class="nav-link" href="{{ route('listado-ejercicios-fiscales') }}">
                                             <i class="fas fa-calendar-alt"></i>
                                             <span>Años fiscales y dias inhabiles</span>

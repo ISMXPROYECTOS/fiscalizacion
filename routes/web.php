@@ -89,11 +89,9 @@ Route::post('/inspecciones/informacion/actualizar', 'InspeccionController@actual
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@listadoInspeccionesParaDescargar')->name('listado-de-inspecciones-para-descargar');
 Route::get('/pdf/listado', 'PdfController@tbody');
-
 Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete');
 //Route::get('/pdf/validar-acta-inspeccion/{id}', 'PdfController@validarActaInspeccion');
 //Route::get('/pdf/descargar-acta-inspeccion/{id}', 'PdfController@descargarActaInspeccion');
-
 Route::get('/pdf/descargar-pdf-inspecciones/{id}', 'PdfController@descargarPdfInspecciones');
 
 /* Rutas Tipos Inspecciones*/
@@ -115,6 +113,12 @@ Route::get('/gafetes/registrar/{id}', 'GafetesController@registrar');
 Route::post('/gafetes/generar', 'GafetesController@generar');
 
 /* Rutas Comercios */
+Route::get('/comercios', 'ComercioController@listadoComercios')->name('listado-comercios');
+Route::get('/comercios/listado', 'ComercioController@tbody');
+Route::post('/comercios/nuevo', 'ComercioController@create');
+Route::get('/comercios/editar/{id}', 'ComercioController@editarComercio');
+Route::post('/comercios/actualizar', 'ComercioController@update');
+Route::post('/comercios/estatus', 'ComercioController@updateEstatus');
 Route::get('/comercios/buscar/supermanzana/{calle}', 'ComercioController@buscarComercios');
 
 /* Rutas Configuracion */
