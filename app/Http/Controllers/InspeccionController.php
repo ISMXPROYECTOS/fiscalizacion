@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Yajra\Datatables\Datatables;
 use App\Inspeccion;
 use App\Inspector;
 use App\Gestor;
@@ -79,28 +80,12 @@ class InspeccionController extends Controller
 	}
 
 	public function tbody(){
-		return datatables()
-			->eloquent(Inspeccion::query())
-			->addColumn('tipoInspeccion', function(Inspeccion $inspeccion){
-				return $inspeccion->tipoInspeccion->clave;
-			})
-			->addColumn('estatusInspeccion', function(Inspeccion $inspeccion){
-				return $inspeccion->estatusInspeccion->nombre;
-			})
-			->addColumn('inspector', function(Inspeccion $inspeccion){
-				if(is_object($inspeccion->inspector)) {
-					return $inspeccion->inspector->nombre;
-				}
-			})
-			->addColumn('nombrelocal', function(Inspeccion $inspeccion){
-				if(is_object($inspeccion->comercio)) {
-					return $inspeccion->comercio->nombreestablecimiento;
-				}
-			})
-			->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
+		$inspecciones = Inspeccion::all()->load('tipoInspeccion')->load('estatusInspeccion')->load('inspector')->load('comercio');
+        return Datatables::of($inspecciones)
+            ->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
 			->addColumn('informacion', 'inspeccion/boton-informacion')
 			->rawColumns(['cambiarestatus', 'informacion'])
-			->toJson();
+			->make(true);
 	}
 
 	public function create(Request $request){

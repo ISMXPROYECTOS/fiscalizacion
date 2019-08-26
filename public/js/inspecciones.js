@@ -18,14 +18,18 @@ $(document).ready(function(){
         $('#datatable').DataTable({
             'serverSide': true,
             'destroy': true,
-            'order': [ 2, 'asc' ],
+            'order': [ 0, 'asc' ],
             'ajax': url + '/inspecciones/listado',
             'columns': [
                 {data: 'folio'},
-                {data: 'tipoInspeccion'},
-                {data: 'estatusInspeccion'},
-                {data: 'inspector'},
-                {data: 'nombrelocal'},
+                {data: 'tipo_inspeccion.clave'},
+                {data: 'estatus_inspeccion.nombre'},
+                {data: 'inspector.nombre',
+                    defaultContent: ''
+                },
+                {data: 'comercio.nombreestablecimiento',
+                    defaultContent: ''
+                },
                 {data: 'cambiarestatus'},
                 {data: 'informacion'},
             ],
