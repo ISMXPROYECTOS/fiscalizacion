@@ -6,6 +6,7 @@
 @font-face{
     font-family: arialb;
     src: url(../vendor/fonts/arialbd.ttf);
+    font-weight: bold;
 }
 
 html, body{
@@ -51,8 +52,8 @@ html, body{
 	font-family: arialb;
 }
 
-.documentos-requeridos{
-	font-family: arialb;
+.documentacion-requerida{
+	font-family: arialb !important;
 }
 
 

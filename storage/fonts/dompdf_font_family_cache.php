@@ -82,5 +82,6 @@
   ),
   'arialb' => array(
     'normal' => $fontDir . '\58900ac8f75550a2999c2edd74c1fc31',
+    'bold' => $fontDir . '\58900ac8f75550a2999c2edd74c1fc31',
   ),
 ) ?>
