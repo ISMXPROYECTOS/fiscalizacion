@@ -626,11 +626,11 @@ class InspeccionController extends Controller
 		$inspeccion_id = $request->input('inspeccion-id');
 		$inspeccion = Inspeccion::find($inspeccion_id);
 
-		/* Ya sirve solo hay que descomentar
+		/* Ya sirve solo hay que descomentar 
 		if ($inspeccion->estatusInspeccion->clave == 'NA') {
 			return 'Debes asiganar la inspección antes de capturar los datos';
-		}
-		*/
+		} */
+		
 		
 		$validate = $this->validate($request, [
 			'inspeccion-id' => 'required|string',
