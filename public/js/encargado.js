@@ -22,7 +22,7 @@ $(document).ready(function(){
         $('#datatable').DataTable({
             'serverSide': true,
             'destroy': true,
-            'ajax': url + '/configuracion/listado',
+            'ajax': url + '/encargado/listado',
             'columns': [
                 {data: 'nombre',
                     'render': function ( data, type, row ) {
@@ -39,8 +39,8 @@ $(document).ready(function(){
                         }
                     }
                 },
-                {data: 'editar'},
                 {data: 'cambiarestatus'},
+                {data: 'editar'}
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',
@@ -71,7 +71,7 @@ $(document).ready(function(){
             }
 
             $.ajax({
-                url: url + '/configuracion/nuevo',
+                url: url + '/encargado/nuevo',
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -108,7 +108,7 @@ $(document).ready(function(){
             e.preventDefault();
             var id = $(this).attr('id');
              $.ajax({
-                url: url + '/configuracion/editar/' + id,
+                url: url + '/encargado/editar/' + id,
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
@@ -138,7 +138,7 @@ $(document).ready(function(){
             }
 
             $.ajax({
-                url: url + '/configuracion/actualizar',
+                url: url + '/encargado/actualizar',
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -174,7 +174,7 @@ $(document).ready(function(){
             e.preventDefault();
             var id = $(this).attr('id');
              $.ajax({
-                url: url + '/configuracion/editar/' + id,
+                url: url + '/encargado/editar/' + id,
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
@@ -198,7 +198,7 @@ $(document).ready(function(){
             }
 
             $.ajax({
-                url: url + '/configuracion/estatus',
+                url: url + '/encargado/estatus',
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },

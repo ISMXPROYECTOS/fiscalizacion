@@ -25,8 +25,8 @@ class FormaValorada extends Model
 	}
 
 	/* Relación muchos a uno */
-	public function configuracion(){
-		return $this->belongsTo('App\Configuracion', 'configuracion_id');
+	public function encargado(){
+		return $this->belongsTo('App\Encargado', 'encargado_id');
 	}
 
 	/* Relación uno a mucho */
@@ -40,6 +40,6 @@ class FormaValorada extends Model
      * @var array
      */
     protected $fillable = [
-        'usuario_id', 'tipoinspeccion_id', 'ejerciciofiscal_id', 'configuracion_id', 'idejerciciofiscal', 'idconfiguracion', 'folioinicio', 'foliofin'
+        'usuario_id', 'tipoinspeccion_id', 'ejerciciofiscal_id', 'encargado_id', 'idejerciciofiscal', 'idconfiguracion', 'folioinicio', 'foliofin'
     ];
 }

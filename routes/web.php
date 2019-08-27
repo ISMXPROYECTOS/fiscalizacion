@@ -121,13 +121,13 @@ Route::post('/comercios/actualizar', 'ComercioController@update');
 Route::post('/comercios/estatus', 'ComercioController@updateEstatus');
 Route::get('/comercios/buscar/supermanzana/{calle}', 'ComercioController@buscarComercios');
 
-/* Rutas Configuracion */
-Route::get('/configuracion', 'ConfiguracionController@listadoEncargados')->name('listado-encargados');
-Route::get('/configuracion/listado', 'ConfiguracionController@tbody');
-Route::post('/configuracion/nuevo', 'ConfiguracionController@create');
-Route::get('/configuracion/editar/{id}', 'ConfiguracionController@editarEncargado');
-Route::post('/configuracion/actualizar', 'ConfiguracionController@update');
-Route::post('/configuracion/estatus', 'ConfiguracionController@updateEstatus');
+/* Rutas Encargado */
+Route::get('/encargado', 'EncargadoController@listadoEncargados')->name('listado-encargados');
+Route::get('/encargado/listado', 'EncargadoController@tbody');
+Route::post('/encargado/nuevo', 'EncargadoController@create');
+Route::get('/encargado/editar/{id}', 'EncargadoController@editarEncargado');
+Route::post('/encargado/actualizar', 'EncargadoController@update');
+Route::post('/encargado/estatus', 'EncargadoController@updateEstatus');
 
 /* Rutas Documentacion Requerida */
 Route::get('/documentacion-requerida', 'DocumentacionRequeridaController@listadoDocumentacionRequerida')->name('listado-documentacion');

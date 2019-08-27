@@ -4,33 +4,29 @@
 	<h2>Folio de Inspección: {{ $inspeccion->folio }}</h2>
 </header>
 
-
 @if ($errors->any())
-	<p>{{ $errors }}</p>
+<p>{{ $errors }}</p>
 @endif
 
 @if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
+<div class="alert alert-success">
+	{{ session('status') }}
+</div>
 @endif
 
 <div class="card">
-  <div class="card-body">
-  	<h3>Estado de la Inspección</h3>
-  	<div>
-		<label for="">Estatus: </label>
-		<label for=""> <span class="badge badge-pill badge-secondary">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	<div class="card-body">
+		<h3>Estado de la Inspección</h3>
+		<div>
+			<label for="">Estatus: </label>
+			<label for=""> <span class="badge badge-pill badge-secondary">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+		</div>
 	</div>
-  </div>
 </div>
-
 
 <form method="POST" action="{{ route('actualizar-informacion-inspeccion') }}">
 	@csrf
-
 	<input type="hidden" name="inspeccion-id" value="{{ $inspeccion->id }}">
-
 	<div class="card">
 		<div class="card-body">
 			<h3>Datos del Comercio</h3>
@@ -179,28 +175,28 @@
 			<h3>Documentación Presentada</h3>
 			<hr>
 			<table class="table table-sm">
-			  <thead class="thead-dark">
-				<tr class="text-center">
-				  <th scope="col" class="documento-requerido-t">Documento Requerido</th>
-				  <th scope="col" class="solicitado-t">Solicitiado</th>
-				  <th scope="col" class="exhibido-t">Exhibido</th>
-				  <th scope="col" class="observaciones-t">Observaciones</th>
-				</tr>
-			  </thead>
-			  <tbody>
-				@foreach($documentos as $documento)
-				<tr>
-				  <th class="documento-requerido-nombre">{{ $documento->documentacionRequerida->nombre }}</th>
-				  <td class="text-center"><input class="form-check-input " @if($documento->solicitado == 1) checked @endif type="checkbox" id="solicitado" value="{{ $documento->documentacionrequerida_id  }}" name="solicitado[]"></td>
-				  <td class="text-center"><input class="form-check-input " @if($documento->exhibido == 1) checked @endif type="checkbox" id="exhibido" value="{{ $documento->documentacionrequerida_id }}" name="exhibido[]"></td>
-				  <td><input class="form-control form-control-sm" type="text" value="{{ $documento->observaciones  }}" name="observaciones[]"></td>
-				</tr>
-				@endforeach
-			  </tbody>
+				<thead class="thead-dark">
+					<tr class="text-center">
+						<th scope="col" class="documento-requerido-t">Documento Requerido</th>
+						<th scope="col" class="solicitado-t">Solicitiado</th>
+						<th scope="col" class="exhibido-t">Exhibido</th>
+						<th scope="col" class="observaciones-t">Observaciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($documentos as $documento)
+					<tr>
+						<th class="documento-requerido-nombre">{{ $documento->documentacionRequerida->nombre }}</th>
+						<td class="text-center"><input class="form-check-input " @if($documento->solicitado == 1) checked @endif type="checkbox" id="solicitado" value="{{ $documento->documentacionrequerida_id  }}" name="solicitado[]"></td>
+						<td class="text-center"><input class="form-check-input " @if($documento->exhibido == 1) checked @endif type="checkbox" id="exhibido" value="{{ $documento->documentacionrequerida_id }}" name="exhibido[]"></td>
+						<td><input class="form-control form-control-sm" type="text" value="{{ $documento->observaciones  }}" name="observaciones[]"></td>
+					</tr>
+					@endforeach
+				</tbody>
 			</table>
 			<div class="form-group">
 				<label for="observacion">Observaciones</label>
-				<textarea class="form-control" id="observacion" rows="3"  name="observacion">{{ $documento->inspeccion->comentario }}</textarea>
+				<textarea class="form-control" id="observacion" rows="3"  name="observacion">{{ $inspeccion->comentario }}</textarea>
 			</div>
 		</div>
 	</div>
@@ -235,9 +231,9 @@
 						<p class="mb-0">Identificación (INE): <b id="identificacion-gestor"> {{$inspeccion->gestor->ine}}</b></p>
 						<p class="mb-0">Estado: 
 							<b id="estatus-gestor">
-								 @if($inspeccion->gestor->estatus == 'A')
-								 	Activo
-								 @endif
+								@if($inspeccion->gestor->estatus == 'A')
+								Activo
+								@endif
 							</b>
 						</p>
 					</div>
@@ -281,7 +277,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<button type="submit" class="btn btn-primary btn-lg btn-primary-custom">Actualizar Información</button>
 </form>
 @endsection

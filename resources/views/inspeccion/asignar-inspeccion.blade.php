@@ -53,6 +53,8 @@
         <label for="cantidad-asignar">Cantidad a Asignar</label>
         <select name="cantidad-asignar" class="form-control" id="cantidad-asignar">
             <option value="">Seleccionar</option>
+            <option value="1">1</option>
+            <option value="5">5</option>
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="30">30</option>

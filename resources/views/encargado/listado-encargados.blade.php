@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <header class="page-header">
-    <h2>Catalogo de Colonias</h2>
+    <h2>Catalogo de Encargados</h2>
 </header>
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-encargado" data-backdrop="static" data-keyboard="false">
     <i class="fas fa-user-plus"></i> Agregar Encargado
@@ -220,5 +220,5 @@
 
 @endsection
 @section('scripts')
-<script src="{{ asset('js/configuracion.js') }}" defer></script>
+<script src="{{ asset('js/encargado.js') }}" defer></script>
 @endsection
