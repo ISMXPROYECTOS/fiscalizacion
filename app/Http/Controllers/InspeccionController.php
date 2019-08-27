@@ -21,6 +21,7 @@ use App\Encargado;
 use App\Comercio;
 use App\DocumentacionRequerida;
 use App\DocumentacionPorTipoDeInspeccion;
+use App\Configuracion;
 
 class InspeccionController extends Controller
 {
@@ -612,7 +613,9 @@ class InspeccionController extends Controller
 
 		$inspeccion_id = $request->input('inspeccion-id');
 		$inspeccion = Inspeccion::find($inspeccion_id);
-		
+		$configuracion = Configuracion::where('id', 1)->first();
+		$configuracion_dias_vence = $configuracion->valornumero;
+
 		$validate = $this->validate($request, [
 			'inspeccion-id' => 'required|string',
 			'establecimiento' => 'required|string|nullable',
@@ -630,6 +633,9 @@ class InspeccionController extends Controller
 			'prorroga' => 'string|nullable'
 		]);
 
+		$hoy = new \DateTime();
+		$hoy->format('d-m-Y H:i:s');
+
 		$data = $request->all();
 		$encargado = $request->input('encargado');
 		$establecimiento = $request->input('establecimiento');
@@ -643,8 +649,10 @@ class InspeccionController extends Controller
 		$observaciones = array_get($data, 'observaciones');
 		$observacion = $request->input('observacion');
 		$gestor = $request->input('gestor');
-		$prorroga = $request->input('prorroga');
+		$dias_prorroga = $request->input('prorroga');
+		$fecha_vence = date("Y-m-d",strtotime($fecha . "+" . $configuracion_dias_vence . "days"));
 
+		$inspeccion->fechacapturada = $hoy;
 		$inspeccion->nombreencargado = $encargado;
 		$inspeccion->comercio_id = $establecimiento;
 		$inspeccion->cargoencargado = $cargo;
@@ -654,7 +662,14 @@ class InspeccionController extends Controller
 		$inspeccion->horarealizada = $hora;
 		$inspeccion->comentario = $observacion;
 		$inspeccion->gestores_id = $gestor;
-		$inspeccion->diasvence = $prorroga;
+		$inspeccion->diasvence = $configuracion_dias_vence;
+		$inspeccion->fechavence = $fecha_vence;
+		
+		if ($dias_prorroga != 0) {
+			$fecha_prorroga = date("Y-m-d",strtotime($fecha_vence . "+" . $dias_prorroga . "days"));
+			$inspeccion->fechaprorroga = $fecha_prorroga;
+		}
+		
 		$inspeccion->update();
 		
 		for ($i = 0; $i < count($solicitado) ; $i++) {

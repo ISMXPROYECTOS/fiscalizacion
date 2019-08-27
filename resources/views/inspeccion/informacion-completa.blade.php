@@ -21,6 +21,10 @@
 			<label for="">Estatus: </label>
 			<label for=""> <span class="badge badge-pill badge-secondary">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
 		</div>
+		<div>
+			<label for="">Fecha de vencimiento: </label>
+			<label for=""> <span class="badge badge-pill badge-secondary">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span></label>
+		</div>
 	</div>
 </div>
 
@@ -261,15 +265,20 @@
 					<hr>
 					<div class="form-group ">
 						<label for="prorroga">{{ __('Dias de Prorroga') }}</label>
-						<input id="prorroga" type="text" class="form-control" name="prorroga" value="{{ old('prorroga') }}" autofocus>
+						<input id="prorroga" type="number" class="form-control" name="prorroga" value="{{ old('prorroga') }}" autofocus>
 						@if ($errors->has('prorroga'))
 						<span class="invalid-feedback" role="alert">
 							<strong>{{ $errors->first('prorroga') }}</strong>
 						</span>
 						@endif
-						@if($inspeccion->fechavence != null)
+						@if($inspeccion->fechavence < date("Y-m-d"))
+						<div class="alert alert-danger" role="alert">
+							La inspección venció el: {{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}
+						</div>
+						@endif
+						@if($inspeccion->fechavence == date("Y-m-d"))
 						<div class="alert alert-warning" role="alert">
-							La prorroga vence el: {{ $inspeccion->fechavence }}
+							La inspección vence hoy: {{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}
 						</div>
 						@endif
 					</div>
