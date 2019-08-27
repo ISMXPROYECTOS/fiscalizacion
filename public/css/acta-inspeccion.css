@@ -9,126 +9,123 @@
     font-weight: bold;
 }
 
-html, body{
-	font-family: arial;
-	margin: 0 !important;
-	font-size: .8em;
-	line-height: 1.1;
-
-}
-
-
-/* Estilos Globales */
-
-.mb-0{
-	margin-bottom: 0 !important;
-}
-
-.mb-1{
-	margin-bottom: .25rem !important;
-}
-
-.mt-1{
-	margin-top: .25rem !important;
-}
-
-.container{
-	width: 90%;
-	margin-right: auto;
-    margin-left: auto;
-    display: block;
-}
-
-
-.text-justify{
-	text-align: justify;
-}
-
-.page_break{
-	page-break-before: always; 
-}
-
-.header-datos{
-	font-family: arialb;
-}
-
-.documentacion-requerida{
+b{
 	font-family: arialb !important;
 }
 
+.mb-0{
+	margin-bottom: 0;
+}
 
+.mt-0{
+	margin-top: 0;
+}
 
-/* Fin Estilos Globales */
+.mbt-0{
+	margin-bottom: 0;
+	margin-top: 0;	
+}
+
+/* Orden de Inspección */
 
 .folio{
-	font-size: 1.2em !important;
+	font-family: arialb;
+	float: right;
 	margin-top: 0;
 	margin-bottom: 0;
-	float: right;
 }
 
-
-/* Orden de Inspeccion */
-
-.table-firma{
-	width: 100%;
-}
-.table-firma td{
-	width: 50%;
+.oi-header-datos{
+	font-size: .65em;
 }
 
-.table-firma .td-datos-encargado{
-	padding-left: 20px;
+.contenido-general{
+	font-family: arial;
+	text-align: justify;
+	font-size: .60em;
+}
+
+.fecha-cierre{
+	font-size: .60em;
 }
 
 .atte{
-	padding-left: 20px;
+	font-size: .60em;
 }
 
-.firma{
+.firma-encargado{
+	text-transform: uppercase;
+	font-size: .60em;
+}
+
+.representante div{
+	padding: 5px;
 	border-style: solid;
   	border-width: 1px;
-  	padding: 5px;
 }
+
+.firma-representante{
+	text-transform: uppercase;
+	font-size: .60em;
+}
+
+.constancia{
+	font-family: arial;
+	font-size: .60em;
+}
+
+.firma-orden-inspeccion .encargado{
+	width: 40%;
+}
+.firma-orden-inspeccion .representante{
+	width: 60%;
+}
+
 
 /* Fin Orden de Inspección*/
 
-/* Acta de Inspección */
+/* Acta de Inspeccion */
 
-.datos-comercio{
-	font-size: .70em !important;
+.ai-header-datos{
+	font-size: .50em;
 }
 
-.acta-inspeccion-text{
-	font-size: .70em !important;
+.ai-contenido-general{
+	font-family: arial;
+	text-align: justify;
+	font-size: .50em;
 }
 
-.documentacion{
-	font-size: .55em;
+.ai-documentacion-requerida{
+	font-family: arial;
+	border-collapse: collapse;
+	border: 1px solid black;
 }
 
-.doc-row{
-	width: 40%;
+.ai-documentacion-requerida td{
+	border: 1px solid black;
+}
+.ai-documentacion-requerida th{
+	font-family: arialb;
+	font-size: .45em;
+	text-transform: uppercase;
+	text-align: center;
+	border: 1px solid black;
 }
 
-.sol-row, .exh-row{
-	width: 5%;
+.ai-documentacion-requerida .si-no{
+	font-size: .45em;
+	font-family: arialb;
+	text-align: center;
+	text-transform: uppercase;
 }
 
-.th-line-height{
-	line-height: 5px;
+.ai-documentacion-requerida .nombre-documento{
+	font-size: .45em;
+	font-family: arialb;
+	text-transform: uppercase;
 }
 
-.observaciones, .footer-text{
-	font-size: .70em !important;
-}
 
-.firma-inspector, .firma-encargada{
-	font-size: .70em !important;
-}
 
-.table-firma .td-datos-inspector{
-	padding-left: 20px;
-}
-
-/* Fin Acta de Inspección */
+/* Fin Acta de Inspeccion */

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use App\DocumentacionRequerida;
 use App\EjercicioFiscal;
 use App\FormaValorada;
 use App\Inspeccion;
@@ -54,9 +55,11 @@ class PdfController extends Controller
 		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		$forma_valorada = FormaValorada::find($id);
 
+		$documentos_requeridos = DocumentacionRequerida::all();
+
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones]);
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
 		return $pdf->download('ActaInspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
