@@ -173,7 +173,7 @@
                                     </li>
                                     <li>
                                         <a class="nav-link" href="{{ route('listado-comercios') }}">
-                                            <i class="fas fa-users"></i>
+                                            <i class="fas fa-store"></i>
                                             <span>Comercios</span>
                                         </a>
                                     </li>
