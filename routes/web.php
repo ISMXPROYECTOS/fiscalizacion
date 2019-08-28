@@ -121,6 +121,8 @@ Route::post('/comercios/actualizar', 'ComercioController@update');
 Route::post('/comercios/estatus', 'ComercioController@updateEstatus');
 Route::get('/comercios/buscar/supermanzana/{calle}', 'ComercioController@buscarComercios');
 
+Route::get('/comercios/buscar/nombre/{nombre}', 'ComercioController@buscarComerciosPorNombre');
+
 /* Rutas Encargado */
 Route::get('/encargado', 'EncargadoController@listadoEncargados')->name('listado-encargados');
 Route::get('/encargado/listado', 'EncargadoController@tbody');

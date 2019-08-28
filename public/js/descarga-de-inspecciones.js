@@ -53,12 +53,10 @@ $(document).ready(function(){
 
 
 	$(document).on('click', '.descargar', function(){
+		$('#creando-pdf-inspecciones').modal('show');
 		var id = $(this).attr('id');
 		window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
 	});
-		
-	
-
 
 
 });
