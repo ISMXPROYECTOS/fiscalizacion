@@ -60,7 +60,7 @@ class PdfController extends Controller
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
-		return $pdf->download('ActaInspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
 	public function verGafete($id){

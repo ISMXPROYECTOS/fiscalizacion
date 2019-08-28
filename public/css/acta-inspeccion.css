@@ -26,6 +26,10 @@ b{
 	margin-top: 0;	
 }
 
+.text-center{
+	text-align: center;
+}
+
 /* Orden de Inspección */
 
 .folio{
@@ -36,6 +40,7 @@ b{
 }
 
 .oi-header-datos{
+	font-family: arial;
 	font-size: .65em;
 }
 
@@ -87,6 +92,7 @@ b{
 /* Acta de Inspeccion */
 
 .ai-header-datos{
+	font-family: arial;
 	font-size: .50em;
 }
 
@@ -100,31 +106,71 @@ b{
 	font-family: arial;
 	border-collapse: collapse;
 	border: 1px solid black;
+	width: 100%;
+}
+
+.ai-documentacion-requerida .doc{
+	width: 50%;
+}
+
+.ai-documentacion-requerida .sol, .ai-documentacion-requerida .exh{
+	width: 5%;
+}
+
+.ai-documentacion-requerida .obs{
+	width: 30%;
 }
 
 .ai-documentacion-requerida td{
-	border: 1px solid black;
-}
-.ai-documentacion-requerida th{
+	font-size: .40em;
 	font-family: arialb;
-	font-size: .45em;
-	text-transform: uppercase;
 	text-align: center;
+	text-transform: uppercase;
 	border: 1px solid black;
 }
 
-.ai-documentacion-requerida .si-no{
-	font-size: .45em;
+.ai-documentacion-requerida th{
 	font-family: arialb;
-	text-align: center;
+	font-size: .40em;
 	text-transform: uppercase;
+	text-align: center;
+	border: 1px solid black;
 }
 
 .ai-documentacion-requerida .nombre-documento{
-	font-size: .45em;
-	font-family: arialb;
-	text-transform: uppercase;
+	text-align: left !important;
+	font-size: .37em !important;
 }
+
+.observaciones{
+	font-family: arial;
+	text-transform: uppercase;
+	font-size: .45em;
+}
+
+.derivado{
+	font-family: arial;
+	text-align: justify;
+	font-size: .50em;
+}
+
+
+.firma-acta-inspeccion{
+	font-size: .45em;
+	text-transform: uppercase;
+	padding-left: 5%;
+	width: 100%;
+
+}
+
+.firma-acta-inspeccion .ai-firma-inspector{
+	width: 50%;
+}
+
+.firma-acta-inspeccion .ai-firma-encargado{
+	width: 50%;
+}
+
 
 
 
