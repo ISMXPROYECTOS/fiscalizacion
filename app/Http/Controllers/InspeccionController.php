@@ -671,25 +671,46 @@ class InspeccionController extends Controller
 		}
 		
 		$inspeccion->update();
-		
-		for ($i = 0; $i < count($solicitado) ; $i++) {
+
+		/*if ($observaciones != null) {
+			for ($o = 0; $o < count($observaciones) ; $o++) { 
+				$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $observaciones[$o])
+																			->where('inspeccion_id', $inspeccion_id)->first();
+
+				$documentacion_requerida->observaciones = $observaciones[$o];
+				$documentacion_requerida->update();
+
+			}
+		}*/
+
+		if ($solicitado == null) {
+			return back()->withErrors('Selecciona al menos un documento solicitado.');
+		} else {
+			for ($i = 0; $i < count($solicitado) ; $i++) {
 			
-			$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $solicitado[$i])
-																		->where('inspeccion_id', $inspeccion_id)->first();
-			$documentacion_requerida->solicitado = 1;
-			$documentacion_requerida->observaciones = $observaciones[$i];
-			$documentacion_requerida->update();
-			
+				$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $solicitado[$i])
+																			->where('inspeccion_id', $inspeccion_id)->first();
+				$documentacion_requerida->solicitado = 1;
+				$documentacion_requerida->observaciones = $observaciones[$i];
+				$documentacion_requerida->update();
+				
+			}
 		}
 
-		for ($i = 0; $i < count($exhibido) ; $i++) {
+		if ($exhibido != null) {
 			
-			$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $exhibido[$i])
-																		->where('inspeccion_id', $inspeccion_id)->first();
-			$documentacion_requerida->exhibido = 1;
-			$documentacion_requerida->update();
+			for ($e = 0; $e < count($exhibido) ; $e++) {
 			
+				$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $exhibido[$e])
+																			->where('inspeccion_id', $inspeccion_id)->first();
+				$documentacion_requerida->exhibido = 1;
+				$documentacion_requerida->update();
+				
+			}
 		}
+
+		
+		
 
 		return redirect('/inspecciones/informacion/'.$inspeccion_id)->with('status', 'Se ha capturado la informacion correctamente.');
 	}

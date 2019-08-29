@@ -4,8 +4,19 @@
 	<h2>Folio de Inspección: {{ $inspeccion->folio }}</h2>
 </header>
 @if ($errors->any())
-<p>{{ $errors }}</p>
+<div class="alert alert-danger" role="alert">
+  {{ $errors->first() }}
+</div>
 @endif
+
+@if ($errors->has('solicitar'))
+<span class="invalid-feedback" role="alert">
+	<strong>{{ $errors->first('solicitar') }}</strong>
+</span>
+@endif
+
+
+
 @if (session('status'))
 <div class="alert alert-success">
 	{{ session('status') }}
@@ -16,10 +27,21 @@
 	<label for="">Estatus: </label>
 	<label for=""> <span class="badge badge-pill badge-secondary">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
 </div>
-<div>
-	<label for="">Fecha de vencimiento: </label>
-	<label for=""> <span class="badge badge-pill badge-secondary">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span></label>
-</div>
+
+@if(empty($inspeccion->fechavence))
+
+	
+@else
+
+@if($inspeccion->fechavence < date("Y-m-d"))
+	<div>
+		<label for="">Fecha de vencimiento: </label>
+		<label for=""> <span class="badge badge-pill badge-secondary">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span></label>
+	</div>
+@endif
+
+@endif
+
 <form method="POST" action="{{ route('actualizar-informacion-inspeccion') }}">
 	@csrf
 	<input type="hidden" name="inspeccion-id" value="{{ $inspeccion->id }}">
@@ -280,22 +302,9 @@
 			<hr>
 			<div class="form-group ">
 				<label for="prorroga">{{ __('Dias de Prorroga') }}</label>
-				<input id="prorroga" type="number" class="form-control" name="prorroga" value="{{ old('prorroga') }}" autofocus>
-				@if ($errors->has('prorroga'))
-				<span class="invalid-feedback" role="alert">
-					<strong>{{ $errors->first('prorroga') }}</strong>
-				</span>
-				@endif
-				@if($inspeccion->fechavence < date("Y-m-d"))
-				<div class="alert alert-danger" role="alert">
-					La inspección venció el: {{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}
-				</div>
-				@endif
-				@if($inspeccion->fechavence == date("Y-m-d"))
-				<div class="alert alert-warning" role="alert">
-					La inspección vence hoy: {{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}
-				</div>
-				@endif
+				<input id="prorroga" type="number" class="form-control" name="prorroga" value="{{ old('prorroga') }}" autofocus><br>
+
+
 			</div>
 		</div>
 	</div><br>

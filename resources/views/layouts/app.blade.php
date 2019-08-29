@@ -186,13 +186,13 @@
                                     <li>
                                         <a class="nav-link" href="{{ route('vista-agregar-inspecciones') }}">
                                             <i class="fas fa-folder-plus"></i>
-                                            <span>Agregar Inspección</span>
+                                            <span>Generar Inspección</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a class="nav-link" href="{{ route('vista-agregar-inspecciones-por-zona') }}">
                                             <i class="fas fa-folder-plus"></i>
-                                            <span>Agregar Inspección Por Zona</span>
+                                            <span>Generar Inspección Por SM</span>
                                         </a>
                                     </li>
                                     <li>
