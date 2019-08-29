@@ -387,9 +387,9 @@ class InspeccionController extends Controller
 		$comercios = Comercio::all();
 		$is_edit = false;
 
-		if ($inspeccion->estatusInspeccion->clave == 'NA') {
+		/*if ($inspeccion->estatusInspeccion->clave == 'NA') {
 			return 'Debes asiganar la inspección antes de capturar los datos';
-		}else{
+		}else{*/
 			if ($inspeccion->fecharealizada == null && $inspeccion->horarealizada == null) {
 				return view('inspeccion.informacion-completa', [
 					'inspeccion' => $inspeccion,
@@ -408,7 +408,7 @@ class InspeccionController extends Controller
 					'is_edit' => $is_edit
 				]);
 			}
-		}
+		//}
 	}
 
 	public function asignarInspecciones(Request $request){

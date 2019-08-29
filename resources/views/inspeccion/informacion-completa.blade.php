@@ -3,6 +3,7 @@
 <header class="page-header">
 	<h2>Folio de Inspección: {{ $inspeccion->folio }}</h2>
 </header>
+
 @if ($errors->any())
 <div class="alert alert-danger" role="alert">
   {{ $errors->first() }}
@@ -15,32 +16,62 @@
 </span>
 @endif
 
-
-
 @if (session('status'))
 <div class="alert alert-success">
 	{{ session('status') }}
 </div>
 @endif
+
+
 <h3>Estado de la Inspección</h3>
 <div>
 	<label for="">Estatus: </label>
 	<label for=""> <span class="badge badge-pill badge-secondary">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
 </div>
 
-@if(empty($inspeccion->fechavence))
 
-	
-@else
 
-@if($inspeccion->fechavence < date("Y-m-d"))
-	<div>
-		<label for="">Fecha de vencimiento: </label>
-		<label for=""> <span class="badge badge-pill badge-secondary">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span></label>
-	</div>
+
+
+@if($inspeccion->fechavence != false)
+	@if($inspeccion->fechavence < date("Y-m-d"))
+
+		<div>
+			<label for="">Fecha de vencimiento: </label>
+			<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
+		</div>
+		
+	@else
+
+		<div>
+			<label for="">Fecha de vencimiento: </label>
+			<label for=""> <span class="badge badge-pill badge-success">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> </label>
+		</div>
+
+	@endif
 @endif
 
+
+@if($inspeccion->fechaprorroga != false)
+
+	@if($inspeccion->fechaprorroga < date("Y-m-d"))
+		<div>
+			<label for="">Prorroga vencida</label>
+			<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechaprorroga)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
+		</div>
+
+	@else
+		<div>
+			<label for="">En prorroga</label>
+			<label for=""> <span class="badge badge-pill badge-warning">{{ date('d/m/Y', strtotime($inspeccion->fechaprorroga)) }}</span> </label>
+		</div>
+
+	@endif
+
 @endif
+
+
+
 
 <form method="POST" action="{{ route('actualizar-informacion-inspeccion') }}">
 	@csrf
@@ -303,8 +334,6 @@
 			<div class="form-group ">
 				<label for="prorroga">{{ __('Dias de Prorroga') }}</label>
 				<input id="prorroga" type="number" class="form-control" name="prorroga" value="{{ old('prorroga') }}" autofocus><br>
-
-
 			</div>
 		</div>
 	</div><br>
