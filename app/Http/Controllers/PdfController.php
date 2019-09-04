@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
+use Yajra\Datatables\Datatables;
 use App\DocumentacionRequerida;
 use App\EjercicioFiscal;
 use App\FormaValorada;
@@ -18,15 +19,12 @@ class PdfController extends Controller
 	}
 
 	public function tbody(){
+		$formas_valoradas = FormaValorada::all()->load('tipoInspeccion')->load('ejercicioFiscal');
 
-		$query = FormaValorada::query();
-
-
-		return datatables()
-			->eloquent($query)
-			->addColumn('descargar', 'pdf/boton-descargar')
+        return Datatables::of($formas_valoradas)
+            ->addColumn('descargar', 'pdf/boton-descargar')
 			->rawColumns(['descargar'])
-			->toJson();
+			->make(true);
 	}
 
 	/*public function validarActaInspeccion($id){

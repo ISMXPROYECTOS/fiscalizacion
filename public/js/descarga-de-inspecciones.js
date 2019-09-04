@@ -7,8 +7,16 @@ $(document).ready(function(){
 			'destroy': true,
 			'ajax': url + '/pdf/listado',
 			'columns': [
-				{data: 'folioinicio'},
-				{data: 'foliofin'},
+				{data: 'folioinicio',
+					'render': function ( data, type, row ) {
+						return row.ejercicio_fiscal.anio + '/' + row.tipo_inspeccion.clave + '/' + row.folioinicio;
+					}
+				},
+				{data: 'foliofin',
+					'render': function ( data, type, row ) {
+						return row.ejercicio_fiscal.anio + '/' + row.tipo_inspeccion.clave + '/' + row.foliofin;
+					}
+				},
 				{data: 'descargar'}
 			],
 			'language': {
