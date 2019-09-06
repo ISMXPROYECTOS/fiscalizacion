@@ -50,15 +50,29 @@ class PdfController extends Controller
 
 	public function descargarPdfInspecciones($id){
 		
-		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		$forma_valorada = FormaValorada::find($id);
-
+		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		$documentos_requeridos = DocumentacionRequerida::all();
-
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
-		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		$asignadas = 0;
+		$no_asignadas = 0;
+
+		for ($i = 0; $i < count($inspecciones); $i++) {
+			if (is_object($inspecciones[$i]->inspector)) {
+				$asignadas = $asignadas + 1;
+			}else{
+				$no_asignadas = $no_asignadas + 1;
+			}
+		}
+
+		if ($asignadas == count($inspecciones) && $no_asignadas == 0) {
+			$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
+			return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		}else{
+			return 'Debes asignar todas las inspecciones para realizar la impresión.';
+		}
+
 	}
 
 	public function verGafete($id){

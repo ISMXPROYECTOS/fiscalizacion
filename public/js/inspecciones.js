@@ -21,7 +21,11 @@ $(document).ready(function(){
             'order': [ 0, 'asc' ],
             'ajax': url + '/inspecciones/listado',
             'columns': [
-                {data: 'folio'},
+                {data: 'folio',
+                    'render': function(data, type, row){
+                        return "<a href='" + url + "/inspecciones/informacion/" + row.id + "'>" + data + "</a>"
+                    }
+                },
                 {data: 'tipo_inspeccion.clave'},
                 {data: 'estatus_inspeccion.nombre'},
                 {data: 'inspector.nombre',
