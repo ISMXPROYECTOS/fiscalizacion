@@ -84,8 +84,8 @@ class InspeccionController extends Controller
 		$inspecciones = Inspeccion::all()->load('tipoInspeccion')->load('estatusInspeccion')->load('inspector')->load('comercio');
         return Datatables::of($inspecciones)
             ->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
-			->addColumn('informacion', 'inspeccion/boton-informacion')
-			->rawColumns(['cambiarestatus', 'informacion'])
+			->addColumn('cambiarinspector', 'inspeccion/boton-cambiar-inspector')
+			->rawColumns(['cambiarestatus', 'cambiarinspector'])
 			->make(true);
 	}
 

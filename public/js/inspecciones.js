@@ -35,7 +35,7 @@ $(document).ready(function(){
                     defaultContent: ''
                 },
                 {data: 'cambiarestatus'},
-                {data: 'informacion'},
+                {data: 'cambiarinspector'},
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',
@@ -186,6 +186,26 @@ $(document).ready(function(){
     }
 
     updateEstatus();
+
+    function cambiarInspector(){
+        $(document).on('click', '.cambiar-inspector', function(e){
+            e.preventDefault();
+            var id = $(this).attr('id');
+             $.ajax({
+                url: url + '/inspecciones/editar/' + id,
+                type: 'get',
+                success: function (response) {
+                    if (response != ""){
+                        $('#cambiar-inspector').modal('show');
+                        $('#id-cambio-inspector').val(response.id);
+                        $('#inspector-edit').val(response.inspector_id);
+                    }
+                }
+            });
+        });
+    }
+
+    cambiarInspector();
 
     function busquedaDeComerciosPorNombre(){
  
