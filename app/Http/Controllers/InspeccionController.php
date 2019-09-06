@@ -618,7 +618,7 @@ class InspeccionController extends Controller
 
 		$validate = $this->validate($request, [
 			'inspeccion-id' => 'required|string',
-			'establecimiento' => 'required|string|nullable',
+			'establecimiento' => 'required|string',
 			'encargado' => 'string',
 			'cargo' => 'nullable',
 			'identificacion' => 'nullable',
@@ -630,7 +630,8 @@ class InspeccionController extends Controller
 			'observaciones.*' => 'string|nullable',
 			'observacion' => 'string|nullable',
 			'gestor' => 'string|nullable',
-			'prorroga' => 'string|nullable'
+			'prorroga' => 'string|nullable',
+			'observacion-prorroga' => 'string|nullable'
 		]);
 
 		$hoy = new \DateTime();
@@ -650,6 +651,7 @@ class InspeccionController extends Controller
 		$observacion = $request->input('observacion');
 		$gestor = $request->input('gestor');
 		$dias_prorroga = $request->input('prorroga');
+		$observacion_prorroga = $request->input('observacion-prorroga');
 		$fecha_vence = date("Y-m-d",strtotime($fecha . "+" . $configuracion_dias_vence . "days"));
 
 		$inspeccion->fechacapturada = $hoy;
@@ -664,12 +666,11 @@ class InspeccionController extends Controller
 		$inspeccion->gestores_id = $gestor;
 		$inspeccion->diasvence = $configuracion_dias_vence;
 		$inspeccion->fechavence = $fecha_vence;
-		
 		if ($dias_prorroga != 0) {
 			$fecha_prorroga = date("Y-m-d",strtotime($fecha_vence . "+" . $dias_prorroga . "days"));
 			$inspeccion->fechaprorroga = $fecha_prorroga;
 		}
-		
+		$inspeccion->observacionprorroga = $observacion_prorroga;
 		$inspeccion->update();
 
 		/*if ($observaciones != null) {
@@ -708,9 +709,6 @@ class InspeccionController extends Controller
 				
 			}
 		}
-
-		
-		
 
 		return redirect('/inspecciones/informacion/'.$inspeccion_id)->with('status', 'Se ha capturado la informacion correctamente.');
 	}

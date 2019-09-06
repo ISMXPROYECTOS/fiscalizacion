@@ -6,7 +6,7 @@
 
 @if ($errors->any())
 <div class="alert alert-danger" role="alert">
-  {{ $errors->first() }}
+	{{ $errors->first() }}
 </div>
 @endif
 
@@ -22,80 +22,63 @@
 </div>
 @endif
 
-
 <h3>Estado de la Inspección</h3>
 <div>
 	<label for="">Estatus: </label>
 	<label for=""> <span class="badge badge-pill badge-secondary">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
 </div>
 
-
-
-
-
 @if($inspeccion->fechavence != false)
-	@if($inspeccion->fechavence < date("Y-m-d"))
-
-		<div>
-			<label for="">Fecha de vencimiento: </label>
-			<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
-		</div>
-		
-	@else
-
-		<div>
-			<label for="">Fecha de vencimiento: </label>
-			<label for=""> <span class="badge badge-pill badge-success">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> </label>
-		</div>
-
-	@endif
+@if($inspeccion->fechavence < date("Y-m-d"))
+<div>
+	<label for="">Fecha de vencimiento: </label>
+	<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
+</div>
+@else
+<div>
+	<label for="">Fecha de vencimiento: </label>
+	<label for=""> <span class="badge badge-pill badge-success">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> </label>
+</div>
+@endif
 @endif
 
 
 @if($inspeccion->fechaprorroga != false)
-
-	@if($inspeccion->fechaprorroga < date("Y-m-d"))
-		<div>
-			<label for="">Prorroga vencida</label>
-			<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechaprorroga)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
-		</div>
-
-	@else
-		<div>
-			<label for="">En prorroga</label>
-			<label for=""> <span class="badge badge-pill badge-warning">{{ date('d/m/Y', strtotime($inspeccion->fechaprorroga)) }}</span> </label>
-		</div>
-
-	@endif
-
+@if($inspeccion->fechaprorroga < date("Y-m-d"))
+<div>
+	<label for="">Prorroga vencida</label>
+	<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechaprorroga)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
+</div>
+@else
+<div>
+	<label for="">En prorroga</label>
+	<label for=""> <span class="badge badge-pill badge-warning">{{ date('d/m/Y', strtotime($inspeccion->fechaprorroga)) }}</span> </label>
+</div>
 @endif
-
-
-
+@endif
 
 <form method="POST" action="{{ route('actualizar-informacion-inspeccion') }}">
 	@csrf
 	<input type="hidden" name="inspeccion-id" value="{{ $inspeccion->id }}">
-	
 	<h3>Datos del Comercio</h3>
 	<hr>
 	@if(is_object($inspeccion->comercio))
 	<input type="hidden" name="establecimiento" value="{{ $inspeccion->comercio->id }}">
 	<div class="form-group">
 		<label for="nombrelocal">{{ __('Nombre Establecimiento') }}</label>
-		<input id="nombrelocal" type="text" name="nombrelocal" class="form-control" value="{{ $inspeccion->comercio->nombreestablecimiento }}" required autofocus>
+		<input id="nombrelocal" type="text" name="nombrelocal" class="form-control" value="{{ $inspeccion->comercio->nombreestablecimiento }}" required>
 	</div>
 	<div class="row mb-3">
 		<div class="col-lg-6">
 			<div class="form-group">
 				<label for="domicilio">{{ __('Domicilio') }}</label>
-				<input id="domicilio" type="text" name="domicilio" class="form-control" value="{{ $inspeccion->comercio->domiciliofiscal }}" required autofocus>
+				<input id="domicilio" type="text" name="domicilio" class="form-control" value="{{ $inspeccion->comercio->domiciliofiscal }}" required>
 			</div>
 		</div>
 		<div class="col-lg-6">
 			<div class="form-group">
 				<label for="clavecatastral">{{ __('Clave catastral') }}</label>
-				<input id="clavecatastral" type="number" name="clavecatastral" class="form-control" value="{{ $inspeccion->comercio->clavecatastral }}" required autofocus>
+				<input id="clavecatastral" type="number" name="clavecatastral" class="form-control" value="{{ $inspeccion->comercio->clavecatastral }}" required>
 			</div>
 		</div>
 	</div>
@@ -114,70 +97,62 @@
 		</span>
 		@endif
 	</div>-->
-
 	<div class="form-group">
-        <label>Buscar negocio por nombre comercial</label>
-        <div class="input-group">
-            <input type="text" class="form-control" name="calle" id="calle" placeholder="Nombre comercial del negocio">
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" id="buscar-sm">Buscar</button>
-            </div>
-        </div>
-        <p class="text-danger mb-0" id="error-sm">{{ $errors->first('calle') }}</p>
-    </div>
-
-    <div id="comercios" class="hidden mt-3 mb-3">
-
-        <p class="text-danger mb-0" id="error-comercios"></p>
-        <p class=" mb-0" id="error-results"></p>
-        <table class="table table-sm" id="tabla-comercios">
-            <thead class="thead-dark">
-                <tr>
-                  <th></th>
-                  <th>LICENCIA DE FUNCIONAMIENTO</th>
-                  <th>NOMBRE COMERCIAL</th>
-                  <th>UBICACIÓN</th>
-              </tr>
-          </thead>
-          <tbody id="tbody-comercios">
-
-          </tbody>
-      </table>
-
- 	</div>
+		<label>Buscar negocio por nombre comercial</label>
+		<div class="input-group">
+			<input type="text" class="form-control" name="calle" id="calle" placeholder="Nombre comercial del negocio">
+			<div class="input-group-append">
+				<button class="btn btn-outline-secondary" type="button" id="buscar-sm">Buscar</button>
+			</div>
+		</div>
+		<p class="text-danger mb-0" id="error-sm">{{ $errors->first('calle') }}</p>
+	</div>
+	<div id="comercios" class="hidden mt-3 mb-3">
+		<p class="text-danger mb-0" id="error-comercios"></p>
+		<p class=" mb-0" id="error-results"></p>
+		<table class="table table-sm" id="tabla-comercios">
+			<thead class="thead-dark">
+				<tr>
+					<th></th>
+					<th>LICENCIA DE FUNCIONAMIENTO</th>
+					<th>NOMBRE COMERCIAL</th>
+					<th>UBICACIÓN</th>
+				</tr>
+			</thead>
+			<tbody id="tbody-comercios"></tbody>
+		</table>
+	</div>
 	@endif
 	@if ($is_edit == 'true')
 	<div class="form-group ">
 		<label for="encargado">{{ __('Nombre del encargado') }}</label>
-		<input id="encargado" type="text" class="form-control" name="encargado" value="{{ $inspeccion->nombreencargado }}" autofocus>
+		<input id="encargado" type="text" class="form-control" name="encargado" value="{{ $inspeccion->nombreencargado }}">
 	</div>
 	<div class="row mb-3">
 		<div class="col-lg-4">
 			<div class="form-group ">
 				<label for="cargo">{{ __('Puesto del encargado') }}</label>
-				<input id="cargo" type="text" class="form-control" name="cargo" value="{{ $inspeccion->cargoencargado }}" autofocus>
+				<input id="cargo" type="text" class="form-control" name="cargo" value="{{ $inspeccion->cargoencargado }}">
 			</div>
 		</div>
 		<div class="col-lg-4">
 			<div class="form-group ">
 				<label for="identificacion">{{ __('Identificación del encargado') }}</label>
-				<input id="identificacion" type="text" class="form-control" name="identificacion" value="{{ $inspeccion->identificacion }}" autofocus>
+				<input id="identificacion" type="text" class="form-control" name="identificacion" value="{{ $inspeccion->identificacion }}">
 			</div>
 		</div>
 		<div class="col-lg-4">
 			<div class="form-group ">
 				<label for="folioidentificacion">{{ __('Folio de Identificación del encargado') }}</label>
-				<input id="folioidentificacion" type="text" class="form-control" name="folioidentificacion" value="{{ $inspeccion->folioidentificacion }}" autofocus>
+				<input id="folioidentificacion" type="text" class="form-control" name="folioidentificacion" value="{{ $inspeccion->folioidentificacion }}">
 			</div>
 		</div>
 	</div>
-
 	<div class="row">
 		<div class="col-md-4">
 			<div class="form-group ">
 				<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
 				<input id="fecharealizada" type="date" class="form-control" name="fecha" value="{{ $inspeccion->fecharealizada }}" required autofocus>
-				
 				@if ($errors->has('hora'))
 				<span class="invalid-feedback" role="alert">
 					<strong>{{ $errors->first('hora') }}</strong>
@@ -200,25 +175,26 @@
 	@else
 	<div class="form-group ">
 		<label for="encargado">{{ __('Nombre del encargado') }}</label>
-		<input id="encargado" type="text" class="form-control" name="encargado" value="{{ old('encargado') }}" autofocus>
+		<input id="encargado" type="text" class="form-control" name="encargado" value="{{ old('encargado') }}">
 	</div>
 	<div class="row mb-3">
 		<div class="col-lg-4">
 			<div class="form-group ">
 				<label for="cargo">{{ __('Puesto del encargado') }}</label>
-				<input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}" autofocus>
+				<input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}">
 			</div>
 		</div>
 		<div class="col-lg-4">
 			<div class="form-group ">
 				<label for="identificacion">{{ __('Identificación del encargado') }}</label>
-				<input id="identificacion" type="text" class="form-control" name="identificacion" value="{{ old('identificacion') }}" autofocus>
+				<input id="identificacion" type="text" class="form-control" name="identificacion" value="{{ old('identificacion') }}">
 			</div>
 		</div>
 		<div class="col-lg-4">
 			<div class="form-group ">
 				<label for="folioidentificacion">{{ __('Folio de Identificación del encargado') }}</label>
-				<input id="folioidentificacion" type="text" class="form-control" name="folioidentificacion" value="{{ old('folioidentificacion') }}" autofocus>
+				<input id="folioidentificacion" type="text" class="form-control" name="folioidentificacion"
+				value="{{ old('folioidentificacion') }}">
 			</div>
 		</div>
 	</div>
@@ -248,7 +224,6 @@
 		</div>
 	</div>
 	@endif
-	
 	<h3>Documentación Presentada</h3>
 	<hr>
 	<table class="table table-sm">
@@ -282,7 +257,8 @@
 			@if(is_object($inspeccion->gestor))
 			<div class="form-group">
 				<label for="gestor">{{ __('Gestor') }}</label>
-				<select name="gestor" id="gestor" class="form-control{{ $errors->has('gestor') ? ' is-invalid' : '' }}" value="{{ old('gestor') }}" autofocus>
+				<select name="gestor" id="gestor" class="form-control{{ $errors->has('gestor') ? ' is-invalid' : '' }}"
+					value="{{ old('gestor') }}">
 					<option value="">Seleccionar</option>
 					@foreach($gestores as $gestor)
 					<option value="{{ $gestor->id }}" @if($inspeccion->gestor->id == $gestor->id) selected @endif>
@@ -303,9 +279,9 @@
 				<p class="mb-0">Identificación (INE): <b id="identificacion-gestor"> {{$inspeccion->gestor->ine}}</b></p>
 				<p class="mb-0">Estado:
 					<b id="estatus-gestor">
-					@if($inspeccion->gestor->estatus == 'A')
-					Activo
-					@endif
+						@if($inspeccion->gestor->estatus == 'A')
+						Activo
+						@endif
 					</b>
 				</p>
 			</div>
@@ -331,16 +307,21 @@
 		<div class="col-lg-6">
 			<h3>Prorroga </h3>
 			<hr>
-			<div class="form-group ">
+			<div class="form-group">
 				<label for="prorroga">{{ __('Dias de Prorroga') }}</label>
-				<input id="prorroga" type="number" class="form-control" name="prorroga" value="{{ old('prorroga') }}" autofocus><br>
+				<input id="prorroga" type="number" class="form-control" name="prorroga" value="{{ old('prorroga') }}"><br>
+			</div>
+			<div class="form-group">
+				<label for="observacion-prorroga">Observaciones</label>
+				<textarea class="form-control" id="observacion-prorroga" rows="2" name="observacion-prorroga">{{ $inspeccion->observacionprorroga }}</textarea>
 			</div>
 		</div>
-	</div><br>
+	</div>
+	<br>
 	<button type="submit" class="btn btn-primary btn-lg btn-primary-custom">Actualizar Información</button>
 </form>
 @endsection
 
 @section('scripts')
-	<script src="{{ asset('js/inspecciones.js') }}" defer></script>
+<script src="{{ asset('js/inspecciones.js') }}" defer></script>
 @endsection

@@ -101,6 +101,7 @@ class Inspeccion extends Model
     	'fechaasignada',
     	'fechacapturada',
     	'fechaprorroga',
+    	'observacionprorroga',
     	'fecharealizada',
     	'horarealizada',
     	'comentario',
