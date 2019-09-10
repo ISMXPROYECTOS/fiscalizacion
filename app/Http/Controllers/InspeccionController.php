@@ -22,6 +22,7 @@ use App\Comercio;
 use App\DocumentacionRequerida;
 use App\DocumentacionPorTipoDeInspeccion;
 use App\Configuracion;
+use App\BitacoraDeEstatus;
 
 class InspeccionController extends Controller
 {
@@ -165,6 +166,19 @@ class InspeccionController extends Controller
 
 			Inspeccion::create($datos);
 
+			$inspeccion = Inspeccion::all();
+			$inspeccion_id = $inspeccion->last()->id;
+			$estatusinspeccion_id = $inspeccion->last()->estatusInspeccion->id;
+
+			$datos_bitacora = [
+				'inspeccion_id' => $inspeccion_id,
+				'estatusinspeccion_id' => $estatusinspeccion_id,
+				'usuario_id' => $usuario->id,
+				'observacion' => 'Creada'
+			];
+
+			BitacoraDeEstatus::create($datos_bitacora);
+
 			for ($b = 0; $b < count($documentacion_requerida) ; $b++) { 
 
 				$inspeccion = Inspeccion::all();
@@ -270,9 +284,22 @@ class InspeccionController extends Controller
 				'folio' => $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio
 			];
 
-			Inspeccion::create($datos);	
+			Inspeccion::create($datos);
 
-			for ($b = 0; $b < count($documentacion_requerida) ; $b++) { 
+			$inspeccion = Inspeccion::all();
+			$inspeccion_id = $inspeccion->last()->id;
+			$estatusinspeccion_id = $inspeccion->last()->estatusInspeccion->id;
+
+			$datos_bitacora = [
+				'inspeccion_id' => $inspeccion_id,
+				'estatusinspeccion_id' => $estatusinspeccion_id,
+				'usuario_id' => $usuario->id,
+				'observacion' => 'Creada'
+			];
+
+			BitacoraDeEstatus::create($datos_bitacora);
+
+			for ($b = 0; $b < count($documentacion_requerida) ; $b++) {
 
 				$inspeccion = Inspeccion::all();
 				$inspeccion_id = $inspeccion->last()->id;
@@ -286,7 +313,7 @@ class InspeccionController extends Controller
 				];
 
 				DocumentacionPorTipoDeInspeccion::create($datos);
-			}	
+			}
 		}
 
 		//$id_forma_valorada = $forma_valorada->last()->id;
@@ -426,6 +453,7 @@ class InspeccionController extends Controller
 		$cantidad = $request->input('cantidad-asignar');
 		$inspectores = array_get($data, 'inspectores-asignar');
 
+		$idUser = \Auth::user()->id;
 		$hoy = new \DateTime();
 		$hoy->format('d-m-Y H:i:s');
 		$estatus_anterior = EstatusInspeccion::where('clave', 'NA')->first();
@@ -453,6 +481,15 @@ class InspeccionController extends Controller
 							$inspecciones[$b]->estatusinspeccion_id = $id_estatus_nuevo;
 							$inspecciones[$b]->fechaasignada = $hoy;
 							$inspecciones[$b]->update();
+
+							$datos_bitacora = [
+								'inspeccion_id' => $inspecciones[$b]->id,
+								'estatusinspeccion_id' => $inspecciones[$b]->estatusInspeccion->id,
+								'usuario_id' => $idUser,
+								'observacion' => 'Asignada'
+							];
+
+							BitacoraDeEstatus::create($datos_bitacora);
 							break;
 						}
 					}

@@ -14,11 +14,6 @@ $(document).ready(function(){
     $('#error-estatusinspeccion-edit, #error-comentario-edit').addClass('hidden');
     $('#error-estatusinspeccion-edit, #error-comentario-edit').text('');
 
-    
-      
-
-   
-
     function viewData(){
         $('#datatable').DataTable({
             'serverSide': true,
@@ -50,12 +45,8 @@ $(document).ready(function(){
                         }
                     }
                 },
-                {data: 'inspector.nombre',
-                    defaultContent: ''
-                },
-                {data: 'comercio.nombreestablecimiento',
-                    defaultContent: ''
-                },
+                {data: 'inspector.nombre', defaultContent: '',},
+                {data: 'comercio.nombreestablecimiento', defaultContent: ''},
                 {data: 'fechaprorroga',
                     'render': function(data, type, row){
                         var month = new Array();

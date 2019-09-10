@@ -24,4 +24,11 @@ class BitacoraDeEstatus extends Model
 		return $this->belongsTo('App\EstatusInspeccion', 'estatusinspeccion_id');
 	}
 
+	protected $fillable = [
+    	'inspeccion_id',
+    	'estatusinspeccion_id',
+    	'usuario_id',
+    	'observacion'
+    ];
+
 }
