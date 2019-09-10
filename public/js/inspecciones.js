@@ -34,6 +34,8 @@ $(document).ready(function(){
                             return "<span class='badge badge-pill badge-secondary'>"+ row.estatus_inspeccion.nombre +"</span>";
                         } else if(row.estatus_inspeccion.clave == 'A'){
                             return "<span class='badge badge-pill badge-primary'>"+ row.estatus_inspeccion.nombre +"</span>";
+                        } else if(row.estatus_inspeccion.clave == 'Cap'){
+                            return "<span class='badge badge-pill'>"+ row.estatus_inspeccion.nombre +"</span>";
                         } else if(row.estatus_inspeccion.clave == 'S'){
                             return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
                         } else if (row.estatus_inspeccion.clave == 'V') {

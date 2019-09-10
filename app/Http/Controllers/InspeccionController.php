@@ -653,6 +653,10 @@ class InspeccionController extends Controller
 		$configuracion = Configuracion::where('id', 1)->first();
 		$configuracion_dias_vence = $configuracion->valornumero;
 
+		$estatus_nuevo = EstatusInspeccion::where('clave', 'Cap')->first();
+		$id_estatus_nuevo = $estatus_nuevo->id;
+		$idUser = \Auth::user()->id;
+
 		$validate = $this->validate($request, [
 			'inspeccion-id' => 'required|string',
 			'establecimiento' => 'required|string',
@@ -708,7 +712,17 @@ class InspeccionController extends Controller
 			$inspeccion->fechaprorroga = $fecha_prorroga;
 		}
 		$inspeccion->observacionprorroga = $observacion_prorroga;
+		$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
 		$inspeccion->update();
+
+		$datos_bitacora = [
+			'inspeccion_id' => $inspeccion->id,
+			'estatusinspeccion_id' => $inspeccion->estatusInspeccion->id,
+			'usuario_id' => $idUser,
+			'observacion' => 'Capturada'
+		];
+
+		BitacoraDeEstatus::create($datos_bitacora);
 
 		/*if ($observaciones != null) {
 			for ($o = 0; $o < count($observaciones) ; $o++) { 
