@@ -32,7 +32,24 @@ $(document).ready(function(){
                     }
                 },
                 {data: 'tipo_inspeccion.clave'},
-                {data: 'estatus_inspeccion.nombre'},
+                {data: 'estatus_inspeccion.nombre',
+                    'render': function(data, type, row){
+                        console.log(row.estatus_inspeccion.clave);
+                        if (row.estatus_inspeccion.clave == 'NA') {
+                            return "<span class='badge badge-pill badge-secondary'>"+ row.estatus_inspeccion.nombre +"</span>";
+                        } else if(row.estatus_inspeccion.clave == 'A'){
+                            return "<span class='badge badge-pill badge-primary'>"+ row.estatus_inspeccion.nombre +"</span>";
+                        } else if(row.estatus_inspeccion.clave == 'S'){
+                            return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
+                        } else if (row.estatus_inspeccion.clave == 'V') {
+                            return "<span class='badge badge-pill badge-danger'>"+ row.estatus_inspeccion.nombre +"</span>";
+                        } else if (row.estatus_inspeccion.clave == 'C') {
+                            return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
+                        } else if(row.estatus_inspeccion.clave == 'P'){
+                            return "<span class='badge badge-pill badge-info'>"+ row.estatus_inspeccion.nombre +"</span>";
+                        }
+                    }
+                },
                 {data: 'inspector.nombre',
                     defaultContent: ''
                 },
@@ -55,15 +72,20 @@ $(document).ready(function(){
                         month[10] = "11";
                         month[11] = "12";
 
+                        var hoy = new Date();
+
                         var fecha = new Date(row.fechaprorroga);
                         var dia = fecha.getDate();
-                        var mes = month[fecha.getMonth()];;
+                        var mes = month[fecha.getMonth()];
                         var anio = fecha.getFullYear();
 
+
                         if (row.fechaprorroga == null) {
-                            return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>"
+                            return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
+                        } else if (fecha < hoy) {
+                            return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
                         } else {
-                             return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
+                            return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
                         }
                     }
                 },
@@ -84,15 +106,19 @@ $(document).ready(function(){
                         month[10] = "11";
                         month[11] = "12";
 
+                        var hoy = new Date();
+
                         var fecha = new Date(row.fechavence);
                         var dia = fecha.getDate() + 1;
                         var mes = month[fecha.getMonth()];;
                         var anio = fecha.getFullYear();
 
                         if (row.fechavence == null) {
-                            return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>"
+                            return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
+                        } else if(fecha < hoy){
+                            return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
                         } else {
-                             return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
+                            return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
                         }
                     }
                 },
