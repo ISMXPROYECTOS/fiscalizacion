@@ -234,13 +234,21 @@
 				<th scope="col" class="exhibido-t">Exhibido</th>
 				<th scope="col" class="observaciones-t">Observaciones</th>
 			</tr>
+			<tr>
+				<th class="seleccionar-todos-option text-right">Seleccionar todos</th>
+				<th class="text-center"><input class="form-check-input" type="checkbox" id="seleccionar-todos-solicitado"></td>
+				<th class="text-center"><input class="form-check-input" type="checkbox" id="seleccionar-todos-exhibido"></th>
+	            <th></th>
+			</tr>
 		</thead>
 		<tbody>
+			
+
 			@foreach($documentos as $documento)
 			<tr>
 				<th class="documento-requerido-nombre">{{ $documento->documentacionRequerida->nombre }}</th>
-				<td class="text-center"><input class="form-check-input " @if($documento->solicitado == 1) checked @endif type="checkbox" id="solicitado" value="{{ $documento->documentacionrequerida_id  }}" name="solicitado[]"></td>
-				<td class="text-center"><input class="form-check-input " @if($documento->exhibido == 1) checked @endif type="checkbox" id="exhibido" value="{{ $documento->documentacionrequerida_id }}" name="exhibido[]"></td>
+				<td class="text-center"><input class="form-check-input check-solicitado" @if($documento->solicitado == 1) checked @endif type="checkbox" id="solicitado" value="{{ $documento->documentacionrequerida_id  }}" name="solicitado[]"></td>
+				<td class="text-center"><input class="form-check-input check-exhibido" @if($documento->exhibido == 1) checked @endif type="checkbox" id="exhibido" value="{{ $documento->documentacionrequerida_id }}" name="exhibido[]"></td>
 				<td><input class="form-control form-control-sm" type="text" value="{{ $documento->observaciones  }}" name="observaciones[]"></td>
 			</tr>
 			@endforeach
@@ -323,5 +331,5 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/inspecciones.js') }}" defer></script>
+<script src="{{ asset('js/inspecciones.js') }}" ></script>
 @endsection

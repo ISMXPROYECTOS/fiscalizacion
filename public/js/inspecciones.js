@@ -14,6 +14,11 @@ $(document).ready(function(){
     $('#error-estatusinspeccion-edit, #error-comentario-edit').addClass('hidden');
     $('#error-estatusinspeccion-edit, #error-comentario-edit').text('');
 
+    
+      
+
+   
+
     function viewData(){
         $('#datatable').DataTable({
             'serverSide': true,
@@ -33,6 +38,63 @@ $(document).ready(function(){
                 },
                 {data: 'comercio.nombreestablecimiento',
                     defaultContent: ''
+                },
+                {data: 'fechaprorroga',
+                    'render': function(data, type, row){
+                        var month = new Array();
+                        month[0] = "01";
+                        month[1] = "02";
+                        month[2] = "03";
+                        month[3] = "04";
+                        month[4] = "05";
+                        month[5] = "06";
+                        month[6] = "07";
+                        month[7] = "08";
+                        month[8] = "09";
+                        month[9] = "10";
+                        month[10] = "11";
+                        month[11] = "12";
+
+                        var fecha = new Date(row.fechaprorroga);
+                        var dia = fecha.getDate();
+                        var mes = month[fecha.getMonth()];;
+                        var anio = fecha.getFullYear();
+
+                        if (row.fechaprorroga == null) {
+                            return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>"
+                        } else {
+                             return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
+                        }
+                    }
+                },
+                {data: 'fechavence',
+                    'render': function(data, type, row){
+
+                        var month = new Array();
+                        month[0] = "01";
+                        month[1] = "02";
+                        month[2] = "03";
+                        month[3] = "04";
+                        month[4] = "05";
+                        month[5] = "06";
+                        month[6] = "07";
+                        month[7] = "08";
+                        month[8] = "09";
+                        month[9] = "10";
+                        month[10] = "11";
+                        month[11] = "12";
+
+                        var fecha = new Date(row.fechavence);
+                        var dia = fecha.getDate() + 1;
+                        var mes = month[fecha.getMonth()];;
+                        var anio = fecha.getFullYear();
+
+                        if (row.fechavence == null) {
+                            return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>"
+                        } else {
+                             return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
+                        }
+                    }
                 },
                 {data: 'cambiarestatus'},
                 {data: 'cambiarinspector'},
@@ -286,6 +348,24 @@ $(document).ready(function(){
     }
 
     busquedaDeComerciosPorNombre();
+
+
+    function seleccionarTodosDocumentosRequeridosSolicitado(){
+        $("#seleccionar-todos-solicitado").click(function() {
+            $(".check-solicitado").prop("checked", this.checked);
+            
+        });
+    }
+
+    seleccionarTodosDocumentosRequeridosSolicitado();
+
+    function seleccionarTodosDocumentosRequeridosExhibido(){
+        $("#seleccionar-todos-exhibido").click(function() {
+            $(".check-exhibido").prop("checked", this.checked);
+        });
+    }
+
+    seleccionarTodosDocumentosRequeridosExhibido();
 
     
     

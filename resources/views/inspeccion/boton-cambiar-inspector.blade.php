@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-warning btn-sm cambiar-inspector" id="{{ $id }}">
-    <i class="fas fa-toggle-on"></i>
-    Inspector
+<button type="button" class="btn btn-primary btn-sm cambiar-inspector" id="{{ $id }}">
+    <i class="fas fa-exchange-alt"></i>
+    Cambiar Inspector
 </button>

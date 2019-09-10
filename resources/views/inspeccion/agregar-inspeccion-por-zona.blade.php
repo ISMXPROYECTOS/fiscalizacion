@@ -84,10 +84,10 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" id="seleccionar-todos">
                       </div>
-                  </th>
-                  <th>RAZÓN SOCIAL</th>
-                  <th>NOMBRE COMERCIAL</th>
-                  <th>UBICACIÓN</th>
+                    </th>
+                    <th>RAZÓN SOCIAL</th>
+                    <th>NOMBRE COMERCIAL</th>
+                    <th>UBICACIÓN</th>
               </tr>
           </thead>
           <tbody id="tbody-comercios">

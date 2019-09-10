@@ -220,7 +220,7 @@ ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus
   width: 50%;
 }
 
-.documento-requerido-nombre{
+.documento-requerido-nombre, .seleccionar-todos-option{
   font-size: 0.8em;
 }
 

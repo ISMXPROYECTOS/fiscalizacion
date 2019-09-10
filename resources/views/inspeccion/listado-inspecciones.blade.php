@@ -21,7 +21,9 @@
                     <th>Tipo de Inspección</th>
                     <th>Estatus</th>
                     <th>Inspector</th>
-                    <th>Nombre del Local</th>
+                    <th>Nombre del Local</th>.
+                    <th>Fecha prorroga</th>
+                    <th>Fecha vence</th>
                     <th>Estatus</th>
                     <th>Cambiar Inspector</th>
                 </tr>
