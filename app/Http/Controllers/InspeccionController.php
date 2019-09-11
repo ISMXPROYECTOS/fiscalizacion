@@ -739,7 +739,7 @@ class InspeccionController extends Controller
 			}
 		}*/
 
-		if ($solicitado == null) {
+		/*if ($solicitado == null) {
 			return back()->withErrors('Selecciona al menos un documento solicitado.');
 
 		} else {
@@ -763,9 +763,80 @@ class InspeccionController extends Controller
 					}
 				}	
 			}
+		}*/
+
+
+		if ($solicitado == null) {
+			return back()->withErrors('Selecciona al menos un documento solicitado.');
+
+		} else {
+
+			for ($i = 0; $i < count($solicitado); $i++) { 
+				for ($a = 0; $a < count($documentos_requeridos); $a++) { 
+					for ($b = 0; $b < count($exhibido); $b++) { 
+						if ($i == count($solicitado)) {
+							// estoy en el ultimo
+							echo "17 - 17 - 0 <br>";
+						} else {
+							if ($solicitado[$i] == $documentos_requeridos[$a]->id && $exhibido[$b] == $documentos_requeridos[$a]->id) {
+
+								echo "Exhiste:".$documentos_requeridos[$a]->id;
+								echo "Te lo pedi:".$solicitado[$i];
+								echo "Me lo diste".$exhibido[$b]."<br>";
+
+								//echo $solicitado[$i]." - ".$documentos_requeridos[$a]->id." - ";
+								//echo "1 <br>";
+								$i++;
+
+						
+							} else {
+								if($solicitado[$i] == $documentos_requeridos[$a]->id && $exhibido[$b] == $solicitado[$i]) {
+
+									echo "Exhiste:".$documentos_requeridos[$a]->id;
+									echo "Te lo pedi:".$solicitado[$i];
+									echo "Me lo diste:".$exhibido[$b]." <br>";
+									//echo $solicitado[$i]." - ".$documentos_requeridos[$a]->id." - ";
+									//echo "0 <br>";
+									
+
+								} else {
+									echo "0 <br>";
+									
+								}
+							}
+						}
+					}
+					
+				}	
+			}
 		}
 
-	
+		/*if ($exhibido == null) {
+			// aqui va a setear a 0
+		} else {
+
+			for ($b = 0; $b < count($exhibido); $b++) { 
+				for ($c = 0; $c < count($solicitado); $c++) { 
+
+					if ($b == count($solicitado)) {
+						// estoy en el ultimo
+						echo "17 - 17 - 0 <br>";
+					} else {
+						if ($exhibido[$b] == $solicitado[$c]) {
+							echo $exhibido[$b]." - ".$solicitado[$c]." - ";
+							echo "1 <br>";
+							$b++;
+					
+						} else {
+							echo $exhibido[$b]." - ".$solicitado[$c]." - ";
+							echo "0 <br>";
+						}
+					}
+				}	
+			}
+		}*/
+
+
 
 		die();
 		
