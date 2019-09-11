@@ -724,18 +724,54 @@ class InspeccionController extends Controller
 
 		BitacoraDeEstatus::create($datos_bitacora);
 
-		/*if ($observaciones != null) {
-			for ($o = 0; $o < count($observaciones) ; $o++) { 
-				$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $observaciones[$o])
-																			->where('inspeccion_id', $inspeccion_id)->first();
 
-				$documentacion_requerida->observaciones = $observaciones[$o];
-				$documentacion_requerida->update();
+		$documentos_requeridos = DocumentacionRequerida::all();
 
+
+		/*for ($i = 0; $i < count($documentos_requeridos); $i++) { 
+			for ($a = 0; $a < count($solicitado); $a++) { 
+				if ($documentos_requeridos[$i]->id == $solicitado[$a]) {
+					echo "1 <br>";
+					$i++;
+				} else {
+					echo "0 <br>";
+				}
 			}
 		}*/
 
 		if ($solicitado == null) {
+			return back()->withErrors('Selecciona al menos un documento solicitado.');
+
+		} else {
+
+			for ($i = 0; $i < count($solicitado); $i++) { 
+				for ($a = 0; $a < count($documentos_requeridos); $a++) { 
+
+					if ($i == count($solicitado)) {
+						// estoy en el ultimo
+						echo "17 - 17 - 0 <br>";
+					} else {
+						if ($solicitado[$i] == $documentos_requeridos[$a]->id) {
+							echo $solicitado[$i]." - ".$documentos_requeridos[$a]->id." - ";
+							echo "1 <br>";
+							$i++;
+					
+						} else {
+							echo $solicitado[$i]." - ".$documentos_requeridos[$a]->id." - ";
+							echo "0 <br>";
+						}
+					}
+				}	
+			}
+		}
+
+	
+
+		die();
+		
+
+
+		/*if ($solicitado == null) {
 			return back()->withErrors('Selecciona al menos un documento solicitado.');
 		} else {
 			for ($i = 0; $i < count($solicitado) ; $i++) {
@@ -759,7 +795,7 @@ class InspeccionController extends Controller
 				$documentacion_requerida->update();
 				
 			}
-		}
+		}*/
 
 		return redirect('/inspecciones/informacion/'.$inspeccion_id)->with('status', 'Se ha capturado la informacion correctamente.');
 	}
