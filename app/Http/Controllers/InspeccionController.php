@@ -768,48 +768,53 @@ class InspeccionController extends Controller
 
 		if ($solicitado == null) {
 			return back()->withErrors('Selecciona al menos un documento solicitado.');
-
 		} else {
-
-			for ($i = 0; $i < count($solicitado); $i++) { 
-				for ($a = 0; $a < count($documentos_requeridos); $a++) { 
-					for ($b = 0; $b < count($exhibido); $b++) { 
-						if ($i == count($solicitado)) {
-							// estoy en el ultimo
-							echo "17 - 17 - 0 <br>";
-						} else {
-							if ($solicitado[$i] == $documentos_requeridos[$a]->id && $exhibido[$b] == $documentos_requeridos[$a]->id) {
-
-								echo "Exhiste:".$documentos_requeridos[$a]->id;
-								echo "Te lo pedi:".$solicitado[$i];
-								echo "Me lo diste".$exhibido[$b]."<br>";
-
-								//echo $solicitado[$i]." - ".$documentos_requeridos[$a]->id." - ";
-								//echo "1 <br>";
-								$i++;
-
-						
+			if ($exhibido == null) {
+				return back()->withErrors('Selecciona al menos un documento exhibido.');
+			} else {
+				for ($b = 0; $b < count($exhibido); $b++) {
+					for ($i = 0; $i < count($solicitado); $i++) {
+						for ($a = 0; $a < count($documentos_requeridos); $a++) {
+							if ($b == count($exhibido)) {
+								// estoy en el ultimo exhibido
+								echo "ultimo - exhibido - 0 <br>";
+								
 							} else {
-								if($solicitado[$i] == $documentos_requeridos[$a]->id && $exhibido[$b] == $solicitado[$i]) {
-
-									echo "Exhiste:".$documentos_requeridos[$a]->id;
-									echo "Te lo pedi:".$solicitado[$i];
-									echo "Me lo diste:".$exhibido[$b]." <br>";
-									//echo $solicitado[$i]." - ".$documentos_requeridos[$a]->id." - ";
-									//echo "0 <br>";
-									
-
+								if ($i == count($solicitado)) {
+									// estoy en el ultimo solicitado
+									echo "ultimo - solicitado - 0 <br>";
 								} else {
-									echo "0 <br>";
-									
+									if ($documentos_requeridos[$a]->id == $solicitado[$i] && $documentos_requeridos[$a]->id == $exhibido[$b]) {
+										echo "Existe: ".$documentos_requeridos[$a]->id . " ";
+										echo "Solicitado: ".$solicitado[$i] . "";
+										echo "Exhibido: ".$exhibido[$b]."<br>";
+										$b++;
+										$i++;
+									} else {
+										if($documentos_requeridos[$a]->id == $solicitado[$i] && $solicitado[$i] == $exhibido[$b]) {
+											echo "Existe: ".$documentos_requeridos[$a]->id . " ";
+											echo "Solicitado: ".$solicitado[$i] ." ";
+											echo "Exhibido: ".$exhibido[$b]." <br>";
+										} else {
+											if ($documentos_requeridos[$a]->id == $exhibido[$b] && $solicitado[$i] != $exhibido[$b]) {
+												echo "aaa 0 <br>";
+											} else {
+												echo "0 <br>";
+											}
+											
+											
+										}
+									}
 								}
 							}
 						}
+
 					}
-					
-				}	
+				}
 			}
 		}
+
+		die();
 
 		/*if ($exhibido == null) {
 			// aqui va a setear a 0
@@ -835,12 +840,6 @@ class InspeccionController extends Controller
 				}	
 			}
 		}*/
-
-
-
-		die();
-		
-
 
 		/*if ($solicitado == null) {
 			return back()->withErrors('Selecciona al menos un documento solicitado.');
