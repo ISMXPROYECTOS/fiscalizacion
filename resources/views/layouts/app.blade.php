@@ -122,12 +122,12 @@
                                                     <span>Gestores</span>
                                                 </a>
                                             </li>
-                                            @if(Auth::user()->role == "ROLE_ADMIN")
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-inspecciones') }}">
                                                     <span>Inspecciones</span>
                                                 </a>
                                             </li>
+                                            @if(Auth::user()->role == "ROLE_ADMIN")
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-usuarios') }}">
                                                     <span>Usuarios</span>

@@ -407,6 +407,25 @@ class InspeccionController extends Controller
 		return $inspeccion;
 	}
 
+	public function updateInspector(Request $request){
+
+		$id = $request->input('id');
+		$inspeccion = Inspeccion::find($id);
+
+		$validate = $this->validate($request,[
+			'inspector' => 'required|string'
+		]);
+
+		$idUser = \Auth::user()->id;
+		$inspector = $request->input('inspector');
+
+		$inspeccion->usuario_id = $idUser;
+		$inspeccion->inspector_id = $inspector;
+		$inspeccion->update();
+
+		return $inspeccion;
+	}
+
 	public function verMasInformacion($id){
 		$inspeccion = Inspeccion::find($id);
 		$gestores = Gestor::all();
@@ -775,7 +794,6 @@ class InspeccionController extends Controller
 				for ($b = 0; $b < count($exhibido); $b++) {
 					for ($i = 0; $i < count($solicitado); $i++) {
 						for ($a = 0; $a < count($documentos_requeridos); $a++) {
-							
 							if ($b == count($exhibido)) {
 								// estoy en el ultimo exhibido pero verifico que existan más solicitados
 								if (count($solicitado) > count($exhibido)) {
@@ -784,21 +802,19 @@ class InspeccionController extends Controller
 								} else {
 									if ($i == count($solicitado)) {
 										// estoy en el ultimo solicitado
-										echo "Aqui Existe: " . $documentos_requeridos[$a]->id . " Solicitado: No" . "<br>";
+										echo "Existe: " . $documentos_requeridos[$a]->id . " Solicitado: No" . "<br>";
 									}
 								}
 							} else {
-								
-									if ($documentos_requeridos[$a]->id == $solicitado[$i] && $documentos_requeridos[$a]->id == $exhibido[$b]) {
-										echo "Existe: " . $documentos_requeridos[$a]->id . " Solicitado: " . $solicitado[$i] . " " . " Exhibido: " . $exhibido[$b] . "<br>";
-										$b++;
-										$i++;
-									} else {
-										if(($a+1) == count($documentos_requeridos)) {
-											echo "no entrego <br>";
-										}
+								if ($documentos_requeridos[$a]->id == $solicitado[$i] && $documentos_requeridos[$a]->id == $exhibido[$b]) {
+									echo "Existe: " . $documentos_requeridos[$a]->id . " Solicitado: " . $solicitado[$i] . " " . " Exhibido: " . $exhibido[$b] . "<br>";
+									$b++;
+									$i++;
+								} else {
+									if(($a+1) == count($documentos_requeridos)) {
+										echo "no entrego <br>";
 									}
-								
+								}
 							}
 						}
 

@@ -4,6 +4,10 @@
 	<h2>Folio de Inspección: {{ $inspeccion->folio }}</h2>
 </header>
 
+@if (auth()->user()->role == 'ROLE_ADMIN')
+	<button type="submit" class="btn btn-primary btn-lg btn-primary-custom">Limpiar Inspección</button>
+@endif
+
 @if ($errors->any())
 <div class="alert alert-danger" role="alert">
 	{{ $errors->first() }}
@@ -148,6 +152,7 @@
 			</div>
 		</div>
 	</div>
+	@if ($is_edit == 'true' && auth()->user()->role == 'ROLE_ADMIN')
 	<div class="row">
 		<div class="col-md-4">
 			<div class="form-group ">
@@ -172,6 +177,32 @@
 			</div>
 		</div>
 	</div>
+	@else
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group ">
+				<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
+				<p>{{ $inspeccion->fecharealizada }}</p>
+				@if ($errors->has('hora'))
+				<span class="invalid-feedback" role="alert">
+					<strong>{{ $errors->first('hora') }}</strong>
+				</span>
+				@endif
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group ">
+				<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
+				<p>{{ date('H:i', strtotime($inspeccion->horarealizada)) }}</p>
+				@if ($errors->has('hora'))
+				<span class="invalid-feedback" role="alert">
+					<strong>{{ $errors->first('hora') }}</strong>
+				</span>
+				@endif
+			</div>
+		</div>
+	</div>
+	@endif
 	@else
 	<div class="form-group ">
 		<label for="encargado">{{ __('Nombre del encargado') }}</label>

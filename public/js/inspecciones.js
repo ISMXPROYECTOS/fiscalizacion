@@ -3,10 +3,8 @@ $(document).ready(function(){
     // Se crea una variable con la ruta raíz del proyecto
     var url = "http://localhost/fiscalizacion/public";
 
-    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').addClass('hidden');
-    $('#error-cantidad, #error-ejerciciofiscal, #error-tipoinspeccion').text('');
-    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').addClass('hidden');
-    $('#error-cantidad-asignar, #error-ejerciciofiscal-asignar, #error-tipoinspeccion-asignar, #error-inspectores-asignar').text('');
+    $('#error-ejerciciofiscal, #error-tipoinspeccion').addClass('hidden');
+    $('#error-ejerciciofiscal, #error-tipoinspeccion').text('');
     $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-ejerciciofiscal-edit').addClass('hidden');
     $('#error-inspector-edit, #error-gestor-edit, #error-tipoinspeccion-edit, #error-ejerciciofiscal-edit').text('');
     $('#error-colonia-edit, #error-domicilio-edit, #error-encargado-edit, #error-puestoencargado-edit, #error-diasvence-edit').addClass('hidden');
@@ -287,6 +285,39 @@ $(document).ready(function(){
     }
 
     cambiarInspector();
+
+    function updateInspector(){
+        $('#btn-cambiar-inspector').click(function(){
+            var data = {
+                'id' : $('#id-cambio-inspector').val(),
+                'inspector' : $('#inspector-edit').val()
+            }
+            $.ajax({
+                url: url + '/inspecciones/inspector',
+                data: data,
+                type: 'post',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    $('#cambiar-inspector').modal('hide');
+                    $('#actualizacion-correcta').modal('show');
+                    $('#error-inspector-edit').addClass('hidden');
+                    $('#error-inspector-edit').text('');
+                    viewData();
+                },
+                error: function(response) {
+                    $('#error-inspector-edit').addClass('hidden');
+                    $('#error-inspector-edit').text('');
+                    $.each(response.responseJSON.errors, function(i, item) {
+                        $('#error-'+i+'-edit').removeClass('hidden');
+                        $('#error-'+i+'-edit').text(item[0]);
+                    });
+                }
+            });
+
+        });
+    }
+
+    updateInspector();
 
     function busquedaDeComerciosPorNombre(){
  
