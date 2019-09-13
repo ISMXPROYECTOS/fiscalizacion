@@ -775,37 +775,30 @@ class InspeccionController extends Controller
 				for ($b = 0; $b < count($exhibido); $b++) {
 					for ($i = 0; $i < count($solicitado); $i++) {
 						for ($a = 0; $a < count($documentos_requeridos); $a++) {
+							
 							if ($b == count($exhibido)) {
-								// estoy en el ultimo exhibido
-								echo "ultimo - exhibido - 0 <br>";
-								
-							} else {
-								if ($i == count($solicitado)) {
-									// estoy en el ultimo solicitado
-									echo "ultimo - solicitado - 0 <br>";
+								// estoy en el ultimo exhibido pero verifico que existan más solicitados
+								if (count($solicitado) > count($exhibido)) {
+									echo "no entregue <br>";
+									$i++;
 								} else {
+									if ($i == count($solicitado)) {
+										// estoy en el ultimo solicitado
+										echo "Aqui Existe: " . $documentos_requeridos[$a]->id . " Solicitado: No" . "<br>";
+									}
+								}
+							} else {
+								
 									if ($documentos_requeridos[$a]->id == $solicitado[$i] && $documentos_requeridos[$a]->id == $exhibido[$b]) {
-										echo "Existe: ".$documentos_requeridos[$a]->id . " ";
-										echo "Solicitado: ".$solicitado[$i] . "";
-										echo "Exhibido: ".$exhibido[$b]."<br>";
+										echo "Existe: " . $documentos_requeridos[$a]->id . " Solicitado: " . $solicitado[$i] . " " . " Exhibido: " . $exhibido[$b] . "<br>";
 										$b++;
 										$i++;
 									} else {
-										if($documentos_requeridos[$a]->id == $solicitado[$i] && $solicitado[$i] == $exhibido[$b]) {
-											echo "Existe: ".$documentos_requeridos[$a]->id . " ";
-											echo "Solicitado: ".$solicitado[$i] ." ";
-											echo "Exhibido: ".$exhibido[$b]." <br>";
-										} else {
-											if ($documentos_requeridos[$a]->id == $exhibido[$b] && $solicitado[$i] != $exhibido[$b]) {
-												echo "aaa 0 <br>";
-											} else {
-												echo "0 <br>";
-											}
-											
-											
+										if(($a+1) == count($documentos_requeridos)) {
+											echo "no entrego <br>";
 										}
 									}
-								}
+								
 							}
 						}
 
