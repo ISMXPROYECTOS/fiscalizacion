@@ -5,7 +5,7 @@
 </header>
 
 @if (auth()->user()->role == 'ROLE_ADMIN')
-	<button type="submit" class="btn btn-primary btn-lg btn-primary-custom">Limpiar Inspección</button>
+<button type="submit" class="btn btn-primary btn-lg btn-primary-custom">Limpiar Inspección</button>
 @endif
 
 @if ($errors->any())

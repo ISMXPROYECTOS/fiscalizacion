@@ -743,7 +743,6 @@ class InspeccionController extends Controller
 
 		BitacoraDeEstatus::create($datos_bitacora);
 
-
 		$documentos_requeridos = DocumentacionRequerida::all();
 
 
@@ -811,6 +810,7 @@ class InspeccionController extends Controller
 									$b++;
 									$i++;
 								} else {
+									
 									if(($a+1) == count($documentos_requeridos)) {
 										echo "no entrego <br>";
 									}
@@ -877,6 +877,10 @@ class InspeccionController extends Controller
 		}*/
 
 		return redirect('/inspecciones/informacion/'.$inspeccion_id)->with('status', 'Se ha capturado la informacion correctamente.');
+	}
+
+	public function limpiarInspeccion(Request $request){
+		echo "asa";
 	}
 
 }
