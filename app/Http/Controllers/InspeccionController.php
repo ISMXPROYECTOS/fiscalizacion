@@ -784,7 +784,7 @@ class InspeccionController extends Controller
 		}*/
 
 
-		if ($solicitado == null) {
+		/*if ($solicitado == null) {
 			return back()->withErrors('Selecciona al menos un documento solicitado.');
 		} else {
 			if ($exhibido == null) {
@@ -823,7 +823,7 @@ class InspeccionController extends Controller
 			}
 		}
 
-		die();
+		die();*/
 
 		/*if ($exhibido == null) {
 			// aqui va a setear a 0
@@ -850,7 +850,7 @@ class InspeccionController extends Controller
 			}
 		}*/
 
-		/*if ($solicitado == null) {
+		if ($solicitado == null) {
 			return back()->withErrors('Selecciona al menos un documento solicitado.');
 		} else {
 			for ($i = 0; $i < count($solicitado) ; $i++) {
@@ -874,13 +874,60 @@ class InspeccionController extends Controller
 				$documentacion_requerida->update();
 				
 			}
-		}*/
+		}
 
 		return redirect('/inspecciones/informacion/'.$inspeccion_id)->with('status', 'Se ha capturado la informacion correctamente.');
 	}
 
-	public function limpiarInspeccion(Request $request){
-		echo "asa";
+	public function limpiarInspeccion($id){
+		
+		$inspeccion = Inspeccion::find($id);
+		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $id)->get();
+
+		$estatus_inspeccion = EstatusInspeccion::where('clave', 'A')->first();
+
+		//$inspeccion->formavalorada_id = null;
+		$inspeccion->comercio_id = null;
+		//$inspeccion->tipoinspeccion_id = null;
+		//$inspeccion->usuario_id = null;
+		$inspeccion->gestores_id = null; 
+		//$inspeccion->ejerciciofiscal_id = null;
+		//$inspeccion->inspector_id = null;
+		$inspeccion->estatusinspeccion_id = $estatus_inspeccion->id;
+		//$inspeccion->fechaasignada = null;
+		$inspeccion->fechacapturada	 = null;
+		$inspeccion->fechaprorroga = null;
+		$inspeccion->observacionprorroga = null;
+		$inspeccion->fecharealizada = null;
+		$inspeccion->horarealizada = null;
+		$inspeccion->comentario = null;
+		$inspeccion->nombreencargado = null;
+		$inspeccion->cargoencargado = null;
+		$inspeccion->identificacion = null;
+		$inspeccion->folioidentificacion = null;
+		$inspeccion->diasvence = null;
+		$inspeccion->fechavence = null;
+		$inspeccion->update();
+
+		for ($i = 0; $i < count($documentacion_por_inspeccion); $i++) {
+
+			$documento_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $id)
+																			->where('solicitado', 1)
+																			->where('exhibido', 1)
+																			->first();
+
+			if ($documento_por_inspeccion == null) {
+				break;
+			}
+
+			$documento_por_inspeccion->solicitado = 0;
+			$documento_por_inspeccion->exhibido = 0;
+			$documento_por_inspeccion->update();
+
+			
+		}
+
+		return redirect('/inspecciones/informacion/'.$id)->with('status', 'La inspeccción se ha limpiado correctamente.');
 	}
 
 }

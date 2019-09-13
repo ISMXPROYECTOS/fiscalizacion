@@ -86,7 +86,7 @@ Route::get('/inspecciones/obtener-total-inspecciones/{id}/{anio}', 'InspeccionCo
 Route::post('/inspecciones/obtener-folios-inspecciones', 'InspeccionController@obtenerFoliosInspecciones');
 Route::get('/inspecciones/informacion/{id}', 'InspeccionController@verMasInformacion')->name('ver-mas');
 Route::post('/inspecciones/informacion/actualizar', 'InspeccionController@actualizarInformacionInspeccion')->name('actualizar-informacion-inspeccion');
-Route::post('/inspecciones/inspeccion/limpiar', 'InspeccionController@limpiarInspeccion')->name('limpiar-inspeccion');
+Route::get('/inspecciones/inspeccion/limpiar/{id}', 'InspeccionController@limpiarInspeccion')->name('limpiar-inspeccion');
 
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@listadoInspeccionesParaDescargar')->name('listado-de-inspecciones-para-descargar');

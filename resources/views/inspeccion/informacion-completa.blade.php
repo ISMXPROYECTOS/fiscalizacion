@@ -4,10 +4,6 @@
 	<h2>Folio de Inspección: {{ $inspeccion->folio }}</h2>
 </header>
 
-@if (auth()->user()->role == 'ROLE_ADMIN')
-<button type="submit" class="btn btn-primary btn-lg btn-primary-custom">Limpiar Inspección</button>
-@endif
-
 @if ($errors->any())
 <div class="alert alert-danger" role="alert">
 	{{ $errors->first() }}
@@ -358,6 +354,9 @@
 	</div>
 	<br>
 	<button type="submit" class="btn btn-primary btn-lg btn-primary-custom">Actualizar Información</button>
+	@if (auth()->user()->role == 'ROLE_ADMIN')
+		<a href="{{ route('limpiar-inspeccion', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Limpiar Inspección</a>
+	@endif
 </form>
 @endsection
 
