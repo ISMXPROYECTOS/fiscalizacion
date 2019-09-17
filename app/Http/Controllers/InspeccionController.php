@@ -672,6 +672,9 @@ class InspeccionController extends Controller
 		$configuracion = Configuracion::where('id', 1)->first();
 		$configuracion_dias_vence = $configuracion->valornumero;
 
+		$texto_presento = Configuracion::where('id', 2)->first();
+		$texto_no_presento = Configuracion::where('id', 3)->first();
+
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'Cap')->first();
 		$id_estatus_nuevo = $estatus_nuevo->id;
 		$idUser = \Auth::user()->id;
@@ -726,6 +729,7 @@ class InspeccionController extends Controller
 		$inspeccion->gestores_id = $gestor;
 		$inspeccion->diasvence = $configuracion_dias_vence;
 		$inspeccion->fechavence = $fecha_vence;
+
 		if ($dias_prorroga != 0) {
 			$fecha_prorroga = date("Y-m-d",strtotime($fecha_vence . "+" . $dias_prorroga . "days"));
 			$inspeccion->fechaprorroga = $fecha_prorroga;
@@ -743,136 +747,122 @@ class InspeccionController extends Controller
 
 		BitacoraDeEstatus::create($datos_bitacora);
 
+
 		$documentos_requeridos = DocumentacionRequerida::all();
-
-
-		/*for ($i = 0; $i < count($documentos_requeridos); $i++) { 
-			for ($a = 0; $a < count($solicitado); $a++) { 
-				if ($documentos_requeridos[$i]->id == $solicitado[$a]) {
-					echo "1 <br>";
-					$i++;
-				} else {
-					echo "0 <br>";
-				}
-			}
-		}*/
-
-		/*if ($solicitado == null) {
-			return back()->withErrors('Selecciona al menos un documento solicitado.');
-
-		} else {
-
-			for ($i = 0; $i < count($solicitado); $i++) { 
-				for ($a = 0; $a < count($documentos_requeridos); $a++) { 
-
-					if ($i == count($solicitado)) {
-						// estoy en el ultimo
-						echo "17 - 17 - 0 <br>";
-					} else {
-						if ($solicitado[$i] == $documentos_requeridos[$a]->id) {
-							echo $solicitado[$i]." - ".$documentos_requeridos[$a]->id." - ";
-							echo "1 <br>";
-							$i++;
-					
-						} else {
-							echo $solicitado[$i]." - ".$documentos_requeridos[$a]->id." - ";
-							echo "0 <br>";
-						}
-					}
-				}	
-			}
-		}*/
-
-
-		/*if ($solicitado == null) {
-			return back()->withErrors('Selecciona al menos un documento solicitado.');
-		} else {
-			if ($exhibido == null) {
-				return back()->withErrors('Selecciona al menos un documento exhibido.');
-			} else {
-				for ($b = 0; $b < count($exhibido); $b++) {
-					for ($i = 0; $i < count($solicitado); $i++) {
-						for ($a = 0; $a < count($documentos_requeridos); $a++) {
-							if ($b == count($exhibido)) {
-								// estoy en el ultimo exhibido pero verifico que existan más solicitados
-								if (count($solicitado) > count($exhibido)) {
-									echo "no entregue <br>";
-									$i++;
-								} else {
-									if ($i == count($solicitado)) {
-										// estoy en el ultimo solicitado
-										echo "Existe: " . $documentos_requeridos[$a]->id . " Solicitado: No" . "<br>";
-									}
-								}
-							} else {
-								if ($documentos_requeridos[$a]->id == $solicitado[$i] && $documentos_requeridos[$a]->id == $exhibido[$b]) {
-									echo "Existe: " . $documentos_requeridos[$a]->id . " Solicitado: " . $solicitado[$i] . " " . " Exhibido: " . $exhibido[$b] . "<br>";
-									$b++;
-									$i++;
-								} else {
-									
-									if(($a+1) == count($documentos_requeridos)) {
-										echo "no entrego <br>";
-									}
-								}
-							}
-						}
-
-					}
-				}
-			}
-		}
-
-		die();*/
-
-		/*if ($exhibido == null) {
-			// aqui va a setear a 0
-		} else {
-
-			for ($b = 0; $b < count($exhibido); $b++) { 
-				for ($c = 0; $c < count($solicitado); $c++) { 
-
-					if ($b == count($solicitado)) {
-						// estoy en el ultimo
-						echo "17 - 17 - 0 <br>";
-					} else {
-						if ($exhibido[$b] == $solicitado[$c]) {
-							echo $exhibido[$b]." - ".$solicitado[$c]." - ";
-							echo "1 <br>";
-							$b++;
-					
-						} else {
-							echo $exhibido[$b]." - ".$solicitado[$c]." - ";
-							echo "0 <br>";
-						}
-					}
-				}	
-			}
-		}*/
 
 		if ($solicitado == null) {
 			return back()->withErrors('Selecciona al menos un documento solicitado.');
 		} else {
-			for ($i = 0; $i < count($solicitado) ; $i++) {
-			
-				$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $solicitado[$i])
-																			->where('inspeccion_id', $inspeccion_id)->first();
-				$documentacion_requerida->solicitado = 1;
-				$documentacion_requerida->observaciones = $observaciones[$i];
-				$documentacion_requerida->update();
-				
+			for ($i = 0; $i < count($solicitado); $i++) {
+				for ($a = 0; $a < count($documentos_requeridos) ; $a++) {
+
+					if (($i+1) == count($solicitado)) {
+						if ($solicitado[$i] == $documentos_requeridos[$a]->id) {
+
+							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $solicitado[$i])
+																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->solicitado = 1;
+							$documentacion_requerida->update();
+						} else {
+							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->id)
+																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->solicitado = 0;
+							$documentacion_requerida->update();
+						}
+					} else {
+
+						if ($solicitado[$i] == $documentos_requeridos[$a]->id) {
+
+							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $solicitado[$i])
+																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->solicitado = 1;				
+							$documentacion_requerida->update();
+
+							$i++;
+
+						} else {
+							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->id)
+																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->solicitado = 0;
+
+							$documentacion_requerida->update();
+						}
+						
+					}	
+				}
 			}
 		}
 
-		if ($exhibido != null) {
-			
-			for ($e = 0; $e < count($exhibido) ; $e++) {
-			
-				$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $exhibido[$e])
-																			->where('inspeccion_id', $inspeccion_id)->first();
-				$documentacion_requerida->exhibido = 1;
-				$documentacion_requerida->update();
-				
+
+		if ($exhibido == null) {
+			return back()->withErrors('Selecciona al menos un documento exhibido');
+		} else {
+			for ($b = 0; $b < count($exhibido); $b++) {
+				for ($c = 0; $c < count($documentos_requeridos); $c++) {
+
+					if (($b+1) == count($exhibido)) { // if del ultimo
+						if ($exhibido[$b] == $documentos_requeridos[$c]->id) {
+
+							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $exhibido[$b])
+																				->where('inspeccion_id', $inspeccion_id)->first();
+
+							$documentacion_requerida->exhibido = 1;
+							$documentacion_requerida->update();
+
+						} else {
+							
+							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->id)
+																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->exhibido = 0;
+							$documentacion_requerida->update();
+						}
+
+					} else { 
+
+						if ($exhibido[$b] == $documentos_requeridos[$c]->id) {
+
+							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $exhibido[$b])
+																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->exhibido = 1;
+							$documentacion_requerida->update();
+
+							$b++;
+
+						} else {
+							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->id)
+																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->exhibido = 0;
+							$documentacion_requerida->update();
+						}
+						
+					}	
+				}
+			}
+		}
+
+		$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $inspeccion_id)->get();
+
+		
+		for ($e = 0; $e < count($observaciones); $e++) { 
+			if ($observaciones[$e] == null) {
+				if ($documentacion_requerida[$e]->exhibido == 0) {
+					$documentacion_requerida[$e]->observaciones = $texto_no_presento->valortexto;
+					$documentacion_requerida[$e]->update();
+				} else {
+					$documentacion_requerida[$e]->observaciones = $texto_presento->valortexto;
+					$documentacion_requerida[$e]->update();
+				}
+			} else {
+				if ($documentacion_requerida[$e]->exhibido == 0 && $observaciones[$e] == $texto_presento->valortexto) {
+					$documentacion_requerida[$e]->observaciones = $texto_no_presento->valortexto;
+					$documentacion_requerida[$e]->update();
+				} elseif ($documentacion_requerida[$e]->exhibido == 1 && $observaciones[$e] == $texto_no_presento->valortexto) {
+					$documentacion_requerida[$e]->observaciones = $texto_presento->valortexto;
+					$documentacion_requerida[$e]->update();
+				} else {
+					$documentacion_requerida[$e]->observaciones = $observaciones[$e];
+					$documentacion_requerida[$e]->update();
+				}
 			}
 		}
 

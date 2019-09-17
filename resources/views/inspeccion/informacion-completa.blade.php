@@ -153,7 +153,7 @@
 		<div class="col-md-4">
 			<div class="form-group ">
 				<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
-				<input id="fecharealizada" type="date" class="form-control" name="fecha" value="{{ $inspeccion->fecharealizada }}" required autofocus>
+				<input id="fecharealizada" type="date" class="form-control" name="fecha" value="{{ $inspeccion->fecharealizada }}" required >
 				@if ($errors->has('hora'))
 				<span class="invalid-feedback" role="alert">
 					<strong>{{ $errors->first('hora') }}</strong>
@@ -164,7 +164,7 @@
 		<div class="col-md-4">
 			<div class="form-group ">
 				<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
-				<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ date('H:i', strtotime($inspeccion->horarealizada)) }}" required autofocus>
+				<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ date('H:i', strtotime($inspeccion->horarealizada)) }}" required>
 				@if ($errors->has('hora'))
 				<span class="invalid-feedback" role="alert">
 					<strong>{{ $errors->first('hora') }}</strong>
@@ -276,7 +276,7 @@
 				<th class="documento-requerido-nombre">{{ $documento->documentacionRequerida->nombre }}</th>
 				<td class="text-center"><input class="form-check-input check-solicitado" @if($documento->solicitado == 1) checked @endif type="checkbox" id="solicitado" value="{{ $documento->documentacionRequerida->id }}" name="solicitado[]"></td>
 				<td class="text-center"><input class="form-check-input check-exhibido" @if($documento->exhibido == 1) checked @endif type="checkbox" id="exhibido" value="{{ $documento->documentacionRequerida->id }}"  name="exhibido[]"></td>
-				<td><input class="form-control form-control-sm" type="text" value="{{ $documento->observaciones  }}" name="observaciones[]"></td>
+				<td><input class="form-control form-control-sm" type="text" value="{{ $documento->observaciones }}" name="observaciones[]"></td>
 			</tr>
 			@endforeach
 		</tbody>
@@ -323,7 +323,7 @@
 			@else
 			<div class="form-group">
 				<label for="gestor">{{ __('Gestor') }}</label>
-				<select name="gestor" id="gestor" class="form-control{{ $errors->has('gestor') ? ' is-invalid' : '' }}" value="{{ old('gestor') }}" autofocus>
+				<select name="gestor" id="gestor" class="form-control{{ $errors->has('gestor') ? ' is-invalid' : '' }}" value="{{ old('gestor') }}">
 					<option value="">Seleccionar</option>
 					@foreach($gestores as $gestor)
 					<option value="{{ $gestor->id }}">
