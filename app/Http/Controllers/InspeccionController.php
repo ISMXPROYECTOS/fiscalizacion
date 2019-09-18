@@ -388,6 +388,7 @@ class InspeccionController extends Controller
 
 		$id = $request->input('id');
 		$inspeccion = Inspeccion::find($id);
+		$inspeccion_id = $inspeccion->id;
 
 		$validate = $this->validate($request,[
 			'estatusinspeccion' => 'required|string|max:1',
@@ -402,6 +403,15 @@ class InspeccionController extends Controller
 		$inspeccion->estatusinspeccion_id = $estatus;
 		$inspeccion->comentario = $comentario;
 		$inspeccion->update();
+
+		$datos_bitacora = [
+			'inspeccion_id' => $inspeccion_id,
+			'estatusinspeccion_id' => $estatus,
+			'usuario_id' => $idUser,
+			'observacion' => $comentario
+		];
+		
+		BitacoraDeEstatus::create($datos_bitacora);
 
 		return $inspeccion;
 	}
