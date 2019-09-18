@@ -85,8 +85,7 @@ class InspeccionController extends Controller
 		$inspecciones = Inspeccion::all()->load('tipoInspeccion')->load('estatusInspeccion')->load('inspector')->load('comercio');
         return Datatables::of($inspecciones)
             ->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
-			->addColumn('cambiarinspector', 'inspeccion/boton-cambiar-inspector')
-			->rawColumns(['cambiarestatus', 'cambiarinspector'])
+			->rawColumns(['cambiarestatus'])
 			->make(true);
 	}
 
@@ -427,10 +426,12 @@ class InspeccionController extends Controller
 	}
 
 	public function verMasInformacion($id){
+
 		$inspeccion = Inspeccion::find($id);
 		$gestores = Gestor::all();
 		$documentos = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $id)->get();
 		$comercios = Comercio::all();
+		$inspectores = Inspector::all();
 		$is_edit = false;
 
 		if ($inspeccion->estatusInspeccion->clave == 'NA') {
@@ -442,6 +443,7 @@ class InspeccionController extends Controller
 					'gestores' => $gestores,
 					'documentos' => $documentos,
 					'comercios' => $comercios,
+					'inspectores' => $inspectores,
 					'is_edit' => $is_edit
 				]);
 			}else{
@@ -451,6 +453,7 @@ class InspeccionController extends Controller
 					'gestores' => $gestores,
 					'documentos' => $documentos,
 					'comercios' => $comercios,
+					'inspectores' => $inspectores,
 					'is_edit' => $is_edit
 				]);
 			}

@@ -4,6 +4,11 @@
 	<h2>Folio de Inspección: {{ $inspeccion->folio }}</h2>
 </header>
 
+<p>{{ $inspeccion->inspector->nombre }}</p>
+<button type="button" class="btn btn-primary btn-sm cambiar-inspector" id="{{ $inspeccion->id }}">
+    <i class="fas fa-exchange-alt"></i>
+</button>
+
 @if ($errors->any())
 <div class="alert alert-danger" role="alert">
 	{{ $errors->first() }}
@@ -358,8 +363,76 @@
 		<a href="{{ route('limpiar-inspeccion', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Limpiar Inspección</a>
 	@endif
 </form>
+
+<!-- Modal para cambiar de Inspector -->
+<div class="modal fade" id="cambiar-inspector" tabindex="-1" role="dialog" aria-labelledby="modal-cambiar-inspector" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-cambiar-inspector">Cambiar de Inspector</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="formulario-cambiar-inspector" role="form">
+                    @csrf
+                    <input type="hidden" id="id-cambio-inspector">
+                    <div class="form-group">
+                        <label for="inspector-edit">{{ __('Inspector') }}</label>
+                        <select id="inspector-edit" class="form-control">
+                            <option value="">Seleccionar</option>
+                            @foreach($inspectores as $inspector)
+                                <option value="{{ $inspector->id }}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }} 
+                                    {{ $inspector->apellidomaterno }}</option>
+                            @endforeach
+                        </select>
+                        <p class="text-danger" id="error-inspector-edit"></p>
+                    </div>
+                    <hr>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-cambiar-inspector">{{ __('Guardar') }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alerta de actualización -->
+<div class="modal fade" id="actualizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-correcta" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-actualizacion-correcta">Actualización Exitosa</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="modal-text">
+                        <h4>Actualización Exitosa</h4>
+                        <p>La información se ha actualizado correctamente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/inspecciones.js') }}" ></script>
+<script src="{{ asset('js/inspeccion-completa.js') }}" ></script>
 @endsection
