@@ -27,7 +27,6 @@ $(document).ready(function(){
                 {data: 'tipo_inspeccion.clave'},
                 {data: 'estatus_inspeccion.nombre',
                     'render': function(data, type, row){
-                        console.log(row.estatus_inspeccion.clave);
                         if (row.estatus_inspeccion.clave == 'NA') {
                             return "<span class='badge badge-pill badge-secondary'>"+ row.estatus_inspeccion.nombre +"</span>";
                         } else if(row.estatus_inspeccion.clave == 'A'){
