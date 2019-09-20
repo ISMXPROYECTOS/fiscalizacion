@@ -426,13 +426,15 @@ class InspeccionController extends Controller
 		]);
 
 		$idUser = \Auth::user()->id;
-		$inspector = $request->input('inspector');
+		$inspector_id = $request->input('inspector');
+
+		$inspector = Inspector::find($inspector_id);
 
 		$inspeccion->usuario_id = $idUser;
-		$inspeccion->inspector_id = $inspector;
+		$inspeccion->inspector_id = $inspector_id;
 		$inspeccion->update();
 
-		return $inspeccion;
+		return [$inspector, $inspeccion];
 	}
 
 	public function verMasInformacion($id){

@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
             </div>
         </div>
     </div>

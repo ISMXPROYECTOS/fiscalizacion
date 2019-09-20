@@ -4,10 +4,7 @@
 	<h2>Folio de Inspección: {{ $inspeccion->folio }}</h2>
 </header>
 
-<p>{{ $inspeccion->inspector->nombre }}</p>
-<button type="button" class="btn btn-primary btn-sm cambiar-inspector" id="{{ $inspeccion->id }}">
-    <i class="fas fa-exchange-alt"></i>
-</button>
+
 
 @if ($errors->any())
 <div class="alert alert-danger" role="alert">
@@ -61,6 +58,12 @@
 </div>
 @endif
 @endif
+
+
+<h4 >Inspector: <b id="nombre-inspector">{{ $inspeccion->inspector->nombre }} {{ $inspeccion->inspector->apellidopaterno }} {{ $inspeccion->inspector->apellidomaterno }}</b></h4>
+<button type="button" class="btn btn-primary btn-sm cambiar-inspector" id="{{ $inspeccion->id }}">
+    <i class="fas fa-exchange-alt"></i> Cambiar Inspector
+</button>
 
 <form method="POST" action="{{ route('actualizar-informacion-inspeccion') }}">
 	@csrf
@@ -234,7 +237,7 @@
 		<div class="col-lg-6">
 			<div class="form-group ">
 				<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
-				<input id="fecharealizada" type="date" class="form-control" name="fecha" value="{{ old('hora') }}" required autofocus>
+				<input id="fecharealizada" type="date" class="form-control" name="fecha" value="{{ old('hora') }}" required >
 				
 				@if ($errors->has('hora'))
 				<span class="invalid-feedback" role="alert">
@@ -246,7 +249,7 @@
 		<div class="col-lg-6">
 			<div class="form-group ">
 				<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
-				<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ old('hora') }}" required autofocus>
+				<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ old('hora') }}" required >
 				@if ($errors->has('hora'))
 				<span class="invalid-feedback" role="alert">
 					<strong>{{ $errors->first('hora') }}</strong>

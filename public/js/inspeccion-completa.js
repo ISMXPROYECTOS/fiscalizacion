@@ -37,6 +37,8 @@ $(document).ready(function(){
 				success: function (response) {
 					$('#cambiar-inspector').modal('hide');
 					$('#actualizacion-correcta').modal('show');
+					$('#nombre-inspector').text('');
+					$('#nombre-inspector').text(response[0].nombre +' '+ response[0].apellidopaterno +' '+ response[0].apellidomaterno);
 					$('#error-inspector-edit').addClass('hidden');
 					$('#error-inspector-edit').text('');
 				},
