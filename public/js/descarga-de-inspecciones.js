@@ -59,12 +59,40 @@ $(document).ready(function(){
 
 	validarActaInspeccion();*/
 
+	function validarFoliosAsignados(){
+        $(document).on('click', '.descargar', function(e){
 
-	$(document).on('click', '.descargar', function(){
-		$('#creando-pdf-inspecciones').modal('show');
-		var id = $(this).attr('id');
-		window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
-	});
+        	e.preventDefault();
+
+        	$('#folios-no-asignados').text('');
+
+            var id = $(this).attr('id');
+             $.ajax({
+                url: url + '/pdf/validar-folios-asignados/' + id,
+                type: 'get',
+                success: function (response) {
+                    if (response == 'true') {
+                    	$('#creando-pdf-inspecciones').modal('show');
+                    	window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
+                    } else {
+                         $('#validar-folios-asignados').modal('show');
+                         $.each(response, function( key, value ){
+                            $('#folios-no-asignados').append(
+                                "<li>"+ value.folio +"</li>"
+                            );
+                        });
+                    }
+                }
+            });
+
+			
+		});
+    }
+
+    validarFoliosAsignados();
+
+
+	
 
 
 });

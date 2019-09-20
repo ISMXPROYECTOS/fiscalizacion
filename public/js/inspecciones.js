@@ -21,7 +21,7 @@ $(document).ready(function(){
             'columns': [
                 {data: 'folio',
                     'render': function(data, type, row){
-                        return "<a href='" + url + "/inspecciones/informacion/" + row.id + "'>" + data + "</a>"
+                        return "<a href='#' class='folio-inspeccion' id='"+ row.id +"'>" + data + "</a>"
                     }
                 },
                 {data: 'tipo_inspeccion.clave'},
@@ -263,5 +263,27 @@ $(document).ready(function(){
     }
 
     updateEstatus();
+
+    function validarFolioAsignado(){
+        $(document).on('click', '.folio-inspeccion', function(e){
+            e.preventDefault();
+            var id = $(this).attr('id');
+             $.ajax({
+                url: url + '/inspecciones/validar-folio-asignado/' + id,
+                type: 'get',
+                success: function (response) {
+                    if (response == 'true') {
+                        window.location.href = url + '/inspecciones/informacion/' + id;
+                    } else {
+                         $('#validar-folio-asignado').modal('show');
+                    }
+                }
+            });
+        });
+    }
+
+    validarFolioAsignado();
+
+   
     
 });

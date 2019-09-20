@@ -46,6 +46,37 @@
     </div>
 </div>
 
+
+<!-- Alerta de no asignado -->
+<div class="modal fade" id="validar-folios-asignados" tabindex="-1" role="dialog" aria-labelledby="modal-validar-folios-asignados" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-validar-folios-asignados">Folios no asignados</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="modal-text">
+                        <h4>Hay folios sin asignar</h4>
+                        <p>Los siguientes folios no han sido asignados</p>
+                        <ul id="folios-no-asignados">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('scripts')
 <script src="{{ asset('js/descarga-de-inspecciones.js') }}" defer></script>

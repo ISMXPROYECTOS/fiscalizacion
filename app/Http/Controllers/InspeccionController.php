@@ -933,4 +933,20 @@ class InspeccionController extends Controller
 		return redirect('/inspecciones/informacion/'.$id)->with('status', 'La inspeccción se ha limpiado correctamente.');
 	}
 
+
+	public function validarFolioAsignado($id){
+
+		$inspeccion = Inspeccion::find($id);
+		$estatus_inspeccion = $inspeccion->estatusinspeccion->clave;
+
+		$asignado_t = 'true';
+		$asignado_f = 'false';
+		
+		if ($estatus_inspeccion != 'NA') {
+			return $asignado_t;
+		} else {
+			return $asignado_f;
+		}
+	}
+
 }

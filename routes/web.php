@@ -87,6 +87,8 @@ Route::post('/inspecciones/obtener-folios-inspecciones', 'InspeccionController@o
 Route::get('/inspecciones/informacion/{id}', 'InspeccionController@verMasInformacion')->name('ver-mas');
 Route::post('/inspecciones/informacion/actualizar', 'InspeccionController@actualizarInformacionInspeccion')->name('actualizar-informacion-inspeccion');
 Route::get('/inspecciones/inspeccion/limpiar/{id}', 'InspeccionController@limpiarInspeccion')->name('limpiar-inspeccion');
+Route::get('/inspecciones/validar-folio-asignado/{id}', 'InspeccionController@validarFolioAsignado');
+
 
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@listadoInspeccionesParaDescargar')->name('listado-de-inspecciones-para-descargar');
@@ -95,6 +97,7 @@ Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete'
 //Route::get('/pdf/validar-acta-inspeccion/{id}', 'PdfController@validarActaInspeccion');
 //Route::get('/pdf/descargar-acta-inspeccion/{id}', 'PdfController@descargarActaInspeccion');
 Route::get('/pdf/descargar-pdf-inspecciones/{id}', 'PdfController@descargarPdfInspecciones');
+Route::get('/pdf/validar-folios-asignados/{id}', 'PdfController@validarFoliosAsignados');
 
 /* Rutas Tipos Inspecciones*/
 Route::get('/tipo-inspecciones', 'TipoInspeccionController@listadoTipoInspecciones')->name('listado-tipo-inspecciones');

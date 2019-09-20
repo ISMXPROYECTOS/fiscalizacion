@@ -48,6 +48,20 @@ class PdfController extends Controller
 		
 	}*/
 
+	public function validarFoliosAsignados($id){
+		$inspecciones = Inspeccion::where('formavalorada_id', $id)
+									->where('estatusinspeccion_id', 1)
+									->get();
+
+		$asignadas_t = 'true';
+
+		if (count($inspecciones) == 0) {
+			return $asignadas_t;
+		} else {
+			return $inspecciones;
+		}
+	}
+
 	public function descargarPdfInspecciones($id){
 		
 		$forma_valorada = FormaValorada::find($id);
