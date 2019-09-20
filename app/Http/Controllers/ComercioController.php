@@ -171,12 +171,24 @@ class ComercioController extends Controller
 			$cliente = new SoapClient($url);
 			//dd($cliente->__getTypes());
 			//dd($cliente->obtieneComerciosLicenciasId());
+			//dd($comercios);
+			
 			$comercios = $cliente->obtieneComerciosLicenciasId();
-			var_dump($comercios);
+
+			foreach ($comercios as $comercio) {
+				echo $comercio->claEntComercio[0]->CodigoPostalColonia;
+			}
 			die();
-			return view('comercio.pruebas', [
-				'comercios' => $comercios
-			]);
+			
+
+			if (empty($comercios)) {
+				echo "No hay comercios";
+			} else {
+				return view('comercio.pruebas', [
+					'comercios' => $comercios
+				]);
+			}
+			
 		}catch(\Exception $error){
 			return $error->getMessage();
 		}
