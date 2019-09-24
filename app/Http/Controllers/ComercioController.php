@@ -169,9 +169,6 @@ class ComercioController extends Controller
 
 		try{
 			$cliente = new SoapClient($url);
-			//dd($cliente->__getTypes());
-			//dd($cliente->obtieneComerciosLicenciasId());
-			
 			$data = $cliente->obtieneComerciosLicenciasId();
 
 			if (empty($data)) {
@@ -182,7 +179,6 @@ class ComercioController extends Controller
 				$total_comercios = count($comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio);
 
 				for ($i = 0; $i < $total_comercios; $i++) {
-					//var_dump($comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]);
 					$comercio_bd = Comercio::where('clavecatastral', $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->PredioCveCatastral)->where('propietarioid', $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->propietario_id)->first();
 
 					if (empty($comercio_bd)) {
