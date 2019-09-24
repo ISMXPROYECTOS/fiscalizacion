@@ -171,22 +171,54 @@ class ComercioController extends Controller
 			$cliente = new SoapClient($url);
 			//dd($cliente->__getTypes());
 			//dd($cliente->obtieneComerciosLicenciasId());
-			//dd($comercios);
 			
-			$comercios = $cliente->obtieneComerciosLicenciasId();
+			$data = $cliente->obtieneComerciosLicenciasId();
 
-			foreach ($comercios as $comercio) {
-				echo $comercio->claEntComercio[0]->CodigoPostalColonia;
-			}
-			die();
-			
-
-			if (empty($comercios)) {
+			if (empty($data)) {
 				echo "No hay comercios";
 			} else {
+				$comercios = json_encode($data);
+				$comercios_array = json_decode($comercios);
+				$total_comercios = count($comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio);
+
+				for ($i = 0; $i < $total_comercios; $i++) {
+					//var_dump($comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]);
+					$comercio_bd = Comercio::where('clavecatastral', $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->PredioCveCatastral)->where('propietarioid', $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->propietario_id)->first();
+
+					if (empty($comercio_bd)) {
+						$datos = [
+							'rfc' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->RFCPersona,
+							'licenciafuncionamientoid' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->LicenciasFuncionamientoId,
+							'licenciafuncionamiento' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->LicenciasFuncionamientoFolio,
+							'propietarioid' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->propietario_id,
+							'propietarionombre' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->propietario,
+							'clavecatastral' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->PredioCveCatastral,
+							'denominacion' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->RazonSocialPersona,
+							'nombreestablecimiento' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->nombrecomercial,
+							'domiciliofiscal' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->Domicilio_Fiscal,
+							'calle' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->calle,
+							'nointerior' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->NumInt,
+							'noexterior' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->NumExt,
+							'cp' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->CodigoPostalColonia,
+							'colonia' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->NombreColonia,
+							'localidad' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->NombreOficialLocalidad,
+							'municipio' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->NombreOficialMunicipio,
+							'estado' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->NombreEntidadFederativa,
+							'folio' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->Folio,
+							'estatus' => 'A'
+						];
+
+						Comercio::create($datos);
+					} else {
+						echo "existe " . $i . "<br>";
+					}
+				}
+				die();
+				/*
 				return view('comercio.pruebas', [
-					'comercios' => $comercios
+					'comercios' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio
 				]);
+				*/
 			}
 			
 		}catch(\Exception $error){
