@@ -3,11 +3,7 @@
 <header class="page-header">
     <h2>Agregar Inspecciones Por Zona</h2>
 </header>
-@if (session('status'))
-<div class="alert alert-success">
-    {{ session('status') }}
-</div>
-@endif
+
 <div class="row">
     <div class="col-md-4">
         <h4 >Folio inicio: <b id="folio-inicio"></b></h4>
@@ -105,14 +101,40 @@
 </div>
 </form>
 @endsection
-@section('scripts')
 
-@if (session('idfv'))
-<!--<script>
-    var url = "http://localhost/fiscalizacion/public";
-    window.location.replace(url + "/pdf/descargar-acta-inspeccion-multiple/" + {{ session('idfv') }});
-</script>-->
+@if (session('status'))
+    <!-- Alerta de creacion correcta -->
+    <div class="modal fade" id="creacion-inspecciones-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-creacion-inspecciones-correcta" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-creacion-inspecciones-correcta">Creación Exitosa</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-wrapper">
+                        <div class="modal-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="modal-text">
+                            <h4>Creación Exitosa</h4>
+                            <p>{{ session('status') }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endif
 
+@section('scripts')
+<script>
+    $('#creacion-inspecciones-correcta').modal('show')
+</script>
 <script src="{{ asset('js/agregar-inspeccion-por-sm.js') }}" defer></script>
 @endsection

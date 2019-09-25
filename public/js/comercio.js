@@ -254,4 +254,14 @@ $(document).ready(function(){
     }
 
     updateEstatus();
+
+    function sincronizarComercios(){
+         $('#btn-sincronizar').click(function(){
+            $('#btn-sincronizar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Sincronizando...');
+         });
+    }
+
+    sincronizarComercios()
+
+
 });

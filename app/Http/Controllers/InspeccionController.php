@@ -200,7 +200,7 @@ class InspeccionController extends Controller
 		
 		//return redirect('inspecciones/agregar')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
 
-		return redirect('inspecciones/agregar')->with('status', 'Se ha creado correctamente');
+		return redirect('inspecciones/agregar')->with('status', 'Las inspecciones se han creado correctamente.');
 	}
 
 	public function crearInspeccionesPorSM(Request $request){
@@ -319,7 +319,7 @@ class InspeccionController extends Controller
 		
 		//return redirect('inspecciones/agregar-por-zonas')->with(['status' => 'Se ha creado correctamente', 'idfv' => $id_forma_valorada ]);
 
-		return redirect('inspecciones/agregar-por-zonas')->with('status', 'Se ha creado correctamente');
+		return redirect('inspecciones/agregar-por-zonas')->with('status', 'Las inspecciones se han creado correctamente.');
 	}
 
 	public function editarInspeccion($id){

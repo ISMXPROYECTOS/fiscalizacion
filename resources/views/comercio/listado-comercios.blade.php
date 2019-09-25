@@ -6,6 +6,11 @@
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-comercio" data-backdrop="static" data-keyboard="false">
 	<i class="fas fa-user-plus"></i> Agregar Comercio
 </button>
+
+<a href="{{ route('sincronizar-comercios') }}" role="button" class="btn btn-primary mb-3 btn-primary-custom" id="btn-sincronizar">
+	<i class="fas fa-sync-alt"></i> Sincronizar comercios
+</a>
+
 <div class="row">
 	<div class="col">
 		<table class="table table-sm table-responsive-lg table-bordered table-striped mb-0" id="datatable">
@@ -288,7 +293,41 @@
 	</div>
 </div>
 
+
+<!-- Alerta de sincronizacion -->
+@if (session('status'))
+<div class="modal fade" id="sincronizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-sincronizacion-correcta" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-sincronizacion-correcta">Sincronización Exitosa</h3>
+				
+			</div>
+			<div class="modal-body">
+				<div class="modal-wrapper">
+					<div class="modal-icon">
+						<i class="fas fa-check"></i>
+					</div>
+					<div class="modal-text">
+						<h4>Sincronización Exitosa</h4>
+						<p>{{ session('status') }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+@endif
+
+
+
 @endsection
 @section('scripts')
+<script>
+	$('#sincronizacion-correcta').modal('show')
+</script>
 <script src="{{ asset('js/comercio.js') }}" defer></script>
 @endsection

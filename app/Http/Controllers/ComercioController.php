@@ -124,14 +124,14 @@ class ComercioController extends Controller
 		return $comercio;
 	}
 
-	public function buscarComercios($calle){
-		if ($calle == 'null') {
+	public function buscarComercios($domiciliofiscal){
+		if ($domiciliofiscal == 'null') {
 			return response()->json([
 				'error' => true,
 				'mensaje' => 'Ingresa un valor correcto.'
 			], 422);
 		} else {
-			$comercios = Comercio::where('calle', 'like', '%'. $calle .'%')->get();
+			$comercios = Comercio::where('domiciliofiscal', 'like', '%'. $domiciliofiscal .'%')->get();
 			if (count($comercios) == 0) {
 				return response()->json([
 					'mensaje' => 'No se encontro ningun resultado.'
@@ -209,7 +209,8 @@ class ComercioController extends Controller
 						echo "existe " . $i . "<br>";
 					}
 				}
-				die();
+				
+				return redirect('/comercios')->with('status', 'Los comercios se han sincronizado correctamente.');
 				/*
 				return view('comercio.pruebas', [
 					'comercios' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio
