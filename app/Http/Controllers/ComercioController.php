@@ -165,6 +165,7 @@ class ComercioController extends Controller
 	}
 
 	public function comerciosDesdeSoap(){
+		$comercios_sincronizados = 0;
 		$url = "http://201.144.238.68:8030/dsaws/IServiceObtieneLicencias.svc?wsdl";
 
 		try{
@@ -172,7 +173,7 @@ class ComercioController extends Controller
 			$data = $cliente->obtieneComerciosLicenciasId();
 
 			if (empty($data)) {
-				echo "No hay comercios";
+				return redirect('/comercios')->with('status', 'No hay comercios para sincronizar.');
 			} else {
 				$comercios = json_encode($data);
 				$comercios_array = json_decode($comercios);
@@ -205,12 +206,11 @@ class ComercioController extends Controller
 						];
 
 						Comercio::create($datos);
-					} else {
-						echo "existe " . $i . "<br>";
+						$comercios_sincronizados = $comercios_sincronizados + 1;
 					}
 				}
 				
-				return redirect('/comercios')->with('status', 'Los comercios se han sincronizado correctamente.');
+				return redirect('/comercios')->with('status', $comercios_sincronizados . ' comercios se han sincronizado.');
 				/*
 				return view('comercio.pruebas', [
 					'comercios' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio

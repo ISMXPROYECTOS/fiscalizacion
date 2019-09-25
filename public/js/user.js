@@ -68,7 +68,6 @@ $(document).ready(function(){
 
     function saveData(){
         $('#btn-enviar').click(function(){
-
             var data = {
                 'usuario' : $('#usuario').val(),
                 'role' : $('#role').val(),
@@ -86,7 +85,6 @@ $(document).ready(function(){
                     $('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Usuario...');
                 },
                 success: function (response) {
-
                     $('#btn-enviar').text('Crear Usuario');
                     $("#formulario-usuario")[0].reset();
                     $('#crear-usuario').modal('hide');

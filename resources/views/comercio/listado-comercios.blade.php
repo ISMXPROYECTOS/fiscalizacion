@@ -322,8 +322,6 @@
 </div>
 @endif
 
-
-
 @endsection
 @section('scripts')
 <script>
