@@ -529,9 +529,9 @@ class InspeccionController extends Controller
 					}
 				}
 			}
-			return redirect('inspecciones/asignar')->with('status', 'Se ha asignado correctamente');
+			return redirect('inspecciones/asignar')->with('status', 'Las inspecciones se han asignado correctamente.');
 		} else {
-			return redirect('inspecciones/asignar')->with('error', 'Asigna Más Inspecciones');
+			return redirect('inspecciones/asignar')->with('error', 'No se cuenta con la cantidad de inspecciones necesarias.');
 		}
 	}
 

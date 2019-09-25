@@ -3,16 +3,8 @@
 <header class="page-header">
     <h2>Asignar Inspecciones</h2>
 </header>
-@if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-@endif
-@if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
+
+
 <form method="POST" action="{{ route('asignar-inspecciones') }}" id="formulario-asignar-inspeccion">
     @csrf
     <div class="form-group">
@@ -91,7 +83,75 @@
         </div>
     </div>
 </form>
+
+@if (session('status'))
+    <!-- Alerta de asignacion exitosa -->
+    <div class="modal fade" id="asignacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-asignacion-correcta" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-asignacion-correcta">Asignación Exitosa</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-wrapper">
+                        <div class="modal-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="modal-text">
+                            <h4>Asignación Exitosa</h4>
+                            <p>{{ session('status') }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+@if (session('error'))
+    <!-- Alerta no hay inspecciones -->
+    <div class="modal fade" id="inspecciones-insuficientes" tabindex="-1" role="dialog" aria-labelledby="modal-inspecciones-insuficientes" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-inspecciones-insuficientes">Inspecciones insuficientes</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-wrapper">
+                        <div class="modal-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="modal-text">
+                            <h4>Inspecciones insuficientes</h4>
+                            <p>{{ session('error') }}</p>
+                            <ul id="folios-no-asignados">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
 @endsection
+
 @section('scripts')
+<script>
+    $('#asignacion-correcta').modal('show');
+    $('#inspecciones-insuficientes').modal('show');
+</script>
 <script src="{{ asset('js/asignar-inspeccion.js') }}"></script>
 @endsection
