@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\DocumentacionRequerida;
+use App\TipoDeInspeccion;
 
 class DocumentacionRequeridaController extends Controller
 {
     public function listadoDocumentacionRequerida(){
-		return view('documentacion-requerida.listado-documentacion-requerida');
+    	$tipos_inspeccion = TipoDeInspeccion::all();
+		return view('documentacion-requerida.listado-documentacion-requerida', [
+			'tiposInspeccion' => $tipos_inspeccion
+		]);
 	}
 
 	public function tbody(){
@@ -25,7 +29,8 @@ class DocumentacionRequeridaController extends Controller
 		// Valida los campos para evitar problemas y poder agregarlos a la base de datos
 		$validate = $request->validate([
 			'nombre' => 'required|string|max:255',
-            'clave' => 'required|string|max:10'
+            'clave' => 'required|string|max:10',
+            //'tipoInspeccion' => 'required|string'
 	    ]);
 
 	    // Se reciben los datos del formulario creando un Array de datos 

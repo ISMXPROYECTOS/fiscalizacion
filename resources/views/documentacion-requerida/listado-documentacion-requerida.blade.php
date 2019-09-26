@@ -23,6 +23,7 @@
         
     </div>
 </div>
+
 <!-- Modal para Crear -->
 <div class="modal fade" id="crear-colonia" tabindex="-1" role="dialog" aria-labelledby="modal-crear-colonia" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -38,13 +39,21 @@
                         <input id="nombre" type="text" class="form-control">
                         <p class="text-danger" id="error-nombre"></p>
                     </div>
-
                     <div class="form-group">
                         <label for="clave">{{ __('Clave') }}</label>
                         <input id="clave" type="text" class="form-control">
                         <p class="text-danger" id="error-clave"></p>
                     </div>
-
+                    <!--<div class="form-group">
+                        <label for="tipoInspeccion">{{ __('Tipo de inspección') }}</label>
+                        <select id="tipoInspeccion" class="form-control">
+                            <option value="">Seleccionar</option>
+                            @foreach($tiposInspeccion as $tipoInspeccion)
+                                <option value="{{ $tipoInspeccion->id }}">{{ $tipoInspeccion->nombre }}</option>
+                            @endforeach
+                        </select>
+                        <p class="text-danger" id="error-tipoInspeccion"></p>
+                    </div>-->
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
@@ -67,7 +76,7 @@
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-editar-documento">Editar Documento</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -101,37 +110,37 @@
 
 <!-- Modal para Editar Estatus -->
 <div class="modal fade" id="editar-activo" tabindex="-1" role="dialog" aria-labelledby="modal-editar-activo" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-editar-activo">Estatus Documento</h3>
-        </div>
-        <div class="modal-body">
-            <form class="formulario-activo" role="form">
-                @csrf
-                <input type="hidden" id="id-edit-activo">
-                <div class="form-group">
-                    <label for="activo-edit">{{ __('Estatus') }}</label>
-                    <select id="activo-edit" class="form-control">
-                        <option value="">Seleccionar</option>
-                        <option value="1">Activo</option>
-                        <option value="0">Inactivo</option>
-                    </select>
-                    <p class="text-danger" id="error-activo-edit"></p>
-                </div>
-                <hr>
-                <div class="form-group row mb-0">
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-editar-activo">Estatus Documento</h3>
+            </div>
+            <div class="modal-body">
+                <form class="formulario-activo" role="form">
+                    @csrf
+                    <input type="hidden" id="id-edit-activo">
+                    <div class="form-group">
+                        <label for="activo-edit">{{ __('Estatus') }}</label>
+                        <select id="activo-edit" class="form-control">
+                            <option value="">Seleccionar</option>
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                        <p class="text-danger" id="error-activo-edit"></p>
                     </div>
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-activo">{{ __('Guardar') }}</button>
+                    <hr>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-activo">{{ __('Guardar') }}</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- Alerta de registro -->
@@ -140,7 +149,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-registro-correcto">Registro Exitoso</h3>
-
             </div>
             <div class="modal-body">
                 <div class="modal-wrapper">
@@ -166,7 +174,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-actualizacion-correcta">Actualización Exitosa</h3>
-    
             </div>
             <div class="modal-body">
                 <div class="modal-wrapper">
