@@ -773,34 +773,26 @@ class InspeccionController extends Controller
 				for ($a = 0; $a < count($documentos_requeridos) ; $a++) {
 
 					if (($i+1) == count($solicitado)) {
-						if ($solicitado[$i] == $documentos_requeridos[$a]->id) {
-
+						if ($solicitado[$i] == $documentos_requeridos[$a]->documentacionrequerida_id) {
 							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $solicitado[$i])
 																				->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->solicitado = 1;
 							$documentacion_requerida->update();
 						} else {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->id)
-																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->solicitado = 0;
 							$documentacion_requerida->update();
 						}
 					} else {
-
-						if ($solicitado[$i] == $documentos_requeridos[$a]->id) {
-
+						if ($solicitado[$i] == $documentos_requeridos[$a]->documentacionrequerida_id) {
 							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $solicitado[$i])
 																				->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->solicitado = 1;				
 							$documentacion_requerida->update();
-
 							$i++;
-
 						} else {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->id)
-																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->solicitado = 0;
-
 							$documentacion_requerida->update();
 						}
 						
@@ -809,7 +801,6 @@ class InspeccionController extends Controller
 			}
 		}
 
-
 		if ($exhibido == null) {
 			return back()->withErrors('Selecciona al menos un documento exhibido');
 		} else {
@@ -817,36 +808,25 @@ class InspeccionController extends Controller
 				for ($c = 0; $c < count($documentos_requeridos); $c++) {
 
 					if (($b+1) == count($exhibido)) { // if del ultimo
-						if ($exhibido[$b] == $documentos_requeridos[$c]->id) {
-
+						if ($exhibido[$b] == $documentos_requeridos[$c]->documentacionrequerida_id) {
 							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $exhibido[$b])
 																				->where('inspeccion_id', $inspeccion_id)->first();
-
 							$documentacion_requerida->exhibido = 1;
 							$documentacion_requerida->update();
-
 						} else {
-							
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->id)
-																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->exhibido = 0;
 							$documentacion_requerida->update();
 						}
-
 					} else { 
-
-						if ($exhibido[$b] == $documentos_requeridos[$c]->id) {
-
+						if ($exhibido[$b] == $documentos_requeridos[$c]->documentacionrequerida_id) {
 							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $exhibido[$b])
 																				->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->exhibido = 1;
 							$documentacion_requerida->update();
-
 							$b++;
-
 						} else {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->id)
-																				->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->exhibido = 0;
 							$documentacion_requerida->update();
 						}
@@ -857,7 +837,6 @@ class InspeccionController extends Controller
 		}
 
 		$documentacion_requerida = DocumentacionPorInspeccion::where('inspeccion_id', $inspeccion_id)->get();
-
 		
 		for ($e = 0; $e < count($observaciones); $e++) { 
 			if ($observaciones[$e] == null) {

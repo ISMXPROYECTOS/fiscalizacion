@@ -19,7 +19,6 @@ class DocumentacionPorTipoDeInspeccion extends Model
 		return $this->belongsTo('App\DocumentacionRequerida', 'documentacionrequerida_id');
 	}
 
-
 	/**
      * The attributes that are mass assignable.
      *
