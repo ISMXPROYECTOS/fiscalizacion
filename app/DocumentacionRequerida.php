@@ -14,6 +14,11 @@ class DocumentacionRequerida extends Model
         return $this->hasMany('App\DocumentacionPorTipoDeInspeccion');
     }
 
+    /* Relación uno a mucho */
+    public function documentacionPorInspeccion(){
+        return $this->hasMany('App\DocumentacionPorInspeccion');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

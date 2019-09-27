@@ -50,11 +50,15 @@ $(document).ready(function(){
 
     function saveData(){
         $('#btn-enviar').click(function(){
-            var data = {
+            /*var data = {
                 'nombre' : $('#nombre').val(),
                 'clave' : $('#clave').val(),
                 'formato' : $('#formato').val()
-            }
+            }*/
+
+            var data = $("#formulario-tipo-inspeccion").serializeArray();
+            console.log(data);
+
             $.ajax({
                 url: url + '/tipo-inspecciones/nuevo',
                 data: data,
@@ -96,6 +100,8 @@ $(document).ready(function(){
                 url: url + '/tipo-inspecciones/editar/' + id,
                 type: 'get',
                 success: function (response) {
+
+                    console.log(response);
                     if (response != ""){
                         $('#editar-tipo-inspeccion').modal('show');
                         $('#id-edit').val(response.id);

@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DocumentacionPorTipoDeInspeccion extends Model
+class DocumentacionPorInspeccion extends Model
 {
-	/* Se indica la tabla que este modelo modificará */
-	protected $table = 'documentacionportipoinspeccion';
+    /* Se indica la tabla que este modelo modificará */
+	protected $table = 'documentacionporinspeccion';
 
 	/* Relación muchos a uno */
 	public function tipoInspeccion(){
@@ -19,6 +19,10 @@ class DocumentacionPorTipoDeInspeccion extends Model
 		return $this->belongsTo('App\DocumentacionRequerida', 'documentacionrequerida_id');
 	}
 
+	/* Relación muchos a uno */
+	public function inspeccion(){
+		return $this->belongsTo('App\Inspeccion', 'inspeccion_id');
+	}
 
 	/**
      * The attributes that are mass assignable.
@@ -26,7 +30,6 @@ class DocumentacionPorTipoDeInspeccion extends Model
      * @var array
      */
     protected $fillable = [
-        'tipoinspeccion_id', 'documentacionrequerida_id'
+        'tipoinspeccion_id', 'documentacionrequerida_id', 'inspeccion_id', 'solicitado', 'exhibido', 'observaciones',
     ];
-
 }

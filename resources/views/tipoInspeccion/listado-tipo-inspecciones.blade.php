@@ -25,7 +25,7 @@
 </div>
 <!-- Modal para Crear -->
 <div class="modal fade" id="crear-tipo-inspeccion" tabindex="-1" role="dialog" aria-labelledby="modal-crear-tipo-inspeccion" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-crear-tipo-inspeccion">Agregar Tipo de Inspección</h3>
@@ -35,21 +35,21 @@
                     @csrf
                     <div class="form-group">
                         <label for="nombre">{{ __('Nombre') }}</label>
-                        <input id="nombre" type="text" class="form-control">
+                        <input id="nombre" type="text" class="form-control" name="nombre">
                         <p class="text-danger" id="error-nombre"></p>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="clave">{{ __('Clave') }}</label>
-                                <input id="clave" type="text" class="form-control">
+                                <input id="clave" type="text" class="form-control" name="clave">
                                
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="formato">{{ __('Formato') }}</label>
-                                <input id="formato" type="text" class="form-control">
+                                <input id="formato" type="text" class="form-control" name="formato">
                                 
                             </div>
                         </div>
@@ -59,6 +59,21 @@
                             <p class="text-danger mb-0" id="error-formato"></p>
                             <br>
                         </div>
+                    </div>
+
+                    <div class="alert alert-info" role="alert">
+                      Selecciona los documentos requeridos para este tipo de inspección.
+                    </div>
+
+                    <div id="documentos">
+                        @foreach($documentos as $documento)
+                            <div class="form-check">
+                              <input class="form-check-input checkbox-documento" type="checkbox" value="{{ $documento->id }}" id="documento-{{ $documento->id }}" name="documentos-requeridos[]">
+                              <label class="form-check-label" for="documento-{{ $documento->id }}">
+                                {{ $documento->nombre }}
+                              </label>
+                            </div>
+                        @endforeach
                     </div>
                     <hr>
                     <div class="form-group row mb-0">
@@ -113,6 +128,19 @@
                             <br>
                         </div>
                     </div>
+
+                    <div id="documentos">
+                        @foreach($documentos as $documento)
+                            <div class="form-check">
+                              <input class="form-check-input checkbox-documento" type="checkbox" value="{{ $documento->id }}" id="documento-{{ $documento->id }}" name="documentos-requeridos[]">
+                              <label class="form-check-label" for="documento-{{ $documento->id }}">
+                                {{ $documento->nombre }}
+                              </label>
+                            </div>
+                        @endforeach
+                    </div>
+
+
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">

@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\TipoDeInspeccion;
+use App\DocumentacionRequerida;
+use App\DocumentacionPorTipoDeInspeccion;
 
 class TipoInspeccionController extends Controller
 {
 	public function listadoTipoInspecciones(){
-		return view('tipoInspeccion.listado-tipo-inspecciones');
+		$documentacion_requerida = DocumentacionRequerida::all();
+		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::all();
+		return view('tipoInspeccion.listado-tipo-inspecciones', array(
+			'documentos' => $documentacion_requerida,
+			'documentosPorTipoInspeccion' => $documentacion_por_tipo_inspeccion
+		));
 	}
 
 	public function tbody(){
@@ -19,24 +26,50 @@ class TipoInspeccionController extends Controller
 	}
 
 	public function create(Request $request){
-		$validate = $request->validate([
+
+		$validate = $this->validate($request, [
 			'nombre' => 'required|string|max:75',
             'clave' => 'required|string|max:10|unique:tipodeinspeccion',
-            'formato' => 'required|string|max:30'
+            'formato' => 'required|string|max:30',
+            'documentos-requeridos.*' => 'required|string',
 	    ]);
 
+		$data = $request->all();
+	    $nombre = $request->input('nombre');
+	    $clave = $request->input('clave');
+	    $formato = $request->input('formato');
+	    $documentos_requeridos = array_get($data, 'documentos-requeridos');
+
+	 	
+
 		$datos = [
-			'nombre' => $request->input('nombre'),
-            'clave' => $request->input('clave'),
-            'formato' => $request->input('formato')
+			'nombre' => $nombre,
+            'clave' => $clave,
+            'formato' => $formato 
 		];
 
-	    return TipoDeInspeccion::create($datos);
+	    TipoDeInspeccion::create($datos);
+
+	   	$tipo_de_inspeccion = TipoDeInspeccion::where('nombre', $nombre)->first();
+
+	    for ($i = 0; $i < count($documentos_requeridos); $i++) { 
+
+	    	$datos_documentacion = [
+	    		'tipoinspeccion_id' => $tipo_de_inspeccion->id,
+	    		'documentacionrequerida_id' => $documentos_requeridos[$i]
+	    	];
+
+	    	DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
+	    }
+
+	    return $datos;
+
 	}
 
 	public function editarTipoInspeccion($id){
     	$tipoInspeccion = TipoDeInspeccion::find($id);
-    	return $tipoInspeccion;
+    	$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $id)->get();
+    	return array($tipoInspeccion, $documentacion_por_tipo_inspeccion);
     }
 
     public function update(Request $request){

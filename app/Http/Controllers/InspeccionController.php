@@ -21,6 +21,7 @@ use App\Encargado;
 use App\Comercio;
 use App\DocumentacionRequerida;
 use App\DocumentacionPorTipoDeInspeccion;
+use App\DocumentacionPorInspeccion;
 use App\Configuracion;
 use App\BitacoraDeEstatus;
 
@@ -107,8 +108,8 @@ class InspeccionController extends Controller
 		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
 		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 
-		$documentacion_requerida = DocumentacionRequerida::all();
-		
+		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
+
 		if ($forma_valorada->count() == 0) {
 
 			$datos = [
@@ -178,20 +179,20 @@ class InspeccionController extends Controller
 
 			BitacoraDeEstatus::create($datos_bitacora);
 
-			for ($b = 0; $b < count($documentacion_requerida) ; $b++) { 
+			for ($b = 0; $b < count($documentacion_por_inspeccion) ; $b++) { 
 
 				$inspeccion = Inspeccion::all();
 				$inspeccion_id = $inspeccion->last()->id;
 
 				$datos = [
 					'tipoinspeccion_id' => $tipo_inspeccion_id,
-					'documentacionrequerida_id' => $documentacion_requerida[$b]->id,
+					'documentacionrequerida_id' => $documentacion_por_inspeccion[$b]->documentacionrequerida_id,
 					'inspeccion_id' => $inspeccion_id,
 					'solicitado' => 0,
 					'exhibido' => 0
 				];
 
-				DocumentacionPorTipoDeInspeccion::create($datos);
+				DocumentacionPorInspeccion::create($datos);
 			}
 
 		}
@@ -224,7 +225,7 @@ class InspeccionController extends Controller
 		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
 		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 
-		$documentacion_requerida = DocumentacionRequerida::all();
+		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 		
 		if ($forma_valorada->count() == 0) {
 
@@ -298,20 +299,20 @@ class InspeccionController extends Controller
 
 			BitacoraDeEstatus::create($datos_bitacora);
 
-			for ($b = 0; $b < count($documentacion_requerida) ; $b++) {
+			for ($b = 0; $b < count($documentacion_por_inspeccion) ; $b++) {
 
 				$inspeccion = Inspeccion::all();
 				$inspeccion_id = $inspeccion->last()->id;
 
 				$datos = [
 					'tipoinspeccion_id' => $tipo_inspeccion_id,
-					'documentacionrequerida_id' => $documentacion_requerida[$b]->id,
+					'documentacionrequerida_id' => $documentacion_por_inspeccion[$b]->documentacionrequerida_id,
 					'inspeccion_id' => $inspeccion_id,
 					'solicitado' => 0,
 					'exhibido' => 0
 				];
 
-				DocumentacionPorTipoDeInspeccion::create($datos);
+				DocumentacionPorInspeccion::create($datos);
 			}
 		}
 
@@ -441,7 +442,7 @@ class InspeccionController extends Controller
 
 		$inspeccion = Inspeccion::find($id);
 		$gestores = Gestor::all();
-		$documentos = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $id)->get();
+		$documentos = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get();
 		$comercios = Comercio::all();
 		$inspectores = Inspector::all();
 		$is_edit = false;
@@ -763,7 +764,7 @@ class InspeccionController extends Controller
 		BitacoraDeEstatus::create($datos_bitacora);
 
 
-		$documentos_requeridos = DocumentacionRequerida::all();
+		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoInspeccion->id)->get();
 
 		if ($solicitado == null) {
 			return back()->withErrors('Selecciona al menos un documento solicitado.');
@@ -774,12 +775,12 @@ class InspeccionController extends Controller
 					if (($i+1) == count($solicitado)) {
 						if ($solicitado[$i] == $documentos_requeridos[$a]->id) {
 
-							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $solicitado[$i])
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $solicitado[$i])
 																				->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->solicitado = 1;
 							$documentacion_requerida->update();
 						} else {
-							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->id)
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->id)
 																				->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->solicitado = 0;
 							$documentacion_requerida->update();
@@ -788,7 +789,7 @@ class InspeccionController extends Controller
 
 						if ($solicitado[$i] == $documentos_requeridos[$a]->id) {
 
-							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $solicitado[$i])
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $solicitado[$i])
 																				->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->solicitado = 1;				
 							$documentacion_requerida->update();
@@ -796,7 +797,7 @@ class InspeccionController extends Controller
 							$i++;
 
 						} else {
-							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->id)
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->id)
 																				->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->solicitado = 0;
 
@@ -818,7 +819,7 @@ class InspeccionController extends Controller
 					if (($b+1) == count($exhibido)) { // if del ultimo
 						if ($exhibido[$b] == $documentos_requeridos[$c]->id) {
 
-							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $exhibido[$b])
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $exhibido[$b])
 																				->where('inspeccion_id', $inspeccion_id)->first();
 
 							$documentacion_requerida->exhibido = 1;
@@ -826,7 +827,7 @@ class InspeccionController extends Controller
 
 						} else {
 							
-							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->id)
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->id)
 																				->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->exhibido = 0;
 							$documentacion_requerida->update();
@@ -836,7 +837,7 @@ class InspeccionController extends Controller
 
 						if ($exhibido[$b] == $documentos_requeridos[$c]->id) {
 
-							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $exhibido[$b])
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $exhibido[$b])
 																				->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->exhibido = 1;
 							$documentacion_requerida->update();
@@ -844,7 +845,7 @@ class InspeccionController extends Controller
 							$b++;
 
 						} else {
-							$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->id)
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->id)
 																				->where('inspeccion_id', $inspeccion_id)->first();
 							$documentacion_requerida->exhibido = 0;
 							$documentacion_requerida->update();
@@ -855,7 +856,7 @@ class InspeccionController extends Controller
 			}
 		}
 
-		$documentacion_requerida = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $inspeccion_id)->get();
+		$documentacion_requerida = DocumentacionPorInspeccion::where('inspeccion_id', $inspeccion_id)->get();
 
 		
 		for ($e = 0; $e < count($observaciones); $e++) { 
@@ -887,7 +888,7 @@ class InspeccionController extends Controller
 	public function limpiarInspeccion($id){
 		
 		$inspeccion = Inspeccion::find($id);
-		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $id)->get();
+		$documentacion_por_inspeccion = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get();
 
 		$estatus_inspeccion = EstatusInspeccion::where('clave', 'A')->first();
 
@@ -916,7 +917,7 @@ class InspeccionController extends Controller
 
 		for ($i = 0; $i < count($documentacion_por_inspeccion); $i++) {
 
-			$documento_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('inspeccion_id', $id)
+			$documento_por_inspeccion = DocumentacionPorInspeccion::where('inspeccion_id', $id)
 																			->where('solicitado', 1)
 																			->where('exhibido', 1)
 																			->first();
