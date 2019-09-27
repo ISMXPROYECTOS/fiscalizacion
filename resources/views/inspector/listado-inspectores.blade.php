@@ -77,7 +77,6 @@
                             <option value="S">Suspendido</option>
                             <option value="V">Vigente</option>
                         </select>
-
                         <p class="text-danger" id="error-estatus"></p>
                     </div>
                     <hr>

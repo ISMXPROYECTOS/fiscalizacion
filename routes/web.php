@@ -138,7 +138,6 @@ Route::post('/encargado/estatus', 'EncargadoController@updateEstatus');
 
 /* Rutas Documentacion Requerida */
 Route::get('/documentacion-requerida', 'DocumentacionRequeridaController@listadoDocumentacionRequerida')->name('listado-documentacion');
-
 Route::get('/documentacion-requerida/listado', 'DocumentacionRequeridaController@tbody');
 Route::post('/documentacion-requerida/nuevo', 'DocumentacionRequeridaController@create');
 Route::get('/documentacion-requerida/editar/{id}', 'DocumentacionRequeridaController@editarDocumento');

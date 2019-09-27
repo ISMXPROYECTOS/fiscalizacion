@@ -2,6 +2,11 @@ $(document).ready(function(){
 
 	var url = "http://localhost/fiscalizacion/public";
 
+    $('#error-nombre, #error-cp').addClass('hidden');
+    $('#error-nombre, #error-cp').text('');
+    $('#error-nombre-edit, #error-cp-edit').addClass('hidden');
+    $('#error-nombre-edit, #error-cp-edit').text('');
+
 	// Esta función muetra los años fiscales en una tabla
     function viewData(){
         $('#datatable').DataTable({
@@ -43,12 +48,13 @@ $(document).ready(function(){
     // Se ejecuta la función cuando todo el archivo este cargado
     viewData();
 
-    // Esta función agrega nuevos registros, se encuentra enlazada con el método create de ColoniaController
+    // Esta función agrega nuevos registros, se encuentra enlazada con el método create de DocumentacionRequeridaController
     function saveData(){
         $('#btn-enviar').click(function(){
             var data = {
                 'nombre' : $('#nombre').val(),
-                'clave' : $('#clave').val()
+                'clave' : $('#clave').val(),
+                //'tipoInspeccion' : $('#tipoInspeccion').val(),
             }
             $.ajax({
                 url: url + '/documentacion-requerida/nuevo',
@@ -84,7 +90,7 @@ $(document).ready(function(){
     // Se ejecuta la función cuando todo el archivo este cargado
     saveData();
 
-        // Esta función selecciona registros para modificarlos, se encuentra enlazada con el método editarColonia de ColoniaController
+    // Esta función selecciona registros para modificarlos, se encuentra enlazada con el método editarDocumento de DocumentacionRequeridaController
     function editData(){
         $(document).on('click', '.editar', function(e){
             e.preventDefault();
