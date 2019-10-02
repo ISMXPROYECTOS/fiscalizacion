@@ -44,41 +44,9 @@ $(document).ready(function(){
                         }
                     }
                 },
-                {data: 'inspector.nombre', defaultContent: '',},
+                {data: 'inspector.nombre', defaultContent: ''},
                 {data: 'comercio.nombreestablecimiento', defaultContent: ''},
-                {data: 'fechaprorroga',
-                    'render': function(data, type, row){
-                        var month = new Array();
-                        month[0] = "01";
-                        month[1] = "02";
-                        month[2] = "03";
-                        month[3] = "04";
-                        month[4] = "05";
-                        month[5] = "06";
-                        month[6] = "07";
-                        month[7] = "08";
-                        month[8] = "09";
-                        month[9] = "10";
-                        month[10] = "11";
-                        month[11] = "12";
-
-                        var hoy = new Date();
-
-                        var fecha = new Date(row.fechaprorroga);
-                        var dia = fecha.getDate();
-                        var mes = month[fecha.getMonth()];
-                        var anio = fecha.getFullYear();
-
-
-                        if (row.fechaprorroga == null) {
-                            return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
-                        } else if (fecha < hoy) {
-                            return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
-                        } else {
-                            return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
-                        }
-                    }
-                },
+                {data: 'created_at', defaultContent: ''},
                 {data: 'fechavence',
                     'render': function(data, type, row){
 
@@ -109,6 +77,39 @@ $(document).ready(function(){
                             return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
                         } else {
                             return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
+                        }
+                    }
+                },
+                {data: 'fechaprorroga',
+                    'render': function(data, type, row){
+                        var month = new Array();
+                        month[0] = "01";
+                        month[1] = "02";
+                        month[2] = "03";
+                        month[3] = "04";
+                        month[4] = "05";
+                        month[5] = "06";
+                        month[6] = "07";
+                        month[7] = "08";
+                        month[8] = "09";
+                        month[9] = "10";
+                        month[10] = "11";
+                        month[11] = "12";
+
+                        var hoy = new Date();
+
+                        var fecha = new Date(row.fechaprorroga);
+                        var dia = fecha.getDate();
+                        var mes = month[fecha.getMonth()];
+                        var anio = fecha.getFullYear();
+
+
+                        if (row.fechaprorroga == null) {
+                            return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
+                        } else if (fecha < hoy) {
+                            return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
+                        } else {
+                            return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
                         }
                     }
                 },

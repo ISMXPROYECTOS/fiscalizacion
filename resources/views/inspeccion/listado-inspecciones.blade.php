@@ -12,9 +12,10 @@
                     <th>Tipo de Inspección</th>
                     <th>Estatus</th>
                     <th>Inspector</th>
-                    <th>Nombre del Local</th>.
-                    <th>Fecha prorroga</th>
+                    <th>Nombre del Local</th>
+                    <th>Fecha Generada</th>
                     <th>Fecha vence</th>
+                    <th>Fecha prorroga</th>
                     <th>Estatus</th>
                 </tr>
             </thead>
