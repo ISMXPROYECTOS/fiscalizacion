@@ -29,50 +29,62 @@ class TipoInspeccionController extends Controller
 
 		$validate = $this->validate($request, [
 			'nombre' => 'required|string|max:75',
-            'clave' => 'required|string|max:10|unique:tipodeinspeccion',
-            'formato' => 'required|string|max:30',
-            'documentos-requeridos.*' => 'required|string',
-	    ]);
+			'clave' => 'required|string|max:10|unique:tipodeinspeccion',
+			'formato' => 'required|string|max:30',
+			'documentos-requeridos.*' => 'required|string',
+		]);
 
 		$data = $request->all();
-	    $nombre = $request->input('nombre');
-	    $clave = $request->input('clave');
-	    $formato = $request->input('formato');
-	    $documentos_requeridos = array_get($data, 'documentos-requeridos');
-
-	 	
+		$nombre = $request->input('nombre');
+		$clave = $request->input('clave');
+		$formato = $request->input('formato');
+		$documentos_requeridos = array_get($data, 'documentos-requeridos');
 
 		$datos = [
 			'nombre' => $nombre,
-            'clave' => $clave,
-            'formato' => $formato 
+			'clave' => $clave,
+			'formato' => $formato 
 		];
 
-	    TipoDeInspeccion::create($datos);
+		TipoDeInspeccion::create($datos);
 
-	   	$tipo_de_inspeccion = TipoDeInspeccion::where('nombre', $nombre)->first();
+		$tipo_de_inspeccion = TipoDeInspeccion::where('nombre', $nombre)->first();
 
-	    for ($i = 0; $i < count($documentos_requeridos); $i++) { 
+		for ($i = 0; $i < count($documentos_requeridos); $i++) { 
 
-	    	$datos_documentacion = [
-	    		'tipoinspeccion_id' => $tipo_de_inspeccion->id,
-	    		'documentacionrequerida_id' => $documentos_requeridos[$i]
-	    	];
+			$datos_documentacion = [
+				'tipoinspeccion_id' => $tipo_de_inspeccion->id,
+				'documentacionrequerida_id' => $documentos_requeridos[$i]
+			];
 
-	    	DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
-	    }
+			DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
+		}
 
-	    return $datos;
+		return $datos;
 
 	}
 
 	public function editarTipoInspeccion($id){
-    	$tipoInspeccion = TipoDeInspeccion::find($id);
-    	$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $id)->get();
-    	return array($tipoInspeccion, $documentacion_por_tipo_inspeccion);
-    }
+		$tipoInspeccion = TipoDeInspeccion::find($id);
+		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $id)->get();
 
-    public function update(Request $request){
+		if (!empty($tipoInspeccion) && !empty($documentacion_por_tipo_inspeccion)) {
+			$data = [
+				'status' => 200,
+				'tipoInspeccion' => $tipoInspeccion,
+				'documentacionPorTipoDeInspeccion' => $documentacion_por_tipo_inspeccion
+			];
+		} else {
+			$data = [
+				'status' => 500,
+				'error' => 'No se pudieron cargar los datos'
+			];
+		}
+		
+		return $data;
+	}
+
+	public function update(Request $request){
 		// Se selecciona el tipo de inspección para ser modificado
 		$id = $request->input('id');
 		$tipoInspeccion = TipoDeInspeccion::find($id);
@@ -81,7 +93,7 @@ class TipoInspeccionController extends Controller
 		$validate = $this->validate($request,[
 			'nombre' => 'required|string|max:75',
 			'clave' => 'required|string|max:10|unique:tipodeinspeccion,clave,' . $id,
-            'formato' => 'required|string|max:30'
+			'formato' => 'required|string|max:30'
 		]);
 
 		// Se reciben los datos del formulario y se crean variables
@@ -89,14 +101,14 @@ class TipoInspeccionController extends Controller
 		$clave = $request->input('clave');
 		$formato = $request->input('formato');
 
-        // Una ves verificados los datos y creados las variables se actualiza en la BD
+		// Una ves verificados los datos y creados las variables se actualiza en la BD
 		$tipoInspeccion->nombre = $nombre;
 		$tipoInspeccion->clave = $clave;
 		$tipoInspeccion->formato = $formato;
 		$tipoInspeccion->update();
 
-        // Indica que fue correcta la modificación del tipo de inspección
-    	return $tipoInspeccion;
+		// Indica que fue correcta la modificación del tipo de inspección
+		return $tipoInspeccion;
 
 	}
 

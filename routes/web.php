@@ -89,7 +89,6 @@ Route::post('/inspecciones/informacion/actualizar', 'InspeccionController@actual
 Route::get('/inspecciones/inspeccion/limpiar/{id}', 'InspeccionController@limpiarInspeccion')->name('limpiar-inspeccion');
 Route::get('/inspecciones/validar-folio-asignado/{id}', 'InspeccionController@validarFolioAsignado');
 
-
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@listadoInspeccionesParaDescargar')->name('listado-de-inspecciones-para-descargar');
 Route::get('/pdf/listado', 'PdfController@tbody');

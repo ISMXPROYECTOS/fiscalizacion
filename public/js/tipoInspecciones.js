@@ -4,15 +4,12 @@ $(document).ready(function(){
 
     $('#error-nombre, #error-clave, #error-formato').addClass('hidden');
     $('#error-nombre, #error-clave, #error-formato').text('');
-    
     $('#error-nombre-edit, #error-clave-edit, #error-formato-edit').addClass('hidden');
     $('#error-nombre-edit, #error-clave-edit, #error-formato-edit').text('');
 
     $(document).on('click', '#btn-cancelar', function(e){
-
         $('#error-nombre, #error-clave, #error-formato').addClass('hidden');
         $('#error-nombre, #error-clave, #error-formato').text('');
-
         $('#error-nombre-edit, #error-clave-edit, #error-formato-edit').addClass('hidden');
         $('#error-nombre-edit, #error-clave-edit, #error-formato-edit').text('');
     });
@@ -57,7 +54,6 @@ $(document).ready(function(){
             }*/
 
             var data = $("#formulario-tipo-inspeccion").serializeArray();
-            console.log(data);
 
             $.ajax({
                 url: url + '/tipo-inspecciones/nuevo',
@@ -100,14 +96,15 @@ $(document).ready(function(){
                 url: url + '/tipo-inspecciones/editar/' + id,
                 type: 'get',
                 success: function (response) {
-
                     console.log(response);
-                    if (response != ""){
+                    if (response.status == 200){
                         $('#editar-tipo-inspeccion').modal('show');
-                        $('#id-edit').val(response.id);
-                        $('#nombre-edit').val(response.nombre);
-                        $('#clave-edit').val(response.clave);
-                        $('#formato-edit').val(response.formato);
+                        $('#id-edit').val(response.tipoInspeccion.id);
+                        $('#nombre-edit').val(response.tipoInspeccion.nombre);
+                        $('#clave-edit').val(response.tipoInspeccion.clave);
+                        $('#formato-edit').val(response.tipoInspeccion.formato);
+                    } else {
+                        $('#registro-correcto').modal('show');
                     }
                 }
             });

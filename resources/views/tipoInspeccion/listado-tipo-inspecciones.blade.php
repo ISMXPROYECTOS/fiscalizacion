@@ -53,18 +53,15 @@
                                 
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <p class="text-danger mb-0" id="error-clave"></p>
                             <p class="text-danger mb-0" id="error-formato"></p>
                             <br>
                         </div>
                     </div>
-
                     <div class="alert alert-info" role="alert">
                       Selecciona los documentos requeridos para este tipo de inspección.
                     </div>
-
                     <div id="documentos">
                         @foreach($documentos as $documento)
                             <div class="form-check">
@@ -89,7 +86,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal para Editar -->
 <div class="modal fade" id="editar-tipo-inspeccion" tabindex="-1" role="dialog" aria-labelledby="modal-editar-tipo-inspeccion" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -111,7 +107,6 @@
                             <div class="form-group">
                                 <label for="clave-edit">{{ __('Clave') }}</label>
                                 <input id="clave-edit" type="text" class="form-control">
-                               
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
@@ -121,14 +116,12 @@
                                 
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <p class="text-danger mb-0" id="error-clave-edit"></p>
                             <p class="text-danger mb-0" id="error-formato-edit"></p>
                             <br>
                         </div>
                     </div>
-
                     <div id="documentos">
                         @foreach($documentos as $documento)
                             <div class="form-check">
@@ -139,8 +132,6 @@
                             </div>
                         @endforeach
                     </div>
-
-
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">
@@ -155,7 +146,6 @@
         </div>
     </div>
 </div>
-
 <!-- Alerta de registro -->
 <div class="modal fade" id="registro-correcto" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -180,7 +170,6 @@
         </div>
     </div>
 </div>
-
 <!-- Alerta de actualización -->
 <div class="modal fade" id="actualizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-correcta" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
