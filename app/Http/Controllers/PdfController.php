@@ -89,6 +89,17 @@ class PdfController extends Controller
 
 	}
 
+	public function descargarOrdenClausura($id){
+		
+		$inspeccion = Inspeccion::find($id);
+
+		
+		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+
+		$pdf = PDF::loadView('clausura.acta-clausura', ['inspeccion' => $inspeccion]);
+		return $pdf->download('Orden-Clausura-'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
+	}
+
 	public function verGafete($id){
 
 		$gafete = Gafete::find($id);

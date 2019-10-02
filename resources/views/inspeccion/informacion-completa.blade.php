@@ -31,32 +31,32 @@
 </div>
 
 @if($inspeccion->fechavence != false)
-@if($inspeccion->fechavence < date("Y-m-d"))
-<div>
-	<label for="">Fecha de vencimiento: </label>
-	<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
-</div>
-@else
-<div>
-	<label for="">Fecha de vencimiento: </label>
-	<label for=""> <span class="badge badge-pill badge-success">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> </label>
-</div>
-@endif
+	@if($inspeccion->fechavence < date("Y-m-d"))
+	<div>
+		<label for="">Fecha de vencimiento: </label>
+		<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
+	</div>
+	@else
+	<div>
+		<label for="">Fecha de vencimiento: </label>
+		<label for=""> <span class="badge badge-pill badge-success">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> </label>
+	</div>
+	@endif
 @endif
 
 
 @if($inspeccion->fechaprorroga != false)
-@if($inspeccion->fechaprorroga < date("Y-m-d"))
-<div>
-	<label for="">Prorroga vencida</label>
-	<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechaprorroga)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
-</div>
-@else
-<div>
-	<label for="">En prorroga</label>
-	<label for=""> <span class="badge badge-pill badge-warning">{{ date('d/m/Y', strtotime($inspeccion->fechaprorroga)) }}</span> </label>
-</div>
-@endif
+	@if($inspeccion->fechaprorroga < date("Y-m-d"))
+	<div>
+		<label for="">Prorroga vencida</label>
+		<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechaprorroga)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
+	</div>
+	@else
+	<div>
+		<label for="">En prorroga</label>
+		<label for=""> <span class="badge badge-pill badge-warning">{{ date('d/m/Y', strtotime($inspeccion->fechaprorroga)) }}</span> </label>
+	</div>
+	@endif
 @endif
 
 
@@ -365,6 +365,12 @@
 	@if (auth()->user()->role == 'ROLE_ADMIN')
 		<a href="{{ route('limpiar-inspeccion', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Limpiar Inspección</a>
 	@endif
+
+	@if ($inspeccion->estatusInspeccion->clave == 'V')
+		<a href="{{ route('descargar-clausura', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Generar orden de clausura</a>
+	@endif
+
+	
 </form>
 
 <!-- Modal para cambiar de Inspector -->

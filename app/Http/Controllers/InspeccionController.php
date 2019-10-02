@@ -931,4 +931,6 @@ class InspeccionController extends Controller
 		}
 	}
 
+	
+
 }
