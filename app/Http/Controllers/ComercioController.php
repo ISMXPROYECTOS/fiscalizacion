@@ -171,6 +171,7 @@ class ComercioController extends Controller
 		try{
 			$cliente = new SoapClient($url);
 			$data = $cliente->obtieneComerciosLicenciasId();
+			//dd($data);
 
 			if (empty($data)) {
 				return redirect('/comercios')->with('status', 'No hay comercios para sincronizar.');

@@ -325,6 +325,23 @@ class InspeccionController extends Controller
 
 	public function editarInspeccion($id){
 		$inspeccion = Inspeccion::find($id);
+		/*
+		$ultimo_estatus = BitacoraDeEstatus::where('inspeccion_id', $id)->get();
+		$ultimo_estatus = $ultimo_estatus->last()->observacion;
+
+		if (!empty($inspeccion) && !empty($ultimo_estatus)) {
+			$data = [
+				'status' => 200,
+				'inspeccion' => $inspeccion,
+				'ultimoEstatus' => $ultimo_estatus
+			];
+		} else {
+			$data = [
+				'status' => 500,
+				'error' => 'No se pudieron cargar los datos'
+			];
+		}
+		*/
 		return $inspeccion;
 	}
 
