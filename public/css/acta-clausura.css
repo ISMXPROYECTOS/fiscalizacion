@@ -93,13 +93,13 @@ b{
 
 .ai-header-datos{
 	font-family: arial;
-	font-size: .50em;
+	font-size: .65em;
 }
 
 .ai-contenido-general{
 	font-family: arial;
 	text-align: justify;
-	font-size: .50em;
+	font-size: .65em;
 }
 
 .ai-documentacion-requerida{
@@ -156,7 +156,7 @@ b{
 
 
 .firma-acta-inspeccion{
-	font-size: .45em;
+	font-size: .50em;
 	text-transform: uppercase;
 	padding-left: 5%;
 	width: 100%;
@@ -174,8 +174,6 @@ b{
 .page_break{
 	page-break-after: always;
 }
-
-
 
 
 /* Fin Acta de Inspeccion */
