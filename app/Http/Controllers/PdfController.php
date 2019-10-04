@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Yajra\Datatables\Datatables;
 use App\DocumentacionRequerida;
+use App\DocumentacionPorTipoDeInspeccion;
+use App\DocumentacionPorInspeccion;
 use App\EjercicioFiscal;
 use App\FormaValorada;
 use App\Inspeccion;
@@ -66,7 +68,9 @@ class PdfController extends Controller
 		
 		$forma_valorada = FormaValorada::find($id);
 		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
-		$documentos_requeridos = DocumentacionRequerida::all();
+		
+		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
+
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		$asignadas = 0;
@@ -92,11 +96,14 @@ class PdfController extends Controller
 	public function descargarOrdenClausura($id){
 		
 		$inspeccion = Inspeccion::find($id);
+		$documentos_no_presentados = DocumentacionPorInspeccion::where('inspeccion_id', $id)
+																->where('exhibido', 0)
+																->get();
 
 		
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
-		$pdf = PDF::loadView('clausura.acta-clausura', ['inspeccion' => $inspeccion]);
+		$pdf = PDF::loadView('clausura.acta-clausura', ['inspeccion' => $inspeccion, 'documentos' => $documentos_no_presentados]);
 		return $pdf->download('Orden-Clausura-'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
 	}
 
