@@ -65,8 +65,12 @@
                     <div class="modal-text">
                         <h4>Hay folios sin asignar</h4>
                         <p>Los siguientes folios no han sido asignados</p>
-                        <ul id="folios-no-asignados">
-                        </ul>
+
+                        <div id="folios-no-asignados-div">
+                            <ul id="folios-no-asignados">
+                            </ul>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

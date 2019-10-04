@@ -220,6 +220,28 @@ ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus
 }
 
 
+/* Validacion de Folios Asignados */
+
+#folios-no-asignados-div{
+  overflow: auto;
+  height: 15em;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+/* Agregar Tipo Inspeccion, Documentos*/
+
+#documentos{
+  overflow: auto;
+  height: 15em;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+
+
 /* Responsive */
 
 .header .toggle-sidebar-left {

@@ -10,7 +10,7 @@ use App\DocumentacionPorTipoDeInspeccion;
 class TipoInspeccionController extends Controller
 {
 	public function listadoTipoInspecciones(){
-		$documentacion_requerida = DocumentacionRequerida::all();
+		$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get();
 		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::all();
 		return view('tipoInspeccion.listado-tipo-inspecciones', array(
 			'documentos' => $documentacion_requerida,

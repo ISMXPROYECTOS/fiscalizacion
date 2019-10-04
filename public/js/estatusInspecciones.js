@@ -24,7 +24,25 @@ $(document).ready(function(){
             'ajax': url + '/estatus-inspecciones/listado',
             'columns': [
                 {data: 'clave'},
-                {data: 'nombre'},
+                {data: 'nombre',
+                    'render': function(data, type, row){
+                        if (row.clave == 'NA') {
+                            return "<span class='badge badge-pill badge-secondary'>"+ row.nombre +"</span>";
+                        } else if(row.clave == 'A'){
+                            return "<span class='badge badge-pill badge-primary'>"+ row.nombre +"</span>";
+                        } else if(row.clave == 'Cap'){
+                            return "<span class='badge badge-pill badge-success'>"+ row.nombre +"</span>";
+                        } else if(row.clave == 'S'){
+                            return "<span class='badge badge-pill badge-success'>"+ row.nombre +"</span>";
+                        } else if (row.clave == 'V') {
+                            return "<span class='badge badge-pill badge-danger'>"+ row.nombre +"</span>";
+                        } else if (row.clave == 'C') {
+                            return "<span class='badge badge-pill badge-warning'>"+ row.nombre +"</span>";
+                        } else if(row.clave == 'P'){
+                            return "<span class='badge badge-pill badge-info'>"+ row.nombre +"</span>";
+                        }
+                    }
+                },
                 {data: 'created_at'},
                 {data: 'btn'},
             ],
