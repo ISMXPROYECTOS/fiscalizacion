@@ -88,7 +88,7 @@
 </div>
 <!-- Modal para Editar -->
 <div class="modal fade" id="editar-tipo-inspeccion" tabindex="-1" role="dialog" aria-labelledby="modal-editar-tipo-inspeccion" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="modal-editar-tipo-inspeccion">Editar Tipo Inspección</h3>

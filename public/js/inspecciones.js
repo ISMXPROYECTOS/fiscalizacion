@@ -219,6 +219,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
+                        $('#editar-estatus').modal({backdrop: 'static', keyboard: false})
                         $('#editar-estatus').modal('show');
                         $('#id-edit-estatusinspeccion').val(response.id);
                         $('#estatusinspeccion-edit').val(response.estatusinspeccion_id);

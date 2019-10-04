@@ -216,7 +216,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
-                        $('#editar-estatus').modal({backdrop: 'static', keyboard: false})
+                        $('#editar-estatus').modal({backdrop: 'static', keyboard: false});
                         $('#editar-estatus').modal('show');
                         $('#id-edit-estatus').val(response.id);
                         $('#estatus-edit').val(response.estatus);

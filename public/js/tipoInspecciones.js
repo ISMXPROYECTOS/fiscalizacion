@@ -98,6 +98,7 @@ $(document).ready(function(){
                 success: function (response) {
                     console.log(response);
                     if (response.status == 200){
+                        $('#editar-tipo-inspeccion').modal({backdrop: 'static', keyboard: false});
                         $('#editar-tipo-inspeccion').modal('show');
                         $('#id-edit').val(response.tipoInspeccion.id);
                         $('#nombre-edit').val(response.tipoInspeccion.nombre);

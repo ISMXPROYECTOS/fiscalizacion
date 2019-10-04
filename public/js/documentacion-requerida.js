@@ -67,7 +67,7 @@ $(document).ready(function(){
                 success: function (response) {
                     $('#btn-enviar').text('Crear Colonia');
                     $("#formulario-colonia")[0].reset();
-                    $('#crear-colonia').modal('hide');
+                    $('#crear-colonia').modal('hid e');
                     $('#registro-correcto').modal('show');
                     $('#error-nombre, #error-cp').addClass('hidden');
                     $('#error-nombre, #error-cp').text('');
@@ -100,7 +100,7 @@ $(document).ready(function(){
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
-                    	console.log(response);
+                    	
                         $('#editar-documento').modal({backdrop: 'static', keyboard: false})
                         $('#editar-documento').modal('show');
                         $('#id-edit').val(response.id);
@@ -133,7 +133,7 @@ $(document).ready(function(){
                 },
                 success: function (response) {
                     $('#btn-editar').text('Guardar');
-                    $('#editar-colonia').modal('hide');
+                    $('#editar-documento').modal('hide');
                     $('#actualizacion-correcta').modal('show');
                     $('#error-nombre-edit, #error-cp-edit').addClass('hidden');
                     $('#error-nombre-edit, #error-cp-edit').text('');
