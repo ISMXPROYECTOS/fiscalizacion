@@ -66,13 +66,15 @@ class TipoInspeccionController extends Controller
 
 	public function editarTipoInspeccion($id){
 		$tipoInspeccion = TipoDeInspeccion::find($id);
+		$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get();
 		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $id)->get();
 
-		if (!empty($tipoInspeccion) && !empty($documentacion_por_tipo_inspeccion)) {
+		if (!empty($tipoInspeccion) && !empty($documentacion_por_tipo_inspeccion) && !empty($documentacion_requerida)) {
 			$data = [
 				'status' => 200,
 				'tipoInspeccion' => $tipoInspeccion,
-				'documentacionPorTipoDeInspeccion' => $documentacion_por_tipo_inspeccion
+				'documentacionPorTipoDeInspeccion' => $documentacion_por_tipo_inspeccion,
+				'documentacionRequerida' => $documentacion_requerida
 			];
 		} else {
 			$data = [
@@ -86,13 +88,13 @@ class TipoInspeccionController extends Controller
 
 	public function update(Request $request){
 		// Se selecciona el tipo de inspección para ser modificado
-		$id = $request->input('id');
+		$id = $request->input('id-edit');
 		$tipoInspeccion = TipoDeInspeccion::find($id);
 
 		// Validara los campos para evitar problemas
 		$validate = $this->validate($request,[
 			'nombre' => 'required|string|max:75',
-			'clave' => 'required|string|max:10|unique:tipodeinspeccion,clave,' . $id,
+			'clave' => 'required|string|max:10|',
 			'formato' => 'required|string|max:30'
 		]);
 

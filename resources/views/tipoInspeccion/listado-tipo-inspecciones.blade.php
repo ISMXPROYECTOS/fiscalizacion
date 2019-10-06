@@ -94,26 +94,25 @@
                 <h3 class="modal-title" id="modal-editar-tipo-inspeccion">Editar Tipo Inspección</h3>
             </div>
             <div class="modal-body">
-                <form class="formulario-gestor" role="form">
+                <form id="formulario-tipo-inspeccion-editar" role="form">
                     @csrf
-                    <input type="hidden" id="id-edit">
+                    <input type="hidden" id="id-edit" name="id-edit">
                     <div class="form-group">
                         <label for="nombre-edit">{{ __('Nombre') }}</label>
-                        <input id="nombre-edit" type="text" class="form-control" required>
+                        <input id="nombre-edit" type="text" class="form-control" name="nombre">
                         <p class="text-danger" id="error-nombre-edit"></p>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="clave-edit">{{ __('Clave') }}</label>
-                                <input id="clave-edit" type="text" class="form-control">
+                                <input id="clave-edit" type="text" class="form-control" name="clave">
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="formato-edit">{{ __('Formato') }}</label>
-                                <input id="formato-edit" type="text" class="form-control">
-                                
+                                <input id="formato-edit" type="text" class="form-control" name="formato">
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -122,15 +121,8 @@
                             <br>
                         </div>
                     </div>
-                    <div id="documentos">
-                        @foreach($documentos as $documento)
-                            <div class="form-check">
-                              <input class="form-check-input checkbox-documento" type="checkbox" value="{{ $documento->id }}" id="documento-{{ $documento->id }}" name="documentos-requeridos[]">
-                              <label class="form-check-label" for="documento-{{ $documento->id }}">
-                                {{ $documento->nombre }}
-                              </label>
-                            </div>
-                        @endforeach
+                    <div id="documentos-editar">
+                       
                     </div>
                     <hr>
                     <div class="form-group row mb-0">

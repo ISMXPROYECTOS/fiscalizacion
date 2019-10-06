@@ -96,7 +96,7 @@ $(document).ready(function(){
                 url: url + '/tipo-inspecciones/editar/' + id,
                 type: 'get',
                 success: function (response) {
-                    console.log(response);
+                    //console.log(response);
                     if (response.status == 200){
                         $('#editar-tipo-inspeccion').modal({backdrop: 'static', keyboard: false});
                         $('#editar-tipo-inspeccion').modal('show');
@@ -104,6 +104,61 @@ $(document).ready(function(){
                         $('#nombre-edit').val(response.tipoInspeccion.nombre);
                         $('#clave-edit').val(response.tipoInspeccion.clave);
                         $('#formato-edit').val(response.tipoInspeccion.formato);
+
+                        for (var i = 0; i < response.documentacionPorTipoDeInspeccion.length; i++) {
+                            for (var a = 0; a < response.documentacionRequerida.length; a++) {
+                            
+                                if ((i+1) == response.documentacionPorTipoDeInspeccion.length) {
+                                    if (response.documentacionPorTipoDeInspeccion[i].documentacionrequerida_id == response.documentacionRequerida[a].id) {
+                                        $('#documentos-editar').append(
+                                            "<div class='form-check'>"+
+                                                "<input class='form-check-input checkbox-documento' checked='checked' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+                                                "id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
+                                                "<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
+                                                    response.documentacionRequerida[a].nombre+
+                                                "</label>"+
+                                            "</div>"
+                                        );
+                                    } else {
+                                        $('#documentos-editar').append(
+                                            "<div class='form-check'>"+
+                                                "<input class='form-check-input checkbox-documento'  type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+                                                "id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
+                                                "<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
+                                                    response.documentacionRequerida[a].nombre+
+                                                "</label>"+
+                                            "</div>"
+                                        );
+                                    }
+                                } else {
+                                    if (response.documentacionPorTipoDeInspeccion[i].documentacionrequerida_id == response.documentacionRequerida[a].id) {
+                                        $('#documentos-editar').append(
+                                            "<div class='form-check'>"+
+                                                "<input class='form-check-input checkbox-documento' checked='checked' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+                                                "id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
+                                                "<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
+                                                    response.documentacionRequerida[a].nombre+
+                                                "</label>"+
+                                            "</div>"
+                                        );
+                                       i++;
+                                    } else {
+                                        $('#documentos-editar').append(
+                                            "<div class='form-check'>"+
+                                                "<input class='form-check-input checkbox-documento'  type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+                                                "id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
+                                                "<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
+                                                    response.documentacionRequerida[a].nombre+
+                                                "</label>"+
+                                            "</div>"
+                                        );
+                                    }
+                                }
+                                
+                            }
+                            
+                        }
+
                     } else {
                         $('#registro-correcto').modal('show');
                     }
@@ -116,12 +171,8 @@ $(document).ready(function(){
 
     function updateData(){
         $('#btn-editar').click(function(){
-            var data = {
-                'id' : $('#id-edit').val(),
-                'nombre' : $('#nombre-edit').val(),
-                'clave' : $('#clave-edit').val(),
-                'formato' : $('#formato-edit').val()
-            }
+            var data = $("#formulario-tipo-inspeccion-editar").serializeArray();
+            
             $.ajax({
                 url: url + '/tipo-inspecciones/actualizar',
                 data: data,
