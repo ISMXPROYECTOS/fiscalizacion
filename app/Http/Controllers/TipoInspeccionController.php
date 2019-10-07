@@ -91,23 +91,43 @@ class TipoInspeccionController extends Controller
 		$id = $request->input('id-edit');
 		$tipoInspeccion = TipoDeInspeccion::find($id);
 
+		$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get();
+		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $id)->get();
+
 		// Validara los campos para evitar problemas
 		$validate = $this->validate($request,[
 			'nombre' => 'required|string|max:75',
 			'clave' => 'required|string|max:10|',
-			'formato' => 'required|string|max:30'
+			'formato' => 'required|string|max:30',
+			'documentos-requeridos.*' => 'required|string'
 		]);
 
 		// Se reciben los datos del formulario y se crean variables
+		$data = $request->all();
 		$nombre = $request->input('nombre');
 		$clave = $request->input('clave');
 		$formato = $request->input('formato');
+		$nueva_documentacion = array_get($data, 'documentos-requeridos');
 
 		// Una ves verificados los datos y creados las variables se actualiza en la BD
 		$tipoInspeccion->nombre = $nombre;
 		$tipoInspeccion->clave = $clave;
 		$tipoInspeccion->formato = $formato;
 		$tipoInspeccion->update();
+
+		for ($i = 0; $i < count($documentacion_por_tipo_inspeccion); $i++) { 
+			$documentacion_por_tipo_inspeccion[$i]->delete();
+		}
+
+		for ($a = 0; $a < count($nueva_documentacion); $a++) { 
+
+			$datos_documentacion = [
+				'tipoinspeccion_id' => $id,
+				'documentacionrequerida_id' => $nueva_documentacion[$a]
+			];
+
+			DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
+		}
 
 		// Indica que fue correcta la modificación del tipo de inspección
 		return $tipoInspeccion;
