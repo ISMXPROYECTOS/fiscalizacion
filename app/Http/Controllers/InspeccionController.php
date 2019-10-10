@@ -288,23 +288,7 @@ class InspeccionController extends Controller
 
 	public function editarInspeccion($id){
 		$inspeccion = Inspeccion::find($id);
-		/*
-		$ultimo_estatus = BitacoraDeEstatus::where('inspeccion_id', $id)->get();
-		$ultimo_estatus = $ultimo_estatus->last()->observacion;
 
-		if (!empty($inspeccion) && !empty($ultimo_estatus)) {
-			$data = [
-				'status' => 200,
-				'inspeccion' => $inspeccion,
-				'ultimoEstatus' => $ultimo_estatus
-			];
-		} else {
-			$data = [
-				'status' => 500,
-				'error' => 'No se pudieron cargar los datos'
-			];
-		}
-		*/
 		return $inspeccion;
 	}
 
@@ -366,7 +350,6 @@ class InspeccionController extends Controller
 	}
 
 	public function updateEstatus(Request $request){
-
 		$id = $request->input('id');
 		$inspeccion = Inspeccion::find($id);
 		$inspeccion_id = $inspeccion->id;
@@ -376,19 +359,18 @@ class InspeccionController extends Controller
 			'comentario' => 'string|max:255'
 		]);
 
-		$idUser = \Auth::user()->id;
+		$usuario = Auth::user();
 		$estatus = $request->input('estatusinspeccion');
 		$comentario = $request->input('comentario');
 
-		$inspeccion->usuario_id = $idUser;
+		$inspeccion->usuario_id = $usuario->id;
 		$inspeccion->estatusinspeccion_id = $estatus;
-		$inspeccion->comentario = $comentario;
 		$inspeccion->update();
 
 		$datos_bitacora = [
 			'inspeccion_id' => $inspeccion_id,
 			'estatusinspeccion_id' => $estatus,
-			'usuario_id' => $idUser,
+			'usuario_id' => $usuario->id,
 			'observacion' => $comentario
 		];
 		
@@ -398,7 +380,6 @@ class InspeccionController extends Controller
 	}
 
 	public function updateInspector(Request $request){
-
 		$id = $request->input('id');
 		$inspeccion = Inspeccion::find($id);
 
@@ -406,12 +387,11 @@ class InspeccionController extends Controller
 			'inspector' => 'required|string'
 		]);
 
-		$idUser = \Auth::user()->id;
+		$usuario = Auth::user();
 		$inspector_id = $request->input('inspector');
-
 		$inspector = Inspector::find($inspector_id);
 
-		$inspeccion->usuario_id = $idUser;
+		$inspeccion->usuario_id = $usuario->id;
 		$inspeccion->inspector_id = $inspector_id;
 		$inspeccion->update();
 
@@ -521,6 +501,7 @@ class InspeccionController extends Controller
 										->where('ejerciciofiscal_id', $anio)
 										->where('estatusinspeccion_id', 1)
 										->get();
+
 		return count($total_inspecciones);
 	}
 
@@ -559,7 +540,6 @@ class InspeccionController extends Controller
 					'folioinicio' => $inicio_folio,
 					'foliofin' => $fin_folio
 				];
-
 			} else {
 				$folio_inicio = $forma_valorada->last()->foliofin + 1;
 				$folio_fin = $folio_inicio + $cantidad - 1;
@@ -578,21 +558,17 @@ class InspeccionController extends Controller
 					'foliofin' => $fin_folio
 				];
 			}
-
 		}
 		
 	}
 
 	public function obtenerFoliosInspecciones(Request $request){
-
 		$validate = $this->validate($request, [
 			'tipoinspeccion-asignar' => 'required|string',
 			'cantidad-asignar' => 'required|string',
 			'ejerciciofiscal-asignar' => 'required|string',
 			'inspectores-asignar.*' => 'required|string'
 		]);
-
-
 
 		$data = $request->all();
 		$tipo_inspeccion_id = $request->input('tipoinspeccion-asignar');
@@ -658,11 +634,11 @@ class InspeccionController extends Controller
 				}
 			}
 		}
+
 		return $datos;
 	}
 
 	public function actualizarInformacionInspeccion(Request $request){
-
 		$inspeccion_id = $request->input('inspeccion-id');
 		$inspeccion = Inspeccion::find($inspeccion_id);
 		$configuracion = Configuracion::where('id', 1)->first();
@@ -742,8 +718,6 @@ class InspeccionController extends Controller
 		];
 
 		BitacoraDeEstatus::create($datos_bitacora);
-
-
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoInspeccion->id)->get();
 
 		if ($solicitado == null) {
@@ -751,7 +725,6 @@ class InspeccionController extends Controller
 		} else {
 			for ($i = 0; $i < count($solicitado); $i++) {
 				for ($a = 0; $a < count($documentos_requeridos) ; $a++) {
-
 					if (($i+1) == count($solicitado)) {
 						if ($solicitado[$i] == $documentos_requeridos[$a]->documentacionrequerida_id) {
 							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $solicitado[$i])
@@ -775,7 +748,6 @@ class InspeccionController extends Controller
 							$documentacion_requerida->solicitado = 0;
 							$documentacion_requerida->update();
 						}
-						
 					}	
 				}
 			}
@@ -786,7 +758,6 @@ class InspeccionController extends Controller
 		} else {
 			for ($b = 0; $b < count($exhibido); $b++) {
 				for ($c = 0; $c < count($documentos_requeridos); $c++) {
-
 					if (($b+1) == count($exhibido)) { // if del ultimo
 						if ($exhibido[$b] == $documentos_requeridos[$c]->documentacionrequerida_id) {
 							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $exhibido[$b])
@@ -810,7 +781,6 @@ class InspeccionController extends Controller
 							$documentacion_requerida->exhibido = 0;
 							$documentacion_requerida->update();
 						}
-						
 					}	
 				}
 			}
@@ -875,7 +845,6 @@ class InspeccionController extends Controller
 		$inspeccion->update();
 
 		for ($i = 0; $i < count($documentacion_por_inspeccion); $i++) {
-
 			$documento_por_inspeccion = DocumentacionPorInspeccion::where('inspeccion_id', $id)
 																			->where('solicitado', 1)
 																			->where('exhibido', 1)
@@ -888,8 +857,6 @@ class InspeccionController extends Controller
 			$documento_por_inspeccion->solicitado = 0;
 			$documento_por_inspeccion->exhibido = 0;
 			$documento_por_inspeccion->update();
-
-			
 		}
 
 		return redirect('/inspecciones/informacion/'.$id)->with('status', 'La inspeccción se ha limpiado correctamente.');
@@ -897,7 +864,6 @@ class InspeccionController extends Controller
 
 
 	public function validarFolioAsignado($id){
-
 		$inspeccion = Inspeccion::find($id);
 		$estatus_inspeccion = $inspeccion->estatusinspeccion->clave;
 
@@ -910,7 +876,5 @@ class InspeccionController extends Controller
 			return $asignado_f;
 		}
 	}
-
-	
 
 }

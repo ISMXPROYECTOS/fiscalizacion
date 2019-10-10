@@ -223,7 +223,6 @@ $(document).ready(function(){
                         $('#editar-estatus').modal('show');
                         $('#id-edit-estatusinspeccion').val(response.id);
                         $('#estatusinspeccion-edit').val(response.estatusinspeccion_id);
-                        $('#comentario-edit').val(response.comentario);
                     }
                 }
             });

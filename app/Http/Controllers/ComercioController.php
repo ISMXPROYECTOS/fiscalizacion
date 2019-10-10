@@ -181,7 +181,7 @@ class ComercioController extends Controller
 				$total_comercios = count($comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio);
 
 				for ($i = 0; $i < $total_comercios; $i++) {
-					$comercio_bd = Comercio::where('clavecatastral', $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->PredioCveCatastral)->where('propietarioid', $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->propietario_id)->first();
+					$comercio_bd = Comercio::where('licenciafuncionamientoid', $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->LicenciasFuncionamientoId)->first();
 
 					if (empty($comercio_bd)) {
 						$datos = [
