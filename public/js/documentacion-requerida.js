@@ -67,7 +67,7 @@ $(document).ready(function(){
                 success: function (response) {
                     $('#btn-enviar').text('Crear Colonia');
                     $("#formulario-colonia")[0].reset();
-                    $('#crear-colonia').modal('hid e');
+                    $('#crear-colonia').modal('hide');
                     $('#registro-correcto').modal('show');
                     $('#error-nombre, #error-cp').addClass('hidden');
                     $('#error-nombre, #error-cp').text('');
