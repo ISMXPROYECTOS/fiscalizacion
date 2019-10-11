@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Municipio;
 use App\Colonia;
 
 class ColoniaController extends Controller
@@ -20,16 +21,17 @@ class ColoniaController extends Controller
 	}
 
 	public function create(Request $request){
-
 		// Valida los campos para evitar problemas y poder agregarlos a la base de datos
 		$validate = $request->validate([
 			'nombre' => 'required|string|max:75',
             'cp' => 'required|string|max:5'
 	    ]);
 
+		$municipio = Municipio::where('nombre', 'Benito Juárez')->first();
+
 	    // Se reciben los datos del formulario creando un Array de datos 
 		$datos = [
-			'municipio_id' => 1,
+			'municipio_id' => $municipio->id,
 			'nombre' => $request->input('nombre'),
             'cp' => $request->input('cp')
 		];
