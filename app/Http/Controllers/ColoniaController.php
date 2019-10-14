@@ -27,7 +27,7 @@ class ColoniaController extends Controller
             'cp' => 'required|string|max:5'
 	    ]);
 
-		$municipio = Municipio::where('nombre', 'Benito Juárez')->first();
+		$municipio = Municipio::where('nombre', 'BENITO JUÁREZ')->where('estado_id', 23)->first();
 
 	    // Se reciben los datos del formulario creando un Array de datos 
 		$datos = [
