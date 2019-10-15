@@ -182,7 +182,6 @@ class ComercioController extends Controller
 
 				for ($i = 0; $i < $total_comercios; $i++) {
 					$comercio_bd = Comercio::where('licenciafuncionamientoid', $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->LicenciasFuncionamientoId)->first();
-
 					if (empty($comercio_bd)) {
 						$datos = [
 							'rfc' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->RFCPersona,
@@ -212,11 +211,6 @@ class ComercioController extends Controller
 				}
 				
 				return redirect('/comercios')->with('status', $comercios_sincronizados . ' comercios se han sincronizado.');
-				/*
-				return view('comercio.pruebas', [
-					'comercios' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio
-				]);
-				*/
 			}
 			
 		}catch(\Exception $error){

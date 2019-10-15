@@ -18,4 +18,12 @@ class BitacoraDeProroga extends Model
 	public function usuario(){
 		return $this->belongsTo('App\Usuario', 'usuario_id');
 	}
+
+	protected $fillable = [
+		'usuario_id',
+    	'inspeccion_id',
+    	'fechavence',
+    	'diasdeprorroga',
+    	'observaciones'
+    ];
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
+use Carbon\Carbon;
 use App\Inspeccion;
 use App\Inspector;
 use App\Gestor;
@@ -19,11 +20,13 @@ use App\EstatusInspeccion;
 use App\Colonia;
 use App\Encargado;
 use App\Comercio;
+use App\DiaInhabil;
 use App\DocumentacionRequerida;
 use App\DocumentacionPorTipoDeInspeccion;
 use App\DocumentacionPorInspeccion;
 use App\Configuracion;
 use App\BitacoraDeEstatus;
+use App\BitacoraDeProroga;
 
 class InspeccionController extends Controller
 {
@@ -399,7 +402,6 @@ class InspeccionController extends Controller
 	}
 
 	public function verMasInformacion($id){
-
 		$inspeccion = Inspeccion::find($id);
 		$gestores = Gestor::all();
 		$documentos = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get();
@@ -456,13 +458,13 @@ class InspeccionController extends Controller
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'A')->first();
 		$id_estatus_nuevo = $estatus_nuevo->id;
 
-		$inspecciones = Inspeccion::where('estatusinspeccion_id', $id_estatus_anterior)
-									->where('tipoinspeccion_id', $tipoinspeccion)->get();
+		$inspecciones = Inspeccion::where('estatusinspeccion_id', $id_estatus_anterior)->where('tipoinspeccion_id', $tipoinspeccion)->get();
 		$tipos_inspecciones = TipoDeInspeccion::find($tipoinspeccion);
 
 		if ($inspectores == null) {
 			return back()->withErrors('Es necesario seleccionar al menos a un Inspector.');
-		} 
+		}
+
 		$total_inspectores = count($inspectores);
 		$total_inspecciones = $cantidad * $total_inspectores;
 		$numero_inspecciones = count($inspecciones);
@@ -497,10 +499,7 @@ class InspeccionController extends Controller
 	}
 
 	public function obtenerTotalInspecciones($id, $anio){
-		$total_inspecciones = Inspeccion::where('tipoinspeccion_id', $id)
-										->where('ejerciciofiscal_id', $anio)
-										->where('estatusinspeccion_id', 1)
-										->get();
+		$total_inspecciones = Inspeccion::where('tipoinspeccion_id', $id)->where('ejerciciofiscal_id', $anio)->where('estatusinspeccion_id', 1)->get();
 
 		return count($total_inspecciones);
 	}
@@ -643,13 +642,12 @@ class InspeccionController extends Controller
 		$inspeccion = Inspeccion::find($inspeccion_id);
 		$configuracion = Configuracion::where('id', 1)->first();
 		$configuracion_dias_vence = $configuracion->valornumero;
-
 		$texto_presento = Configuracion::where('id', 2)->first();
 		$texto_no_presento = Configuracion::where('id', 3)->first();
-
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'Cap')->first();
 		$id_estatus_nuevo = $estatus_nuevo->id;
-		$idUser = \Auth::user()->id;
+		$dias_inhabiles = DiaInhabil::all();
+		$usuario = Auth::user();
 
 		$validate = $this->validate($request, [
 			'inspeccion-id' => 'required|string',
@@ -687,6 +685,26 @@ class InspeccionController extends Controller
 		$gestor = $request->input('gestor');
 		$dias_prorroga = $request->input('prorroga');
 		$observacion_prorroga = $request->input('observacion-prorroga');
+
+		$date = Carbon::now();
+		$date = $date->format('Y-m-d');
+		$total_dias_inhabiles = 0;
+
+		for ($a = 0; $a < $configuracion_dias_vence; $a++) {
+			for ($i = 0; $i < count($dias_inhabiles); $i++) {
+				var_dump($dias_inhabiles[$i]->fecha);
+				if ($date == $dias_inhabiles[$i]->fecha) {
+					$total_dias_inhabiles = $total_dias_inhabiles + 1;
+					$a++;
+				}else{
+					$date = date("Y-m-d",strtotime($date . "+1 days"));
+					var_dump($date);
+				}
+			}
+		}
+
+		dd($total_dias_inhabiles);
+
 		$fecha_vence = date("Y-m-d",strtotime($fecha . "+" . $configuracion_dias_vence . "days"));
 
 		$inspeccion->fechacapturada = $hoy;
@@ -705,6 +723,16 @@ class InspeccionController extends Controller
 		if ($dias_prorroga != 0) {
 			$fecha_prorroga = date("Y-m-d",strtotime($fecha_vence . "+" . $dias_prorroga . "days"));
 			$inspeccion->fechaprorroga = $fecha_prorroga;
+
+			$datos_bitacora_prorroga = [
+				'usuario_id' => $usuario->id,
+				'inspeccion_id' => $inspeccion->id,
+				'fechavence' => $fecha_prorroga,
+				'diasdeprorroga' => $dias_prorroga,
+				'observaciones' => $observacion_prorroga
+			];
+
+			BitacoraDeProroga::create($datos_bitacora_prorroga);
 		}
 		$inspeccion->observacionprorroga = $observacion_prorroga;
 		$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
@@ -713,11 +741,12 @@ class InspeccionController extends Controller
 		$datos_bitacora = [
 			'inspeccion_id' => $inspeccion->id,
 			'estatusinspeccion_id' => $inspeccion->estatusInspeccion->id,
-			'usuario_id' => $idUser,
+			'usuario_id' => $usuario->id,
 			'observacion' => 'Capturada'
 		];
 
 		BitacoraDeEstatus::create($datos_bitacora);
+
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoInspeccion->id)->get();
 
 		if ($solicitado == null) {
