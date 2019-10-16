@@ -26,7 +26,6 @@ class TipoInspeccionController extends Controller
 	}
 
 	public function create(Request $request){
-
 		$validate = $this->validate($request, [
 			'nombre' => 'required|string|max:75',
 			'clave' => 'required|string|max:10|unique:tipodeinspeccion',
@@ -40,28 +39,25 @@ class TipoInspeccionController extends Controller
 		$formato = $request->input('formato');
 		$documentos_requeridos = array_get($data, 'documentos-requeridos');
 
-		$datos = [
-			'nombre' => $nombre,
-			'clave' => $clave,
-			'formato' => $formato 
-		];
+		$nuevo_tipo_inspeccion = new TipoDeInspeccion();
+		$nuevo_tipo_inspeccion->clave = $clave;
+		$nuevo_tipo_inspeccion->nombre = $nombre;
+		$nuevo_tipo_inspeccion->formato = $formato;
+		$nuevo_tipo_inspeccion->save();
 
-		TipoDeInspeccion::create($datos);
+		if (!empty($documentos_requeridos)) {
+			for ($i = 0; $i < count($documentos_requeridos); $i++) {
 
-		$tipo_de_inspeccion = TipoDeInspeccion::where('nombre', $nombre)->first();
+				$datos_documentacion = [
+					'tipoinspeccion_id' => $nuevo_tipo_inspeccion->id,
+					'documentacionrequerida_id' => $documentos_requeridos[$i]
+				];
 
-		for ($i = 0; $i < count($documentos_requeridos); $i++) { 
-
-			$datos_documentacion = [
-				'tipoinspeccion_id' => $tipo_de_inspeccion->id,
-				'documentacionrequerida_id' => $documentos_requeridos[$i]
-			];
-
-			DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
+				DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
+			}
 		}
-
-		return $datos;
-
+		
+		return $nuevo_tipo_inspeccion;
 	}
 
 	public function editarTipoInspeccion($id){
