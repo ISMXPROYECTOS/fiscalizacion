@@ -109,7 +109,7 @@ class InspeccionController extends Controller
 		$usuario = Auth::user();
 		
 		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
-		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
+		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->where('ejerciciofiscal_id', $ejercicio_fiscal_id)->get();
 		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 
 		$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
@@ -207,7 +207,7 @@ class InspeccionController extends Controller
 		$usuario = Auth::user();
 		
 		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
-		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
+		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->where('ejerciciofiscal_id', $ejercicio_fiscal_id)->get();
 		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 
 		$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
@@ -499,7 +499,10 @@ class InspeccionController extends Controller
 	}
 
 	public function obtenerTotalInspecciones($id, $anio){
-		$total_inspecciones = Inspeccion::where('tipoinspeccion_id', $id)->where('ejerciciofiscal_id', $anio)->where('estatusinspeccion_id', 1)->get();
+		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
+		$total_inspecciones = Inspeccion::where('tipoinspeccion_id', $id)
+										->where('ejerciciofiscal_id', $anio)
+										->where('estatusinspeccion_id', $estatus_inspeccion->id)->get();
 
 		return count($total_inspecciones);
 	}
@@ -514,12 +517,12 @@ class InspeccionController extends Controller
 		$tipo_inspeccion_id = $request->input('tipoinspeccion');
 		$cantidad = $request->input('cantidad');
 		$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
-		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
+		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->where('ejerciciofiscal_id', $ejercicio_fiscal_id)->get();
 
-		if ($cantidad  == 0) {
+		if ($cantidad == 0) {
 			return response()->json([
 				'error' => true,
-				'mensaje' => 'Selecciona al menos una empresa.'
+				'mensaje' => 'Selecciona al menos una cantidad.'
 			], 422);
 		} else {
 			if ($forma_valorada->count() == 0) {
@@ -569,13 +572,15 @@ class InspeccionController extends Controller
 			'inspectores-asignar.*' => 'required|string'
 		]);
 
+		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
+
 		$data = $request->all();
 		$tipo_inspeccion_id = $request->input('tipoinspeccion-asignar');
 		$cantidad = $request->input('cantidad-asignar');
 		$ejercicio_fiscal_id = $request->input('ejerciciofiscal-asignar');
 		$inspectores = array_get($data, 'inspectores-asignar');
 
-		$inspecciones = Inspeccion::where('estatusinspeccion_id', 1)
+		$inspecciones = Inspeccion::where('estatusinspeccion_id', $estatus_inspeccion->id)
 							->where('ejerciciofiscal_id', $ejercicio_fiscal_id)
 							->where('tipoinspeccion_id', $tipo_inspeccion_id)
 							->get();
@@ -748,7 +753,7 @@ class InspeccionController extends Controller
 
 			BitacoraDeProroga::create($datos_bitacora_prorroga);
 		}
-		
+
 		$inspeccion->observacionprorroga = $observacion_prorroga;
 		$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
 		$inspeccion->update();
