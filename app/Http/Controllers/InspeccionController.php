@@ -686,6 +686,7 @@ class InspeccionController extends Controller
 		$dias_prorroga = $request->input('prorroga');
 		$observacion_prorroga = $request->input('observacion-prorroga');
 
+		/*
 		$date = Carbon::now();
 		$date = $date->format('Y-m-d');
 		$total_dias_inhabiles = 0;
@@ -704,6 +705,7 @@ class InspeccionController extends Controller
 		}
 
 		dd($total_dias_inhabiles);
+		*/
 
 		$fecha_vence = date("Y-m-d",strtotime($fecha . "+" . $configuracion_dias_vence . "days"));
 
@@ -721,7 +723,19 @@ class InspeccionController extends Controller
 		$inspeccion->fechavence = $fecha_vence;
 
 		if ($dias_prorroga != 0) {
-			$fecha_prorroga = date("Y-m-d",strtotime($fecha_vence . "+" . $dias_prorroga . "days"));
+			$prorogas_asignadas = BitacoraDeProroga::where('inspeccion_id', $inspeccion->id)->get();
+			$dias_para_asignar_prorroga = 0;
+			$total_dias_de_proroga = 0;
+
+			if (count($prorogas_asignadas) > 0) {
+				for ($i = 0; $i < count($prorogas_asignadas); $i++) { 
+					$total_dias_de_proroga = $total_dias_de_proroga + $prorogas_asignadas[$i]->diasdeprorroga;
+				}
+			}
+
+			$dias_para_asignar_prorroga = $dias_prorroga + $total_dias_de_proroga;
+
+			$fecha_prorroga = date("Y-m-d",strtotime($fecha_vence . "+" . $dias_para_asignar_prorroga . "days"));
 			$inspeccion->fechaprorroga = $fecha_prorroga;
 
 			$datos_bitacora_prorroga = [
@@ -734,6 +748,7 @@ class InspeccionController extends Controller
 
 			BitacoraDeProroga::create($datos_bitacora_prorroga);
 		}
+		
 		$inspeccion->observacionprorroga = $observacion_prorroga;
 		$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
 		$inspeccion->update();
