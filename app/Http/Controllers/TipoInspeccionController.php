@@ -11,10 +11,9 @@ class TipoInspeccionController extends Controller
 {
 	public function listadoTipoInspecciones(){
 		$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get();
-		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::all();
+
 		return view('tipoInspeccion.listado-tipo-inspecciones', array(
-			'documentos' => $documentacion_requerida,
-			'documentosPorTipoInspeccion' => $documentacion_por_tipo_inspeccion
+			'documentos' => $documentacion_requerida
 		));
 	}
 
@@ -56,7 +55,7 @@ class TipoInspeccionController extends Controller
 				DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
 			}
 		}
-		
+
 		return $nuevo_tipo_inspeccion;
 	}
 
@@ -94,8 +93,7 @@ class TipoInspeccionController extends Controller
 		$validate = $this->validate($request,[
 			'nombre' => 'required|string|max:75',
 			'clave' => 'required|string|max:10|',
-			'formato' => 'required|string|max:30',
-			'documentos-requeridos.*' => 'required|string'
+			'formato' => 'required|string|max:30'
 		]);
 
 		// Se reciben los datos del formulario y se crean variables
@@ -111,18 +109,21 @@ class TipoInspeccionController extends Controller
 		$tipoInspeccion->formato = $formato;
 		$tipoInspeccion->update();
 
-		for ($i = 0; $i < count($documentacion_por_tipo_inspeccion); $i++) { 
-			$documentacion_por_tipo_inspeccion[$i]->delete();
+		if (count($documentacion_por_tipo_inspeccion > 0)) {
+			for ($i = 0; $i < count($documentacion_por_tipo_inspeccion); $i++) {
+				$documentacion_por_tipo_inspeccion[$i]->delete();
+			}
 		}
 
-		for ($a = 0; $a < count($nueva_documentacion); $a++) { 
+		if (count($nueva_documentacion > 0)) {
+			for ($a = 0; $a < count($nueva_documentacion); $a++) {
+				$datos_documentacion = [
+					'tipoinspeccion_id' => $id,
+					'documentacionrequerida_id' => $nueva_documentacion[$a]
+				];
 
-			$datos_documentacion = [
-				'tipoinspeccion_id' => $id,
-				'documentacionrequerida_id' => $nueva_documentacion[$a]
-			];
-
-			DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
+				DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
+			}
 		}
 
 		// Indica que fue correcta la modificación del tipo de inspección
