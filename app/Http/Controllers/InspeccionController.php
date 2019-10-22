@@ -674,7 +674,6 @@ class InspeccionController extends Controller
 
 		$hoy = new \DateTime();
 		$hoy->format('d-m-Y H:i:s');
-
 		$data = $request->all();
 		$encargado = $request->input('encargado');
 		$establecimiento = $request->input('establecimiento');
@@ -691,72 +690,47 @@ class InspeccionController extends Controller
 		$dias_prorroga = $request->input('prorroga');
 		$observacion_prorroga = $request->input('observacion-prorroga');
 
-		/*
-		$date = Carbon::now();
-		$date = $date->format('Y-m-d');
-		$fecha_fin = date("Y-m-d",strtotime($date . "+" . $configuracion_dias_vence . "days"));
-		$total_dias_inhabiles = 0;
-		*/
-
-		$date = new \DateTime();
-		$date->format('Y-m-d');
+		/* Hoy pero en otro formato y sin hora */
+		$today = new \DateTime();
+		$today->format('Y-m-d');
 
 		/* Días inhábiles */
-		$holiday = array(
-			'01-01',  //  Año Nuevo (irrenunciable)
-			'10-04',  //  Viernes Santo (feriado religioso)
-			'11-04',  //  Sábado Santo (feriado religioso)
-			'01-05',  //  Día Nacional del Trabajo (irrenunciable)
-			'21-05',  //  Día de las Glorias Navales
-			'29-06',  //  San Pedro y San Pablo (feriado religioso)
-			'16-07',  //  Virgen del Carmen (feriado religioso)
-			'15-08',  //  Asunción de la Virgen (feriado religioso)
-			'18-09',  //  Día de la Independencia (irrenunciable)
-			'19-09',  //  Día de las Glorias del Ejército
-			'12-10',  //  Aniversario del Descubrimiento de América
-			'31-10',  //  Día Nacional de las Iglesias Evangélicas y Protestantes (feriado religioso)
-			'01-11',  //  Día de Todos los Santos (feriado religioso)
-			'08-12',  //  Inmaculada Concepción de la Virgen (feriado religioso)
-			'13-12',  //  elecciones presidencial y parlamentarias (puede que se traslade al domingo 13)
-			'25-12',  //  Natividad del Señor (feriado religioso) (irrenunciable)
-		);
-		
+		$holiday = array();
+
+		/* Los días inhábiles de la bd se agregan al array holiday */
+		for ($i = 0; $i < count($dias_inhabiles); $i++) {
+			$holiday[] = date('d-m', strtotime($dias_inhabiles[$i]->fecha));
+		}
+
 		/* Fecha Inicio */
-		$startDate = $date;
+		$startDate = $today;
 		/* Fecha Fin */
-		$endDate = new \DateTime('2019-10-31');
+		$endDate = new \DateTime('2020-12-31');
 
 		/* Intervalo de un día */
 		$interval = new \DateInterval('P1D');
 		/* Rango de fechas */
-		$date_range = new \DatePeriod($startDate, $interval , $endDate);
+		$date_range = new \DatePeriod($startDate, $interval, $endDate);
 
+		/* Días hábiles */
 		$working_days = array();
 
+		/* Se omiten los fin de semana y días inhábiles */
 		foreach($date_range as $date){
-			/* Se omiten los fin de semana y días inhábiles */
-			if($date->format("N") < 6 AND !in_array($date->format("d-m"), $holiday)){
-				$working_days[] = $date->format("Y-m-d");
+			if ($configuracion_dias_vence != 0) {
+				if($date->format("N") < 6 AND !in_array($date->format('d-m'), $holiday)){
+					$working_days[] = $date->format('Y-m-d');
+				}else{
+					$configuracion_dias_vence = $configuracion_dias_vence + 1;
+				}
+				$configuracion_dias_vence = $configuracion_dias_vence - 1;
 			}
 		}
+
+		$fecha_vence = end($working_days);
 
 		var_dump($working_days);
 		die();
-
-		/*
-		for ($a = 0; $a < $configuracion_dias_vence; $a++) {
-			for ($i = 0; $i < count($dias_inhabiles); $i++) {
-				if ($date < $dias_inhabiles[$i]->fecha && $dias_inhabiles[$i]->fecha < $fecha_fin) {
-					$total_dias_inhabiles = $total_dias_inhabiles + 1;
-					$a++;
-				}
-			}
-		}
-
-		dd($total_dias_inhabiles);
-		*/
-
-		$fecha_vence = date("Y-m-d",strtotime($fecha . "+" . $configuracion_dias_vence . "days"));
 
 		$inspeccion->fechacapturada = $hoy;
 		$inspeccion->nombreencargado = $encargado;
@@ -783,7 +757,6 @@ class InspeccionController extends Controller
 			}
 
 			$dias_para_asignar_prorroga = $dias_prorroga + $total_dias_de_proroga;
-
 			$fecha_prorroga = date("Y-m-d",strtotime($fecha_vence . "+" . $dias_para_asignar_prorroga . "days"));
 			$inspeccion->fechaprorroga = $fecha_prorroga;
 
