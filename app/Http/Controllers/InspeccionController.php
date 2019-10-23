@@ -691,8 +691,10 @@ class InspeccionController extends Controller
 		$observacion_prorroga = $request->input('observacion-prorroga');
 
 		/* Hoy pero en otro formato y sin hora */
-		$today = new \DateTime();
-		$today->format('Y-m-d');
+		$fecha_realizada = new \DateTime($fecha);
+		$fecha_realizada->format('Y-m-d');
+		//$fecha_realizada = date('Y-m-d', $fecha);
+	
 
 		/* Días inhábiles */
 		$holiday = array();
@@ -703,9 +705,9 @@ class InspeccionController extends Controller
 		}
 
 		/* Fecha Inicio */
-		$startDate = $today;
+		$startDate = $fecha_realizada;
 		/* Fecha Fin */
-		$endDate = new \DateTime('2020-12-31');
+		$endDate = new \DateTime('2120-12-31');
 
 		/* Intervalo de un día */
 		$interval = new \DateInterval('P1D');
@@ -728,9 +730,6 @@ class InspeccionController extends Controller
 		}
 
 		$fecha_vence = end($working_days);
-
-		var_dump($working_days);
-		die();
 
 		$inspeccion->fechacapturada = $hoy;
 		$inspeccion->nombreencargado = $encargado;
@@ -757,7 +756,34 @@ class InspeccionController extends Controller
 			}
 
 			$dias_para_asignar_prorroga = $dias_prorroga + $total_dias_de_proroga;
-			$fecha_prorroga = date("Y-m-d",strtotime($fecha_vence . "+" . $dias_para_asignar_prorroga . "days"));
+
+
+			/* Hoy pero en otro formato y sin hora */
+			$fecha_vencimiento = new \DateTime($inspeccion->fechavence);
+			$fecha_vencimiento->format('Y-m-d');
+
+			/* Fecha Inicio */
+			$startDate_prorroga = $fecha_vencimiento;
+			
+			/* Rango de fechas */
+			$date_range_prorroga = new \DatePeriod($startDate_prorroga, $interval, $endDate);
+
+			/* Días hábiles */
+			$working_days_prorroga = array();
+
+			/* Se omiten los fin de semana y días inhábiles */
+			foreach($date_range_prorroga as $date){
+				if ($dias_para_asignar_prorroga != 0) {
+					if($date->format("N") < 6 AND !in_array($date->format('d-m'), $holiday)){
+						$working_days_prorroga[] = $date->format('Y-m-d');
+					}else{
+						$dias_para_asignar_prorroga = $dias_para_asignar_prorroga + 1;
+					}
+					$dias_para_asignar_prorroga = $dias_para_asignar_prorroga - 1;
+				}
+			}
+
+			$fecha_prorroga = end($working_days_prorroga);
 			$inspeccion->fechaprorroga = $fecha_prorroga;
 
 			$datos_bitacora_prorroga = [

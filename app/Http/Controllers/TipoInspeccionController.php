@@ -109,13 +109,13 @@ class TipoInspeccionController extends Controller
 		$tipoInspeccion->formato = $formato;
 		$tipoInspeccion->update();
 
-		if (count($documentacion_por_tipo_inspeccion > 0)) {
+		if (count($documentacion_por_tipo_inspeccion) > 0) {
 			for ($i = 0; $i < count($documentacion_por_tipo_inspeccion); $i++) {
 				$documentacion_por_tipo_inspeccion[$i]->delete();
 			}
 		}
 
-		if (count($nueva_documentacion > 0)) {
+		if (count($nueva_documentacion) > 0) {
 			for ($a = 0; $a < count($nueva_documentacion); $a++) {
 				$datos_documentacion = [
 					'tipoinspeccion_id' => $id,
