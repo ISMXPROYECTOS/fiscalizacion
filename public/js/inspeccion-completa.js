@@ -66,8 +66,6 @@ $(document).ready(function(){
 		$('#buscar-sm').click(function(){
 			var calle = $('#calle').val();
 
-			console.log(calle);
-			
 			if (calle == '') {
 				var calle = null;
 				$.ajax({
@@ -91,8 +89,6 @@ $(document).ready(function(){
 								"<td>"+ value.domiciliofiscal +"</td>"+
 								"</tr>");
 						});
-
-						//obtenerFoliosPorSM();
 					},
 					error: function(response) {
 						$('#error-sm').removeClass('hidden');
@@ -124,8 +120,6 @@ $(document).ready(function(){
 								"<td>"+ value.domiciliofiscal +"</td>"+
 								"</tr>");
 						});
-
-						//obtenerFoliosPorSM();
 					},
 					error: function(response) {
 						$('#tabla-comercios').addClass('hidden');
@@ -140,7 +134,6 @@ $(document).ready(function(){
 	}
 
 	busquedaDeComerciosPorNombre();
-
 
 	function seleccionarTodosDocumentosRequeridosSolicitado(){
 		$("#seleccionar-todos-solicitado").click(function() {
