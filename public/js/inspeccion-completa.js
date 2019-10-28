@@ -38,7 +38,11 @@ $(document).ready(function(){
 					$('#cambiar-inspector').modal('hide');
 					$('#actualizacion-correcta').modal('show');
 					$('#nombre-inspector').text('');
-					$('#nombre-inspector').text(response[0].nombre +' '+ response[0].apellidopaterno +' '+ response[0].apellidomaterno);
+					if (response.inspector) {
+						$('#nombre-inspector').text(response.inspector.nombre +' '+ response.inspector.apellidopaterno +' '+ response.inspector.apellidomaterno);
+					}else{
+						$('#nombre-inspector').text('');
+					}
 					$('#error-inspector-edit').addClass('hidden');
 					$('#error-inspector-edit').text('');
 				},

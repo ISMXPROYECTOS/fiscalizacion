@@ -284,7 +284,4 @@ $(document).ready(function(){
     }
 
     validarFolioAsignado();
-
-   
-    
 });

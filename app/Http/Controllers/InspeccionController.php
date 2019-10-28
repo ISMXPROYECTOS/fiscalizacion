@@ -183,7 +183,6 @@ class InspeccionController extends Controller
 
 				DocumentacionPorInspeccion::create($datos);
 			}
-
 		}
 
 		return redirect('inspecciones/agregar')->with('status', 'Las inspecciones se han creado correctamente.');
@@ -384,21 +383,49 @@ class InspeccionController extends Controller
 
 	public function updateInspector(Request $request){
 		$id = $request->input('id');
-		$inspeccion = Inspeccion::find($id);
-
-		$validate = $this->validate($request,[
-			'inspector' => 'required|string'
-		]);
-
-		$usuario = Auth::user();
 		$inspector_id = $request->input('inspector');
-		$inspector = Inspector::find($inspector_id);
+		$inspeccion = Inspeccion::find($id);
+		$usuario = Auth::user();
 
-		$inspeccion->usuario_id = $usuario->id;
-		$inspeccion->inspector_id = $inspector_id;
-		$inspeccion->update();
+		if ($inspector_id == null) {
+			$estatus_NA = EstatusInspeccion::where('clave', 'NA')->first();
+			$inspeccion->inspector_id = null;
+			$inspeccion->estatusinspeccion_id = $estatus_NA->id;
+			$inspeccion->fechaasignada = null;
+			$inspeccion->update();
+			$inspeccion->load('inspector');
 
-		return [$inspector, $inspeccion];
+			$datos_bitacora = [
+				'inspeccion_id' => $inspeccion->id,
+				'estatusinspeccion_id' => $inspeccion->estatusInspeccion->id,
+				'usuario_id' => $usuario->id,
+				'observacion' => 'No Asignada'
+			];
+
+			BitacoraDeEstatus::create($datos_bitacora);
+		}else{
+			$validate = $this->validate($request,[
+				'inspector' => 'required|string'
+			]);
+
+			$estatus_A = EstatusInspeccion::where('clave', 'A')->first();
+
+			$hoy = new \DateTime();
+			$hoy->format('d-m-Y H:i:s');
+			
+			$inspeccion->usuario_id = $usuario->id;
+			$inspeccion->inspector_id = $inspector_id;
+			if ($inspeccion->fechaasignada == null) {
+				$inspeccion->fechaasignada = $hoy;
+			}
+			if ($inspeccion->inspector_id != null) {
+				$inspeccion->estatusinspeccion_id = $estatus_A->id;
+			}
+			$inspeccion->update();
+			$inspeccion->load('inspector');
+		}
+
+		return $inspeccion;
 	}
 
 	public function verMasInformacion($id){
