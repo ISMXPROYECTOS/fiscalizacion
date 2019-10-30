@@ -294,34 +294,48 @@ class InspeccionController extends Controller
 		return $inspeccion;
 	}
 
+	/* El método se encarga de modificar los estatus a las inspecciones, solo se pueden modificar inspecciones hacia adelante (una inspeccion capturada no puede pasar a no asignada porque seria incoherente). */
 	public function updateEstatus(Request $request){
-		$id = $request->input('id');
-		$inspeccion = Inspeccion::find($id);
-		$inspeccion_id = $inspeccion->id;
-
 		$validate = $this->validate($request,[
 			'estatusinspeccion' => 'required|string|max:1',
 			'comentario' => 'string|max:255'
 		]);
 
+		$id = $request->input('id');
+		$inspeccion = Inspeccion::find($id);
 		$usuario = Auth::user();
+
 		$estatus = $request->input('estatusinspeccion');
 		$comentario = $request->input('comentario');
 
-		$inspeccion->usuario_id = $usuario->id;
-		$inspeccion->estatusinspeccion_id = $estatus;
-		$inspeccion->update();
+		$data = array();
 
-		$datos_bitacora = [
-			'inspeccion_id' => $inspeccion_id,
-			'estatusinspeccion_id' => $estatus,
-			'usuario_id' => $usuario->id,
-			'observacion' => $comentario
-		];
-		
-		BitacoraDeEstatus::create($datos_bitacora);
+		if ($estatus > $inspeccion->estatusInspeccion->id) {
+			$inspeccion->usuario_id = $usuario->id;
+			$inspeccion->estatusinspeccion_id = $estatus;
+			$inspeccion->update();
 
-		return $inspeccion;
+			$data = [
+				'code' 			=> 200,
+				'inspeccion' 	=> $inspeccion
+			];
+
+			$datos_bitacora = [
+				'inspeccion_id' => $inspeccion->id,
+				'estatusinspeccion_id' => $estatus,
+				'usuario_id' => $usuario->id,
+				'observacion' => $comentario
+			];
+
+			BitacoraDeEstatus::create($datos_bitacora);
+		}else{
+			$data = [
+				'code' => 400,
+				'message' => 'No se pudo modificar el estatus.'
+			];
+		}
+
+		return $data;
 	}
 
 	public function updateInspector(Request $request){

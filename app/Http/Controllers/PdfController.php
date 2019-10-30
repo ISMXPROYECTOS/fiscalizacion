@@ -23,8 +23,8 @@ class PdfController extends Controller
 	public function tbody(){
 		$formas_valoradas = FormaValorada::all()->load('tipoInspeccion')->load('ejercicioFiscal');
 
-        return Datatables::of($formas_valoradas)
-            ->addColumn('descargar', 'pdf/boton-descargar')
+		return Datatables::of($formas_valoradas)
+			->addColumn('descargar', 'pdf/boton-descargar')
 			->rawColumns(['descargar'])
 			->make(true);
 	}
@@ -51,9 +51,7 @@ class PdfController extends Controller
 	}*/
 
 	public function validarFoliosAsignados($id){
-		$inspecciones = Inspeccion::where('formavalorada_id', $id)
-									->where('estatusinspeccion_id', 1)
-									->get();
+		$inspecciones = Inspeccion::where('formavalorada_id', $id)->where('estatusinspeccion_id', 1)->get();
 
 		$asignadas_t = 'true';
 
@@ -65,12 +63,9 @@ class PdfController extends Controller
 	}
 
 	public function descargarPdfInspecciones($id){
-		
 		$forma_valorada = FormaValorada::find($id);
 		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
-		
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
-
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		$asignadas = 0;
@@ -90,17 +85,11 @@ class PdfController extends Controller
 		}else{
 			return 'Debes asignar todas las inspecciones para realizar la impresión.';
 		}
-
 	}
 
 	public function descargarOrdenClausura($id){
-		
 		$inspeccion = Inspeccion::find($id);
-		$documentos_no_presentados = DocumentacionPorInspeccion::where('inspeccion_id', $id)
-																->where('exhibido', 0)
-																->get();
-
-		
+		$documentos_no_presentados = DocumentacionPorInspeccion::where('inspeccion_id', $id)->where('exhibido', 0)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		$pdf = PDF::loadView('clausura.acta-clausura', ['inspeccion' => $inspeccion, 'documentos' => $documentos_no_presentados]);
@@ -108,16 +97,20 @@ class PdfController extends Controller
 	}
 
 	public function verGafete($id){
-
 		$gafete = Gafete::find($id);
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
-
 		
 		$customPaper = array(0,0,425,328);
 		$pdf = PDF::loadView('gafete.gafete', ['gafete' => $gafete])->setPaper($customPaper, "landscape");
 
 		return $pdf->download('Gafete-'.$ejercicio_fiscal->anio.'-'.$gafete->inspector->nombre.'.pdf');
 		
-	}	
+	}
+
+	public function inspeccionesPorPaquete($id){
+		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get()->load('estatusInspeccion');
+
+		return Datatables::of($inspecciones)->make(true);
+	}
 
 }

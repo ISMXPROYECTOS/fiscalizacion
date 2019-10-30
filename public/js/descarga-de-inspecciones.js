@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	var url = "http://localhost/fiscalizacion/public";
 
 	function viewData(){
@@ -9,7 +10,7 @@ $(document).ready(function(){
 			'columns': [
 				{data: 'folioinicio',
 					'render': function ( data, type, row ) {
-						return row.ejercicio_fiscal.anio + '/' + row.tipo_inspeccion.clave + '/' + row.folioinicio;
+						return "<a href='#' class='inspecciones' id='"+ row.id +"'>" + row.ejercicio_fiscal.anio + '/' + row.tipo_inspeccion.clave + '/' + row.folioinicio + "</a>";
 					}
 				},
 				{data: 'foliofin',
@@ -60,39 +61,68 @@ $(document).ready(function(){
 	validarActaInspeccion();*/
 
 	function validarFoliosAsignados(){
-        $(document).on('click', '.descargar', function(e){
+		$(document).on('click', '.descargar', function(e){
+			e.preventDefault();
+			$('#folios-no-asignados').text('');
+			var id = $(this).attr('id');
 
-        	e.preventDefault();
-
-        	$('#folios-no-asignados').text('');
-
-            var id = $(this).attr('id');
-             $.ajax({
-                url: url + '/pdf/validar-folios-asignados/' + id,
-                type: 'get',
-                success: function (response) {
-                    if (response == 'true') {
-                    	$('#creando-pdf-inspecciones').modal('show');
-                    	window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
-                    } else {
-                         $('#validar-folios-asignados').modal('show');
-                         $.each(response, function( key, value ){
-                            $('#folios-no-asignados').append(
-                                "<li>"+ value.folio +"</li>"
-                            );
-                        });
-                    }
-                }
-            });
+			$.ajax({
+				url: url + '/pdf/validar-folios-asignados/' + id,
+				type: 'get',
+				success: function (response) {
+					if (response == 'true') {
+						$('#creando-pdf-inspecciones').modal('show');
+						window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
+					} else {
+						$('#validar-folios-asignados').modal('show');
+						$.each(response, function( key, value ){
+							$('#folios-no-asignados').append(
+								"<li>"+ value.folio +"</li>"
+							);
+						});
+					}
+				}
+			});
 
 			
 		});
+	}
+
+	validarFoliosAsignados();
+
+	function inspeccionesPorPaquete(){
+        $(document).on('click', '.inspecciones', function(e){
+            e.preventDefault();
+            var id = $(this).attr('id');
+            $('#inspecciones').modal({backdrop: 'static', keyboard: false})
+            $('#inspecciones').modal('show');
+            $('#inspecciones-datatable').DataTable({
+                'serverSide': true,
+                'destroy': true,
+                'order': [ 0, 'asc' ],
+                'ajax': url + '/pdf/inspecciones/' + id,
+                'columns': [
+                    {data: 'folio'},
+                    {data: 'estatus_inspeccion.nombre'}
+                ],
+                'language': {
+                    'info': 'Total de registros _TOTAL_',
+                    'paginate': {
+                        'next': 'Siguiente',
+                        'previous': 'Anterior',
+                    },
+                    'lengthMenu': 'Mostrar _MENU_ registros',
+                    'loadingRecords': 'Cargando...',
+                    'processing': 'Procesando...',
+                    'emptyTable': 'No se encontraron registros',
+                    'zeroRecords': 'No se encontraron registros',
+                    'infoEmpty': '',
+                    'infoFiltered': ''
+                }
+            });
+        });
     }
 
-    validarFoliosAsignados();
-
-
-	
-
+    inspeccionesPorPaquete();
 
 });

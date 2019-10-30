@@ -160,7 +160,11 @@ $(document).ready(function(){
 				headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 				success: function (response) {
 					$('#editar-estatus').modal('hide');
-					$('#actualizacion-correcta').modal('show');
+					if (response.code == 200){
+						$('#actualizacion-correcta').modal('show');
+					}else{
+						$('#validar-folio-asignado').modal('show');
+					}
 					$('#error-estatusinspeccion-edit').addClass('hidden');
 					$('#error-estatusinspeccion-edit').text('');
 					viewData();
