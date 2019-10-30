@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Comercio;
+use App\Colonia;
+use App\Municipio;
+use App\Estado;
 use SoapClient;
 
 class ComercioController extends Controller
@@ -19,37 +22,68 @@ class ComercioController extends Controller
 			->addColumn('cambiarestatus', 'comercio/boton-estatus')
 			->addColumn('editar', 'comercio/boton-editar')
 			->rawColumns(['editar', 'cambiarestatus'])
-			->toJson();
+			->make(true);
 	}
 
 	public function create(Request $request){
 		// Valida los campos para evitar problemas y poder agregarlos a la base de datos
 		$validate = $request->validate([
-			'rfc' => 'required|string|max:20',
-			'propietario' => 'required|string|max:255',
-			'denominacion' => 'required|string|max:255',
-			'nombreestablecimiento' => 'required|string|max:255',
-			'domiciliofiscal' => 'required|string|max:255',
-			'nointerior' => 'required|string|max:10',
-			'noexterior' => 'required|string|max:10',
-			'cp' => 'required|string|max:5'
+			'rfc' 						=> 'required|string|max:20',
+			'licenciafuncionamiento' 	=> 'nullable|string|max:10',
+			'propietario' 				=> 'required|string|max:255',
+			'clavecatastral' 			=> 'nullable|string|max:255',
+			'denominacion' 				=> 'required|string|max:255',
+			'nombreestablecimiento' 	=> 'required|string|max:255',
+			'domiciliofiscal' 			=> 'required|string|max:255',
+			'nointerior' 				=> 'required|string|max:10',
+			'noexterior' 				=> 'required|string|max:10'
 		]);
 
-		// Se reciben los datos del formulario creando un Array de datos 
-		$datos = [
-			'rfc' => $request->input('rfc'),
-			'propietarionombre' => $request->input('propietario'),
-			'denominacion' => $request->input('denominacion'),
-			'nombreestablecimiento' => $request->input('nombreestablecimiento'),
-			'domiciliofiscal' => $request->input('domiciliofiscal'),
-			'nointerior' => $request->input('nointerior'),
-			'noexterior' => $request->input('noexterior'),
-			'cp' => $request->input('cp'),
-			'estatus' => 'A'
-		];
+		// Se reciben los datos del formulario y se crean variables
+		$rfc = $request->input('rfc');
+		$licenciafuncionamiento = $request->input('licenciafuncionamiento');
+		$propietario = $request->input('propietario');
+		$clavecatastral = $request->input('clavecatastral');
+		$denominacion = $request->input('denominacion');
+		$nombreestablecimiento = $request->input('nombreestablecimiento');
+		$domiciliofiscal = $request->input('domiciliofiscal');
+		$nointerior = $request->input('nointerior');
+		$noexterior = $request->input('noexterior');
 
-		// Retornamos los datos a la peticion Ajax, al mismo tiempo en se almacena en la BD
-		return Comercio::create($datos);
+		$colonia = Colonia::where('nombre', 'Cancun')->first();
+		$estado = Estado::where('nombre', 'Quintana Roo')->where('clave', 'QROO')->first();
+		$municipio = Municipio::Where('estado_id', $estado->id)->where('nombre', 'BENITO JUÁREZ')->first();
+
+		$comercio = new Comercio();
+		$comercio->rfc = $rfc;
+
+		if ($licenciafuncionamiento != null) {
+			$comercio->licenciafuncionamientoid = $licenciafuncionamiento;
+			$comercio->licenciafuncionamiento = $licenciafuncionamiento;
+		}
+		
+		$comercio->propietarionombre = $propietario;
+
+		if ($clavecatastral != null) {
+			$comercio->clavecatastral = $clavecatastral;
+		}
+		
+		$comercio->denominacion = $denominacion;
+		$comercio->nombreestablecimiento = $nombreestablecimiento;
+		$comercio->domiciliofiscal = $domiciliofiscal;
+		$comercio->calle = $domiciliofiscal;
+		$comercio->nointerior = $nointerior;
+		$comercio->noexterior = $noexterior;
+		$comercio->cp = $colonia->cp;
+		$comercio->colonia = $colonia->nombre;
+		$comercio->localidad = $municipio->nombre;
+		$comercio->municipio = $municipio->nombre;
+		$comercio->estado = $estado->nombre;
+		$comercio->estatus = 'A';
+		$comercio->save();
+
+		// Se retorna el nuevo registro
+		return $comercio;
 	}
 
 	public function editarComercio($id){
@@ -58,43 +92,61 @@ class ComercioController extends Controller
 	}
 
 	public function update(Request $request){
+		// Validara los campos para evitar problemas
+		$validate = $this->validate($request,[
+			'rfc' 						=> 'required|string|max:20',
+			'licenciafuncionamiento' 	=> 'nullable|string|max:10',
+			'propietario' 				=> 'required|string|max:255',
+			'clavecatastral' 			=> 'nullable|string|max:255',
+			'denominacion' 				=> 'required|string|max:255',
+			'nombreestablecimiento' 	=> 'required|string|max:255',
+			'domiciliofiscal' 			=> 'required|string|max:255',
+			'nointerior' 				=> 'required|string|max:10',
+			'noexterior' 				=> 'required|string|max:10'
+		]);
+
 		// Se reciben la id del registro que se esta modificando
 		$id = $request->input('id');
 
-		// Se selecciona el registro para ser modificado
-		$comercio = Comercio::find($id);
-
-		// Validara los campos para evitar problemas
-		$validate = $this->validate($request,[
-			'rfc' => 'required|string|max:20',
-			'propietario' => 'required|string|max:255',
-			'denominacion' => 'required|string|max:255',
-			'nombreestablecimiento' => 'required|string|max:255',
-			'domiciliofiscal' => 'required|string|max:255',
-			'nointerior' => 'required|string|max:10',
-			'noexterior' => 'required|string|max:10',
-			'cp' => 'required|string|max:5'
-		]);
-
 		// Se reciben los datos del formulario y se crean variables
 		$rfc = $request->input('rfc');
+		$licenciafuncionamiento = $request->input('licenciafuncionamiento');
 		$propietario = $request->input('propietario');
+		$clavecatastral = $request->input('clavecatastral');
 		$denominacion = $request->input('denominacion');
 		$nombreestablecimiento = $request->input('nombreestablecimiento');
 		$domiciliofiscal = $request->input('domiciliofiscal');
 		$nointerior = $request->input('nointerior');
 		$noexterior = $request->input('noexterior');
-		$cp = $request->input('cp');
+
+		// Se selecciona el registro para ser modificado
+		$comercio = Comercio::find($id);
 
 		// Una ves verificados los datos y creados las variables se actualiza en la BD
 		$comercio->rfc = $rfc;
+
+		if ($licenciafuncionamiento != null) {
+			$comercio->licenciafuncionamientoid = $licenciafuncionamiento;
+			$comercio->licenciafuncionamiento = $licenciafuncionamiento;
+		}else{
+			$comercio->licenciafuncionamientoid = null;
+			$comercio->licenciafuncionamiento = null;
+		}
+		
 		$comercio->propietarionombre = $propietario;
+
+		if ($clavecatastral != null) {
+			$comercio->clavecatastral = $clavecatastral;
+		}else{
+			$comercio->clavecatastral = null;
+		}
+		
 		$comercio->denominacion = $denominacion;
 		$comercio->nombreestablecimiento = $nombreestablecimiento;
 		$comercio->domiciliofiscal = $domiciliofiscal;
+		$comercio->calle = $domiciliofiscal;
 		$comercio->nointerior = $nointerior;
 		$comercio->noexterior = $noexterior;
-		$comercio->cp = $cp;
 		$comercio->update();
 
 		// Indica que fue correcta la modificación

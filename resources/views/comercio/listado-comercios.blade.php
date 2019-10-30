@@ -30,6 +30,7 @@
 		</table>
 	</div>
 </div>
+
 <!-- Modal para Crear -->
 <div class="modal fade" id="crear-comercio" tabindex="-1" role="dialog" aria-labelledby="modal-crear-comercio" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
@@ -41,9 +42,24 @@
 				<form id="formulario-comercio" role="form">
 					@csrf
 					<div class="form-group">
+						<label for="rfc">{{ __('RFC') }}</label>
+						<input id="rfc" type="text" class="form-control">
+						<p class="text-danger" id="error-rfc"></p>
+					</div>
+					<div class="form-group">
+						<label for="licenciafuncionamiento">{{ __('Licencia de funcionamiento') }}</label>
+						<input id="licenciafuncionamiento" type="number" class="form-control">
+						<p class="text-danger" id="error-licenciafuncionamiento"></p>
+					</div>
+					<div class="form-group">
 						<label for="propietario">{{ __('Nombre Completo del Propietario') }}</label>
 						<input id="propietario" type="text" class="form-control">
 						<p class="text-danger" id="error-propietario"></p>
+					</div>
+					<div class="form-group">
+						<label for="clavecatastral">{{ __('Clave catastral') }}</label>
+						<input id="clavecatastral" type="text" class="form-control">
+						<p class="text-danger" id="error-clavecatastral"></p>
 					</div>
 					<div class="row">
 						<div class="col-lg-6 col-md-6">
@@ -65,38 +81,26 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="rfc">{{ __('RFC') }}</label>
-						<input id="rfc" type="text" class="form-control">
-						<p class="text-danger" id="error-rfc"></p>
-					</div>
-					<div class="form-group">
 						<label for="domiciliofiscal">{{ __('Dimicilio Fiscal') }}</label>
 						<input id="domiciliofiscal" type="text" class="form-control">
 						<p class="text-danger" id="error-domiciliofiscal"></p>
 					</div>
 					<div class="row">
-						<div class="col-lg-4 col-md-4">
+						<div class="col-lg-6 col-md-6">
 							<div class="form-group">
 								<label for="nointerior">{{ __('Número Interior') }}</label>
 								<input id="nointerior" type="text" class="form-control">
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4">
+						<div class="col-lg-6 col-md-6">
 							<div class="form-group">
 								<label for="noexterior">{{ __('Número Exterior') }}</label>
 								<input id="noexterior" type="text" class="form-control">
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4">
-							<div class="form-group">
-								<label for="cp">{{ __('Código Postal') }}</label>
-								<input id="cp" type="number" class="form-control">
-							</div>
-						</div>
 						<div class="col-lg-12 col-md-6">
 							<p class="text-danger mb-0" id="error-nointerior"></p>
 							<p class="text-danger mb-0" id="error-noexterior"></p>
-							<p class="text-danger mb-0" id="error-cp"></p>
 							<br>
 						</div>
 					</div>
@@ -127,9 +131,24 @@
 					@csrf
 					<input type="hidden" id="id-edit">
 					<div class="form-group">
+						<label for="rfc-edit">{{ __('RFC') }}</label>
+						<input id="rfc-edit" type="text" class="form-control">
+						<p class="text-danger" id="error-rfc-edit"></p>
+					</div>
+					<div class="form-group">
+						<label for="licenciafuncionamiento-edit">{{ __('Licencia de funcionamiento') }}</label>
+						<input id="licenciafuncionamiento-edit" type="number" class="form-control">
+						<p class="text-danger" id="error-licenciafuncionamiento-edit"></p>
+					</div>
+					<div class="form-group">
 						<label for="propietario-edit">{{ __('Nombre Completo del Propietario') }}</label>
 						<input id="propietario-edit" type="text" class="form-control">
 						<p class="text-danger" id="error-propietario-edit"></p>
+					</div>
+					<div class="form-group">
+						<label for="clavecatastral-edit">{{ __('Clave catastral') }}</label>
+						<input id="clavecatastral-edit" type="text" class="form-control">
+						<p class="text-danger" id="error-clavecatastral-edit"></p>
 					</div>
 					<div class="row">
 						<div class="col-lg-6 col-md-6">
@@ -151,38 +170,26 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="rfc-edit">{{ __('RFC') }}</label>
-						<input id="rfc-edit" type="text" class="form-control">
-						<p class="text-danger" id="error-rfc-edit"></p>
-					</div>
-					<div class="form-group">
 						<label for="domiciliofiscal-edit">{{ __('Dimicilio Fiscal') }}</label>
 						<input id="domiciliofiscal-edit" type="text" class="form-control">
 						<p class="text-danger" id="error-domiciliofiscal-edit"></p>
 					</div>
 					<div class="row">
-						<div class="col-lg-4 col-md-4">
+						<div class="col-lg-6 col-md-6">
 							<div class="form-group">
 								<label for="nointerior-edit">{{ __('Número Interior') }}</label>
 								<input id="nointerior-edit" type="text" class="form-control">
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4">
+						<div class="col-lg-6 col-md-6">
 							<div class="form-group">
 								<label for="noexterior-edit">{{ __('Número Exterior') }}</label>
 								<input id="noexterior-edit" type="text" class="form-control">
 							</div>
 						</div>
-						<div class="col-lg-4 col-md-4">
-							<div class="form-group">
-								<label for="cp-edit">{{ __('Código Postal') }}</label>
-								<input id="cp-edit" type="number" class="form-control">
-							</div>
-						</div>
 						<div class="col-lg-12 col-md-6">
 							<p class="text-danger mb-0" id="error-nointerior-edit"></p>
 							<p class="text-danger mb-0" id="error-noexterior-edit"></p>
-							<p class="text-danger mb-0" id="error-cp-edit"></p>
 							<br>
 						</div>
 					</div>
@@ -244,7 +251,6 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3 class="modal-title" id="modal-registro-correcto">Registro Exitoso</h3>
-
 			</div>
 			<div class="modal-body">
 				<div class="modal-wrapper">
@@ -290,7 +296,6 @@
 	</div>
 </div>
 
-
 <!-- Alerta de sincronizacion -->
 @if (session('status'))
 <div class="modal fade" id="sincronizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-sincronizacion-correcta" aria-hidden="true">
@@ -298,7 +303,6 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3 class="modal-title" id="modal-sincronizacion-correcta">Sincronización Exitosa</h3>
-				
 			</div>
 			<div class="modal-body">
 				<div class="modal-wrapper">

@@ -4,29 +4,29 @@ $(document).ready(function(){
 
 	$('#error-propietario, #error-denominacion, #error-nombreestablecimiento, #error-domiciliofiscal').addClass('hidden');
 	$('#error-propietario, #error-denominacion, #error-nombreestablecimiento, #error-domiciliofiscal').text('');
-	$('#error-nointerior, #error-noexterior, #error-cp, #error-rfc').addClass('hidden');
-	$('#error-nointerior, #error-noexterior, #error-cp, #error-rfc').text('');
+	$('#error-nointerior, #error-noexterior, #error-rfc').addClass('hidden');
+	$('#error-nointerior, #error-noexterior, #error-rfc').text('');
 	$('#error-propietario-edit, #error-denominacion-edit, #error-nombreestablecimiento-edit, #error-domiciliofiscal-edit').addClass('hidden');
 	$('#error-propietario-edit, #error-denominacion-edit, #error-nombreestablecimiento-edit, #error-domiciliofiscal-edit').text('');
-	$('#error-nointerior-edit, #error-noexterior-edit, #error-cp-edit, #error-rfc-edit, #error-estatus-edit').addClass('hidden');
-	$('#error-nointerior-edit, #error-noexterior-edit, #error-cp-edit, #error-rfc-edit, #error-estatus-edit').text('');
+	$('#error-nointerior-edit, #error-noexterior-edit, #error-rfc-edit, #error-estatus-edit').addClass('hidden');
+	$('#error-nointerior-edit, #error-noexterior-edit, #error-rfc-edit, #error-estatus-edit').text('');
 
 	$(document).on('click', '#btn-cancelar', function(e){
 		$('#error-propietario, #error-denominacion, #error-nombreestablecimiento, #error-domiciliofiscal').addClass('hidden');
 		$('#error-propietario, #error-denominacion, #error-nombreestablecimiento, #error-domiciliofiscal').text('');
-		$('#error-nointerior, #error-noexterior, #error-cp, #error-rfc').addClass('hidden');
-		$('#error-nointerior, #error-noexterior, #error-cp, #error-rfc').text('');
+		$('#error-nointerior, #error-noexterior, #error-rfc').addClass('hidden');
+		$('#error-nointerior, #error-noexterior, #error-rfc').text('');
 		$('#error-propietario-edit, #error-denominacion-edit, #error-nombreestablecimiento-edit, #error-domiciliofiscal-edit').addClass('hidden');
 		$('#error-propietario-edit, #error-denominacion-edit, #error-nombreestablecimiento-edit, #error-domiciliofiscal-edit').text('');
-		$('#error-nointerior-edit, #error-noexterior-edit, #error-cp-edit, #error-rfc-edit, #error-estatus-edit').addClass('hidden');
-		$('#error-nointerior-edit, #error-noexterior-edit, #error-cp-edit, #error-rfc-edit, #error-estatus-edit').text('');
+		$('#error-nointerior-edit, #error-noexterior-edit, #error-rfc-edit, #error-estatus-edit').addClass('hidden');
+		$('#error-nointerior-edit, #error-noexterior-edit, #error-rfc-edit, #error-estatus-edit').text('');
 	});
 
-	// Esta función muetra los años fiscales en una tabla
 	function viewData(){
 		$('#datatable').DataTable({
 			'serverSide': true,
 			'destroy': true,
+            'order': [ 0, 'asc' ],
 			'ajax': url + '/comercios/listado',
 			'columns': [
 				{data: 'propietarionombre'},
@@ -72,14 +72,15 @@ $(document).ready(function(){
 	function saveData(){
         $('#btn-enviar').click(function(){
             var data = {
+                'rfc' : $('#rfc').val(),
+                'licenciafuncionamiento' : $('#licenciafuncionamiento').val(),
                 'propietario' : $('#propietario').val(),
+                'clavecatastral' : $('#clavecatastral').val(),
                 'denominacion' : $('#denominacion').val(),
                 'nombreestablecimiento' : $('#nombreestablecimiento').val(),
-                'rfc' : $('#rfc').val(),
                 'domiciliofiscal' : $('#domiciliofiscal').val(),
                 'nointerior' : $('#nointerior').val(),
-                'noexterior' : $('#noexterior').val(),
-                'cp' : $('#cp').val()
+                'noexterior' : $('#noexterior').val()
             }
             $.ajax({
                 url: url + '/comercios/nuevo',
@@ -96,16 +97,16 @@ $(document).ready(function(){
                     $('#registro-correcto').modal('show');
                     $('#error-propietario, #error-denominacion, #error-nombreestablecimiento, #error-domiciliofiscal').addClass('hidden');
 					$('#error-propietario, #error-denominacion, #error-nombreestablecimiento, #error-domiciliofiscal').text('');
-					$('#error-nointerior, #error-noexterior, #error-cp, #error-rfc').addClass('hidden');
-					$('#error-nointerior, #error-noexterior, #error-cp, #error-rfc').text('');
+					$('#error-nointerior, #error-noexterior, #error-rfc').addClass('hidden');
+					$('#error-nointerior, #error-noexterior, #error-rfc').text('');
                     viewData();
                 },
                 error: function(response) {
                     $('#btn-enviar').text('Crear Comercio');
                     $('#error-propietario, #error-denominacion, #error-nombreestablecimiento, #error-domiciliofiscal').addClass('hidden');
 					$('#error-propietario, #error-denominacion, #error-nombreestablecimiento, #error-domiciliofiscal').text('');
-					$('#error-nointerior, #error-noexterior, #error-cp, #error-rfc').addClass('hidden');
-					$('#error-nointerior, #error-noexterior, #error-cp, #error-rfc').text('');
+					$('#error-nointerior, #error-noexterior, #error-rfc').addClass('hidden');
+					$('#error-nointerior, #error-noexterior, #error-rfc').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i).removeClass('hidden');
                         $('#error-'+i).text(item[0]);
@@ -130,14 +131,15 @@ $(document).ready(function(){
 						$('#editar-comercio').modal({backdrop: 'static', keyboard: false})
 						$('#editar-comercio').modal('show');
 						$('#id-edit').val(response.id);
+                        $('#rfc-edit').val(response.rfc);
+                        $('#licenciafuncionamiento-edit').val(response.licenciafuncionamiento);
                         $('#propietario-edit').val(response.propietarionombre);
+                        $('#clavecatastral-edit').val(response.clavecatastral);
                         $('#denominacion-edit').val(response.denominacion);
                         $('#nombreestablecimiento-edit').val(response.nombreestablecimiento);
-                        $('#rfc-edit').val(response.rfc);
                         $('#domiciliofiscal-edit').val(response.domiciliofiscal);
                         $('#nointerior-edit').val(response.nointerior);
                         $('#noexterior-edit').val(response.noexterior);
-                        $('#cp-edit').val(response.cp);
 					}
 				}
 			});
@@ -150,14 +152,15 @@ $(document).ready(function(){
         $('#btn-editar').click(function(){
             var data = {
                 'id' : $('#id-edit').val(),
+                'rfc' : $('#rfc-edit').val(),
+                'licenciafuncionamiento' : $('#licenciafuncionamiento-edit').val(),
                 'propietario' : $('#propietario-edit').val(),
+                'clavecatastral' : $('#clavecatastral-edit').val(),
                 'denominacion' : $('#denominacion-edit').val(),
                 'nombreestablecimiento' : $('#nombreestablecimiento-edit').val(),
-                'rfc' : $('#rfc-edit').val(),
                 'domiciliofiscal' : $('#domiciliofiscal-edit').val(),
                 'nointerior' : $('#nointerior-edit').val(),
-                'noexterior' : $('#noexterior-edit').val(),
-                'cp' : $('#cp-edit').val()
+                'noexterior' : $('#noexterior-edit').val()
             }
             $.ajax({
                 url: url + '/comercios/actualizar',
@@ -173,16 +176,16 @@ $(document).ready(function(){
                     $('#actualizacion-correcta').modal('show');
                     $('#error-propietario-edit, #error-denominacion-edit, #error-nombreestablecimiento-edit, #error-domiciliofiscal-edit').addClass('hidden');
 					$('#error-propietario-edit, #error-denominacion-edit, #error-nombreestablecimiento-edit, #error-domiciliofiscal-edit').text('');
-					$('#error-nointerior-edit, #error-noexterior-edit, #error-cp-edit, #error-rfc-edit, #error-estatus-edit').addClass('hidden');
-					$('#error-nointerior-edit, #error-noexterior-edit, #error-cp-edit, #error-rfc-edit, #error-estatus-edit').text('');
+					$('#error-nointerior-edit, #error-noexterior-edit, #error-rfc-edit, #error-estatus-edit').addClass('hidden');
+					$('#error-nointerior-edit, #error-noexterior-edit, #error-rfc-edit, #error-estatus-edit').text('');
                     viewData();
                 },
                 error: function(response) {
                     $('#btn-editar').text('Guardar');
                     $('#error-propietario-edit, #error-denominacion-edit, #error-nombreestablecimiento-edit, #error-domiciliofiscal-edit').addClass('hidden');
 					$('#error-propietario-edit, #error-denominacion-edit, #error-nombreestablecimiento-edit, #error-domiciliofiscal-edit').text('');
-					$('#error-nointerior-edit, #error-noexterior-edit, #error-cp-edit, #error-rfc-edit, #error-estatus-edit').addClass('hidden');
-					$('#error-nointerior-edit, #error-noexterior-edit, #error-cp-edit, #error-rfc-edit, #error-estatus-edit').text('');
+					$('#error-nointerior-edit, #error-noexterior-edit, #error-rfc-edit, #error-estatus-edit').addClass('hidden');
+					$('#error-nointerior-edit, #error-noexterior-edit, #error-rfc-edit, #error-estatus-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);
