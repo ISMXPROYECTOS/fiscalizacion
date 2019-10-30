@@ -294,63 +294,6 @@ class InspeccionController extends Controller
 		return $inspeccion;
 	}
 
-	public function update(Request $request){
-		// Se reciben la id de la inspección y se selecciona para modificarla
-		$id = $request->input('id');
-		$inspeccion = Inspeccion::find($id);
-
-		// Se le da formato a la fecha de vencimiento
-		/*
-		$fechavence = $request->input('fechavence');
-		$date = strtotime($fechavence);
-		$fecha_format = date("Y-m-d", $date);
-		*/
-
-		// Validara los campos para evitar problemas
-		$validate = $this->validate($request,[
-			'inspector' => 'required|string',
-			'gestor' => 'required|string',
-			'tipoinspeccion' => 'required|string',
-			'ejerciciofiscal' => 'required|string',
-			'colonia' => 'required|string',
-			'local' => 'required|string',
-			'domicilio' => 'required|string|max:75',
-			'encargado' => 'required|string|max:50',
-			'puestoencargado' => 'required|string|max:30',
-			'diasvence' => 'required|string'
-		]);
-		// 'fechavence' => 'required|date_format:Y-m-d'
-
-		// Se reciben los datos del formulario y se crean variables
-		$inspector = $request->input('inspector');
-		$gestor = $request->input('gestor');
-		$tipoinspeccion = $request->input('tipoinspeccion');
-		$ejerciciofiscal = $request->input('ejerciciofiscal');
-		$colonia = $request->input('colonia');
-		$local = $request->input('local');
-		$domicilio = $request->input('domicilio');
-		$encargado = $request->input('encargado');
-		$puestoencargado = $request->input('puestoencargado');
-		$diasvence = $request->input('diasvence');
-
-		// Una ves verificados los datos y creados las variables se actualiza en la BD
-		$inspeccion->inspector_id = $inspector;
-		$inspeccion->gestores_id = $gestor;
-		$inspeccion->tipoinspeccion_id = $tipoinspeccion;
-		$inspeccion->ejerciciofiscal_id = $ejerciciofiscal;
-		$inspeccion->colonia_id = $colonia;
-		$inspeccion->nombrelocal = $local;
-		$inspeccion->domicilio = $domicilio;
-		$inspeccion->nombreencargado = $encargado;
-		$inspeccion->cargoencargado = $puestoencargado;
-		$inspeccion->diasvence = $diasvence;
-		$inspeccion->update();
-
-		// Indica que fue correcta la modificación de la inspección
-		return $inspeccion;
-
-	}
-
 	public function updateEstatus(Request $request){
 		$id = $request->input('id');
 		$inspeccion = Inspeccion::find($id);
@@ -527,8 +470,7 @@ class InspeccionController extends Controller
 
 	public function obtenerTotalInspecciones($id, $anio){
 		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
-		$total_inspecciones = Inspeccion::where('tipoinspeccion_id', $id)
-										->where('ejerciciofiscal_id', $anio)
+		$total_inspecciones = Inspeccion::where('tipoinspeccion_id', $id)->where('ejerciciofiscal_id', $anio)
 										->where('estatusinspeccion_id', $estatus_inspeccion->id)->get();
 
 		return count($total_inspecciones);
