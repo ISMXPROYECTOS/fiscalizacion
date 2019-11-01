@@ -76,7 +76,7 @@
 	</div>
 </div>
 
-<!-- Modal para inspecciones por gestor -->
+<!-- Modal de inspecciones -->
 <div class="modal fade" id="inspecciones" tabindex="-1" role="dialog" aria-labelledby="modal-inspecciones" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
@@ -96,7 +96,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-primary btn-primary-custom" data-dismiss="modal">Reasignar</button>
+				<button type="button" class="btn btn-primary btn-primary-custom" id="reasignar">Reasignar</button>
 			</div>
 		</div>
 	</div>

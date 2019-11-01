@@ -91,38 +91,49 @@ $(document).ready(function(){
 	validarFoliosAsignados();
 
 	function inspeccionesPorPaquete(){
-        $(document).on('click', '.inspecciones', function(e){
-            e.preventDefault();
-            var id = $(this).attr('id');
-            $('#inspecciones').modal({backdrop: 'static', keyboard: false})
-            $('#inspecciones').modal('show');
-            $('#inspecciones-datatable').DataTable({
-                'serverSide': true,
-                'destroy': true,
-                'order': [ 0, 'asc' ],
-                'ajax': url + '/pdf/inspecciones/' + id,
-                'columns': [
-                    {data: 'folio'},
-                    {data: 'estatus_inspeccion.nombre'}
-                ],
-                'language': {
-                    'info': 'Total de registros _TOTAL_',
-                    'paginate': {
-                        'next': 'Siguiente',
-                        'previous': 'Anterior',
-                    },
-                    'lengthMenu': 'Mostrar _MENU_ registros',
-                    'loadingRecords': 'Cargando...',
-                    'processing': 'Procesando...',
-                    'emptyTable': 'No se encontraron registros',
-                    'zeroRecords': 'No se encontraron registros',
-                    'infoEmpty': '',
-                    'infoFiltered': ''
-                }
-            });
-        });
-    }
+		$(document).on('click', '.inspecciones', function(e){
+			e.preventDefault();
+			var id = $(this).attr('id');
+			$('#inspecciones').modal({backdrop: 'static', keyboard: false})
+			$('#inspecciones').modal('show');
+			$('#inspecciones-datatable').DataTable({
+				'serverSide': true,
+				'destroy': true,
+				'order': [ 0, 'asc' ],
+				'ajax': url + '/pdf/inspecciones/' + id,
+				'columns': [
+					{data: 'folio'},
+					{data: 'estatus_inspeccion.nombre'}
+				],
+				'language': {
+					'info': 'Total de registros _TOTAL_',
+					'paginate': {
+						'next': 'Siguiente',
+						'previous': 'Anterior',
+					},
+					'lengthMenu': 'Mostrar _MENU_ registros',
+					'loadingRecords': 'Cargando...',
+					'processing': 'Procesando...',
+					'emptyTable': 'No se encontraron registros',
+					'zeroRecords': 'No se encontraron registros',
+					'infoEmpty': '',
+					'infoFiltered': ''
+				}
+			});
+		});
+	}
 
-    inspeccionesPorPaquete();
+	inspeccionesPorPaquete();
+
+	function reasignarInspeccionesPorPaquete(){
+		$('#reasignar').click(function(){
+			var id = $('.inspecciones').val();
+			console.log(id);
+			
+
+		});
+	}
+
+	reasignarInspeccionesPorPaquete();
 
 });

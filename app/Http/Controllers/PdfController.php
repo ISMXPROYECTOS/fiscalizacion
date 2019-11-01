@@ -113,4 +113,14 @@ class PdfController extends Controller
 		return Datatables::of($inspecciones)->make(true);
 	}
 
+	public function reasignarInspeccionesPorPaquete($id){
+		//$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
+		$data = array();
+		$data = [
+			'Hola' => 'Hola'
+		];
+
+		return $data;
+	}
+
 }
