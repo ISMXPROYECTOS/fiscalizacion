@@ -102,7 +102,11 @@ $(document).ready(function(){
 				'order': [ 0, 'asc' ],
 				'ajax': url + '/pdf/inspecciones/' + id,
 				'columns': [
-					{data: 'folio'},
+					{data: 'folio',
+						'render': function ( data, type, row ) {
+							return row.folio + "<input type='hidden' id='idFormaValoradaReasignar' value='" + row.formavalorada_id + "'>";
+						}
+					},
 					{data: 'estatus_inspeccion.nombre'}
 				],
 				'language': {
@@ -127,10 +131,16 @@ $(document).ready(function(){
 
 	function reasignarInspeccionesPorPaquete(){
 		$('#reasignar').click(function(){
-			var id = $('.inspecciones').val();
-			console.log(id);
-			
-
+			var id = $('#idFormaValoradaReasignar').val();
+			$.ajax({
+				url: url + '/pdf/inspecciones/reasignar/' + id,
+				type: 'get',
+				success: function (response) {
+					if (response) {
+						console.log(response);
+					}
+				}
+			});
 		});
 	}
 

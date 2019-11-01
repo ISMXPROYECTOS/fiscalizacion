@@ -114,11 +114,22 @@ class PdfController extends Controller
 	}
 
 	public function reasignarInspeccionesPorPaquete($id){
-		//$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
-		$data = array();
-		$data = [
-			'Hola' => 'Hola'
-		];
+		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get()->load('documentacionPorInspeccion');
+
+		$data =  array();
+
+		if (count($inspecciones) > 0) {
+			for ($i = 0; $i < count($inspecciones); $i++) {
+				$inspecciones[$i]->documentacionPorInspeccion->delete();
+			}
+
+			$inspecciones = Inspeccion::where('formavalorada_id', $id)->get()->load('documentacionPorInspeccion');
+
+			$data = [
+				'code' => 200,
+				'$inspecciones' => $inspecciones
+			];
+		}
 
 		return $data;
 	}
