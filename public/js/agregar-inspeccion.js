@@ -24,14 +24,22 @@ $(document).ready(function(){
 	});
 
 	$('#ejerciciofiscal').change(function(){
-		$('#encargadoGob').removeAttr('disabled');
+		if ($('#ejerciciofiscal').val() != '') {
+			$('#encargadoGob').removeAttr('disabled');
+		} 
+
+		$("#encargadoGob").val('');
+		$("#cantidad").val('');
+		$('#folio-inicio').text('');
+        $('#folio-fin').text('');
+		
 	});
 
 	$('#encargadoGob').change(function(){
 		$('#cantidad').removeAttr('disabled');
 	});
 	
-	$('#cantidad').change(function(){
+	$('#cantidad, #ejerciciofiscal').change(function(){
 		var data = {
 			'tipoinspeccion' :$('#tipoinspeccion').val(),
 			'cantidad' : $('#cantidad').val(),

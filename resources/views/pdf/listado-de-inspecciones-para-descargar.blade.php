@@ -83,8 +83,11 @@
 			<div class="modal-header">
 				<h3 class="modal-title" id="modal-inspecciones">Inspecciones</h3>
 			</div>
-			<p>Solamente se va a reasignar los nuevos documentos a las inspecciones que se encuentren como NO ASIGNADAS.</p>
+			
 			<div class="modal-body">
+				<div class="alert alert-warning" role="alert">
+				  Solo se resetearan las inspecciones con estatus "No Asignados". 
+				</div>
 				<table class="table table-responsive-lg table-bordered table-striped mb-0" id="inspecciones-datatable">
 					<thead>
 						<tr>

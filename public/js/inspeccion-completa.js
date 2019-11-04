@@ -38,13 +38,19 @@ $(document).ready(function(){
 					$('#cambiar-inspector').modal('hide');
 					$('#actualizacion-correcta').modal('show');
 					$('#nombre-inspector').text('');
+
+					console.log(response.inspector);
+
 					if (response.inspector) {
 						$('#nombre-inspector').text(response.inspector.nombre +' '+ response.inspector.apellidopaterno +' '+ response.inspector.apellidomaterno);
-					}else{
+					}else if (response.inspector == null){
 						$('#nombre-inspector').text('');
+						window.location.replace(url + "/inspecciones");
 					}
 					$('#error-inspector-edit').addClass('hidden');
 					$('#error-inspector-edit').text('');
+
+
 				},
 				error: function(response) {
 					$('#error-inspector-edit').addClass('hidden');

@@ -240,6 +240,14 @@ ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus
   border-radius: 5px;
 }
 
+#documentos-editar{
+  overflow: auto;
+  height: 15em;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
 
 
 /* Responsive */

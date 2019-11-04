@@ -391,6 +391,7 @@
                         <label for="inspector-edit">{{ __('Inspector') }}</label>
                         <select id="inspector-edit" class="form-control">
                             <option value="">Seleccionar</option>
+                            <option value="">Ninguno</option>
                             @foreach($inspectores as $inspector)
                                 <option value="{{ $inspector->id }}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }} 
                                     {{ $inspector->apellidomaterno }}</option>

@@ -12,7 +12,10 @@ $(document).ready(function(){
 		$('#error-nombre, #error-clave, #error-formato').text('');
 		$('#error-nombre-edit, #error-clave-edit, #error-formato-edit').addClass('hidden');
 		$('#error-nombre-edit, #error-clave-edit, #error-formato-edit').text('');
+
+		$('#documentos-editar').text('');
 	});
+
 	
 	function viewData(){
 		$('#datatable').DataTable({
@@ -85,6 +88,7 @@ $(document).ready(function(){
 		$(document).on('click', '.editar', function(e){
 			e.preventDefault();
 			var id = $(this).attr('id');
+			$('#documentos-editar').text('');
 			$.ajax({
 				url: url + '/tipo-inspecciones/editar/' + id,
 				type: 'get',

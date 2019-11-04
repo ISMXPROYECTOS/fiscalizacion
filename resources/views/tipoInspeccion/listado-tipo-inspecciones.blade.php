@@ -121,6 +121,9 @@
                             <br>
                         </div>
                     </div>
+                    <div class="alert alert-info" role="alert">
+                      Selecciona los documentos requeridos para este tipo de inspección.
+                    </div>
                     <div id="documentos-editar">
                        
                     </div>

@@ -6,6 +6,19 @@ $(document).ready(function(){
         $(".check").prop("checked", this.checked);
     */
 
+    $('#formulario-crear-inspeccion-por-sm').keypress(function(e){   
+        if(e == 13){
+          return false;
+        }
+    });
+
+    $('#formulario-crear-inspeccion-por-sm').keypress(function(e){
+        if(e.which == 13){
+          return false;
+        }
+    });
+    
+
     
     $('#error-comercios').addClass('hidden');
     $('#error-results').addClass('hidden');
@@ -26,11 +39,25 @@ $(document).ready(function(){
         $("#calle").val('');
         $('#folio-inicio').text('');
         $('#folio-fin').text('');
+        $('.results').remove();
+        $("#seleccionar-todos").prop("checked", false);
         
     });
 
     $('#ejerciciofiscal').change(function(){
-        $('#encargadoGob').removeAttr('disabled');
+
+        if ($('#ejerciciofiscal').val() != '') {
+            $('#encargadoGob').removeAttr('disabled');
+        } 
+
+
+        $("#encargadoGob").val('');
+        $("#calle").val('');
+        $('#folio-inicio').text('');
+        $('#folio-fin').text('');
+        $('.results').remove();
+        $("#seleccionar-todos").prop("checked", false);
+        
     });
 
     $('#encargadoGob').change(function(){

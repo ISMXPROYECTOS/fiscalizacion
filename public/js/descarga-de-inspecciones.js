@@ -107,7 +107,25 @@ $(document).ready(function(){
 							return row.folio + "<input type='hidden' id='idFormaValoradaReasignar' value='" + row.formavalorada_id + "'>";
 						}
 					},
-					{data: 'estatus_inspeccion.nombre'}
+					{data: 'estatus_inspeccion.nombre',
+						'render': function(data, type, row){
+							if (row.estatus_inspeccion.clave == 'NA') {
+								return "<span class='badge badge-pill badge-secondary'>"+ row.estatus_inspeccion.nombre +"</span>";
+							} else if(row.estatus_inspeccion.clave == 'A'){
+								return "<span class='badge badge-pill badge-primary'>"+ row.estatus_inspeccion.nombre +"</span>";
+							} else if(row.estatus_inspeccion.clave == 'Cap'){
+								return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
+							} else if(row.estatus_inspeccion.clave == 'S'){
+								return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
+							} else if (row.estatus_inspeccion.clave == 'V') {
+								return "<span class='badge badge-pill badge-danger'>"+ row.estatus_inspeccion.nombre +"</span>";
+							} else if (row.estatus_inspeccion.clave == 'C') {
+								return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
+							} else if(row.estatus_inspeccion.clave == 'P'){
+								return "<span class='badge badge-pill badge-info'>"+ row.estatus_inspeccion.nombre +"</span>";
+							}
+						}
+					},
 				],
 				'language': {
 					'info': 'Total de registros _TOTAL_',
@@ -135,9 +153,12 @@ $(document).ready(function(){
 			$.ajax({
 				url: url + '/pdf/inspecciones/reasignar/' + id,
 				type: 'get',
+				beforeSend: function(){
+                    $('#reasignar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Reasignando...');
+                },
 				success: function (response) {
 					if (response.code == 200) {
-						$('#inspecciones').modal('hidden');
+						$('#inspecciones').modal('hide');
 						$('#actualizacion-reasignar').modal('show');
 					} else {
 						console.log(response);
