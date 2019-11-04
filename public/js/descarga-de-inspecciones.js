@@ -136,7 +136,10 @@ $(document).ready(function(){
 				url: url + '/pdf/inspecciones/reasignar/' + id,
 				type: 'get',
 				success: function (response) {
-					if (response) {
+					if (response.code == 200) {
+						$('#inspecciones').modal('hidden');
+						$('#actualizacion-reasignar').modal('show');
+					} else {
 						console.log(response);
 					}
 				}

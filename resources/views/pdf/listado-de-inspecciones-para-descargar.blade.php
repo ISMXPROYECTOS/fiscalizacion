@@ -102,6 +102,34 @@
 	</div>
 </div>
 
+<!-- Alerta de actualización -->
+<div class="modal fade" id="actualizacion-reasignar" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-reasignar" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-actualizacion-reasignar">Actualización Exitosa</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="modal-text">
+                        <h4>Actualización Exitosa</h4>
+                        <p>Las inspecciones se han reasignado correctamente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('scripts')
 <script src="{{ asset('js/descarga-de-inspecciones.js') }}" defer></script>

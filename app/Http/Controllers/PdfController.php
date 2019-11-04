@@ -12,6 +12,7 @@ use App\EjercicioFiscal;
 use App\FormaValorada;
 use App\Inspeccion;
 use App\Gafete;
+use App\EstatusInspeccion;
 
 class PdfController extends Controller
 {
@@ -115,19 +116,47 @@ class PdfController extends Controller
 
 	public function reasignarInspeccionesPorPaquete($id){
 		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get()->load('documentacionPorInspeccion');
+		$estatus_NA = EstatusInspeccion::where('clave', 'NA')->first();
+		$tipo_inspeccion_id = $inspecciones->last()->tipoInspeccion->id;
+		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
 
 		$data =  array();
+		$total_inspecciones_reasignadas = 0;
 
 		if (count($inspecciones) > 0) {
 			for ($i = 0; $i < count($inspecciones); $i++) {
-				$inspecciones[$i]->documentacionPorInspeccion->delete();
+				if ($inspecciones[$i]->estatusInspeccion->clave == $estatus_NA->clave) {
+					for ($a = 0; $a < count($inspecciones[$i]->documentacionPorInspeccion); $a++) {
+						$inspecciones[$i]->documentacionPorInspeccion[$a]->delete();
+					}
+
+					for ($c = 0; $c < count($documentacion_por_inspeccion); $c++) {
+						$datos = [
+							'tipoinspeccion_id' => $tipo_inspeccion_id,
+							'documentacionrequerida_id' => $documentacion_por_inspeccion[$c]->documentacionrequerida_id,
+							'inspeccion_id' => $inspecciones[$i]->id,
+							'solicitado' => 0,
+							'exhibido' => 0
+						];
+
+						DocumentacionPorInspeccion::create($datos);
+					}
+					
+					$total_inspecciones_reasignadas = $total_inspecciones_reasignadas + 1;
+				}
 			}
+		}
 
-			$inspecciones = Inspeccion::where('formavalorada_id', $id)->get()->load('documentacionPorInspeccion');
-
+		if ($total_inspecciones_reasignadas > 0) {
 			$data = [
 				'code' => 200,
-				'$inspecciones' => $inspecciones
+				'inspecciones' => $inspecciones,
+				'total_inspecciones_reasignadas' => $total_inspecciones_reasignadas
+			];
+		}else{
+			$data = [
+				'code' => 400,
+				'message' => 'No se reasignaron inspecciones'
 			];
 		}
 
