@@ -60,16 +60,18 @@ $(document).ready(function(){
 
 						var hoy = new Date();
 						var fecha = new Date(row.fechavence);
-						var dia = fecha.getDate() + 1;
+						var dia = fecha.getDate();
 						var mes = month[fecha.getMonth()];;
 						var anio = fecha.getFullYear();
 
 						if (row.fechavence == null) {
 							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
 						} else if(fecha < hoy){
-							return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
+							//return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
+							return "<span class='badge badge-pill badge-danger'>"+ row.fechavence +"</span>";
 						} else {
-							return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
+							//return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
+							return "<span class='badge badge-pill badge-success'>"+ row.fechavence +"</span>";
 						}
 					}
 				},
@@ -98,9 +100,11 @@ $(document).ready(function(){
 						if (row.fechaprorroga == null) {
 							return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
 						} else if (fecha < hoy) {
-							return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
+							//return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
+							return "<span class='badge badge-pill badge-danger'>"+ row.fechaprorroga +"</span>";
 						} else {
-							return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
+							//return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
+							return "<span class='badge badge-pill badge-success'>"+ row.fechaprorroga +"</span>";
 						}
 					}
 				},
@@ -163,7 +167,7 @@ $(document).ready(function(){
 					if (response.code == 200){
 						$('#actualizacion-correcta').modal('show');
 					}else{
-						$('#validar-folio-asignado').modal('show');
+						$('#accion-incorrecta').modal('show');
 					}
 					$('#error-estatusinspeccion-edit').addClass('hidden');
 					$('#error-estatusinspeccion-edit').text('');

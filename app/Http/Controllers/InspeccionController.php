@@ -931,6 +931,7 @@ class InspeccionController extends Controller
 
 			$documento_por_inspeccion->solicitado = 0;
 			$documento_por_inspeccion->exhibido = 0;
+			$documento_por_inspeccion->observaciones = '';
 			$documento_por_inspeccion->update();
 		}
 

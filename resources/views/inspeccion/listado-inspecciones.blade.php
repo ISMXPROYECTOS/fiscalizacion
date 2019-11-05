@@ -121,6 +121,35 @@
     </div>
 </div>
 
+<!-- Alerta de no asignado -->
+<div class="modal fade" id="accion-incorrecta" tabindex="-1" role="dialog" aria-labelledby="modal-accion-incorrecta" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-accion-incorrecta">No se puede realizar la accion</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="modal-text">
+                        <h4>Este folio ya ha sido solventado</h4>
+                        <p>No se puede realizar la acción por que el folio ya ha sido solventado</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @endsection
 @section('scripts')
 <script src="{{ asset('js/inspecciones.js') }}" defer></script>

@@ -98,7 +98,7 @@
 					</tr>
 					@foreach($documentos as $documento)
 					<tr>
-						<td class="nombre-documento">{{ $documento->nombre }}</td>
+						<td class="nombre-documento">{{ $documento->documentacionRequerida->nombre }}</td>
 						<td></td>
 						<td></td>
 						<td></td>
