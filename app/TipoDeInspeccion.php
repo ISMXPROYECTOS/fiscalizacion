@@ -45,7 +45,7 @@ class TipoDeInspeccion extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre', 'clave', 'formato',
+        'nombre', 'clave', 'diasvencimiento',
     ];
 	
 }

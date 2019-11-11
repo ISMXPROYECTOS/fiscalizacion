@@ -2,16 +2,16 @@ $(document).ready(function(){
 
 	var url = "http://localhost/fiscalizacion/public";
 
-	$('#error-nombre, #error-clave, #error-formato').addClass('hidden');
-	$('#error-nombre, #error-clave, #error-formato').text('');
-	$('#error-nombre-edit, #error-clave-edit, #error-formato-edit').addClass('hidden');
-	$('#error-nombre-edit, #error-clave-edit, #error-formato-edit').text('');
+	$('#error-nombre, #error-clave, #error-diasvencimiento').addClass('hidden');
+	$('#error-nombre, #error-clave, #error-diasvencimiento').text('');
+	$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').addClass('hidden');
+	$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').text('');
 
 	$(document).on('click', '#btn-cancelar', function(e){
-		$('#error-nombre, #error-clave, #error-formato').addClass('hidden');
-		$('#error-nombre, #error-clave, #error-formato').text('');
-		$('#error-nombre-edit, #error-clave-edit, #error-formato-edit').addClass('hidden');
-		$('#error-nombre-edit, #error-clave-edit, #error-formato-edit').text('');
+		$('#error-nombre, #error-clave, #error-diasvencimiento').addClass('hidden');
+		$('#error-nombre, #error-clave, #error-diasvencimiento').text('');
+		$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').addClass('hidden');
+		$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').text('');
 
 		$('#documentos-editar').text('');
 	});
@@ -25,7 +25,7 @@ $(document).ready(function(){
 			'columns': [
 			{data: 'clave'},
 			{data: 'nombre'},
-			{data: 'formato'},
+			{data: 'diasvencimiento'},
 			{data: 'created_at'},
 			{data: 'btn'},
 			],
@@ -64,14 +64,14 @@ $(document).ready(function(){
 					$("#formulario-tipo-inspeccion")[0].reset();
 					$('#crear-tipo-inspeccion').modal('hide');
 					$('#registro-correcto').modal('show');
-					$('#error-nombre, #error-clave, #error-formato').addClass('hidden');
-					$('#error-nombre, #error-clave, #error-formato').text('');
+					$('#error-nombre, #error-clave, #error-diasvencimiento').addClass('hidden');
+					$('#error-nombre, #error-clave, #error-diasvencimiento').text('');
 					viewData();
 				},
 				error: function(response) {
 					$('#btn-enviar').text('Crear Tipo de Inspección');
-					$('#error-nombre, #error-clave, #error-formato').addClass('hidden');
-					$('#error-nombre, #error-clave, #error-formato').text('');
+					$('#error-nombre, #error-clave, #error-diasvencimiento').addClass('hidden');
+					$('#error-nombre, #error-clave, #error-diasvencimiento').text('');
 					$.each(response.responseJSON.errors, function(i, item) {
 						$('#error-'+i).removeClass('hidden');
 						$('#error-'+i).text(item[0]);
@@ -100,7 +100,7 @@ $(document).ready(function(){
 						$('#id-edit').val(response.tipoInspeccion.id);
 						$('#nombre-edit').val(response.tipoInspeccion.nombre);
 						$('#clave-edit').val(response.tipoInspeccion.clave);
-						$('#formato-edit').val(response.tipoInspeccion.formato);
+						$('#diasvencimiento-edit').val(response.tipoInspeccion.diasvencimiento);
 
 						if (response.documentacionPorTipoDeInspeccion.length > 0) {
 							for (var i = 0; i < response.documentacionPorTipoDeInspeccion.length; i++) {
@@ -189,14 +189,14 @@ $(document).ready(function(){
 					$('#btn-editar').text('Guardar');
 					$('#editar-tipo-inspeccion').modal('hide');
 					$('#actualizacion-correcta').modal('show');
-					$('#error-nombre-edit, #error-clave-edit, #error-formato-edit').addClass('hidden');
-					$('#error-nombre-edit, #error-clave-edit, #error-formato-edit').text('');
+					$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').addClass('hidden');
+					$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').text('');
 					viewData();
 				},
 				error: function(response) {
 					$('#btn-editar').text('Guardar');
-					$('#error-nombre-edit, #error-clave-edit, #error-formato-edit').addClass('hidden');
-					$('#error-nombre-edit, #error-clave-edit, #error-formato-edit').text('');
+					$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').addClass('hidden');
+					$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').text('');
 					$.each(response.responseJSON.errors, function(i, item) {
 						$('#error-'+i+'-edit').removeClass('hidden');
 						$('#error-'+i+'-edit').text(item[0]);

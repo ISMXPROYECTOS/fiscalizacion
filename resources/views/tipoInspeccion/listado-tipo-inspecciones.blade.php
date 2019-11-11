@@ -13,7 +13,7 @@
                 <tr>
                     <th>Clave</th>
                     <th>Nombre</th>
-                    <th>Formato</th>
+                    <th>Días de vencimiento</th>
                     <th>Fecha creado</th>
                     <th>Editar</th>
                 </tr>
@@ -48,14 +48,13 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
-                                <label for="formato">{{ __('Formato') }}</label>
-                                <input id="formato" type="text" class="form-control" name="formato">
-                                
+                                <label for="diasvencimiento">{{ __('Días de vencimiento') }}</label>
+                                <input id="diasvencimiento" type="number" class="form-control" name="diasvencimiento">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <p class="text-danger mb-0" id="error-clave"></p>
-                            <p class="text-danger mb-0" id="error-formato"></p>
+                            <p class="text-danger mb-0" id="error-diasvencimiento"></p>
                             <br>
                         </div>
                     </div>
@@ -111,13 +110,13 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
-                                <label for="formato-edit">{{ __('Formato') }}</label>
-                                <input id="formato-edit" type="text" class="form-control" name="formato">
+                                <label for="diasvencimiento-edit">{{ __('Días de vencimiento') }}</label>
+                                <input id="diasvencimiento-edit" type="number" class="form-control" name="diasvencimiento">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <p class="text-danger mb-0" id="error-clave-edit"></p>
-                            <p class="text-danger mb-0" id="error-formato-edit"></p>
+                            <p class="text-danger mb-0" id="error-diasvencimiento-edit"></p>
                             <br>
                         </div>
                     </div>

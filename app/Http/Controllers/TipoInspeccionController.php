@@ -28,25 +28,24 @@ class TipoInspeccionController extends Controller
 		$validate = $this->validate($request, [
 			'nombre' => 'required|string|max:75',
 			'clave' => 'required|string|max:10|unique:tipodeinspeccion',
-			'formato' => 'required|string|max:30',
+			'diasvencimiento' => 'required|string|max:3',
 			'documentos-requeridos.*' => 'required|string',
 		]);
 
 		$data = $request->all();
 		$nombre = $request->input('nombre');
 		$clave = $request->input('clave');
-		$formato = $request->input('formato');
+		$diasvencimiento = $request->input('diasvencimiento');
 		$documentos_requeridos = array_get($data, 'documentos-requeridos');
 
 		$nuevo_tipo_inspeccion = new TipoDeInspeccion();
 		$nuevo_tipo_inspeccion->clave = $clave;
 		$nuevo_tipo_inspeccion->nombre = $nombre;
-		$nuevo_tipo_inspeccion->formato = $formato;
+		$nuevo_tipo_inspeccion->diasvencimiento = $diasvencimiento;
 		$nuevo_tipo_inspeccion->save();
 
 		if (!empty($documentos_requeridos)) {
 			for ($i = 0; $i < count($documentos_requeridos); $i++) {
-
 				$datos_documentacion = [
 					'tipoinspeccion_id' => $nuevo_tipo_inspeccion->id,
 					'documentacionrequerida_id' => $documentos_requeridos[$i]
@@ -85,7 +84,6 @@ class TipoInspeccionController extends Controller
 		// Se selecciona el tipo de inspección para ser modificado
 		$id = $request->input('id-edit');
 		$tipoInspeccion = TipoDeInspeccion::find($id);
-
 		$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get();
 		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $id)->get();
 
@@ -93,20 +91,20 @@ class TipoInspeccionController extends Controller
 		$validate = $this->validate($request,[
 			'nombre' => 'required|string|max:75',
 			'clave' => 'required|string|max:10|',
-			'formato' => 'required|string|max:30'
+			'diasvencimiento' => 'required|string|max:3'
 		]);
 
 		// Se reciben los datos del formulario y se crean variables
 		$data = $request->all();
 		$nombre = $request->input('nombre');
 		$clave = $request->input('clave');
-		$formato = $request->input('formato');
+		$diasvencimiento = $request->input('diasvencimiento');
 		$nueva_documentacion = array_get($data, 'documentos-requeridos');
 
 		// Una ves verificados los datos y creados las variables se actualiza en la BD
 		$tipoInspeccion->nombre = $nombre;
 		$tipoInspeccion->clave = $clave;
-		$tipoInspeccion->formato = $formato;
+		$tipoInspeccion->diasvencimiento = $diasvencimiento;
 		$tipoInspeccion->update();
 
 		if (count($documentacion_por_tipo_inspeccion) > 0) {
@@ -115,14 +113,16 @@ class TipoInspeccionController extends Controller
 			}
 		}
 
-		if (count($nueva_documentacion) > 0) {
-			for ($a = 0; $a < count($nueva_documentacion); $a++) {
-				$datos_documentacion = [
-					'tipoinspeccion_id' => $id,
-					'documentacionrequerida_id' => $nueva_documentacion[$a]
-				];
+		if (!empty($nueva_documentacion)) {
+			if (count($nueva_documentacion) > 0) {
+				for ($a = 0; $a < count($nueva_documentacion); $a++) {
+					$datos_documentacion = [
+						'tipoinspeccion_id' => $id,
+						'documentacionrequerida_id' => $nueva_documentacion[$a]
+					];
 
-				DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
+					DocumentacionPorTipoDeInspeccion::create($datos_documentacion);
+				}
 			}
 		}
 
