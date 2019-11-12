@@ -628,8 +628,8 @@ class InspeccionController extends Controller
 	public function actualizarInformacionInspeccion(Request $request){
 		$inspeccion_id = $request->input('inspeccion-id');
 		$inspeccion = Inspeccion::find($inspeccion_id);
-		$configuracion = Configuracion::where('id', 1)->first();
-		$configuracion_dias_vence = $configuracion->valornumero;
+		$configuracion = TipoDeInspeccion::find($inspeccion->tipoInspeccion->id);
+		$configuracion_dias_vence = $configuracion->diasvencimiento;
 		$texto_presento = Configuracion::where('id', 2)->first();
 		$texto_no_presento = Configuracion::where('id', 3)->first();
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'Cap')->first();
@@ -690,7 +690,7 @@ class InspeccionController extends Controller
 		/* Fecha Inicio */
 		$startDate = $fecha_realizada;
 		/* Fecha Fin */
-		$endDate = new \DateTime('2120-12-31');
+		$endDate = new \DateTime('2100-12-31');
 
 		/* Intervalo de un día */
 		$interval = new \DateInterval('P1D');
@@ -781,7 +781,9 @@ class InspeccionController extends Controller
 		}
 
 		$inspeccion->observacionprorroga = $observacion_prorroga;
-		$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
+		if ($inspeccion->estatusinspeccion_id == 2) {
+			$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
+		}
 		$inspeccion->update();
 
 		$datos_bitacora = [
@@ -951,6 +953,22 @@ class InspeccionController extends Controller
 		} else {
 			return $asignado_f;
 		}
+	}
+
+	/* Método encargado de cambiar las inspecciones con estatus capturada a vencidas si ya vencieron solamente */
+	public function cambiarEstatusAutomaticamente(){
+		$hoy = date('Y-m-d');
+		$estatus_vencida = EstatusInspeccion::where('clave', 'V')->first();
+		$inspecciones = Inspeccion::where('estatusinspeccion_id', 3)->where('fechavence', '<', $hoy)->get();
+
+		if (!empty($inspecciones)) {
+			for ($i = 0; $i < count($inspecciones); $i++) {
+				$inspecciones[$i]->estatusinspeccion_id = $estatus_vencida->id;
+				$inspecciones[$i]->update();
+			}
+		}
+
+		return $inspecciones;
 	}
 
 }

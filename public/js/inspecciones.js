@@ -127,8 +127,6 @@ $(document).ready(function(){
 		});
 	}
 
-	viewData();
-
 	function editEstatus(){
 		$(document).on('click', '.estatus', function(e){
 			e.preventDefault();
@@ -207,4 +205,20 @@ $(document).ready(function(){
 	}
 
 	validarFolioAsignado();
+
+	function cambiarEstatusAutomaticamente(){
+		$.ajax({
+			url: url + '/inspecciones/cambio-de-estatus',
+			type: 'get',
+			success: function (response) {
+				if (response) {
+					viewData();
+				} else {
+					$('#validar-folio-asignado').modal('show');
+				}
+			}
+		});
+	}
+
+	cambiarEstatusAutomaticamente();
 });
