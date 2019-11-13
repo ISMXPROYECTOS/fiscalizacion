@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Barryvdh\DomPDF\Facade as PDF;
 use Yajra\Datatables\Datatables;
 use App\DocumentacionRequerida;
@@ -106,7 +107,7 @@ class PdfController extends Controller
 		if ($tipoDocumento == 1) {
 			if (!empty($inspecciones)) {
 				$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
-				$pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+				$pdf->stream('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 
 				$data = [
 					'code' => 200,
@@ -134,24 +135,9 @@ class PdfController extends Controller
 		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
-
-		$asignadas = 0;
-		$no_asignadas = 0;
-
-		for ($i = 0; $i < count($inspecciones); $i++) {
-			if (is_object($inspecciones[$i]->inspector)) {
-				$asignadas = $asignadas + 1;
-			}else{
-				$no_asignadas = $no_asignadas + 1;
-			}
-		}
-
-		if ($asignadas == count($inspecciones) && $no_asignadas == 0) {
-			$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
-			return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
-		}else{
-			return 'Debes asignar todas las inspecciones para realizar la impresión.';
-		}
+		
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
+		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
 	public function descargarOrdenClausura($id){
