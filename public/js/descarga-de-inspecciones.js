@@ -70,12 +70,15 @@ $(document).ready(function(){
 				url: url + '/pdf/validar-folios-asignados/' + id,
 				type: 'get',
 				success: function (response) {
-					if (response == 'true') {
+					if (response.code == 200) {
 						$('#creando-pdf-inspecciones').modal('show');
-						window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
+						$('#btn-enviar').click(function(){
+							descargarPorTipoDeDocumento(id);
+						});
+						//window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
 					} else {
 						$('#validar-folios-asignados').modal('show');
-						$.each(response, function( key, value ){
+						$.each(response.inspecciones, function( key, value ){
 							$('#folios-no-asignados').append(
 								"<li>"+ value.folio +"</li>"
 							);
@@ -83,12 +86,44 @@ $(document).ready(function(){
 					}
 				}
 			});
-
-			
 		});
 	}
 
 	validarFoliosAsignados();
+
+	function descargarPorTipoDeDocumento(id){
+		var data = {
+			'tipoDocumento' : $('#tipoDocumento').val(),
+			'idFormaValorada' : id
+		}
+		$.ajax({
+			url: url + '/pdf/inspecciones/descargar-por-tipo-de-documento',
+			data: data,
+			type: 'post',
+			headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+			beforeSend: function(){
+				$('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Descargando...');
+			},
+			success: function (response) {
+				if (response.code == 200){
+					$('#btn-enviar').text('Descargar');
+					$("#formulario-documentos")[0].reset();
+					$('#creando-pdf-inspecciones').modal('hide');
+					$('#error-tipoDocumento').addClass('hidden');
+					$('#error-tipoDocumento').text('');
+				}
+			},
+			error: function(response) {
+				$('#btn-enviar').text('Descargar');
+				$('#error-tipoDocumento').addClass('hidden');
+				$('#error-tipoDocumento').text('');
+				$.each(response.responseJSON.errors, function(i, item) {
+					$('#error-'+i).removeClass('hidden');
+					$('#error-'+i).text(item[0]);
+				});
+			}
+		});
+	}
 
 	function inspeccionesPorPaquete(){
 		$(document).on('click', '.inspecciones', function(e){
@@ -154,8 +189,8 @@ $(document).ready(function(){
 				url: url + '/pdf/inspecciones/reasignar/' + id,
 				type: 'get',
 				beforeSend: function(){
-                    $('#reasignar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Reasignando...');
-                },
+					$('#reasignar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Reasignando...');
+				},
 				success: function (response) {
 					if (response.code == 200) {
 						$('#inspecciones').modal('hide');

@@ -22,23 +22,30 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3 class="modal-title" id="modal-registro-correcto">Las inspecciones se han creado</h3>
+				<h3 class="modal-title" id="modal-registro-correcto">Las inspecciones se están descargando</h3>
 			</div>
 			<div class="modal-body">
-				<div class="modal-wrapper">
-					<div class="modal-icon">
-						<div class="spinner-border text-success" role="status">
-							<span class="sr-only">Loading...</span>
+				<form id="formulario-documentos" role="form">
+					@csrf
+					<div class="form-group">
+						<label for="tipoDocumento">{{ __('Tipo de documento') }}</label>
+						<select id="tipoDocumento" class="form-control">
+							<option value="">Seleccionar</option>
+							<option value="1">Clásico</option>
+							<option value="2">Complejo</option>
+						</select>
+						<p class="text-danger" id="error-tipoDocumento"></p>
+					</div>
+					<hr>
+					<div class="form-group row mb-0">
+						<div class="col-md-6">
+							<button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
+						</div>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Descargar') }}</button>
 						</div>
 					</div>
-					<div class="modal-text">
-						<h4>Descargando</h4>
-						<p>En breve el archivo PDF sera descargado</p>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+				</form>
 			</div>
 		</div>
 	</div>
