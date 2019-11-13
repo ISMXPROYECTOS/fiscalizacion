@@ -52,17 +52,83 @@ class PdfController extends Controller
 	}*/
 
 	public function validarFoliosAsignados($id){
-		$inspecciones = Inspeccion::where('formavalorada_id', $id)->where('estatusinspeccion_id', 1)->get();
+		$estatus_NA = EstatusInspeccion::where('clave', 'NA')->first();
+		$inspecciones = Inspeccion::where('formavalorada_id', $id)->where('estatusinspeccion_id', $estatus_NA->id)->get();
 
-		$asignadas_t = 'true';
+		$data = [
+			'code' 		=> 400,
+			'message' 	=> 'error, ocurrió algo inesperado'
+		];
 
-		if (count($inspecciones) == 0) {
-			return $asignadas_t;
+		if (!empty($inspecciones)) {
+			if (count($inspecciones) == 0) {
+				$data = [
+					'code' 		=> 200,
+					'message' 	=> 'true',
+				];
+			} else {
+				$data = [
+					'code' 			=> 400,
+					'message' 		=> 'error, todas estas inspecciones no están asignadas',
+					'inspecciones' 	=> $inspecciones
+				];
+			}
 		} else {
-			return $inspecciones;
+			$data = [
+				'code' 		=> 400,
+				'message' 	=> 'No hay inspecciones seleccionadas'
+			];
 		}
+
+		return $data;
 	}
 
+	public function descargarInspeccionesPorTipoDeDocumento(Request $request){
+		/* Válida la información que le llega del formulario */
+		$validate = $this->validate($request, [
+			'tipoDocumento' => 'required|string',
+			'idFormaValorada' => 'required|string'
+		]);
+
+		$tipoDocumento = $request->input('tipoDocumento');
+		$id = $request->input('idFormaValorada');
+
+		$forma_valorada = FormaValorada::find($id);
+		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
+		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
+		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+
+		$data = [
+			'code' => 400,
+			'message' => 'error, ocurrió algo inesperado'
+		];
+
+		if ($tipoDocumento == 1) {
+			if (!empty($inspecciones)) {
+				$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
+				$pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+
+				$data = [
+					'code' => 200,
+					'message' => 'documentos descargados correctamente'
+				];
+			}else{
+				$data = [
+					'code' => 400,
+					'message' => 'error, no se pudo realizar la descarga'
+				];
+			}
+		} elseif ($tipoDocumento == 2) {
+			$data = [
+				'code' => 200,
+				'message' => 'documentos descargados correctamente (Complejas)'
+			];
+		}
+		
+		return $data;
+	}
+
+	/* Quizas ya no sirva este método*/
 	public function descargarPdfInspecciones($id){
 		$forma_valorada = FormaValorada::find($id);
 		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();

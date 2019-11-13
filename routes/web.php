@@ -101,6 +101,7 @@ Route::get('/pdf/validar-folios-asignados/{id}', 'PdfController@validarFoliosAsi
 Route::get('/pdf/descargar-orden-clausura/{id}', 'PdfController@descargarOrdenClausura')->name('descargar-clausura');
 Route::get('/pdf/inspecciones/{id}', 'PdfController@inspeccionesPorPaquete');
 Route::get('/pdf/inspecciones/reasignar/{id}', 'PdfController@reasignarInspeccionesPorPaquete');
+Route::post('/pdf/inspecciones/descargar-por-tipo-de-documento', 'PdfController@descargarInspeccionesPorTipoDeDocumento');
 
 /* Rutas Tipos Inspecciones*/
 Route::get('/tipo-inspecciones', 'TipoInspeccionController@listadoTipoInspecciones')->name('listado-tipo-inspecciones');
