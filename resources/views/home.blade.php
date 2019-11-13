@@ -7,7 +7,7 @@
 
     <div class="row text-center">
         <div class="col-lg-6 ">
-            <img  src="{{ asset('img/logotipo-bienvenida.jpg') }}" width="80%" />
+            <img  src="{{ asset('img/logotipo-bienvenida.jpg') }}" width="40%" />
         </div>
         <div class="col-lg-6">
             <h1 class="display-4 mt-4" style="color: #4b1617" id="bienvenido-txt"><b>BIENVENIDO</b></h1>

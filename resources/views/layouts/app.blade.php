@@ -33,7 +33,7 @@
             <!-- start: header -->
             <header class="header">
                 <div class="logo-container">
-                    <a href="{{ route('home') }}" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="135"/></a>
+                    <a href="{{ route('home') }}" class="logo"><img src="{{ asset('img/logotipo.png') }}"  width="30%"/></a>
                     <div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
                         <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
                     </div>

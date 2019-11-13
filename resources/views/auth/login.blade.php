@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg  navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand mx-auto" href="#">
-            <img src="{{ asset('img/logotipo.png') }}"  width="180"/>
+            <img src="{{ asset('img/logotipo.png') }}"  width="45%"/>
         </a>
         <div class="collapse navbar-collapse text-right " id="navbarSupportedContent">
             <ul class="mr-auto"></ul>
