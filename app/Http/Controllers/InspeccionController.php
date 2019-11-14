@@ -385,13 +385,28 @@ class InspeccionController extends Controller
 		return $inspeccion;
 	}
 
+	/* El método envia las variables necesarias a la vista de inspección individual, donde se guarda toda la información de cada una */
 	public function verMasInformacion($id){
-		$inspeccion = Inspeccion::find($id);
+		$inspeccion = Inspeccion::find($id)->load('documentacionPorInspeccion');
 		$gestores = Gestor::all();
 		$documentos = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get();
 		$comercios = Comercio::all();
 		$inspectores = Inspector::all();
 		$is_edit = false;
+		$total_exhibidos = 0;
+		$multa = 'false';
+
+		if (is_object($inspeccion->documentacionPorInspeccion)) {
+			for ($i = 0; $i < count($inspeccion->documentacionPorInspeccion); $i++) {
+				if ($inspeccion->documentacionPorInspeccion[$i]->exhibido == 1) {
+					$total_exhibidos = $total_exhibidos + 1;
+				}
+			}
+
+			if ($total_exhibidos != 0 && count($inspeccion->documentacionPorInspeccion) != $total_exhibidos) {
+				$multa = 'true';
+			}
+		}
 
 		if ($inspeccion->estatusInspeccion->clave == 'NA') {
 			return 'Debes asiganar la inspección antes de capturar los datos';
@@ -403,6 +418,7 @@ class InspeccionController extends Controller
 					'documentos' => $documentos,
 					'comercios' => $comercios,
 					'inspectores' => $inspectores,
+					'multa' => $multa,
 					'is_edit' => $is_edit
 				]);
 			}else{
@@ -413,6 +429,7 @@ class InspeccionController extends Controller
 					'documentos' => $documentos,
 					'comercios' => $comercios,
 					'inspectores' => $inspectores,
+					'multa' => $multa,
 					'is_edit' => $is_edit
 				]);
 			}
@@ -958,13 +975,30 @@ class InspeccionController extends Controller
 	/* Método encargado de cambiar las inspecciones con estatus capturada a vencidas si ya vencieron solamente */
 	public function cambiarEstatusAutomaticamente(){
 		$hoy = date('Y-m-d');
+		$estatus_capturada = EstatusInspeccion::where('clave', 'Cap')->first();
 		$estatus_vencida = EstatusInspeccion::where('clave', 'V')->first();
-		$inspecciones = Inspeccion::where('estatusinspeccion_id', 3)->where('fechavence', '<', $hoy)->get();
+		$estatus_multa = EstatusInspeccion::where('clave', 'M')->first();
+		$inspecciones = Inspeccion::where('estatusinspeccion_id', $estatus_capturada->id)->where('fechavence', '<', $hoy)->get()->load('documentacionPorInspeccion');
+
+		$total_exhibidos = 0;
 
 		if (!empty($inspecciones)) {
 			for ($i = 0; $i < count($inspecciones); $i++) {
-				$inspecciones[$i]->estatusinspeccion_id = $estatus_vencida->id;
-				$inspecciones[$i]->update();
+				if (is_object($inspecciones[$i]->documentacionPorInspeccion)) {
+					for ($a = 0; $a < count($inspecciones[$i]->documentacionPorInspeccion); $a++) {
+						if ($inspecciones[$i]->documentacionPorInspeccion[$a]->exhibido == 1) {
+							$total_exhibidos = $total_exhibidos + 1;
+						}
+					}
+
+					if (count($inspecciones[$i]->documentacionPorInspeccion) != $total_exhibidos) {
+						$inspecciones[$i]->estatusinspeccion_id = $estatus_multa->id;
+						$inspecciones[$i]->update();
+					} else {
+						$inspecciones[$i]->estatusinspeccion_id = $estatus_vencida->id;
+						$inspecciones[$i]->update();
+					}
+				}
 			}
 		}
 

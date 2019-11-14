@@ -27,14 +27,16 @@ $(document).ready(function(){
 							return "<span class='badge badge-pill badge-primary'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if(row.estatus_inspeccion.clave == 'Cap'){
 							return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
+						} else if(row.estatus_inspeccion.clave == 'M'){
+							return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
+						} else if(row.estatus_inspeccion.clave == 'P'){
+							return "<span class='badge badge-pill badge-info'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if(row.estatus_inspeccion.clave == 'S'){
 							return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if (row.estatus_inspeccion.clave == 'V') {
 							return "<span class='badge badge-pill badge-danger'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if (row.estatus_inspeccion.clave == 'C') {
 							return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else if(row.estatus_inspeccion.clave == 'P'){
-							return "<span class='badge badge-pill badge-info'>"+ row.estatus_inspeccion.nombre +"</span>";
 						}
 					}
 				},

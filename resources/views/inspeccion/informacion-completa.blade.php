@@ -4,8 +4,6 @@
 	<h2>Folio de Inspección: {{ $inspeccion->folio }}</h2>
 </header>
 
-
-
 @if ($errors->any())
 <div class="alert alert-danger" role="alert">
 	{{ $errors->first() }}
@@ -362,15 +360,17 @@
 	</div>
 	<br>
 	<button type="submit" class="btn btn-primary btn-lg btn-primary-custom">Actualizar Información</button>
-	@if (auth()->user()->role == 'ROLE_ADMIN')
-		<a href="{{ route('limpiar-inspeccion', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Limpiar Inspección</a>
+	@if ($inspeccion->estatusInspeccion->clave == 'M' || $multa == 'true')
+		<a href="#" class="btn btn-primary btn-lg btn-primary-custom">Generar Multa</a>
 	@endif
 
 	@if ($inspeccion->estatusInspeccion->clave == 'V')
 		<a href="{{ route('descargar-clausura', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Generar orden de clausura</a>
 	@endif
 
-	
+	@if (auth()->user()->role == 'ROLE_ADMIN')
+		<a href="{{ route('limpiar-inspeccion', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Limpiar Inspección</a>
+	@endif
 </form>
 
 <!-- Modal para cambiar de Inspector -->
