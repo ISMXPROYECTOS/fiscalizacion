@@ -30,6 +30,7 @@ use App\BitacoraDeProroga;
 
 class InspeccionController extends Controller
 {
+	/* Muetra la vista para crear nuevas inspecciones blancas, es decir, que no tienen comercio asignado */
 	public function vistaAgregarInspeccion(){
 		$tiposInspecciones = TipoDeInspeccion::all();
 		$ejerciciosFiscales = EjercicioFiscal::all();
@@ -41,6 +42,7 @@ class InspeccionController extends Controller
 		]);
 	}
 
+	/* Muetra la vista para crear nuevas inspecciones por supermanzana, es decir, que ya tienen asignado un comercio */
 	public function vistaAgregarInspeccionPorZona(){
 		$tiposInspecciones = TipoDeInspeccion::all();
 		$ejerciciosFiscales = EjercicioFiscal::all();
@@ -54,6 +56,7 @@ class InspeccionController extends Controller
 		]);
 	}
 
+	/* Muestra la vista donde se realiza la asignación del inspector a las inspecciones */
 	public function vistaAsignarInspeccion(){
 		$inspectores = Inspector::all();
 		$tiposInspecciones = TipoDeInspeccion::all();
@@ -65,7 +68,7 @@ class InspeccionController extends Controller
 		]);
 	}
 
-	// Muetra la vista del listado de las inspecciones
+	/* Muetra la vista del listado de las inspecciones */
 	public function listadoInspecciones(){
 		$inspecciones = Inspeccion::all();
 		$inspectores = Inspector::all();
@@ -85,6 +88,7 @@ class InspeccionController extends Controller
 		]);
 	}
 
+	/* Método encargado de ir a la base de datos seleccionar la información solicitada y devolverla a la petición para ser mostrada */
 	public function tbody(){
 		$inspecciones = Inspeccion::all()->load('tipoInspeccion')->load('estatusInspeccion')->load('inspector')->load('comercio');
 		return Datatables::of($inspecciones)
@@ -93,6 +97,7 @@ class InspeccionController extends Controller
 			->make(true);
 	}
 
+	/* Método que realiza la creación de las inspecciones, crea la inspección pero estas inspecciones son blancas, es decir, que no se sabe a que comercio se va a inspeccionar */
 	public function create(Request $request){
 		// Valida cada array en cada posición con el .*
 		$validate = $this->validate($request, [
@@ -188,6 +193,7 @@ class InspeccionController extends Controller
 		return redirect('inspecciones/agregar')->with('status', 'Las inspecciones se han creado correctamente.');
 	}
 
+	/* Método que realiza la creación de las inspecciones por supermanzanas, crea la inspección y al mismo tiempo asigna el local que será inspeccionado */
 	public function crearInspeccionesPorSM(Request $request){
 		// Valida cada array en cada posición con el .*
 		$validate = $this->validate($request, [
@@ -288,6 +294,7 @@ class InspeccionController extends Controller
 		return redirect('inspecciones/agregar-por-zonas')->with('status', 'Las inspecciones se han creado correctamente.');
 	}
 
+	/* Selecciona la inspección que se desea editar y regresa la inspección a la petición */
 	public function editarInspeccion($id){
 		$inspeccion = Inspeccion::find($id);
 
@@ -338,6 +345,7 @@ class InspeccionController extends Controller
 		return $data;
 	}
 
+	/* Método encargado de cambiar al inspector en una inspección */
 	public function updateInspector(Request $request){
 		$id = $request->input('id');
 		$inspector_id = $request->input('inspector');
@@ -436,6 +444,7 @@ class InspeccionController extends Controller
 		}
 	}
 
+	/* Método que se encarga de realizar la asignacion de inspectores a las inspecciones masivamente, es decir, por ejemplo para 10 inspecciones asigna a un solo inspector */
 	public function asignarInspecciones(Request $request){
 		// Valida cada array en cada posición con el .*
 		$validate = $this->validate($request, [
@@ -499,6 +508,7 @@ class InspeccionController extends Controller
 		}
 	}
 
+	/* Selecciona todas las inspecciones disponibles para un tipo de inspeccion y para un año fiscal en específico */
 	public function obtenerTotalInspecciones($id, $anio){
 		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
 		$total_inspecciones = Inspeccion::where('tipoinspeccion_id', $id)->where('ejerciciofiscal_id', $anio)
@@ -507,6 +517,7 @@ class InspeccionController extends Controller
 		return count($total_inspecciones);
 	}
 
+	/* Método que realiza la el armado visual de los folios a las inspecciones */
 	public function obtenerFolios(Request $request){
 		$validate = $this->validate($request, [
 			'tipoinspeccion' => 'required|string',
@@ -564,6 +575,7 @@ class InspeccionController extends Controller
 		
 	}
 
+	/* Método que realiza el armado y la asignación de los folios en las inspecciones (este método ahora si guarda en la base de datos el folio, el anterior solamente es visual) */
 	public function obtenerFoliosInspecciones(Request $request){
 		$validate = $this->validate($request, [
 			'tipoinspeccion-asignar' => 'required|string',
@@ -642,6 +654,7 @@ class InspeccionController extends Controller
 		return $datos;
 	}
 
+	
 	public function actualizarInformacionInspeccion(Request $request){
 		$inspeccion_id = $request->input('inspeccion-id');
 		$inspeccion = Inspeccion::find($inspeccion_id);
