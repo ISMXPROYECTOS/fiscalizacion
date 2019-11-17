@@ -40,7 +40,9 @@
                         <select id="estatusinspeccion-edit" class="form-control">
                             <option value="">Seleccionar</option>
                             @foreach($estatusInspecciones as $estatus)
-                                <option value="{{ $estatus->id }}">{{ $estatus->nombre }}</option>
+                                @if($estatus->clave == 'S' || $estatus->clave == 'V' || $estatus->clave == 'C')
+                                    <option value="{{ $estatus->id }}">{{ $estatus->nombre }}</option>
+                                @endif
                             @endforeach
                         </select>
                         <p class="text-danger" id="error-estatusinspeccion-edit"></p>

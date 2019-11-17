@@ -654,7 +654,7 @@ class InspeccionController extends Controller
 		return $datos;
 	}
 
-	
+	/* El método recibe los datos del formulario de la inspección que se va a modificar y realiza los cambios en dicha inspección */
 	public function actualizarInformacionInspeccion(Request $request){
 		$inspeccion_id = $request->input('inspeccion-id');
 		$inspeccion = Inspeccion::find($inspeccion_id);
@@ -985,18 +985,21 @@ class InspeccionController extends Controller
 		}
 	}
 
-	/* Método encargado de cambiar las inspecciones con estatus capturada a vencidas si ya vencieron solamente */
+	/* Método encargado de cambiar las inspecciones de estatus */
 	public function cambiarEstatusAutomaticamente(){
 		$hoy = date('Y-m-d');
 		$estatus_capturada = EstatusInspeccion::where('clave', 'Cap')->first();
 		$estatus_vencida = EstatusInspeccion::where('clave', 'V')->first();
-		$estatus_multa = EstatusInspeccion::where('clave', 'M')->first();
-		$inspecciones = Inspeccion::where('estatusinspeccion_id', $estatus_capturada->id)->where('fechavence', '<', $hoy)->get()->load('documentacionPorInspeccion');
+		//$estatus_multa = EstatusInspeccion::where('clave', 'M')->first();
+		$inspecciones = Inspeccion::where('estatusinspeccion_id', $estatus_capturada->id)->where('fechavence', '<', $hoy)->get();
 
 		$total_exhibidos = 0;
 
 		if (!empty($inspecciones)) {
 			for ($i = 0; $i < count($inspecciones); $i++) {
+				$inspecciones[$i]->estatusinspeccion_id = $estatus_vencida->id;
+				$inspecciones[$i]->update();
+				/*
 				if (is_object($inspecciones[$i]->documentacionPorInspeccion)) {
 					for ($a = 0; $a < count($inspecciones[$i]->documentacionPorInspeccion); $a++) {
 						if ($inspecciones[$i]->documentacionPorInspeccion[$a]->exhibido == 1) {
@@ -1012,6 +1015,7 @@ class InspeccionController extends Controller
 						$inspecciones[$i]->update();
 					}
 				}
+				*/
 			}
 		}
 

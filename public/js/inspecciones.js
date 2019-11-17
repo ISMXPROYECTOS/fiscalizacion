@@ -141,7 +141,7 @@ $(document).ready(function(){
 						$('#editar-estatus').modal({backdrop: 'static', keyboard: false})
 						$('#editar-estatus').modal('show');
 						$('#id-edit-estatusinspeccion').val(response.id);
-						$('#estatusinspeccion-edit').val(response.estatusinspeccion_id);
+						//$('#estatusinspeccion-edit').val(response.estatusinspeccion_id);
 					}
 				}
 			});
