@@ -68,7 +68,6 @@ $(document).ready(function(){
 	updateInspector();
 
 	function busquedaDeComerciosPorNombre(){
-		
 		$('#buscar-sm').click(function(){
 			var calle = $('#calle').val();
 
@@ -157,5 +156,56 @@ $(document).ready(function(){
 	}
 
 	seleccionarTodosDocumentosRequeridosExhibido();
+
+	function mostrarModalParaAgregarProrroga(){
+		$('.prorroga').click(function(){
+			$('#agregar-prorroga').modal({backdrop: 'static', keyboard: false})
+			$('#agregar-prorroga').modal('show');
+		});
+	}
+
+	mostrarModalParaAgregarProrroga();
+
+	function confirmarAgregarProrroga(){
+		$('#btn-agregar-prorroga').click(function(){
+			var id = $('#id-agregar-prorroga').val();
+			var data = {
+				'id' : id,
+				'folio-multa' : $('#folio-multa').val(),
+				'prorroga' : $('#prorroga').val(),
+				'observacion-prorroga' : $('#observacion-prorroga').val()
+			}
+			$.ajax({
+				url: url + '/inspecciones/agregar-prorroga',
+				data: data,
+				type: 'post',
+				headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+				beforeSend: function(){
+					$('#btn-agregar-prorroga').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Asignando prorroga...');
+				},
+				success: function (response) {
+					if (response.code == 200){
+						$('#btn-agregar-prorroga').text('Guardar');
+						$('#formulario-prorroga')[0].reset();
+						$('#agregar-prorroga').modal('hide');
+						$('#error-folio-multa, #error-prorroga, #error-observacion-prorroga').addClass('hidden');
+						$('#error-folio-multa, #error-prorroga, #error-observacion-prorroga').text('');
+					}
+				},
+				error: function(response) {
+					$('#btn-agregar-prorroga').text('Guardar');
+					$('#error-folio-multa, #error-prorroga, #error-observacion-prorroga').addClass('hidden');
+					$('#error-folio-multa, #error-prorroga, #error-observacion-prorroga').text('');
+					$.each(response.responseJSON.errors, function(i, item) {
+						$('#error-'+i).removeClass('hidden');
+						$('#error-'+i).text(item[0]);
+					});
+				}
+			});
+			
+		});
+	}
+
+	confirmarAgregarProrroga();
 
 });

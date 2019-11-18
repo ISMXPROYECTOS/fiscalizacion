@@ -680,9 +680,7 @@ class InspeccionController extends Controller
 			'exhibido.*' => 'nullable',
 			'observaciones.*' => 'string|nullable',
 			'observacion' => 'string|nullable',
-			'gestor' => 'string|nullable',
-			'prorroga' => 'string|nullable',
-			'observacion-prorroga' => 'string|nullable'
+			'gestor' => 'string|nullable'
 		]);
 
 		$hoy = new \DateTime();
@@ -700,14 +698,10 @@ class InspeccionController extends Controller
 		$observaciones = array_get($data, 'observaciones');
 		$observacion = $request->input('observacion');
 		$gestor = $request->input('gestor');
-		$dias_prorroga = $request->input('prorroga');
-		$observacion_prorroga = $request->input('observacion-prorroga');
 
 		/* Hoy pero en otro formato y sin hora */
 		$fecha_realizada = new \DateTime($fecha);
 		$fecha_realizada->format('Y-m-d');
-		//$fecha_realizada = date('Y-m-d', $fecha);
-	
 
 		/* Días inhábiles */
 		$holiday = array();
@@ -719,11 +713,13 @@ class InspeccionController extends Controller
 
 		/* Fecha Inicio */
 		$startDate = $fecha_realizada;
+
 		/* Fecha Fin */
 		$endDate = new \DateTime('2100-12-31');
 
 		/* Intervalo de un día */
 		$interval = new \DateInterval('P1D');
+
 		/* Rango de fechas */
 		$date_range = new \DatePeriod($startDate, $interval, $endDate);
 
@@ -756,64 +752,7 @@ class InspeccionController extends Controller
 		$inspeccion->gestores_id = $gestor;
 		$inspeccion->diasvence = $configuracion_dias_vence;
 		$inspeccion->fechavence = $fecha_vence;
-
-		if ($dias_prorroga != 0) {
-			$prorogas_asignadas = BitacoraDeProroga::where('inspeccion_id', $inspeccion->id)->get();
-			$dias_para_asignar_prorroga = 0;
-			$total_dias_de_proroga = 0;
-
-			if (count($prorogas_asignadas) > 0) {
-				for ($i = 0; $i < count($prorogas_asignadas); $i++) { 
-					$total_dias_de_proroga = $total_dias_de_proroga + $prorogas_asignadas[$i]->diasdeprorroga;
-				}
-			}
-
-			$dias_para_asignar_prorroga = $dias_prorroga + $total_dias_de_proroga;
-
-
-			/* Hoy pero en otro formato y sin hora */
-			$fecha_vencimiento = new \DateTime($inspeccion->fechavence);
-			$fecha_vencimiento->format('Y-m-d');
-
-			/* Fecha Inicio */
-			$startDate_prorroga = $fecha_vencimiento;
-			
-			/* Rango de fechas */
-			$date_range_prorroga = new \DatePeriod($startDate_prorroga, $interval, $endDate);
-
-			/* Días hábiles */
-			$working_days_prorroga = array();
-
-			/* Se omiten los fin de semana y días inhábiles */
-			foreach($date_range_prorroga as $date){
-				if ($dias_para_asignar_prorroga != 0) {
-					if($date->format("N") < 6 AND !in_array($date->format('d-m'), $holiday)){
-						$working_days_prorroga[] = $date->format('Y-m-d');
-					}else{
-						$dias_para_asignar_prorroga = $dias_para_asignar_prorroga + 1;
-					}
-					$dias_para_asignar_prorroga = $dias_para_asignar_prorroga - 1;
-				}
-			}
-
-			$fecha_prorroga = end($working_days_prorroga);
-			$inspeccion->fechaprorroga = $fecha_prorroga;
-
-			$datos_bitacora_prorroga = [
-				'usuario_id' => $usuario->id,
-				'inspeccion_id' => $inspeccion->id,
-				'fechavence' => $fecha_prorroga,
-				'diasdeprorroga' => $dias_prorroga,
-				'observaciones' => $observacion_prorroga
-			];
-
-			BitacoraDeProroga::create($datos_bitacora_prorroga);
-		}
-
-		$inspeccion->observacionprorroga = $observacion_prorroga;
-		if ($inspeccion->estatusinspeccion_id == 2) {
-			$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
-		}
+		$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
 		$inspeccion->update();
 
 		$datos_bitacora = [
@@ -1020,6 +959,116 @@ class InspeccionController extends Controller
 		}
 
 		return $inspecciones;
+	}
+
+	public function confirmarAgregarProrroga(Request $request){
+		$validate = $this->validate($request, [
+			'folio-multa' => 'required|string',
+			'prorroga' => 'required|string',
+			'observacion-prorroga' => 'required|string'
+		]);
+
+		$id_inspeccion = $request->input('id');
+		$folio = $request->input('folio-multa');
+		$dias_prorroga = $request->input('prorroga');
+		$observacion_prorroga = $request->input('observacion-prorroga');
+		$estatus_prorroga = EstatusInspeccion::where('clave', 'P')->first();
+		$dias_inhabiles = DiaInhabil::all();
+		$usuario = Auth::user();
+
+		$data = [
+			'code' => 400,
+			'message' => 'Ups!!, ocurrio algo inesperado'
+		];
+
+		$inspeccion = Inspeccion::find($id_inspeccion);
+
+		if ($dias_prorroga != 0) {
+			$prorogas_asignadas = BitacoraDeProroga::where('inspeccion_id', $inspeccion->id)->get();
+			$dias_para_asignar_prorroga = 0;
+			$total_dias_de_proroga = 0;
+
+			if (!empty($prorogas_asignadas)) {
+				if (count($prorogas_asignadas) > 0) {
+					for ($i = 0; $i < count($prorogas_asignadas); $i++) { 
+						$total_dias_de_proroga = $total_dias_de_proroga + $prorogas_asignadas[$i]->diasdeprorroga;
+					}
+				}
+			}
+
+			$dias_para_asignar_prorroga = $dias_prorroga + $total_dias_de_proroga;
+
+			/* Hoy pero en otro formato y sin hora */
+			$hoy = new \DateTime();
+			$hoy->format('Y-m-d');
+
+			/* Días inhábiles */
+			$holiday = array();
+
+			/* Los días inhábiles de la bd se agregan al array holiday */
+			for ($i = 0; $i < count($dias_inhabiles); $i++) {
+				$holiday[] = date('d-m', strtotime($dias_inhabiles[$i]->fecha));
+			}
+
+			/* Fecha Inicio */
+			$startDate_prorroga = $hoy;
+
+			/* Fecha Fin */
+			$endDate = new \DateTime('2100-12-31');
+
+			/* Intervalo de un día */
+			$interval = new \DateInterval('P1D');
+			
+			/* Rango de fechas */
+			$date_range_prorroga = new \DatePeriod($startDate_prorroga, $interval, $endDate);
+
+			/* Días hábiles */
+			$working_days_prorroga = array();
+
+			/* Se omiten los fin de semana y días inhábiles */
+			foreach($date_range_prorroga as $date){
+				if ($dias_para_asignar_prorroga != 0) {
+					if($date->format("N") < 6 AND !in_array($date->format('d-m'), $holiday)){
+						$working_days_prorroga[] = $date->format('Y-m-d');
+					}else{
+						$dias_para_asignar_prorroga = $dias_para_asignar_prorroga + 1;
+					}
+					$dias_para_asignar_prorroga = $dias_para_asignar_prorroga - 1;
+				}
+			}
+
+			$fecha_prorroga = end($working_days_prorroga);
+			$inspeccion->fechaprorroga = $fecha_prorroga;
+
+			$datos_bitacora_prorroga = [
+				'usuario_id' => $usuario->id,
+				'inspeccion_id' => $inspeccion->id,
+				'folioMulta' => $folio,
+				'fechavence' => $fecha_prorroga,
+				'diasdeprorroga' => $dias_prorroga,
+				'observaciones' => $observacion_prorroga
+			];
+
+			BitacoraDeProroga::create($datos_bitacora_prorroga);
+		}
+
+		$inspeccion->observacionprorroga = $observacion_prorroga;
+		$inspeccion->estatusinspeccion_id = $estatus_prorroga->id;
+		
+		if ($inspeccion->update()) {
+			$data = [
+				'code' => 200,
+				'message' => 'Se agrego prorroga correctamente',
+				'inspeccion' => $inspeccion
+			];
+		} else {
+			$data = [
+				'code' => 400,
+				'message' => 'No se pudo agregar la prorroga'
+			];
+		}
+
+		return $data;
 	}
 
 }

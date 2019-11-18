@@ -22,6 +22,7 @@ class BitacoraDeProroga extends Model
 	protected $fillable = [
 		'usuario_id',
     	'inspeccion_id',
+    	'folioMulta'
     	'fechavence',
     	'diasdeprorroga',
     	'observaciones'

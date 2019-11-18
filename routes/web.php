@@ -89,6 +89,7 @@ Route::post('/inspecciones/informacion/actualizar', 'InspeccionController@actual
 Route::get('/inspecciones/inspeccion/limpiar/{id}', 'InspeccionController@limpiarInspeccion')->name('limpiar-inspeccion');
 Route::get('/inspecciones/validar-folio-asignado/{id}', 'InspeccionController@validarFolioAsignado');
 Route::get('/inspecciones/cambio-de-estatus', 'InspeccionController@cambiarEstatusAutomaticamente');
+Route::post('/inspecciones/agregar-prorroga', 'InspeccionController@confirmarAgregarProrroga');
 
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@listadoInspeccionesParaDescargar')->name('listado-de-inspecciones-para-descargar');

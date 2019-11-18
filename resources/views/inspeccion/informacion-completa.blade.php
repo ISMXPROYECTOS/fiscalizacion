@@ -60,7 +60,7 @@
 
 <h4 >Inspector: <b id="nombre-inspector">{{ $inspeccion->inspector->nombre }} {{ $inspeccion->inspector->apellidopaterno }} {{ $inspeccion->inspector->apellidomaterno }}</b></h4>
 <button type="button" class="btn btn-primary btn-sm cambiar-inspector" id="{{ $inspeccion->id }}">
-    <i class="fas fa-exchange-alt"></i> Cambiar Inspector
+	<i class="fas fa-exchange-alt"></i> Cambiar Inspector
 </button>
 
 <form method="POST" action="{{ route('actualizar-informacion-inspeccion') }}">
@@ -271,7 +271,7 @@
 				<th class="seleccionar-todos-option text-right">Seleccionar todos</th>
 				<th class="text-center"><input class="form-check-input" type="checkbox" id="seleccionar-todos-solicitado"></td>
 				<th class="text-center"><input class="form-check-input" type="checkbox" id="seleccionar-todos-exhibido"></th>
-	            <th></th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -348,14 +348,9 @@
 		<div class="col-lg-6">
 			<h3>Prorroga </h3>
 			<hr>
-			<div class="form-group">
-				<label for="prorroga">{{ __('Dias de Prorroga') }}</label>
-				<input id="prorroga" type="number" class="form-control" name="prorroga" value="{{ old('prorroga') }}"><br>
-			</div>
-			<div class="form-group">
-				<label for="observacion-prorroga">Observaciones</label>
-				<textarea class="form-control" id="observacion-prorroga" rows="2" name="observacion-prorroga">{{ $inspeccion->observacionprorroga }}</textarea>
-			</div>
+			<button type="button" class="btn btn-primary btn-sm prorroga">
+				<i class="fas fa-exchange-alt"></i> Cambiar Inspector
+			</button>
 		</div>
 	</div>
 	<br>
@@ -375,72 +370,114 @@
 
 <!-- Modal para cambiar de Inspector -->
 <div class="modal fade" id="cambiar-inspector" tabindex="-1" role="dialog" aria-labelledby="modal-cambiar-inspector" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-cambiar-inspector">Cambiar de Inspector</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="formulario-cambiar-inspector" role="form">
-                    @csrf
-                    <input type="hidden" id="id-cambio-inspector">
-                    <div class="form-group">
-                        <label for="inspector-edit">{{ __('Inspector') }}</label>
-                        <select id="inspector-edit" class="form-control">
-                            <option value="">Seleccionar</option>
-                            <option value="">Ninguno</option>
-                            @foreach($inspectores as $inspector)
-                                <option value="{{ $inspector->id }}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }} 
-                                    {{ $inspector->apellidomaterno }}</option>
-                            @endforeach
-                        </select>
-                        <p class="text-danger" id="error-inspector-edit"></p>
-                    </div>
-                    <hr>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-cambiar-inspector">{{ __('Guardar') }}</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-cambiar-inspector">Cambiar de Inspector</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form class="formulario-cambiar-inspector" role="form">
+					@csrf
+					<input type="hidden" id="id-cambio-inspector">
+					<div class="form-group">
+						<label for="inspector-edit">{{ __('Inspector') }}</label>
+						<select id="inspector-edit" class="form-control">
+							<option value="">Seleccionar</option>
+							<option value="">Ninguno</option>
+							@foreach($inspectores as $inspector)
+								<option value="{{ $inspector->id }}">{{ $inspector->nombre }} {{ $inspector->apellidopaterno }} 
+									{{ $inspector->apellidomaterno }}</option>
+							@endforeach
+						</select>
+						<p class="text-danger" id="error-inspector-edit"></p>
+					</div>
+					<hr>
+					<div class="form-group row mb-0">
+						<div class="col-md-6">
+							<button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+						</div>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-cambiar-inspector">{{ __('Guardar') }}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- Alerta de actualización -->
 <div class="modal fade" id="actualizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-correcta" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-actualizacion-correcta">Actualización Exitosa</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-wrapper">
-                    <div class="modal-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                    <div class="modal-text">
-                        <h4>Actualización Exitosa</h4>
-                        <p>La información se ha actualizado correctamente.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-actualizacion-correcta">Actualización Exitosa</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-wrapper">
+					<div class="modal-icon">
+						<i class="fas fa-check"></i>
+					</div>
+					<div class="modal-text">
+						<h4>Actualización Exitosa</h4>
+						<p>La información se ha actualizado correctamente.</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
 </div>
+
+<!-- Modal para agregar prorroga -->
+<div class="modal fade" id="agregar-prorroga" tabindex="-1" role="dialog" aria-labelledby="modal-agregar-prorroga" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-agregar-prorroga">Agregar Prorroga</h3>
+			</div>
+			<div class="modal-body">
+				<form class="formulario-prorroga" role="form">
+					@csrf
+					<input type="hidden" id="id-agregar-prorroga" value="{{ $inspeccion->id }}">
+					<div class="form-group">
+						<label for="folio-multa">{{ __('Folio Multa') }}</label>
+						<input id="folio-multa" type="text" class="form-control"><br>
+						<p class="text-danger" id="error-folio-multa"></p>
+					</div>
+					<div class="form-group">
+						<label for="prorroga">{{ __('Dias de Prorroga') }}</label>
+						<input id="prorroga" type="number" class="form-control"><br>
+						<p class="text-danger" id="error-prorroga"></p>
+					</div>
+					<div class="form-group">
+						<label for="observacion-prorroga">Observaciones</label>
+						<textarea class="form-control" id="observacion-prorroga" rows="2"></textarea>
+						<p class="text-danger" id="error-observacion-prorroga"></p>
+					</div>
+					<hr>
+					<div class="form-group row mb-0">
+						<div class="col-md-6">
+							<button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+						</div>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-agregar-prorroga">{{ __('Guardar') }}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 @endsection
 
 @section('scripts')
