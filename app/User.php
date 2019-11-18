@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->hasMany('App\BitacoraDeInforme');
     }
 
+    /* Relación uno a mucho */
+    public function multa(){
+        return $this->hasMany('App\Multa');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

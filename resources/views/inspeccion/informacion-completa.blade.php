@@ -356,10 +356,12 @@
 	<br>
 	<button type="submit" class="btn btn-primary btn-lg btn-primary-custom">Actualizar Información</button>
 	@if ($inspeccion->estatusInspeccion->clave == 'M' || $multa == 'true')
-		<a href="#" class="btn btn-primary btn-lg btn-primary-custom">Generar Multa</a>
+		<button type="button" class="btn btn-primary btn-lg btn-primary-custom multa">
+			<i class="fas fa-exchange-alt"></i> Generar Multa
+		</button>
 	@endif
 
-	@if ($inspeccion->estatusInspeccion->clave == 'V')
+	@if ($inspeccion->estatusInspeccion->clave == 'V' || $ultima_multa->fechavence < date('Y-m-d'))
 		<a href="{{ route('descargar-clausura', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Generar orden de clausura</a>
 	@endif
 
@@ -470,6 +472,37 @@
 						</div>
 						<div class="col-md-6">
 							<button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-agregar-prorroga">{{ __('Guardar') }}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal para agregar multa -->
+<div class="modal fade" id="agregar-multa" tabindex="-1" role="dialog" aria-labelledby="modal-agregar-multa" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-agregar-multa">Asignar Multa</h3>
+			</div>
+			<div class="modal-body">
+				<form class="formulario-multa" role="form">
+					@csrf
+					<input type="hidden" id="id-agregar-multa" value="{{ $inspeccion->id }}">
+					<div class="form-group">
+						<label for="cantidad-multa">{{ __('Monto de la multa') }}</label>
+						<input id="cantidad-multa" type="number" class="form-control"><br>
+						<p class="text-danger" id="error-cantidad-multa"></p>
+					</div>
+					<hr>
+					<div class="form-group row mb-0">
+						<div class="col-md-6">
+							<button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
+						</div>
+						<div class="col-md-6">
+							<button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-agregar-multa">{{ __('Guardar') }}</button>
 						</div>
 					</div>
 				</form>

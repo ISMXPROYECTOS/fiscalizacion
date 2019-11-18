@@ -180,20 +180,18 @@ $(document).ready(function(){
 				data: data,
 				type: 'post',
 				headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-				beforeSend: function(){
-					$('#btn-agregar-prorroga').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Asignando prorroga...');
-				},
 				success: function (response) {
 					if (response.code == 200){
-						$('#btn-agregar-prorroga').text('Guardar');
 						$('#formulario-prorroga')[0].reset();
 						$('#agregar-prorroga').modal('hide');
 						$('#error-folio-multa, #error-prorroga, #error-observacion-prorroga').addClass('hidden');
 						$('#error-folio-multa, #error-prorroga, #error-observacion-prorroga').text('');
+					} else {
+						$('#agregar-prorroga').modal('hide');
+						$('#actualizacion-correcta').modal('show');
 					}
 				},
 				error: function(response) {
-					$('#btn-agregar-prorroga').text('Guardar');
 					$('#error-folio-multa, #error-prorroga, #error-observacion-prorroga').addClass('hidden');
 					$('#error-folio-multa, #error-prorroga, #error-observacion-prorroga').text('');
 					$.each(response.responseJSON.errors, function(i, item) {
@@ -207,5 +205,52 @@ $(document).ready(function(){
 	}
 
 	confirmarAgregarProrroga();
+
+	function mostrarModalParaGenerarMulta(){
+		$('.multa').click(function(){
+			$('#agregar-multa').modal({backdrop: 'static', keyboard: false})
+			$('#agregar-multa').modal('show');
+		});
+	}
+
+	mostrarModalParaGenerarMulta();
+
+	function confirmarMulta(){
+		$('#btn-agregar-multa').click(function(){
+			var id = $('#id-agregar-multa').val();
+			var data = {
+				'id' : id,
+				'cantidad-multa' : $('#cantidad-multa').val()
+			}
+			$.ajax({
+				url: url + '/multas/agregar-multa',
+				data: data,
+				type: 'post',
+				headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+				success: function (response) {
+					if (response.code == 200){
+						$('#formulario-multa')[0].reset();
+						$('#agregar-multa').modal('hide');
+						$('#error-cantidad-multa').addClass('hidden');
+						$('#error-cantidad-multa').text('');
+					} else {
+						$('#agregar-multa').modal('hide');
+						$('#actualizacion-correcta').modal('show');
+					}
+				},
+				error: function(response) {
+					$('#error-cantidad-multa').addClass('hidden');
+					$('#error-cantidad-multa').text('');
+					$.each(response.responseJSON.errors, function(i, item) {
+						$('#error-'+i).removeClass('hidden');
+						$('#error-'+i).text(item[0]);
+					});
+				}
+			});
+			
+		});
+	}
+
+	confirmarMulta();
 
 });

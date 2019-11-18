@@ -148,3 +148,6 @@ Route::post('/documentacion-requerida/nuevo', 'DocumentacionRequeridaController@
 Route::get('/documentacion-requerida/editar/{id}', 'DocumentacionRequeridaController@editarDocumento');
 Route::post('/documentacion-requerida/actualizar', 'DocumentacionRequeridaController@update');
 Route::post('/documentacion-requerida/estatus', 'DocumentacionRequeridaController@updateEstatus');
+
+/* Rutas Multas */
+Route::post('/multas/agregar-multa', 'MultaController@confirmarMulta');

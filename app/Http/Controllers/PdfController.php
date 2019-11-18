@@ -144,6 +144,10 @@ class PdfController extends Controller
 		$inspeccion = Inspeccion::find($id);
 		$documentos_no_presentados = DocumentacionPorInspeccion::where('inspeccion_id', $id)->where('exhibido', 0)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		$estatus_ProcesoClausura = EstatusInspeccion::where('clave', 'Epc')->first();
+
+		$inspeccion->estatusinspeccion_id = $estatus_ProcesoClausura->id;
+		$inspeccion->update();
 
 		$pdf = PDF::loadView('clausura.acta-clausura', ['inspeccion' => $inspeccion, 'documentos' => $documentos_no_presentados]);
 		return $pdf->download('Orden-Clausura-'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
