@@ -182,10 +182,11 @@ $(document).ready(function(){
 				headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 				success: function (response) {
 					if (response.code == 200){
-						$('#formulario-prorroga')[0].reset();
+						//$('#formulario-prorroga')[0].reset();
 						$('#agregar-prorroga').modal('hide');
 						$('#error-folio-multa, #error-prorroga, #error-observacion-prorroga').addClass('hidden');
 						$('#error-folio-multa, #error-prorroga, #error-observacion-prorroga').text('');
+						$('#actualizacion-correcta').modal('show');
 					} else {
 						$('#agregar-prorroga').modal('hide');
 						$('#actualizacion-correcta').modal('show');
@@ -229,10 +230,11 @@ $(document).ready(function(){
 				headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 				success: function (response) {
 					if (response.code == 200){
-						$('#formulario-multa')[0].reset();
+						//$('#formulario-multa')[0].reset();
 						$('#agregar-multa').modal('hide');
 						$('#error-cantidad-multa').addClass('hidden');
 						$('#error-cantidad-multa').text('');
+						$('#actualizacion-correcta').modal('show');
 					} else {
 						$('#agregar-multa').modal('hide');
 						$('#actualizacion-correcta').modal('show');

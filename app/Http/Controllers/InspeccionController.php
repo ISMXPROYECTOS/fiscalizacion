@@ -398,7 +398,9 @@ class InspeccionController extends Controller
 	public function verMasInformacion($id){
 		$inspeccion = Inspeccion::find($id)->load('documentacionPorInspeccion')->load('multa');
 		$multas = Multa::where('inspeccion_id', $inspeccion->id)->get();
-		$ultima_multa = $multas->last();
+		if (!empty($multas)) {
+			$ultima_multa = $multas->last();
+		}
 		$gestores = Gestor::all();
 		$documentos = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get();
 		$comercios = Comercio::all();

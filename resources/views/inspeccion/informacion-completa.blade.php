@@ -23,22 +23,72 @@
 @endif
 
 <h3>Estado de la Inspección</h3>
-<div>
-	<label for="">Estatus: </label>
-	<label for=""> <span class="badge badge-pill badge-secondary">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
-</div>
+
+@if($inspeccion->estatusInspeccion->clave == "A")
+	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-primary">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
+@elseif($inspeccion->estatusInspeccion->clave == "C")
+	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-warning">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
+@elseif($inspeccion->estatusInspeccion->clave == "Cap")
+	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-success">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
+@elseif($inspeccion->estatusInspeccion->clave == "Epc")
+	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-epc">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
+@elseif($inspeccion->estatusInspeccion->clave == "M")
+	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-multa">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
+@elseif($inspeccion->estatusInspeccion->clave == "NA")
+	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-secondart">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
+@elseif($inspeccion->estatusInspeccion->clave == "P")
+	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-info">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
+@elseif($inspeccion->estatusInspeccion->clave == "S")
+	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-solventada">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
+@elseif($inspeccion->estatusInspeccion->clave == "V")
+	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-danger">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
+@endif
+
 
 @if($inspeccion->fechavence != false)
-	@if($inspeccion->fechavence < date("Y-m-d"))
-	<div>
-		<label for="">Fecha de vencimiento: </label>
-		<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> <span class="badge badge-pill badge-danger">Vencido</span></label>
-	</div>
+	@if(date("Y-m-d", strtotime($inspeccion->fechavence."-1 days")) == date("Y-m-d"))
+		<div>
+			<label for="">Fecha de vencimiento: </label>
+			<label for=""> <span class="badge badge-pill badge-warning">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> </label>
+		</div>
+	@elseif($inspeccion->fechavence > date("Y-m-d"))
+		
+		<div>
+			<label for="">Fecha de vencimiento: </label>
+			<label for=""> <span class="badge badge-pill badge-success">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> </label>
+		</div>
 	@else
-	<div>
-		<label for="">Fecha de vencimiento: </label>
-		<label for=""> <span class="badge badge-pill badge-success">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> </label>
-	</div>
+		<div>
+			<label for="">Fecha de vencimiento: </label>
+			<label for=""> <span class="badge badge-pill badge-danger">{{ date('d/m/Y', strtotime($inspeccion->fechavence)) }}</span> </label>
+		</div>
 	@endif
 @endif
 
@@ -349,7 +399,7 @@
 			<h3>Prorroga </h3>
 			<hr>
 			<button type="button" class="btn btn-primary btn-sm prorroga">
-				<i class="fas fa-exchange-alt"></i> Cambiar Inspector
+				<i class="fas fa-exchange-alt"></i> Agregar prorroga
 			</button>
 		</div>
 	</div>
@@ -360,9 +410,11 @@
 			<i class="fas fa-exchange-alt"></i> Generar Multa
 		</button>
 	@endif
-
-	@if ($inspeccion->estatusInspeccion->clave == 'V' || $ultima_multa->fechavence < date('Y-m-d'))
-		<a href="{{ route('descargar-clausura', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Generar orden de clausura</a>
+	
+	@if(is_object($ultima_multa))
+		@if ($inspeccion->estatusInspeccion->clave == 'V' || $ultima_multa->fechavence < date('Y-m-d'))
+			<a href="{{ route('descargar-clausura', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Generar orden de clausura</a>
+		@endif
 	@endif
 
 	@if (auth()->user()->role == 'ROLE_ADMIN')

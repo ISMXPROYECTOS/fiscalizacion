@@ -30,13 +30,13 @@ $(document).ready(function(){
 						} else if (row.estatus_inspeccion.clave == 'V') {
 							return "<span class='badge badge-pill badge-danger'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if (row.estatus_inspeccion.clave == 'Epc') {
-							return "<span class='badge badge-pill badge-danger'>"+ row.estatus_inspeccion.nombre +"</span>";
+							return "<span class='badge badge-pill badge-epc'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if(row.estatus_inspeccion.clave == 'M'){
-							return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
+							return "<span class='badge badge-pill badge-multa'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if(row.estatus_inspeccion.clave == 'P'){
 							return "<span class='badge badge-pill badge-info'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if(row.estatus_inspeccion.clave == 'S'){
-							return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
+							return "<span class='badge badge-pill badge-solventada'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if (row.estatus_inspeccion.clave == 'C') {
 							return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
 						}
@@ -65,17 +65,20 @@ $(document).ready(function(){
 						var hoy = new Date();
 						var fecha = new Date(row.fechavence);
 						var dia = fecha.getDate();
-						var mes = month[fecha.getMonth()];;
+						var mes = month[fecha.getMonth()];
 						var anio = fecha.getFullYear();
+
 
 						if (row.fechavence == null) {
 							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
-						} else if(fecha < hoy){
-							//return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
-							return "<span class='badge badge-pill badge-danger'>"+ row.fechavence +"</span>";
-						} else {
+						} else if(fecha.getDate() == hoy.getDate() ){
+							return "<span class='badge badge-pill badge-warning'>"+ row.fechavence +"</span> ";
+						} else if(fecha > hoy){
 							//return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
 							return "<span class='badge badge-pill badge-success'>"+ row.fechavence +"</span>";
+						} else {
+							//return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
+							return "<span class='badge badge-pill badge-danger'>"+ row.fechavence +"</span> ";
 						}
 					}
 				},
@@ -103,6 +106,9 @@ $(document).ready(function(){
 
 						if (row.fechaprorroga == null) {
 							return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
+
+						} else if(fecha.getDate() == hoy.getDate() ){
+							return "<span class='badge badge-pill badge-warning'>"+ row.fechaprorroga +"</span> <span class='badge badge-pill badge-warning'> Vence mañana </span>";
 						} else if (fecha < hoy) {
 							//return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
 							return "<span class='badge badge-pill badge-danger'>"+ row.fechaprorroga +"</span>";
