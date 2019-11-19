@@ -44,6 +44,23 @@ html .btn-primary:active, html .btn-primary.active, .show > html .btn-primary.dr
   padding: 0.1rem 0.3rem !important;
 }
 
+/* Estatus de Inspecciones */
+
+.badge-solventada{
+  background: #8409B2;
+  color:white;
+}
+
+.badge-epc{
+  background: #B25100;
+  color:white;
+}
+
+.badge-multa{
+  background: #000000;
+  color:white;
+}
+
 /* Modals */
 
 .modal-header{

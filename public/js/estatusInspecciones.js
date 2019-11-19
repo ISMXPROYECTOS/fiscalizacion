@@ -32,8 +32,12 @@ $(document).ready(function(){
                             return "<span class='badge badge-pill badge-primary'>"+ row.nombre +"</span>";
                         } else if(row.clave == 'Cap'){
                             return "<span class='badge badge-pill badge-success'>"+ row.nombre +"</span>";
+                        } else if(row.clave == 'Epc'){
+                            return "<span class='badge badge-pill badge-epc'>"+ row.nombre +"</span>";
+                        } else if(row.clave == 'M'){
+                            return "<span class='badge badge-pill badge-multa'>"+ row.nombre +"</span>";
                         } else if(row.clave == 'S'){
-                            return "<span class='badge badge-pill badge-success'>"+ row.nombre +"</span>";
+                            return "<span class='badge badge-pill badge-solventada'>"+ row.nombre +"</span>";
                         } else if (row.clave == 'V') {
                             return "<span class='badge badge-pill badge-danger'>"+ row.nombre +"</span>";
                         } else if (row.clave == 'C') {

@@ -407,6 +407,8 @@ class InspeccionController extends Controller
 		$total_exhibidos = 0;
 		$multa = 'false';
 
+
+
 		if (is_object($inspeccion->documentacionPorInspeccion)) {
 			for ($i = 0; $i < count($inspeccion->documentacionPorInspeccion); $i++) {
 				if ($inspeccion->documentacionPorInspeccion[$i]->exhibido == 1) {
@@ -418,6 +420,8 @@ class InspeccionController extends Controller
 				$multa = 'true';
 			}
 		}
+
+		
 
 		if ($inspeccion->estatusInspeccion->clave == 'NA') {
 			return 'Debes asiganar la inspección antes de capturar los datos';
