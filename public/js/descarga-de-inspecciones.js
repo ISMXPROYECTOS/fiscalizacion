@@ -193,6 +193,7 @@ $(document).ready(function(){
 				},
 				success: function (response) {
 					if (response.code == 200) {
+						$('#reasignar').text('Reasignar');
 						$('#inspecciones').modal('hide');
 						$('#actualizacion-reasignar').modal('show');
 					} else {
