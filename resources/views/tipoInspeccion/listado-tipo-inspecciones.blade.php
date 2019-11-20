@@ -74,8 +74,9 @@
                                   <th scope="col">DOCUMENTO REQUERIDO</th>
                                 </tr>
                               </thead>
-                              @foreach($documentos as $documento)
                               <tbody>
+                              @foreach($documentos as $documento)
+                              
                                 <tr>
                                   <th scope="row">
                                       <div class="form-check">
@@ -88,8 +89,9 @@
                                     </label>
                                   </td>
                                 </tr>
-                              </tbody>
+                              
                               @endforeach
+                              </tbody>
                             </table>
 
                         
@@ -146,9 +148,25 @@
                     <div class="alert alert-info" role="alert">
                       Selecciona los documentos requeridos para este tipo de inspección.
                     </div>
+
                     <div id="documentos-editar">
-                        
-                       
+                        <h1>HOLA</h1>
+
+                       <!-- <table class="table table-sm">
+                            <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="seleccionar-todos-sds">
+                                    </div>
+                                  </th>
+                                  <th scope="col">DOCUMENTO REQUERIDO</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-documentos">
+
+                            </tbody>
+                      </table> -->
                     </div>
                     <hr>
                     <div class="form-group row mb-0">

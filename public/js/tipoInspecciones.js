@@ -115,7 +115,24 @@ $(document).ready(function(){
 												response.documentacionRequerida[a].nombre+
 												"</label>"+
 												"</div>"
-												);
+											);
+
+											// $('#tbody-documentos').append(
+											// 	"<tr>"+
+											// 		"<th scope='row'>"+
+											// 			"<div class='form-check'>"+
+											// 				"<input class='form-check-input checkbox-documento' checked='checked' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+											// 				"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
+											// 			"</div>"+
+											// 		"</th>"+
+
+											// 		"<td>"+
+											// 			"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
+											// 					response.documentacionRequerida[a].nombre+
+											// 			"</label>"+
+											// 		"</td>"+
+											// 	"</tr>"
+											// );
 										} else {
 											$('#documentos-editar').append(
 												"<div class='form-check'>"+
@@ -125,7 +142,23 @@ $(document).ready(function(){
 												response.documentacionRequerida[a].nombre+
 												"</label>"+
 												"</div>"
-												);
+											);
+											// $('#tbody-documentos').append(
+											// 	"<tr>"+
+											// 		"<th scope='row'>"+
+											// 			"<div class='form-check'>"+
+											// 				"<input class='form-check-input checkbox-documento' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+											// 				"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
+											// 			"</div>"+
+											// 		"</th>"+
+
+											// 		"<td>"+
+											// 			"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
+											// 					response.documentacionRequerida[a].nombre+
+											// 			"</label>"+
+											// 		"</td>"+
+											// 	"</tr>"
+											// );
 										}
 									} else {
 										if (response.documentacionPorTipoDeInspeccion[i].documentacionrequerida_id == response.documentacionRequerida[a].id) {
@@ -137,8 +170,27 @@ $(document).ready(function(){
 												response.documentacionRequerida[a].nombre+
 												"</label>"+
 												"</div>"
-												);
+											);
+
+											// $('#tbody-documentos').append(
+											// 	"<tr>"+
+											// 		"<th scope='row'>"+
+											// 			"<div class='form-check'>"+
+											// 				"<input class='form-check-input checkbox-documento' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+											// 				"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
+											// 			"</div>"+
+											// 		"</th>"+
+
+											// 		"<td>"+
+											// 			"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
+											// 				response.documentacionRequerida[a].nombre+
+											// 			"</label>"+
+											// 		"</td>"+
+											// 	"</tr>"
+											// );
+
 											i++;
+
 										} else {
 											$('#documentos-editar').append(
 												"<div class='form-check'>"+
@@ -148,7 +200,24 @@ $(document).ready(function(){
 												response.documentacionRequerida[a].nombre+
 												"</label>"+
 												"</div>"
-												);
+											);
+
+											// $('#tbody-documentos').append(
+											// 	"<tr>"+
+											// 		"<th scope='row'>"+
+											// 			"<div class='form-check'>"+
+											// 				"<input class='form-check-input checkbox-documento'  type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+											// 				"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
+											// 			"</div>"+
+											// 		"</th>"+
+
+											// 		"<td>"+
+											// 			"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
+											// 				response.documentacionRequerida[a].nombre+
+											// 			"</label>"+
+											// 		"</td>"+
+											// 	"</tr>"
+											// );
 										}
 									}
 								}
@@ -160,7 +229,25 @@ $(document).ready(function(){
 									"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
 									"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
 									response.documentacionRequerida[a].nombre+
-									"</label></div>");
+									"</label></div>"
+								);
+
+								// $('#tbody-documentos').append(
+								// 	"<tr>"+
+								// 		"<th scope='row'>"+
+								// 			"<div class='form-check'>"+
+								// 				"<input class='form-check-input checkbox-documento'  type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+								// 				"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
+								// 			"</div>"+
+								// 		"</th>"+
+
+								// 		"<td>"+
+								// 			"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
+								// 				response.documentacionRequerida[a].nombre+
+								// 			"</label>"+
+								// 		"</td>"+
+								// 	"</tr>"
+								// );
 							}
 						}
 					} else {
