@@ -62,14 +62,37 @@
                       Selecciona los documentos requeridos para este tipo de inspección.
                     </div>
                     <div id="documentos">
-                        @foreach($documentos as $documento)
-                            <div class="form-check">
-                              <input class="form-check-input checkbox-documento" type="checkbox" value="{{ $documento->id }}" id="documento-{{ $documento->id }}" name="documentos-requeridos[]">
-                              <label class="form-check-label" for="documento-{{ $documento->id }}">
-                                {{ $documento->nombre }}
-                              </label>
-                            </div>
-                        @endforeach
+                        
+                            <table class="table table-sm">
+                              <thead class="thead-dark">
+                                <tr>
+                                  <th scope="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="seleccionar-todos">
+                                    </div>
+                                  </th>
+                                  <th scope="col">DOCUMENTO REQUERIDO</th>
+                                </tr>
+                              </thead>
+                              @foreach($documentos as $documento)
+                              <tbody>
+                                <tr>
+                                  <th scope="row">
+                                      <div class="form-check">
+                                        <input class="form-check-input checkbox-documento check" type="checkbox" value="{{ $documento->id }}" id="documento-{{ $documento->id }}" name="documentos-requeridos[]">
+                                    </div>
+                                  </th>
+                                  <td>
+                                    <label class="form-check-label" for="documento-{{ $documento->id }}">
+                                        {{ $documento->nombre }}
+                                    </label>
+                                  </td>
+                                </tr>
+                              </tbody>
+                              @endforeach
+                            </table>
+
+                        
                     </div>
                     <hr>
                     <div class="form-group row mb-0">
@@ -124,6 +147,7 @@
                       Selecciona los documentos requeridos para este tipo de inspección.
                     </div>
                     <div id="documentos-editar">
+                        
                        
                     </div>
                     <hr>

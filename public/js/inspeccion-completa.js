@@ -143,8 +143,20 @@ $(document).ready(function(){
 	function seleccionarTodosDocumentosRequeridosSolicitado(){
 		$("#seleccionar-todos-solicitado").click(function() {
 			$(".check-solicitado").prop("checked", this.checked);
-			
 		});
+
+		$('.check-solicitado').each(function(key, value){
+			
+	        $('#'+value.id).click(function(){
+	            if ($(".check-solicitado").length == $(".check-solicitado:checked").length) {
+	                $("#seleccionar-todos-solicitado").prop("checked", true);
+	                
+	            } else {
+	                $("#seleccionar-todos-solicitado").prop("checked", false);
+	                
+	            }
+	        }); 
+	    }); 
 	}
 
 	seleccionarTodosDocumentosRequeridosSolicitado();
@@ -153,6 +165,19 @@ $(document).ready(function(){
 		$("#seleccionar-todos-exhibido").click(function() {
 			$(".check-exhibido").prop("checked", this.checked);
 		});
+
+		$('.check-exhibido').each(function(key, value){
+			
+	        $('#'+value.id).click(function(){
+	            if ($(".check-exhibido").length == $(".check-exhibido:checked").length) {
+	                $("#seleccionar-todos-exhibido").prop("checked", true);
+	                
+	            } else {
+	                $("#seleccionar-todos-exhibido").prop("checked", false);
+	                
+	            }
+	        }); 
+	    }); 
 	}
 
 	seleccionarTodosDocumentosRequeridosExhibido();

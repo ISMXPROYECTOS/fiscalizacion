@@ -330,8 +330,8 @@
 			@foreach($documentos as $documento)
 			<tr>
 				<th class="documento-requerido-nombre">{{ $documento->documentacionRequerida->nombre }}</th>
-				<td class="text-center"><input class="form-check-input check-solicitado" @if($documento->solicitado == 1) checked @endif type="checkbox" id="solicitado" value="{{ $documento->documentacionRequerida->id }}" name="solicitado[]"></td>
-				<td class="text-center"><input class="form-check-input check-exhibido" @if($documento->exhibido == 1) checked @endif type="checkbox" id="exhibido" value="{{ $documento->documentacionRequerida->id }}"  name="exhibido[]"></td>
+				<td class="text-center"><input class="form-check-input check-solicitado" @if($documento->solicitado == 1) checked @endif type="checkbox" id="solicitado-{{ $documento->documentacionRequerida->id }}" value="{{ $documento->documentacionRequerida->id }}" name="solicitado[]"></td>
+				<td class="text-center"><input class="form-check-input check-exhibido" @if($documento->exhibido == 1) checked @endif type="checkbox" id="exhibido-{{ $documento->documentacionRequerida->id }}" value="{{ $documento->documentacionRequerida->id }}"  name="exhibido[]"></td>
 				<td><input class="form-control form-control-sm" type="text" value="{{ $documento->observaciones }}" name="observaciones[]"></td>
 			</tr>
 			@endforeach

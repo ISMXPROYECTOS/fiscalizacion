@@ -208,5 +208,28 @@ $(document).ready(function(){
 	}
 
 	updateData();
+
+	function seleccionarTodos(){
+		$("#seleccionar-todos").click(function() {
+	        $(".check").prop("checked", this.checked);
+	    });
+
+		$('.check').each(function(key, value){
+			console.log('#'+value.id);
+	        $('#'+value.id).click(function(){
+	            if ($(".check").length == $(".check:checked").length) {
+	                $("#seleccionar-todos").prop("checked", true);
+	                
+	            } else {
+	                $("#seleccionar-todos").prop("checked", false);
+	                
+	            }
+	        }); 
+	    }); 
+	}
+
+	seleccionarTodos();
+
+	
 	
 });
