@@ -172,7 +172,7 @@ class InspeccionController extends Controller
 				'inspeccion_id' => $inspeccion->id,
 				'estatusinspeccion_id' => $estatusinspeccion_id,
 				'usuario_id' => $usuario->id,
-				'observacion' => 'Creada'
+				'observacion' => 'Creada - ' . $estatus_inspeccion->nombre
 			];
 
 			BitacoraDeEstatus::create($datos_bitacora);
@@ -273,7 +273,7 @@ class InspeccionController extends Controller
 				'inspeccion_id' => $inspeccion->id,
 				'estatusinspeccion_id' => $estatusinspeccion_id,
 				'usuario_id' => $usuario->id,
-				'observacion' => 'Creada'
+				'observacion' => 'Creada - ' . $estatus_inspeccion->nombre
 			];
 
 			BitacoraDeEstatus::create($datos_bitacora);
@@ -316,31 +316,74 @@ class InspeccionController extends Controller
 		$estatus = $request->input('estatusinspeccion');
 		$comentario = $request->input('comentario');
 
-		$data = array();
+		$estatus_Nuevo = EstatusInspeccion::find($estatus);
+		$estatus_S = EstatusInspeccion::where('clave', 'S')->first();
+		$estatus_C = EstatusInspeccion::where('clave', 'C')->first();
+		$estatus_Cap = EstatusInspeccion::where('clave', 'Cap')->first();
+		$estatus_P = EstatusInspeccion::where('clave', 'P')->first();
+		$estatus_Epc = EstatusInspeccion::where('clave', 'Epc')->first();
 
-		if ($estatus > $inspeccion->estatusInspeccion->id) {
-			$inspeccion->usuario_id = $usuario->id;
-			$inspeccion->estatusinspeccion_id = $estatus;
-			$inspeccion->update();
+		$data = [
+			'code' => 400,
+			'message' => 'Ups!!, algo inesperado ocurrio'
+		];
 
-			$data = [
-				'code' 			=> 200,
-				'inspeccion' 	=> $inspeccion
-			];
+		switch ($estatus_Nuevo->id) {
+			case $estatus_S->id:
+				if ($inspeccion->estatusinspeccion_id == $estatus_Cap->id || $inspeccion->estatusinspeccion_id == $estatus_P->id) {
+					$inspeccion->usuario_id = $usuario->id;
+					$inspeccion->estatusinspeccion_id = $estatus_Nuevo->id;
+					$inspeccion->update();
 
-			$datos_bitacora = [
-				'inspeccion_id' => $inspeccion->id,
-				'estatusinspeccion_id' => $estatus,
-				'usuario_id' => $usuario->id,
-				'observacion' => $comentario
-			];
+					$data = [
+						'code' 			=> 200,
+						'message' 		=> 'Se actualizo correctamente el estatus',
+						'inspeccion' 	=> $inspeccion
+					];
 
-			BitacoraDeEstatus::create($datos_bitacora);
-		}else{
-			$data = [
-				'code' => 400,
-				'message' => 'No se pudo modificar el estatus.'
-			];
+					$datos_bitacora = [
+						'inspeccion_id' => $inspeccion->id,
+						'estatusinspeccion_id' => $estatus_Nuevo->id,
+						'usuario_id' => $usuario->id,
+						'observacion' => $estatus_Nuevo->nombre . ' - ' . $comentario
+					];
+
+					BitacoraDeEstatus::create($datos_bitacora);
+				} else {
+					$data = [
+						'code' => 400,
+						'message' => 'No se pudo modificar el estatus.'
+					];
+				}
+			break;
+
+			case $estatus_C->id:
+				if ($inspeccion->estatusinspeccion_id == $estatus_Cap->id || $inspeccion->estatusinspeccion_id == $estatus_Epc->id) {
+					$inspeccion->usuario_id = $usuario->id;
+					$inspeccion->estatusinspeccion_id = $estatus_Nuevo->id;
+					$inspeccion->update();
+
+					$data = [
+						'code' 			=> 200,
+						'message' 		=> 'Se actualizo correctamente el estatus',
+						'inspeccion' 	=> $inspeccion
+					];
+
+					$datos_bitacora = [
+						'inspeccion_id' => $inspeccion->id,
+						'estatusinspeccion_id' => $estatus_Nuevo->id,
+						'usuario_id' => $usuario->id,
+						'observacion' => $estatus_Nuevo->nombre . ' - ' . $comentario
+					];
+
+					BitacoraDeEstatus::create($datos_bitacora);
+				} else {
+					$data = [
+						'code' => 400,
+						'message' => 'No se pudo modificar el estatus.'
+					];
+				}
+			break;
 		}
 
 		return $data;
@@ -398,9 +441,12 @@ class InspeccionController extends Controller
 	public function verMasInformacion($id){
 		$inspeccion = Inspeccion::find($id)->load('documentacionPorInspeccion')->load('multa');
 		$multas = Multa::where('inspeccion_id', $inspeccion->id)->get();
+		$ultima_multa = '';
+
 		if (!empty($multas)) {
 			$ultima_multa = $multas->last();
 		}
+
 		$gestores = Gestor::all();
 		$documentos = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get();
 		$comercios = Comercio::all();
@@ -408,8 +454,6 @@ class InspeccionController extends Controller
 		$is_edit = false;
 		$total_exhibidos = 0;
 		$multa = 'false';
-
-
 
 		if (is_object($inspeccion->documentacionPorInspeccion)) {
 			for ($i = 0; $i < count($inspeccion->documentacionPorInspeccion); $i++) {
@@ -422,8 +466,6 @@ class InspeccionController extends Controller
 				$multa = 'true';
 			}
 		}
-
-		
 
 		if ($inspeccion->estatusInspeccion->clave == 'NA') {
 			return 'Debes asiganar la inspección antes de capturar los datos';
@@ -504,7 +546,7 @@ class InspeccionController extends Controller
 								'inspeccion_id' => $inspecciones[$b]->id,
 								'estatusinspeccion_id' => $inspecciones[$b]->estatusInspeccion->id,
 								'usuario_id' => $idUser,
-								'observacion' => 'Asignada'
+								'observacion' => $estatus_nuevo->nombre
 							];
 
 							BitacoraDeEstatus::create($datos_bitacora);
@@ -675,6 +717,7 @@ class InspeccionController extends Controller
 		$texto_no_presento = Configuracion::where('id', 3)->first();
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'Cap')->first();
 		$id_estatus_nuevo = $estatus_nuevo->id;
+		$estatus_A = EstatusInspeccion::where('clave', 'A')->first();
 		$dias_inhabiles = DiaInhabil::all();
 		$usuario = Auth::user();
 
@@ -763,17 +806,23 @@ class InspeccionController extends Controller
 		$inspeccion->gestores_id = $gestor;
 		$inspeccion->diasvence = $configuracion_dias_vence;
 		$inspeccion->fechavence = $fecha_vence;
-		$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
+		$inspeccion->usuario_id = $usuario->id;
+
+		if ($inspeccion->estatusinspeccion_id == $estatus_A->id) {
+			$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
+			$inspeccion->update();
+
+			$datos_bitacora = [
+				'inspeccion_id' => $inspeccion->id,
+				'estatusinspeccion_id' => $inspeccion->estatusInspeccion->id,
+				'usuario_id' => $usuario->id,
+				'observacion' => $estatus_nuevo->nombre
+			];
+
+			BitacoraDeEstatus::create($datos_bitacora);
+		}
+
 		$inspeccion->update();
-
-		$datos_bitacora = [
-			'inspeccion_id' => $inspeccion->id,
-			'estatusinspeccion_id' => $inspeccion->estatusInspeccion->id,
-			'usuario_id' => $usuario->id,
-			'observacion' => 'Capturada'
-		];
-
-		BitacoraDeEstatus::create($datos_bitacora);
 
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoInspeccion->id)->get();
 

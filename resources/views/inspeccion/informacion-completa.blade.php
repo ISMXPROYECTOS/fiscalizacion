@@ -411,8 +411,12 @@
 		</button>
 	@endif
 	
+	@if ($inspeccion->estatusInspeccion->clave == 'V')
+	<a href="{{ route('descargar-clausura', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Generar orden de clausura</a>
+	@endif
+
 	@if(is_object($ultima_multa))
-		@if ($inspeccion->estatusInspeccion->clave == 'V' || $ultima_multa->fechavence < date('Y-m-d'))
+		@if ($ultima_multa->fechavence < date('Y-m-d'))
 			<a href="{{ route('descargar-clausura', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Generar orden de clausura</a>
 		@endif
 	@endif

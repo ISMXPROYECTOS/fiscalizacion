@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Inspeccion;
 use App\Multa;
 use App\EstatusInspeccion;
+use App\BitacoraDeEstatus;
 use SoapClient;
 
 class MultaController extends Controller
@@ -44,6 +45,8 @@ class MultaController extends Controller
 
 		$inspeccion = Inspeccion::find($id_inspeccion);
 		$estatus_multa = EstatusInspeccion::where('clave', 'M')->first();
+		$estatus_V = EstatusInspeccion::where('clave', 'V')->first();
+		$estatus_Cap = EstatusInspeccion::where('clave', 'Cap')->first();
 		$usuario = Auth::user();
 		$total = $multa * $valorUma;
 		$hoy = date('Y-m-d');
@@ -59,18 +62,35 @@ class MultaController extends Controller
 		$nueva_multa->fechacreada 	= $hoy;
 		$nueva_multa->fechavence	= $fechavence;
 
-		if ($nueva_multa->save()) {
-			$inspeccion->estatusinspeccion_id = $estatus_multa->id;
-			$inspeccion->update();
-			
-			$data = [
-				'code' => 200,
-				'message' => 'Multa creada correctamente'
-			];
+		if ($inspeccion->estatusinspeccion_id == $estatus_V->id || $inspeccion->estatusinspeccion_id == $estatus_Cap->id) {
+			if ($nueva_multa->save()) {
+				$inspeccion->usuario_id = $usuario->id;
+				$inspeccion->estatusinspeccion_id = $estatus_multa->id;
+				$inspeccion->update();
+
+				$datos_bitacora = [
+					'inspeccion_id' => $inspeccion->id,
+					'estatusinspeccion_id' => $inspeccion->estatusInspeccion->id,
+					'usuario_id' => $usuario->id,
+					'observacion' => $estatus_multa->nombre
+				];
+
+				BitacoraDeEstatus::create($datos_bitacora);
+
+				$data = [
+					'code' => 200,
+					'message' => 'Multa creada correctamente'
+				];
+			} else {
+				$data = [
+					'code' => 400,
+					'message' => 'No se pudo crear la multa'
+				];
+			}
 		} else {
 			$data = [
 				'code' => 400,
-				'message' => 'No se pudo crear la multa'
+				'message' => 'No se pudo crear la multa, las multas solo se crean si la inspeccion esta vencida o le faltan documentos'
 			];
 		}
 
