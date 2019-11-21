@@ -107,7 +107,7 @@ class PdfController extends Controller
 		if ($tipoDocumento == 1) {
 			if (!empty($inspecciones)) {
 				$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
-				$pdf->stream('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+				$pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 
 				$data = [
 					'code' => 200,
