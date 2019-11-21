@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Inspeccion;
 use App\Multa;
 use App\EstatusInspeccion;
+use SoapClient;
 
 class MultaController extends Controller
 {
@@ -18,18 +19,35 @@ class MultaController extends Controller
 
 		$id_inspeccion = $request->input('id');
 		$multa = $request->input('cantidad-multa');
-		$valorUma = 75.50;
+		$obtenerValorUma = $this->obtenerValorUma();
+		$obtenerValorUma = json_encode($obtenerValorUma);
+		$obtenerValorUma = json_decode($obtenerValorUma);
+
+		$data = [
+			'code' => 400,
+			'message' => 'Ups!!, ocurrio algo inesperado'
+		];
+
+		if (!empty($obtenerValorUma) && is_object($obtenerValorUma)) {
+			if ($obtenerValorUma->code == 200) {
+				$valorUma = $obtenerValorUma->valorUma;
+			} else {
+				$data = [
+					'code' => 400,
+					'message' => 'El metodo del soap retorno un error',
+					'error' => $obtenerValorUma->message
+				];
+
+				return $data;
+			}
+		}
+
 		$inspeccion = Inspeccion::find($id_inspeccion);
 		$estatus_multa = EstatusInspeccion::where('clave', 'M')->first();
 		$usuario = Auth::user();
 		$total = $multa * $valorUma;
 		$hoy = date('Y-m-d');
 		$fechavence = date('Y-m-d', strtotime($hoy . "+ 30 days"));
-
-		$data = [
-			'code' => 400,
-			'message' => 'Ups!!, ocurrio algo inesperado'
-		];
 
 		$nueva_multa = new Multa();
 		$nueva_multa->inspeccion_id = $inspeccion->id;
@@ -57,6 +75,51 @@ class MultaController extends Controller
 		}
 
 		return $data;
+	}
+
+	public function obtenerValorUma(){
+		$url = "http://201.144.238.68:8010/dsaws/IServiceObtieneValorUMA.svc?wsdl";
+
+		$data = [
+			'code' => 400,
+			'message' => 'Ups!!, ocurrio algo inesperado'
+		];
+
+		try{
+			$cliente = new SoapClient($url);
+			//dd($cliente->__getFunctions());
+			$data = $cliente->dtsValorUMA();
+			//dd($data);
+
+			if (empty($data)) {
+				$data = [
+					'code' => 400,
+					'message' => 'El soap no trajo valores'
+				];
+
+				return $data;
+			} else {
+				$soap = json_encode($data);
+				$soap_array = json_decode($soap);
+				$valorUma = $soap_array->dtsValorUMAResult->proDouValorUMA;
+
+				$data = [
+					'code' => 200,
+					'message' => 'Se obtuvo el valor UMA correctamente',
+					'valorUma' => $valorUma
+				];
+				
+				return $data;
+			}
+		} catch(\Exception $error) {
+			$data = [
+				'code' => 400,
+				'message' => 'Ocurrio algo inesperado en el soap',
+				'error' => $error->getMessage()
+			];
+
+			return $data;
+		}
 	}
 
 }
