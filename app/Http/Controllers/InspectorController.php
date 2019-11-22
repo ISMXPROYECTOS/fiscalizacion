@@ -30,6 +30,15 @@ class InspectorController extends Controller
 	}
 
 	public function create(Request $request){
+		// Convierte la vigenciainicio de un string a un date
+		$vigenciainicio = $request->input('vigenciainicio');
+		$date = strtotime($vigenciainicio);
+		$fecha_format = date("Y-m-d", $date);
+
+		// Convierte la vigenciafin de un string a un date
+		$vigenciafin = $request->input('vigenciafin');
+		$date2 = strtotime($vigenciafin);
+		$fecha_formato = date("Y-m-d", $date2);
 
 		// Valida los campos para evitar problemas y poder agregarlos a la base de datos
 		$validate = $request->validate([
@@ -37,7 +46,9 @@ class InspectorController extends Controller
             'apellidopaterno' => 'required|string|max:30',
             'apellidomaterno' => 'required|string|max:30',
             'clave' => 'required|string|max:10',
-            'estatus' => 'required|string|max:1'
+            'estatus' => 'required|string|max:1',
+            'vigenciainicio' => 'required|date_format:Y-m-d',
+            'vigenciafin' => 'required|date_format:Y-m-d'
 	    ]);
 
 	    // Se reciben los datos del formulario creando un Array de datos 
@@ -48,7 +59,9 @@ class InspectorController extends Controller
             'apellidomaterno' => $request->input('apellidomaterno'),
             'clave' => $request->input('clave'),
             'hash' => sha1($request->input('nombre').$request->input('clave').rand()),
-            'estatus' => $request->input('estatus')
+            'estatus' => $request->input('estatus'),
+            'vigenciainicio' => $fecha_format,
+            'vigenciafin' => $fecha_formato
 		];
 
 		// Retornamos los datos a la peticion Ajax, al mismo tiempo en se almacena en la BD
@@ -66,6 +79,16 @@ class InspectorController extends Controller
 		// Se reciben la id del inspector que se esta modificando
 		$id = $request->input('id');
 
+		// Convierte la vigenciainicio de un string a un date
+		$vigenciainicio = $request->input('vigenciainicio');
+		$date = strtotime($vigenciainicio);
+		$fecha_format = date("Y-m-d", $date);
+
+		// Convierte la vigenciafin de un string a un date
+		$vigenciafin = $request->input('vigenciafin');
+		$date2 = strtotime($vigenciafin);
+		$fecha_formato = date("Y-m-d", $date2);
+
 		// Se selecciona el inspector para ser modificado
 		$inspector = Inspector::where('id', $id)->first();
 
@@ -74,7 +97,9 @@ class InspectorController extends Controller
 			'nombre' => 'required|string|max:50',
             'apellidopaterno' => 'required|string|max:30',
             'apellidomaterno' => 'required|string|max:30',
-            'clave' => 'required|string|max:10|unique:inspector,clave,' . $id
+            'clave' => 'required|string|max:10|unique:inspector,clave,' . $id,
+            'vigenciainicio' => 'required|date_format:Y-m-d',
+            'vigenciafin' => 'required|date_format:Y-m-d'
 		]);
 
 		// Obtiene la id del usuario administrador que modifica los inspectores
@@ -91,6 +116,8 @@ class InspectorController extends Controller
 		$inspector->apellidopaterno = $apellidopaterno;
 		$inspector->apellidomaterno = $apellidomaterno;
 		$inspector->clave = $clave;
+		$inspector->vigenciainicio = $fecha_format;
+		$inspector->vigenciafin = $fecha_formato;
 		$inspector->update();
 
         // Indica que fue correcta la modificación del inspector

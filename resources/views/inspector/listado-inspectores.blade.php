@@ -62,7 +62,6 @@
                             <br>
                         </div>
                     </div>
-                    
                     <div class="form-group">
                         <label for="clave">{{ __('Clave') }}</label>
                         <input id="clave" type="text" class="form-control" >
@@ -79,8 +78,27 @@
                         </select>
                         <p class="text-danger" id="error-estatus"></p>
                     </div>
-                    <hr>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="vigenciainicio">{{ __('Vigencia: Fecha Inicio') }}</label>
+                                <input id="vigenciainicio" type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="vigenciafin">{{ __('Vigencia: Fecha Fin') }}</label>
+                                <input id="vigenciafin" type="date" class="form-control">
+                            </div>
+                        </div>
 
+                        <div class="col-lg-12 col-md-6">
+                            <p class="text-danger mb-0" id="error-vigenciainicio"></p>
+                            <p class="text-danger mb-0" id="error-vigenciafin"></p>
+                            <br>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="form-group row mb-0">
 
                         <div class="col-md-6">
@@ -121,14 +139,12 @@
                             <div class="form-group">
                                 <label for="apellidopaterno-edit">{{ __('Apellido Paterno') }}</label>
                                 <input id="apellidopaterno-edit" type="text" class="form-control">
-                                
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="apellidomaterno-edit">{{ __('Apellido Materno') }}</label>
                                 <input id="apellidomaterno-edit" type="text" class="form-control">
-                                
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-6">
@@ -141,6 +157,25 @@
                         <label for="clave-edit">{{ __('Clave') }}</label>
                         <input id="clave-edit" type="text" class="form-control">
                         <p class="text-danger" id="error-clave-edit"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="vigenciainicio-edit">{{ __('Vigencia: Fecha Inicio') }}</label>
+                                <input id="vigenciainicio-edit" type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="vigenciafin-edit">{{ __('Vigencia: Fecha Fin') }}</label>
+                                <input id="vigenciafin-edit" type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <p class="text-danger mb-0" id="error-vigenciainicio-edit"></p>
+                            <p class="text-danger mb-0" id="error-vigenciafin-edit"></p>
+                            <br>
+                        </div>
                     </div>
                     <hr>
                     <div class="form-group row mb-0">

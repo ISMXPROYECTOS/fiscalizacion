@@ -40,7 +40,6 @@ class UserController extends Controller
 	}
 
 	public function create(Request $request){
-
 		// Convierte la fecha de un string a un date
 		$vigencia = $request->input('vigencia');
 		$date = strtotime($vigencia);

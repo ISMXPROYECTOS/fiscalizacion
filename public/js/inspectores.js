@@ -3,19 +3,19 @@ $(document).ready(function(){
     // Se crea una variable con la ruta raíz del proyecto
     var url = "http://localhost/fiscalizacion/public";
 
-    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
-    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').text('');
+    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').addClass('hidden');
+    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').text('');
 
-    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').addClass('hidden');
-    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
+    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit, #error-vigenciainicio-edit, #error-vigenciafin-edit').addClass('hidden');
+    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit, #error-vigenciainicio-edit, #error-vigenciafin-edit').text('');
 
     $(document).on('click', '#btn-cancelar', function(e){
 
-        $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
-        $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').text('');
+        $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').addClass('hidden');
+        $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').text('');
 
-        $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').addClass('hidden');
-        $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit').text('');
+        $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit, #error-vigenciainicio-edit, #error-vigenciafin-edit').addClass('hidden');
+        $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit, #error-vigenciainicio-edit, #error-vigenciafin-edit').text('');
     });
 
     // Esta función muetra los inspectores en una tabla
@@ -88,7 +88,9 @@ $(document).ready(function(){
                 'apellidopaterno' : $('#apellidopaterno').val(),
                 'apellidomaterno' : $('#apellidomaterno').val(),
                 'clave' : $('#clave').val(),
-                'estatus' : $('#estatus').val()
+                'estatus' : $('#estatus').val(),
+                'vigenciainicio' : $('#vigenciainicio').val(),
+                'vigenciafin' : $('#vigenciafin').val()
             }
             // Mediante ajax se envian los datos al controlador y espera una respuesta
             // si la respuesta es exitosa se invoca al método viewData el cual muetra la lista de los registro
@@ -107,14 +109,14 @@ $(document).ready(function(){
                     $("#formulario-inspector")[0].reset();
                     $('#crear-inspector').modal('hide');
                     $('#registro-correcto').modal('show');
-                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
-                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').text('');
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').addClass('hidden');
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').text('');
                     viewData();
                 },
                 error: function(response) {
                     $('#btn-enviar').text('Crear Inspector');
-                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').addClass('hidden');
-                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus').text('');
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').addClass('hidden');
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i).removeClass('hidden');
                         $('#error-'+i).text(item[0]);
@@ -148,6 +150,8 @@ $(document).ready(function(){
                         $('#apellidopaterno-edit').val(response.apellidopaterno);
                         $('#apellidomaterno-edit').val(response.apellidomaterno);
                         $('#clave-edit').val(response.clave);
+                        $('#vigenciainicio-edit').val(response.vigenciainicio);
+                        $('#vigenciafin-edit').val(response.vigenciafin);
                     }
                 }
             });
@@ -166,7 +170,9 @@ $(document).ready(function(){
                 'nombre' : $('#nombre-edit').val(),
                 'apellidopaterno' : $('#apellidopaterno-edit').val(),
                 'apellidomaterno' : $('#apellidomaterno-edit').val(),
-                'clave' : $('#clave-edit').val()
+                'clave' : $('#clave-edit').val(),
+                'vigenciainicio' : $('#vigenciainicio-edit').val(),
+                'vigenciafin' : $('#vigenciafin-edit').val()
             }
             // Se envía esa variable al metodo update de InspectorController, el metodo regresa un registro
             // con las modificaciones realizadas si no hubo algun problema en la validación, de lo contrario
@@ -183,15 +189,15 @@ $(document).ready(function(){
                     $('#btn-editar').text('Guardar');
                     $('#editar-inspector').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').addClass('hidden');
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').text('');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit, #error-vigenciainicio-edit, #error-vigenciafin-edit').addClass('hidden');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit, #error-vigenciainicio-edit, #error-vigenciafin-edit').text('');
                     viewData();
                 },
 
                 error: function(response) {
                     $('#btn-editar').text('Guardar');
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').addClass('hidden');
-                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit').text('');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit, #error-vigenciainicio-edit, #error-vigenciafin-edit').addClass('hidden');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit, #error-vigenciainicio-edit, #error-vigenciafin-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);
