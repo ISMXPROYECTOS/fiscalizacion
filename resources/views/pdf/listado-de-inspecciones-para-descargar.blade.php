@@ -25,27 +25,7 @@
 				<h3 class="modal-title" id="modal-registro-correcto">Las inspecciones se están descargando</h3>
 			</div>
 			<div class="modal-body">
-				<form id="formulario-documentos" role="form">
-					@csrf
-					<div class="form-group">
-						<label for="tipoDocumento">{{ __('Tipo de documento') }}</label>
-						<select id="tipoDocumento" class="form-control">
-							<option value="">Seleccionar</option>
-							<option value="1">Clásico</option>
-							<option value="2">Complejo</option>
-						</select>
-						<p class="text-danger" id="error-tipoDocumento"></p>
-					</div>
-					<hr>
-					<div class="form-group row mb-0">
-						<div class="col-md-6">
-							<button type="button" class="btn btn-default btn-block" data-dismiss="modal" id="btn-cancelar">Cancelar</button>
-						</div>
-						<div class="col-md-6">
-							<button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Descargar') }}</button>
-						</div>
-					</div>
-				</form>
+				<div id="descargas"></div>
 			</div>
 		</div>
 	</div>

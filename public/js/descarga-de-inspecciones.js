@@ -64,6 +64,7 @@ $(document).ready(function(){
 		$(document).on('click', '.descargar', function(e){
 			e.preventDefault();
 			$('#folios-no-asignados').text('');
+			$('#descargas').text('');
 			var id = $(this).attr('id');
 
 			$.ajax({
@@ -72,9 +73,10 @@ $(document).ready(function(){
 				success: function (response) {
 					if (response.code == 200) {
 						$('#creando-pdf-inspecciones').modal('show');
-						$('#btn-enviar').click(function(){
-							descargarPorTipoDeDocumento(id);
-						});
+						$('#descargas').append(
+							"<a href='"+ url + '/pdf/descargar-pdf-inspecciones/' + id +"'>Descargar Común</a>" +
+							"<a href='"+ url + '/pdf/descargar-pdf-inspecciones-complejas/' + id +"'>Descargar Compleja</a>"
+						);
 						//window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
 					} else {
 						$('#validar-folios-asignados').modal('show');
@@ -90,41 +92,7 @@ $(document).ready(function(){
 	}
 
 	validarFoliosAsignados();
-
-	function descargarPorTipoDeDocumento(id){
-		var data = {
-			'tipoDocumento' : $('#tipoDocumento').val(),
-			'idFormaValorada' : id
-		}
-		$.ajax({
-			url: url + '/pdf/inspecciones/descargar-por-tipo-de-documento',
-			data: data,
-			type: 'post',
-			headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-			beforeSend: function(){
-				$('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Descargando...');
-			},
-			success: function (response) {
-				if (response.code == 200){
-					$('#btn-enviar').text('Descargar');
-					$("#formulario-documentos")[0].reset();
-					$('#creando-pdf-inspecciones').modal('hide');
-					$('#error-tipoDocumento').addClass('hidden');
-					$('#error-tipoDocumento').text('');
-				}
-			},
-			error: function(response) {
-				$('#btn-enviar').text('Descargar');
-				$('#error-tipoDocumento').addClass('hidden');
-				$('#error-tipoDocumento').text('');
-				$.each(response.responseJSON.errors, function(i, item) {
-					$('#error-'+i).removeClass('hidden');
-					$('#error-'+i).text(item[0]);
-				});
-			}
-		});
-	}
-
+	
 	function inspeccionesPorPaquete(){
 		$(document).on('click', '.inspecciones', function(e){
 			e.preventDefault();
