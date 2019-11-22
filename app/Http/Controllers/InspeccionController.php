@@ -305,7 +305,7 @@ class InspeccionController extends Controller
 	/* El método se encarga de modificar los estatus a las inspecciones, solo se pueden modificar inspecciones hacia adelante (una inspeccion capturada no puede pasar a no asignada porque seria incoherente). */
 	public function updateEstatus(Request $request){
 		$validate = $this->validate($request,[
-			'estatusinspeccion' => 'required|string|max:1',
+			'estatusinspeccion' => 'required|string',
 			'comentario' => 'string|max:255'
 		]);
 
@@ -322,6 +322,7 @@ class InspeccionController extends Controller
 		$estatus_Cap = EstatusInspeccion::where('clave', 'Cap')->first();
 		$estatus_P = EstatusInspeccion::where('clave', 'P')->first();
 		$estatus_Epc = EstatusInspeccion::where('clave', 'Epc')->first();
+		$estatus_Claus = EstatusInspeccion::where('clave', 'Claus')->first();
 
 		$data = [
 			'code' => 400,
@@ -358,7 +359,35 @@ class InspeccionController extends Controller
 			break;
 
 			case $estatus_C->id:
-				if ($inspeccion->estatusinspeccion_id == $estatus_Cap->id || $inspeccion->estatusinspeccion_id == $estatus_Epc->id) {
+				if ($inspeccion->estatusinspeccion_id == $estatus_Epc->id) {
+					$inspeccion->usuario_id = $usuario->id;
+					$inspeccion->estatusinspeccion_id = $estatus_Nuevo->id;
+					$inspeccion->update();
+
+					$data = [
+						'code' 			=> 200,
+						'message' 		=> 'Se actualizo correctamente el estatus',
+						'inspeccion' 	=> $inspeccion
+					];
+
+					$datos_bitacora = [
+						'inspeccion_id' => $inspeccion->id,
+						'estatusinspeccion_id' => $estatus_Nuevo->id,
+						'usuario_id' => $usuario->id,
+						'observacion' => $estatus_Nuevo->nombre . ' - ' . $comentario
+					];
+
+					BitacoraDeEstatus::create($datos_bitacora);
+				} else {
+					$data = [
+						'code' => 400,
+						'message' => 'No se pudo modificar el estatus.'
+					];
+				}
+			break;
+
+			case $estatus_Claus->id:
+				if ($inspeccion->estatusinspeccion_id == $estatus_Epc->id) {
 					$inspeccion->usuario_id = $usuario->id;
 					$inspeccion->estatusinspeccion_id = $estatus_Nuevo->id;
 					$inspeccion->update();
@@ -991,13 +1020,24 @@ class InspeccionController extends Controller
 		$estatus_vencida = EstatusInspeccion::where('clave', 'V')->first();
 		//$estatus_multa = EstatusInspeccion::where('clave', 'M')->first();
 		$inspecciones = Inspeccion::where('estatusinspeccion_id', $estatus_capturada->id)->where('fechavence', '<', $hoy)->get();
+		$usuario = Auth::user();
 
-		$total_exhibidos = 0;
+		//$total_exhibidos = 0;
 
 		if (!empty($inspecciones)) {
 			for ($i = 0; $i < count($inspecciones); $i++) {
 				$inspecciones[$i]->estatusinspeccion_id = $estatus_vencida->id;
-				$inspecciones[$i]->update();
+				
+				if ($inspecciones[$i]->update()) {
+					$datos_bitacora = [
+						'inspeccion_id' => $inspecciones[$i]->id,
+						'estatusinspeccion_id' => $estatus_vencida->id,
+						'usuario_id' => $usuario->id,
+						'observacion' => $estatus_vencida->nombre
+					];
+
+					BitacoraDeEstatus::create($datos_bitacora);
+				}
 				/*
 				if (is_object($inspecciones[$i]->documentacionPorInspeccion)) {
 					for ($a = 0; $a < count($inspecciones[$i]->documentacionPorInspeccion); $a++) {
@@ -1101,7 +1141,12 @@ class InspeccionController extends Controller
 
 				$fecha_prorroga = end($working_days_prorroga);
 				$inspeccion->fechaprorroga = $fecha_prorroga;
+			}
 
+			$inspeccion->observacionprorroga = $observacion_prorroga;
+			$inspeccion->estatusinspeccion_id = $estatus_prorroga->id;
+
+			if ($inspeccion->update()) {
 				$datos_bitacora_prorroga = [
 					'usuario_id' => $usuario->id,
 					'inspeccion_id' => $inspeccion->id,
@@ -1112,12 +1157,16 @@ class InspeccionController extends Controller
 				];
 
 				BitacoraDeProroga::create($datos_bitacora_prorroga);
-			}
 
-			$inspeccion->observacionprorroga = $observacion_prorroga;
-			$inspeccion->estatusinspeccion_id = $estatus_prorroga->id;
+				$datos_bitacora = [
+					'inspeccion_id' => $inspeccion->id,
+					'estatusinspeccion_id' => $estatus_prorroga->id,
+					'usuario_id' => $usuario->id,
+					'observacion' => $estatus_prorroga->nombre
+				];
 
-			if ($inspeccion->update()) {
+				BitacoraDeEstatus::create($datos_bitacora);
+
 				$data = [
 					'code' => 200,
 					'message' => 'Se agrego prorroga correctamente',

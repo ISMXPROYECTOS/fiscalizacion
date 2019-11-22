@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Barryvdh\DomPDF\Facade as PDF;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Auth;
 use App\DocumentacionRequerida;
 use App\DocumentacionPorTipoDeInspeccion;
 use App\DocumentacionPorInspeccion;
@@ -14,6 +15,7 @@ use App\FormaValorada;
 use App\Inspeccion;
 use App\Gafete;
 use App\EstatusInspeccion;
+use App\BitacoraDeEstatus;
 
 class PdfController extends Controller
 {
@@ -145,9 +147,21 @@ class PdfController extends Controller
 		$documentos_no_presentados = DocumentacionPorInspeccion::where('inspeccion_id', $id)->where('exhibido', 0)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 		$estatus_ProcesoClausura = EstatusInspeccion::where('clave', 'Epc')->first();
+		$usuario = Auth::user();
 
+		$inspeccion->usuario_id = $usuario->id;
 		$inspeccion->estatusinspeccion_id = $estatus_ProcesoClausura->id;
-		$inspeccion->update();
+		
+		if ($inspeccion->update()) {
+			$datos_bitacora = [
+				'inspeccion_id' => $inspeccion->id,
+				'estatusinspeccion_id' => $estatus_ProcesoClausura->id,
+				'usuario_id' => $usuario->id,
+				'observacion' => $estatus_ProcesoClausura->nombre
+			];
+
+			BitacoraDeEstatus::create($datos_bitacora);
+		}
 
 		$pdf = PDF::loadView('clausura.acta-clausura', ['inspeccion' => $inspeccion, 'documentos' => $documentos_no_presentados]);
 		return $pdf->download('Orden-Clausura-'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
