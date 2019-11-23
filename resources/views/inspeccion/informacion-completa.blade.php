@@ -399,16 +399,14 @@
 			<h3>Prorroga </h3>
 			<hr>
 			<button type="button" class="btn btn-primary btn-sm prorroga">
-				<i class="fas fa-exchange-alt"></i> Agregar prorroga
+				 Agregar prorroga
 			</button>
 		</div>
 	</div>
 	<br>
 	<button type="submit" class="btn btn-primary btn-lg btn-primary-custom">Actualizar Información</button>
 	@if ($inspeccion->estatusInspeccion->clave == 'M' || $multa == 'true')
-		<button type="button" class="btn btn-primary btn-lg btn-primary-custom multa">
-			<i class="fas fa-exchange-alt"></i> Generar Multa
-		</button>
+		<button type="button" class="btn btn-primary btn-lg btn-primary-custom multa"> Generar Multa</button>
 	@endif
 	
 	@if ($inspeccion->estatusInspeccion->clave == 'V')
@@ -562,6 +560,34 @@
 						</div>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Alerta de error  -->
+<div class="modal fade" id="ocurrio-un-error" tabindex="-1" role="dialog" aria-labelledby="modal-ocurrio-un-error" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-ocurrio-un-error">Ocurrio un error</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-wrapper">
+					<div class="modal-icon">
+						<i class="fas fa-times-circle"></i>
+					</div>
+					<div class="modal-text">
+						<h4>Lo sentimos</h4>
+						<p>Algo salio mal durante el proceso. Intentalo de nuevo.</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
 			</div>
 		</div>
 	</div>

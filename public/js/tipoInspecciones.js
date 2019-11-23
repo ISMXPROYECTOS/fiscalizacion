@@ -109,7 +109,7 @@ $(document).ready(function(){
 										if (response.documentacionPorTipoDeInspeccion[i].documentacionrequerida_id == response.documentacionRequerida[a].id) {
 											$('#documentos-editar').append(
 												"<div class='form-check'>"+
-												"<input class='form-check-input checkbox-documento' checked='checked' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+												"<input class='form-check-input checkbox-documento check-editar' checked='checked' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
 												"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
 												"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
 												response.documentacionRequerida[a].nombre+
@@ -117,54 +117,24 @@ $(document).ready(function(){
 												"</div>"
 											);
 
-											// $('#tbody-documentos').append(
-											// 	"<tr>"+
-											// 		"<th scope='row'>"+
-											// 			"<div class='form-check'>"+
-											// 				"<input class='form-check-input checkbox-documento' checked='checked' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
-											// 				"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
-											// 			"</div>"+
-											// 		"</th>"+
-
-											// 		"<td>"+
-											// 			"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
-											// 					response.documentacionRequerida[a].nombre+
-											// 			"</label>"+
-											// 		"</td>"+
-											// 	"</tr>"
-											// );
+						
 										} else {
 											$('#documentos-editar').append(
 												"<div class='form-check'>"+
-												"<input class='form-check-input checkbox-documento' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+												"<input class='form-check-input checkbox-documento check-editar' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
 												"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
 												"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
 												response.documentacionRequerida[a].nombre+
 												"</label>"+
 												"</div>"
 											);
-											// $('#tbody-documentos').append(
-											// 	"<tr>"+
-											// 		"<th scope='row'>"+
-											// 			"<div class='form-check'>"+
-											// 				"<input class='form-check-input checkbox-documento' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
-											// 				"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
-											// 			"</div>"+
-											// 		"</th>"+
-
-											// 		"<td>"+
-											// 			"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
-											// 					response.documentacionRequerida[a].nombre+
-											// 			"</label>"+
-											// 		"</td>"+
-											// 	"</tr>"
-											// );
+									
 										}
 									} else {
 										if (response.documentacionPorTipoDeInspeccion[i].documentacionrequerida_id == response.documentacionRequerida[a].id) {
 											$('#documentos-editar').append(
 												"<div class='form-check'>"+
-												"<input class='form-check-input checkbox-documento' checked='checked' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+												"<input class='form-check-input checkbox-documento check-editar' checked='checked' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
 												"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
 												"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
 												response.documentacionRequerida[a].nombre+
@@ -172,29 +142,14 @@ $(document).ready(function(){
 												"</div>"
 											);
 
-											// $('#tbody-documentos').append(
-											// 	"<tr>"+
-											// 		"<th scope='row'>"+
-											// 			"<div class='form-check'>"+
-											// 				"<input class='form-check-input checkbox-documento' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
-											// 				"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
-											// 			"</div>"+
-											// 		"</th>"+
-
-											// 		"<td>"+
-											// 			"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
-											// 				response.documentacionRequerida[a].nombre+
-											// 			"</label>"+
-											// 		"</td>"+
-											// 	"</tr>"
-											// );
+									
 
 											i++;
 
 										} else {
 											$('#documentos-editar').append(
 												"<div class='form-check'>"+
-												"<input class='form-check-input checkbox-documento'  type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+												"<input class='form-check-input checkbox-documento check-editar'  type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
 												"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
 												"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
 												response.documentacionRequerida[a].nombre+
@@ -202,22 +157,6 @@ $(document).ready(function(){
 												"</div>"
 											);
 
-											// $('#tbody-documentos').append(
-											// 	"<tr>"+
-											// 		"<th scope='row'>"+
-											// 			"<div class='form-check'>"+
-											// 				"<input class='form-check-input checkbox-documento'  type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
-											// 				"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
-											// 			"</div>"+
-											// 		"</th>"+
-
-											// 		"<td>"+
-											// 			"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
-											// 				response.documentacionRequerida[a].nombre+
-											// 			"</label>"+
-											// 		"</td>"+
-											// 	"</tr>"
-											// );
 										}
 									}
 								}
@@ -225,29 +164,14 @@ $(document).ready(function(){
 						} else {
 							for (var a = 0; a < response.documentacionRequerida.length; a++) {
 								$('#documentos-editar').append("<div class='form-check'>"+
-									"<input class='form-check-input checkbox-documento'  type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
+									"<input class='form-check-input checkbox-documento check-editar' type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
 									"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
 									"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
 									response.documentacionRequerida[a].nombre+
 									"</label></div>"
 								);
 
-								// $('#tbody-documentos').append(
-								// 	"<tr>"+
-								// 		"<th scope='row'>"+
-								// 			"<div class='form-check'>"+
-								// 				"<input class='form-check-input checkbox-documento'  type='checkbox' value='"+ response.documentacionRequerida[a].id +"'"+
-								// 				"id='documento-editar-"+response.documentacionRequerida[a].id+"' name='documentos-requeridos[]'>"+
-								// 			"</div>"+
-								// 		"</th>"+
-
-								// 		"<td>"+
-								// 			"<label class='form-check-label' for='documento-editar-"+response.documentacionRequerida[a].id+"'>"+
-								// 				response.documentacionRequerida[a].nombre+
-								// 			"</label>"+
-								// 		"</td>"+
-								// 	"</tr>"
-								// );
+						
 							}
 						}
 					} else {
@@ -302,7 +226,7 @@ $(document).ready(function(){
 	    });
 
 		$('.check').each(function(key, value){
-			console.log('#'+value.id);
+			//console.log('#'+value.id);
 	        $('#'+value.id).click(function(){
 	            if ($(".check").length == $(".check:checked").length) {
 	                $("#seleccionar-todos").prop("checked", true);
@@ -316,6 +240,28 @@ $(document).ready(function(){
 	}
 
 	seleccionarTodos();
+
+	function seleccionarTodosEditar(){
+		$("#seleccionar-todos-editar").click(function() {
+	        $(".check-editar").prop("checked", this.checked);
+	    });
+
+		$('.check-editar').each(function(key, value){
+			console.log("hola");
+	        $('#'+value.id).click(function(){
+	            if ($(".check-editar").length == $(".check-editar:checked").length) {
+	                $("#seleccionar-todos-editar").prop("checked", true);
+	                
+	            } else {
+	                $("#seleccionar-todos-editar").prop("checked", false);
+	                
+	            }
+	        }); 
+	    }); 
+	}
+
+	seleccionarTodosEditar();
+
 
 	
 	

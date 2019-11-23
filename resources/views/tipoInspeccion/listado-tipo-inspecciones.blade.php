@@ -61,9 +61,22 @@
                     <div class="alert alert-info" role="alert">
                       Selecciona los documentos requeridos para este tipo de inspección.
                     </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="seleccionar-todos">
+                        <label for="">Seleccionar todos</label>
+                    </div>
+                    
                     <div id="documentos">
-                        
-                            <table class="table table-sm">
+                        @foreach($documentos as $documento)
+                            <div class="form-check">
+                              <input class="form-check-input checkbox-documento check" type="checkbox" value="{{ $documento->id }}" id="documento-{{ $documento->id }}" name="documentos-requeridos[]">
+                              <label class="form-check-label" for="documento-{{ $documento->id }}">
+                                {{ $documento->nombre }}
+                              </label>
+                            </div>
+                        @endforeach
+                           <!--  <table class="table table-sm">
                               <thead class="thead-dark">
                                 <tr>
                                   <th scope="col">
@@ -92,7 +105,7 @@
                               
                               @endforeach
                               </tbody>
-                            </table>
+                            </table> -->
 
                         
                     </div>
@@ -148,10 +161,15 @@
                     <div class="alert alert-info" role="alert">
                       Selecciona los documentos requeridos para este tipo de inspección.
                     </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="seleccionar-todos-editar">
+                        <label for="seleccionar-todos-editar">Seleccionar todos</label>
+                    </div>
 
                     <div id="documentos-editar">
-                        <h1>HOLA</h1>
 
+                        
                        <!-- <table class="table table-sm">
                             <thead class="thead-dark">
                                 <tr>

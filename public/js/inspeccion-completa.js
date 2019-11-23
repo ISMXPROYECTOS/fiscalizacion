@@ -86,7 +86,7 @@ $(document).ready(function(){
 								"<tr class='results'>"+
 								"<th>"+
 								"<div class='form-check'>"+
-								"<input class='form-check-input check' type='checkbox' value='"+ value.id +"' id='comercio-"+ value.id +"' name='establecimiento'>"+
+								"<input class='form-check-input ' type='radio' value='"+ value.id +"' id='comercio-"+ value.id +"' name='establecimiento'>"+
 								"</div>"+
 								"</th>"+
 								"<td>"+ value.licenciafuncionamiento +"</td>"+
@@ -117,7 +117,7 @@ $(document).ready(function(){
 								"<tr class='results'>"+
 								"<th>"+
 								"<div class='form-check'>"+
-								"<input class='form-check-input check' type='checkbox' value='"+ value.id +"' id='comercio-"+ value.id +"' name='establecimiento'>"+
+								"<input class='form-check-input ' type='radio' value='"+ value.id +"' id='comercio-"+ value.id +"' name='establecimiento'>"+
 								"</div>"+
 								"</th>"+
 								"<td>"+ value.licenciafuncionamiento +"</td>"+
@@ -262,7 +262,7 @@ $(document).ready(function(){
 						$('#actualizacion-correcta').modal('show');
 					} else {
 						$('#agregar-multa').modal('hide');
-						$('#actualizacion-correcta').modal('show');
+						$('#ocurrio-un-error').modal('show');
 					}
 				},
 				error: function(response) {
@@ -279,5 +279,6 @@ $(document).ready(function(){
 	}
 
 	confirmarMulta();
+
 
 });

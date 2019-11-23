@@ -74,8 +74,9 @@ $(document).ready(function(){
 					if (response.code == 200) {
 						$('#creando-pdf-inspecciones').modal('show');
 						$('#descargas').append(
-							"<a href='"+ url + '/pdf/descargar-pdf-inspecciones/' + id +"'>Descargar Común</a>" +
-							"<a href='"+ url + '/pdf/descargar-pdf-inspecciones-complejas/' + id +"'>Descargar Compleja</a>"
+							"<a href='"+ url + '/pdf/descargar-pdf-inspecciones/' + id +"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
+							"&nbsp;"+
+							"<a href='"+ url + '/pdf/descargar-pdf-inspecciones-complejas/' + id +"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Complejo</a>"
 						);
 						//window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
 					} else {
@@ -118,14 +119,18 @@ $(document).ready(function(){
 								return "<span class='badge badge-pill badge-primary'>"+ row.estatus_inspeccion.nombre +"</span>";
 							} else if(row.estatus_inspeccion.clave == 'Cap'){
 								return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
-							} else if(row.estatus_inspeccion.clave == 'S'){
-								return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
 							} else if (row.estatus_inspeccion.clave == 'V') {
 								return "<span class='badge badge-pill badge-danger'>"+ row.estatus_inspeccion.nombre +"</span>";
-							} else if (row.estatus_inspeccion.clave == 'C') {
-								return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
+							} else if (row.estatus_inspeccion.clave == 'Epc') {
+								return "<span class='badge badge-pill badge-epc'>"+ row.estatus_inspeccion.nombre +"</span>";
+							} else if(row.estatus_inspeccion.clave == 'M'){
+								return "<span class='badge badge-pill badge-multa'>"+ row.estatus_inspeccion.nombre +"</span>";
 							} else if(row.estatus_inspeccion.clave == 'P'){
 								return "<span class='badge badge-pill badge-info'>"+ row.estatus_inspeccion.nombre +"</span>";
+							} else if(row.estatus_inspeccion.clave == 'S'){
+								return "<span class='badge badge-pill badge-solventada'>"+ row.estatus_inspeccion.nombre +"</span>";
+							} else if (row.estatus_inspeccion.clave == 'C') {
+								return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
 							}
 						}
 					},
