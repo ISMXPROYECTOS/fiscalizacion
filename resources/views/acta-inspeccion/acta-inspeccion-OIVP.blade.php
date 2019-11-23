@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<title>INSPECCION 2019-2021</title>
 		
-		<link rel="stylesheet" href="{{ asset('css/acta-inspeccion.css') }}" />
+		<link rel="stylesheet" href="{{ asset('css/acta-inspeccion-oivp.css') }}" />
 		
 	</head>
 	<body>
