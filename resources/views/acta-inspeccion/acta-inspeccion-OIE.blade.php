@@ -50,9 +50,71 @@
 
 			<p class="contenido-general">Finalmente, se le hace saber al visitado, que el expediente administrativo abierto con motivo de la presente diligencia, se encuentra para su consulta en las oficinas de esta Dirección de Fiscalización, ubicada en la Avenida Tulum, 5, supermanzana 5, C.P. 77500, de esta Ciudad de Cancún, Municipio de Benito Juárez, Quintana Roo.</p>
 
+
+			<div class="mt-5">
+				@if(is_object($inspeccion->formavalorada))
+				<p class="firma-encargado text-center">ATENTAMENTE</p>.
+
+				<p class="firma-encargado text-center">{{ $inspeccion->formavalorada->encargado->nombre }} {{ $inspeccion->formavalorada->encargado->apellidopaterno }} {{ $inspeccion->formavalorada->encargado->apellidomaterno }}</p>
+
+				<p class="firma-encargado text-center">{{ $inspeccion->formavalorada->encargado->puesto }}</p>
+				@endif
+			</div>
+
 		</div>
 
 		<div class="page_break"></div>
+
+		<img src="{{ asset('img/header-acta-inspeccion-est.jpg') }}" width="100%">
+		<br>
+		<div class="container">
+			<p class="oi-header-datos mbt-0 ">MUNICIPIO DE BENITO JUÁREZ</p>
+			<p class="oi-header-datos mbt-0 ">TESORERÍA MUNICIPAL</p>
+			<p class="oi-header-datos mbt-0 ">DIRECCIÓN DE FISCALIZACIÓN</p>
+			<p class="oi-header-datos mbt-0 ">FOLIO: {{ $inspeccion->folio }}</p>
+
+			<br>
+
+			<p class="ai-contenido-general">En la ciudad de Cancún, Municipio de Benito Juárez, Quintana Roo, Quintana Roo, siendo las _____ horas del día _____ de __________ del año ______, en cumplimiento a la orden de visita de verificación número {{ $inspeccion->folio }} de "AQUI IRA LA FECHA", emitida por el Ingeniero Alberto Covarrubias Cortés, en su carácter de Director de Fiscalización de la Tesorería Municipal de Benito Juárez, Quintana Roo, el (los) Verificador(es) _______________________________________________________________ adscrito(s) a la Dirección de Fiscalización de la Tesorería del Municipio de Benito Juárez, Quintana Roo, me constituí en el domicilio ubicado en ________________________________________________________________ en busca del propietario, representante legal, encargado o dependiente de la empresa __________________________________________________ con giro o actividades de ESTACIONAMIENTO AL PÚBLICO, cuyo Registro Federal de Contribuyentes es ________________________________ cerciorándome que es el domicilio buscado por medio de _____________________________________________________________________________________________________________ atendiendo la diligencia quien dijo llamarse _________________________________________________________ en su caracter de _______________________________________________________________________ acreditándolo con ______________________________________________________________________, y quien se identifica con ________________________________________________________________________ número ____________________________
+			expedida por ___________________________________________________________.</p>
+
+			<p class="ai-contenido-general">Acto seguido, de conformidad con los artículos 66 y 67 del Código de Justicia Administrativa del Estado de Quintana Roo,  71 y 72 fracción II y III del Reglamento de Estacionamientos del Municipio de Benito Juárez se procede al desahogo de la diligencia de verificación, identificándose el/la suscrito/a ante la persona que atiende la diligencia,  con credencial(es) número(s) _______________________________________ con fotografía, vigentes del _________ al _____________________________ expedida(s), por el el Tesorero Municipal del Municipio de Benito Juárez, Quintana Roo, Lic. Marcelo José Guzmán, con fundamento en lo dispuesto en el artículo 11 fracción XI del Reglamento Interior de la Tesorería del Municipio de Benito Juárez, Quintana Roo, documentos que contiene su firma autógrafa y fotografía misma, que me(nos) acredita(n) como verificador(es) adscrito a la Dirección de Fiscalización de la Tesorería del Municipio de Benito Juárez. Exhortando al visitado para que corrobore que la(s) fotografía(s) que aparece(n) en dicha(s) credencial(es) concuerda(n) con los rasgos fisonómicos del (los) que actúa(n), procediendo en este acto a hacer entrega a la persona que atiende la diligencia, el original de la orden de verificación en términos del artículo 66 del Código de Justicia Administrativa del Estado de Quintana Roo. Acto seguido, de conformidad con lo establecido por el artículo 67 del Código de Justicia Administrativa del Estado de Quintana Roo y 72 fracción V, del Reglamento de Estacionamientos del Municipio de Benito Juárez,   se le hace saber el derecho que tiene para nombrar a dos testigos de asistencia, y en caso de no hacerlo, éstos serán designados por el(los) propio(s) verificador(es), manifestando que sí (____) no (____) los designa, por lo que el visitado (____) el verificador (____) designa como: Primer testigo a: ___________________________________________________________ de ______ años de edad, quien se identifica con ___________________________________________ número ______________________ expedida por ______________________________________________________________________ con domicilio en ______________________________________________________________________________ y como segundo testigo a: ___________________________________________________________ de ______ años de edad, quien se identifica con ___________________________________________ número ______________________ expedida por ______________________________________________________________________ con domicilio en ______________________________________________________________________________</p>
+
+
+			<p class="ai-contenido-general">Con la asistencia de los testigos antes mencionados, se procede a verificar al establecimiento de acuerdo al siguiente cuestionario:</p>
+
+			@foreach($documentos as $documento)
+
+			<table class="ai-documentacion-requerida">
+				<!-- <thead>
+					<tr>
+						<th class="doc">Documentación</th>
+						<th class="sol">SO</th>
+						<th class="exh">NO</th>
+						<th class="obs">N/A</th>
+					</tr>
+				</thead> -->
+				<tbody>
+					<tr>
+						<td class="doc">{{ $documento->documentacionRequerida->nombre }}</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<br>
+
+			@endforeach
+		</div>
+		
+
+		<div class="page_break"></div>
+
+
+
 	@endforeach
 	
 </body>

@@ -21,6 +21,10 @@ b{
 	margin-top: 0;
 }
 
+.mt-5{
+	margin-top: 5%;
+}
+
 .mbt-0{
 	margin-bottom: 0;
 	margin-top: 0;	
@@ -51,13 +55,65 @@ b{
 .contenido-general{
 	font-family: arial;
 	text-align: justify;
-	font-size: .60em;
+	font-size: .70em;
+}
+
+.firma-encargado{
+	font-family: arialb;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 
 /* Fin Orden de Inspeccion */
 
 /* Acta de Inspeccion */
+
+.ai-contenido-general{
+	font-family: arial;
+	text-align: justify;
+	font-size: .70em;
+}
+
+.ai-documentacion-requerida{
+	font-family: arial;
+	border-collapse: collapse;
+	border: 1px solid black;
+	width: 100%;
+}
+
+.ai-documentacion-requerida td{
+	font-size: .55em;
+	font-family: arialb;
+	/*text-align: center;*/
+	/*text-transform: uppercase;*/
+	border: 1px solid black;
+}
+
+.ai-documentacion-requerida th{
+	font-family: arialb;
+	font-size: .55em;
+	/*text-transform: uppercase;*/
+	/*text-align: center;*/
+	border: 1px solid black;
+}
+
+.ai-documentacion-requerida .nombre-documento{
+	text-align: left !important;
+	font-size: .37em !important;
+}
+
+.ai-documentacion-requerida .doc{
+	width: 50%;
+}
+
+.ai-documentacion-requerida .sol, .ai-documentacion-requerida .exh, .ai-documentacion-requerida .na{
+	text-align: center;
+	width: 5%;
+}
+
+
+/* Fin Acta de Inspección*/
 
 .page_break{
 	page-break-after: always;
