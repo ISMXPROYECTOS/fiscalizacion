@@ -66,8 +66,9 @@
 		<div class="page_break"></div>
 
 		<img src="{{ asset('img/header-acta-inspeccion-est.jpg') }}" width="100%">
-		<br>
+		
 		<div class="container">
+			<br>
 			<p class="oi-header-datos mbt-0 ">MUNICIPIO DE BENITO JUÁREZ</p>
 			<p class="oi-header-datos mbt-0 ">TESORERÍA MUNICIPAL</p>
 			<p class="oi-header-datos mbt-0 ">DIRECCIÓN DE FISCALIZACIÓN</p>
@@ -78,9 +79,11 @@
 			<p class="ai-contenido-general">En la ciudad de Cancún, Municipio de Benito Juárez, Quintana Roo, Quintana Roo, siendo las _____ horas del día _____ de __________ del año ______, en cumplimiento a la orden de visita de verificación número {{ $inspeccion->folio }} de "AQUI IRA LA FECHA", emitida por el Ingeniero Alberto Covarrubias Cortés, en su carácter de Director de Fiscalización de la Tesorería Municipal de Benito Juárez, Quintana Roo, el (los) Verificador(es) _______________________________________________________________ adscrito(s) a la Dirección de Fiscalización de la Tesorería del Municipio de Benito Juárez, Quintana Roo, me constituí en el domicilio ubicado en ________________________________________________________________ en busca del propietario, representante legal, encargado o dependiente de la empresa __________________________________________________ con giro o actividades de ESTACIONAMIENTO AL PÚBLICO, cuyo Registro Federal de Contribuyentes es ________________________________ cerciorándome que es el domicilio buscado por medio de _____________________________________________________________________________________________________________ atendiendo la diligencia quien dijo llamarse _________________________________________________________ en su caracter de _______________________________________________________________________ acreditándolo con ______________________________________________________________________, y quien se identifica con ________________________________________________________________________ número ____________________________
 			expedida por ___________________________________________________________.</p>
 
-			<p class="ai-contenido-general">Acto seguido, de conformidad con los artículos 66 y 67 del Código de Justicia Administrativa del Estado de Quintana Roo,  71 y 72 fracción II y III del Reglamento de Estacionamientos del Municipio de Benito Juárez se procede al desahogo de la diligencia de verificación, identificándose el/la suscrito/a ante la persona que atiende la diligencia,  con credencial(es) número(s) _______________________________________ con fotografía, vigentes del _________ al _____________________________ expedida(s), por el el Tesorero Municipal del Municipio de Benito Juárez, Quintana Roo, Lic. Marcelo José Guzmán, con fundamento en lo dispuesto en el artículo 11 fracción XI del Reglamento Interior de la Tesorería del Municipio de Benito Juárez, Quintana Roo, documentos que contiene su firma autógrafa y fotografía misma, que me(nos) acredita(n) como verificador(es) adscrito a la Dirección de Fiscalización de la Tesorería del Municipio de Benito Juárez. Exhortando al visitado para que corrobore que la(s) fotografía(s) que aparece(n) en dicha(s) credencial(es) concuerda(n) con los rasgos fisonómicos del (los) que actúa(n), procediendo en este acto a hacer entrega a la persona que atiende la diligencia, el original de la orden de verificación en términos del artículo 66 del Código de Justicia Administrativa del Estado de Quintana Roo. Acto seguido, de conformidad con lo establecido por el artículo 67 del Código de Justicia Administrativa del Estado de Quintana Roo y 72 fracción V, del Reglamento de Estacionamientos del Municipio de Benito Juárez,   se le hace saber el derecho que tiene para nombrar a dos testigos de asistencia, y en caso de no hacerlo, éstos serán designados por el(los) propio(s) verificador(es), manifestando que sí (____) no (____) los designa, por lo que el visitado (____) el verificador (____) designa como: Primer testigo a: ___________________________________________________________ de ______ años de edad, quien se identifica con ___________________________________________ número ______________________ expedida por ______________________________________________________________________ con domicilio en ______________________________________________________________________________ y como segundo testigo a: ___________________________________________________________ de ______ años de edad, quien se identifica con ___________________________________________ número ______________________ expedida por ______________________________________________________________________ con domicilio en ______________________________________________________________________________</p>
+			<p class="ai-contenido-general">Acto seguido, de conformidad con los artículos 66 y 67 del Código de Justicia Administrativa del Estado de Quintana Roo,  71 y 72 fracción II y III del Reglamento de Estacionamientos del Municipio de Benito Juárez se procede al desahogo de la diligencia de verificación, identificándose el/la suscrito/a ante la persona que atiende la diligencia,  con credencial(es) número(s) _______________________________________ con fotografía, vigentes del _________ al _____________________________ expedida(s), por el el Tesorero Municipal del Municipio de Benito Juárez, Quintana Roo, Lic. Marcelo José Guzmán, con fundamento en lo dispuesto en el artículo 11 fracción XI del Reglamento Interior de la Tesorería del Municipio de Benito Juárez, Quintana Roo, documentos que contiene su firma autógrafa y fotografía misma, que me(nos) acredita(n) como verificador(es) adscrito a la Dirección de Fiscalización de la Tesorería del Municipio de Benito Juárez. Exhortando al visitado para que corrobore que la(s) fotografía(s) que aparece(n) en dicha(s) credencial(es) concuerda(n) con los rasgos fisonómicos del (los) que actúa(n), procediendo en este acto a hacer entrega a la persona que atiende la diligencia, el original de la orden de verificación en términos del artículo 66 del Código de Justicia Administrativa del Estado de Quintana Roo. Acto seguido, de conformidad con lo establecido por el artículo 67 del Código de Justicia Administrativa del Estado de Quintana Roo y 72 fracción V, del Reglamento de Estacionamientos del Municipio de Benito Juárez,   se le hace saber el derecho que tiene para nombrar a dos testigos de asistencia, y en caso de no hacerlo, éstos serán designados por el(los) propio(s) verificador(es), manifestando que sí (____) no (____) los designa, por lo que el visitado (____) el verificador (____) designa como: Primer testigo a: ___________________________________________________________ de ______ años de edad, quien se identifica con ___________________________________________ número ______________________ expedida por ______________________________________________________________________ con domicilio en ______________________________________________________________________________ y como segundo testigo a: ___________________________________________________________ de ______ años de edad, quien se identifica con ___________________________________________ número ______________________ expedida por ______________________________________________________________________ con domicilio en _______________________________________________________________________________________________________.</p>
 
-
+			<br>
+			<br>
+			<br>
 			<p class="ai-contenido-general">Con la asistencia de los testigos antes mencionados, se procede a verificar al establecimiento de acuerdo al siguiente cuestionario:</p>
 
 			@foreach($documentos as $documento)
@@ -108,6 +111,82 @@
 			<br>
 
 			@endforeach
+
+			<p class="ai-contenido-general">En virtud de la presente verificación y en cuanto se infringe el Reglamento de Estacionamientos del Municipio de Benito Juárez en sus artículos _____________________________________________________________________________________, ello en razón de que el establecimiento visitado, no cumple con las preguntas números _____________________________________________________________________________________, del cuestionario asentado en la presente acta, para dar cumplimiento a lo señalado en el artículo 72, fracción III del Reglamento de Estacionamientos del Municipio de Benito Juárez, sirva la presente acta circunstanciada como notificación del resultado de la visita. Asimismo, con fundamento en el artículo 72, fracción IV del Reglamento de Estacionamientos del Municipio de Benito Juárez, una vez que ya fue notificado al establecimiento el resultado de la visita, en este acto se le hace saber al visitado que cuenta con un plazo de cinco días hábiles contados a partir del día siguiente de la presente diligencia, para inconformarse y aportar las pruebas y formular los alegatos que a su derecho convengan.</p>
+
+			<p class="ai-contenido-general mb-0">Finalmente el suscrito, exhorta a la persona con quien se entiende la diligencia, para manifestar lo que a su derecho convenga, quien manifiesta que: ________________________________________________________________________________________________________________</p>
+			<p class="ai-contenido-general mbt-0">____________________________________________________________________________________________________________________</p>
+			<p class="ai-contenido-general mbt-0">____________________________________________________________________________________________________________________</p>
+			<p class="ai-contenido-general mbt-0">____________________________________________________________________________________________________________________</p>
+
+
+			<p class="ai-contenido-general mb-0">Independientemente de lo anterior, el verificador formula las siguientes observaciones: ______________________________________________</p>
+			<p class="ai-contenido-general mbt-0">____________________________________________________________________________________________________________________</p>
+			<p class="ai-contenido-general mbt-0">____________________________________________________________________________________________________________________</p>
+			<p class="ai-contenido-general mbt-0">____________________________________________________________________________________________________________________</p>
+
+			<p class="ai-contenido-general">Con fundamento en el artículo 72, fracción VII del Reglamento de Estacionamientos del Municipio de Benito Juárez, se hace constar que el establecimiento visitado si (____) no (____) cuenta con libro de visitas, por lo que si (____) no (____) se anotó una síntesis de la diligencia practicada.</p>
+
+			<p class="ai-contenido-general">Cabe señalar que con fundamento en el artículo 67 del Código de Justicia Administrativa del Estado de Quintana Roo, y 72 fracción V del Reglamento de Estacionamientos del Municipio de Benito Juárez, se hace del conocimiento del visitado que el hecho de negarse a designar testigos y/o firmar el acta, no invalida el acta.</p>
+
+			<p class="ai-contenido-general">No habiendo más que agregar, se cierra la presente acta a las ________ horas, el dia _______ del mes de _________________________, del año 2020, firmando de conformidad al margen y al calce los que en ella intervinieron y quisieron hacerlo, entregándose copia legible de la misma a la persona con quien se entendió la Diligencia misma que consta de (____) fojas útiles.</p>
+			
+			<br>
+			<br>
+			<br>
+
+			<table class="firma-verificador-visitado">
+				<!-- <thead>
+					<tr>
+						<th class="doc">Documentación</th>
+						<th class="sol">SO</th>
+						<th class="exh">NO</th>
+						<th class="obs">N/A</th>
+					</tr>
+				</thead> -->
+				<tbody class="text-center">
+					<tr>
+						<td class="">VERIFICADOR</td>
+						
+						<td class="">EL VISITADO</td>
+						
+					</tr>
+
+					<tr>
+						<td>_____________________________</td>
+						<td>_____________________________</td>
+					</tr>
+
+					
+				</tbody>
+			</table>
+			<br>
+			<br>
+			<br>
+
+			<table class="firma-verificador-visitado">
+				<!-- <thead>
+					<tr>
+						<th class="doc">Documentación</th>
+						<th class="sol">SO</th>
+						<th class="exh">NO</th>
+						<th class="obs">N/A</th>
+					</tr>
+				</thead> -->
+				<tbody class="text-center">
+
+					<tr>
+						<td class="">PRIMER TESTIGO</td>
+						<td class="">SEGUNDO TESTIGO</td>
+					</tr>
+
+					<tr>
+						<td>_____________________________</td>
+						<td>_____________________________</td>
+					</tr>
+				</tbody>
+			</table>
+
 		</div>
 		
 

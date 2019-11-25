@@ -82,6 +82,8 @@ b{
 	width: 100%;
 }
 
+
+
 .ai-documentacion-requerida td{
 	font-size: .55em;
 	font-family: arialb;
@@ -110,6 +112,12 @@ b{
 .ai-documentacion-requerida .sol, .ai-documentacion-requerida .exh, .ai-documentacion-requerida .na{
 	text-align: center;
 	width: 5%;
+}
+
+.firma-verificador-visitado{
+	font-family: arial;
+
+	width: 100%;
 }
 
 
