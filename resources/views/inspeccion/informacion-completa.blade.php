@@ -342,7 +342,7 @@
 		<textarea class="form-control" id="observacion" rows="3"  name="observacion">{{ $inspeccion->comentario }}</textarea>
 	</div>
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-lg-4">
 			<h3>Gestor a cargo</h3>
 			<hr>
 			@if(is_object($inspeccion->gestor))
@@ -395,9 +395,41 @@
 			</div>
 			@endif
 		</div>
-		<div class="col-lg-6">
+		<div class="col-lg-8">
 			<h3>Prorroga </h3>
 			<hr>
+			<p>Historial de Prorrogas</p>
+			<div class="historial-prorrogas">
+				@if ($historial_prorroga->isEmpty())
+					<p>No hay resultados</p>
+
+				@else
+					<table class="table table-sm">
+					  <thead>
+					    <tr>
+					      <th scope="col">Usuario</th>
+					      <th scope="col">Multa</th>
+					      <th scope="col">Dias</th>
+					      <th scope="col">Observaciones</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    
+					    @foreach($historial_prorroga as $historial)
+							<tr> 
+						      <td>{{ $historial->usuario_id}}</td>
+						      <td>{{ $historial->folioMulta }}</td>
+						      <td>{{ $historial->diasdeprorroga }}</td>
+						      <td>{{ $historial->observaciones }}</td>
+						    </tr>
+						@endforeach
+					  </tbody>
+					</table>
+				@endif
+				
+				
+			</div>
+			<br>
 			<button type="button" class="btn btn-primary btn-sm prorroga">
 				 Agregar prorroga
 			</button>
@@ -420,7 +452,10 @@
 	@endif
 
 	@if (auth()->user()->role == 'ROLE_ADMIN')
-		<a href="{{ route('limpiar-inspeccion', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Limpiar Inspección</a>
+		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#alerta-confirmacion-limpieza">
+		  Limpiar Inspección
+		</button>
+		
 	@endif
 </form>
 
@@ -588,6 +623,35 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Alerta de actualización -->
+<div class="modal fade" id="alerta-confirmacion-limpieza" tabindex="-1" role="dialog" aria-labelledby="modal-alerta-confirmacion-limpieza" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-alerta-confirmacion-limpieza">¡Cuidado!</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-wrapper">
+					<div class="modal-icon">
+						<i class="fas fa-exclamation-circle"></i>
+					</div>
+					<div class="modal-text">
+						<h4>¿Limpiar Inspeccion?</h4>
+						<p>¿Estas seguro que deseas limpiar esta inspección?</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="{{ route('limpiar-inspeccion', $inspeccion->id) }}" class="btn btn-lg ">Si</a>
+        		<button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
 			</div>
 		</div>
 	</div>

@@ -470,6 +470,9 @@ class InspeccionController extends Controller
 	public function verMasInformacion($id){
 		$inspeccion = Inspeccion::find($id)->load('documentacionPorInspeccion')->load('multa');
 		$multas = Multa::where('inspeccion_id', $inspeccion->id)->get();
+
+		$historial_prorroga = BitacoraDeProroga::where('inspeccion_id', $id)->get();
+
 		$ultima_multa = '';
 
 		if (!empty($multas)) {
@@ -507,6 +510,7 @@ class InspeccionController extends Controller
 					'comercios' => $comercios,
 					'inspectores' => $inspectores,
 					'multa' => $multa,
+					'historial_prorroga' => $historial_prorroga,
 					'ultima_multa' => $ultima_multa,
 					'is_edit' => $is_edit
 				]);
@@ -519,6 +523,7 @@ class InspeccionController extends Controller
 					'comercios' => $comercios,
 					'inspectores' => $inspectores,
 					'multa' => $multa,
+					'historial_prorroga' => $historial_prorroga,
 					'ultima_multa' => $ultima_multa,
 					'is_edit' => $is_edit
 				]);
