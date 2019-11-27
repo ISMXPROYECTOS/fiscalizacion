@@ -52,13 +52,18 @@ html .btn-primary:active, html .btn-primary.active, .show > html .btn-primary.dr
 }
 
 .badge-epc{
-  background: #B25100;
+  background: #D6AE8B;
   color:white;
 }
 
 .badge-multa{
   background: #000000;
   color:white;
+}
+
+.badge-claus{
+  background: #A65424;
+  color: white;
 }
 
 /* Modals */

@@ -34,6 +34,8 @@ $(document).ready(function(){
                             return "<span class='badge badge-pill badge-success'>"+ row.nombre +"</span>";
                         } else if(row.clave == 'Epc'){
                             return "<span class='badge badge-pill badge-epc'>"+ row.nombre +"</span>";
+                        } else if(row.clave == 'Claus'){
+                            return "<span class='badge badge-pill badge-claus'>"+ row.nombre +"</span>";
                         } else if(row.clave == 'M'){
                             return "<span class='badge badge-pill badge-multa'>"+ row.nombre +"</span>";
                         } else if(row.clave == 'S'){

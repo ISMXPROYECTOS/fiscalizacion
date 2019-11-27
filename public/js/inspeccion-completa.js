@@ -244,6 +244,7 @@ $(document).ready(function(){
 	function confirmarMulta(){
 		$('#btn-agregar-multa').click(function(){
 			var id = $('#id-agregar-multa').val();
+			console.log(id);
 			var data = {
 				'id' : id,
 				'cantidad-multa' : $('#cantidad-multa').val()
@@ -253,9 +254,13 @@ $(document).ready(function(){
 				data: data,
 				type: 'post',
 				headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+				beforeSend: function(){
+                    $('#btn-agregar-multa').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Generando multa...');
+                },
 				success: function (response) {
 					if (response.code == 200){
 						//$('#formulario-multa')[0].reset();
+						window.location.replace(url + "/pdf/descargar-multas/" + id);
 						$('#agregar-multa').modal('hide');
 						$('#error-cantidad-multa').addClass('hidden');
 						$('#error-cantidad-multa').text('');

@@ -31,6 +31,8 @@ $(document).ready(function(){
 							return "<span class='badge badge-pill badge-danger'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if (row.estatus_inspeccion.clave == 'Epc') {
 							return "<span class='badge badge-pill badge-epc'>"+ row.estatus_inspeccion.nombre +"</span>";
+						} else if (row.estatus_inspeccion.clave == 'Claus') {
+							return "<span class='badge badge-pill badge-claus'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if(row.estatus_inspeccion.clave == 'M'){
 							return "<span class='badge badge-pill badge-multa'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if(row.estatus_inspeccion.clave == 'P'){

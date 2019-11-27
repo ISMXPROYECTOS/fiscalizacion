@@ -14,6 +14,7 @@ use App\EjercicioFiscal;
 use App\FormaValorada;
 use App\Inspeccion;
 use App\Gafete;
+use App\Multa;
 use App\EstatusInspeccion;
 use App\BitacoraDeEstatus;
 
@@ -108,6 +109,18 @@ class PdfController extends Controller
 		
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+	}
+
+	public function descargarMultas($id){
+		$multa = Multa::where('inspeccion_id', $id)->get();
+
+
+		// $inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
+		// $documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
+		// $ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		
+		$pdf = PDF::loadView('multas.multas', ['multa' => $multa]);
+		return $pdf->download('Multa.pdf');
 	}
 
 	public function descargarOrdenClausura($id){

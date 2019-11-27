@@ -44,6 +44,11 @@
 		<label for="">Estatus: </label>
 		<label for=""> <span class="badge badge-pill badge-epc">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
 	</div>
+@elseif($inspeccion->estatusInspeccion->clave == "Claus")
+	<div>
+		<label for="">Estatus: </label>
+		<label for=""> <span class="badge badge-pill badge-claus">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+	</div>
 @elseif($inspeccion->estatusInspeccion->clave == "M")
 	<div>
 		<label for="">Estatus: </label>
@@ -591,7 +596,7 @@
 							<button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancelar</button>
 						</div>
 						<div class="col-md-6">
-							<button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-agregar-multa">{{ __('Guardar') }}</button>
+							<button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-agregar-multa">{{ __('Generar multa') }}</button>
 						</div>
 					</div>
 				</form>
