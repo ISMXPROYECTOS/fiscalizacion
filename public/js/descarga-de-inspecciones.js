@@ -73,11 +73,17 @@ $(document).ready(function(){
 				success: function (response) {
 					if (response.code == 200) {
 						$('#creando-pdf-inspecciones').modal('show');
-						$('#descargas').append(
-							"<a href='"+ url + '/pdf/descargar-pdf-inspecciones/' + id +"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
-							"&nbsp;"+
-							"<a href='"+ url + '/pdf/descargar-pdf-inspecciones-complejas/' + id +"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Complejo</a>"
-						);
+						if (response.FormaValorada.tipo_inspeccion.clave == 'OIVP') {
+							$('#descargas').append(
+								"<a href='"+ url + '/pdf/descargar-pdf-inspecciones/' + id +"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
+								"&nbsp;"+
+								"<a href='"+ url + '/pdf/descargar-pdf-inspecciones-complejas/' + id +"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Complejo</a>"
+							);
+						} else {
+							$('#descargas').append(
+								"<a href='"+ url + '/pdf/descargar-pdf-inspecciones/' + id +"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>"
+							);
+						}
 						//window.location.replace(url + "/pdf/descargar-pdf-inspecciones/" + id);
 					} else {
 						$('#validar-folios-asignados').modal('show');
