@@ -91,8 +91,35 @@ class InspeccionController extends Controller
 
 	/* Método encargado de ir a la base de datos seleccionar la información solicitada y devolverla a la petición para ser mostrada */
 	public function tbody(){
-		$inspecciones = Inspeccion::all()->load('tipoInspeccion')->load('estatusInspeccion')->load('inspector')->load('comercio');
-		return Datatables::of($inspecciones)
+		//$inspecciones = Inspeccion::all()->load('tipoInspeccion')->load('estatusInspeccion')->load('inspector')->load('comercio');
+
+		return Datatables::of(Inspeccion::query()->with([
+			'tipoInspeccion' => function($query){
+				$query->select(['id', 'clave']);
+			}
+		])->with([
+			'estatusInspeccion' => function($query){
+				$query->select(['id', 'clave', 'nombre']);
+			}
+		])->with([
+			'inspector' => function($query){
+				$query->select(['id', 'nombre']);
+			}
+		])->with([
+			'comercio' => function($query){
+				$query->select(['id', 'nombreestablecimiento']);
+			}
+		])->orderBy('id', 'asc')->get([
+			'id',
+			'comercio_id',
+			'tipoinspeccion_id',
+			'inspector_id',
+			'estatusinspeccion_id',
+			'folio',
+			'created_at',
+			'fechavence',
+			'fechaprorroga'
+		]))
 			->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
 			->rawColumns(['cambiarestatus'])
 			->make(true);
