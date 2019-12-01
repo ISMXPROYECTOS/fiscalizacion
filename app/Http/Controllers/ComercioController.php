@@ -28,7 +28,14 @@ class ComercioController extends Controller
 			'estatus'
 		]);
 		*/
-		return Datatables::of(Comercio::query())
+		return Datatables::of(Comercio::query()->select([
+			'id',
+			'propietarionombre',
+			'nombreestablecimiento',
+			'domiciliofiscal',
+			'rfc',
+			'clavecatastral',
+			'estatus']))
 			->addColumn('cambiarestatus', 'comercio/boton-estatus')
 			->addColumn('editar', 'comercio/boton-editar')
 			->rawColumns(['editar', 'cambiarestatus'])
@@ -213,7 +220,8 @@ class ComercioController extends Controller
 				'mensaje' => 'Ingresa un valor correcto.'
 			], 422);
 		} else {
-			$comercios = Comercio::where('nombreestablecimiento', 'like', '%'. $nombre .'%')->get();
+			$comercios = Comercio::where('nombreestablecimiento', 'like', '%'. $nombre .'%')->get(['id', 'licenciafuncionamiento', 'nombreestablecimiento', 'domiciliofiscal']);
+			//$comercios = Comercio::where('nombreestablecimiento', 'like', '%'. $nombre .'%')->get();
 			if (count($comercios) == 0) {
 				return response()->json([
 					'mensaje' => 'No se encontro ningun resultado.'
@@ -221,9 +229,7 @@ class ComercioController extends Controller
 			} else {
 				return $comercios;  
 			}
-			
 		}
-		
 	}
 
 	public function comerciosDesdeSoap(){

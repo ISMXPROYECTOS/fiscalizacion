@@ -71,21 +71,21 @@ class InspeccionController extends Controller
 
 	/* Muetra la vista del listado de las inspecciones */
 	public function listadoInspecciones(){
-		$inspecciones = Inspeccion::all();
-		$inspectores = Inspector::all();
-		$gestores = Gestor::all();
-		$tiposInspecciones = TipoDeInspeccion::all();
-		$ejerciciosFiscales = EjercicioFiscal::all();
-		$estatusInspecciones = EstatusInspeccion::all();
-		$colonias = Colonia::all();
+		//$inspecciones = Inspeccion::all();
+		//$inspectores = Inspector::all();
+		//$gestores = Gestor::all();
+		//$tiposInspecciones = TipoDeInspeccion::all();
+		//$ejerciciosFiscales = EjercicioFiscal::all();
+		$estatusInspecciones = EstatusInspeccion::get(['id', 'clave', 'nombre']);
+		//$colonias = Colonia::all();
 		return view('inspeccion.listado-inspecciones', [
-			'inspecciones' => $inspecciones,
-			'inspectores' => $inspectores,
-			'gestores' => $gestores,
-			'tiposInspecciones' => $tiposInspecciones,
-			'ejerciciosFiscales' => $ejerciciosFiscales,
+			//'inspecciones' => $inspecciones,
+			//'inspectores' => $inspectores,
+			//'gestores' => $gestores,
+			//'tiposInspecciones' => $tiposInspecciones,
+			//'ejerciciosFiscales' => $ejerciciosFiscales,
 			'estatusInspecciones' => $estatusInspecciones,
-			'colonias' => $colonias
+			//'colonias' => $colonias
 		]);
 	}
 
@@ -468,21 +468,41 @@ class InspeccionController extends Controller
 
 	/* El método envia las variables necesarias a la vista de inspección individual, donde se guarda toda la información de cada una */
 	public function verMasInformacion($id){
-		$inspeccion = Inspeccion::find($id)->load('documentacionPorInspeccion')->load('multa');
+		
+		$inspeccion = Inspeccion::find($id, [
+			'id',
+			'comercio_id',
+			'gestores_id',
+			'inspector_id',
+			'estatusinspeccion_id',
+			'fechaprorroga',
+			'fecharealizada',
+			'horarealizada',
+			'comentario',
+			'folio',
+			'nombreencargado',
+			'cargoencargado',
+			'identificacion',
+			'folioidentificacion',
+			'fechavence'
+		])->load('documentacionPorInspeccion');
+		
+		//$inspeccion = Inspeccion::find($id)->load('documentacionPorInspeccion');
 		$multas = Multa::where('inspeccion_id', $inspeccion->id)->get();
+		$ultima_multa = '';
 
 		$historial_prorroga = BitacoraDeProroga::where('inspeccion_id', $id)->get();
-
-		$ultima_multa = '';
 
 		if (!empty($multas)) {
 			$ultima_multa = $multas->last();
 		}
 
-		$gestores = Gestor::all();
+		$gestores = Gestor::get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno']);
+		//$gestores = Gestor::all();
 		$documentos = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get();
-		$comercios = Comercio::all();
-		$inspectores = Inspector::all();
+		//$comercios = Comercio::all();
+		$inspectores = Inspector::get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno']);
+		//$inspectores = Inspector::all();
 		$is_edit = false;
 		$total_exhibidos = 0;
 		$multa = 'false';
@@ -507,7 +527,7 @@ class InspeccionController extends Controller
 					'inspeccion' => $inspeccion,
 					'gestores' => $gestores,
 					'documentos' => $documentos,
-					'comercios' => $comercios,
+					//'comercios' => $comercios,
 					'inspectores' => $inspectores,
 					'multa' => $multa,
 					'historial_prorroga' => $historial_prorroga,
@@ -520,7 +540,7 @@ class InspeccionController extends Controller
 					'inspeccion' => $inspeccion,
 					'gestores' => $gestores,
 					'documentos' => $documentos,
-					'comercios' => $comercios,
+					//'comercios' => $comercios,
 					'inspectores' => $inspectores,
 					'multa' => $multa,
 					'historial_prorroga' => $historial_prorroga,

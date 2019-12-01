@@ -100,13 +100,13 @@ class Inspeccion extends Model
      * @var array
      */
     protected $fillable = [
-    	'formavalorada_id', 
-    	'comercio_id', 
+    	'formavalorada_id',
+    	'comercio_id',
     	'tipoinspeccion_id',
-    	'usuario_id', 
-    	'gestores_id', 
+    	'usuario_id',
+    	'gestores_id',
     	'ejerciciofiscal_id',
-    	'inspector_id', 
+    	'inspector_id',
     	'estatusinspeccion_id',
     	'fechaasignada',
     	'fechacapturada',

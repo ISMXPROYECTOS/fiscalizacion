@@ -144,20 +144,6 @@
 		</div>
 	</div>
 	@else
-	<!--<div class="form-group">
-		<label for="establecimiento">{{ __('Establecimiento') }}</label>
-		<select name="establecimiento" id="establecimiento" class="form-control{{ $errors->has('establecimiento') ? ' is-invalid' : '' }}" value="{{ old('establecimiento') }}" required>
-			<option value="">Seleccionar</option>
-			@foreach($comercios as $comercio)
-			<option value="{{ $comercio->id }}">{{ $comercio->nombreestablecimiento }}</option>
-			@endforeach
-		</select>
-		@if ($errors->has('establecimiento'))
-		<span class="invalid-feedback" role="alert">
-			<strong>{{ $errors->first('establecimiento') }}</strong>
-		</span>
-		@endif
-	</div>-->
 	<div class="form-group">
 		<label>Buscar negocio por nombre comercial</label>
 		<div class="input-group">
