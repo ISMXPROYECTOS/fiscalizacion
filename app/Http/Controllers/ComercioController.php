@@ -17,8 +17,18 @@ class ComercioController extends Controller
 	}
 
 	public function tbody(){
-		$comercios = Comercio::all();
-		return Datatables::of($comercios)
+		/*
+		$comercios = Comercio::get([
+			'id',
+			'propietarionombre',
+			'nombreestablecimiento',
+			'domiciliofiscal',
+			'rfc',
+			'clavecatastral',
+			'estatus'
+		]);
+		*/
+		return Datatables::of(Comercio::query())
 			->addColumn('cambiarestatus', 'comercio/boton-estatus')
 			->addColumn('editar', 'comercio/boton-editar')
 			->rawColumns(['editar', 'cambiarestatus'])

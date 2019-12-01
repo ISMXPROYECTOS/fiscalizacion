@@ -25,9 +25,15 @@ $(document).ready(function(){
 	function viewData(){
 		$('#datatable').DataTable({
 			'serverSide': true,
+            'processing': true,
 			'destroy': true,
-            'order': [ 0, 'asc' ],
-			'ajax': url + '/comercios/listado',
+            'deferRender': true,
+            'pageLength': 10,
+            'order': [ 1, 'asc' ],
+			'ajax': {
+                'url': url + '/comercios/listado',
+                'type': 'GET'
+            },
 			'columns': [
 				{data: 'propietarionombre'},
 				{data: 'nombreestablecimiento'},
