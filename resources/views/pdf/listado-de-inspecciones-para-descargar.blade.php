@@ -24,8 +24,6 @@
 			<div class="modal-header">
 				<h3 class="modal-title" id="modal-registro-correcto">Descarga de Inspecciones</h3>
 			</div>
-
-
 			<div class="modal-body">
 				<div class="alert alert-info" role="alert">
 					Selecciona el Formato en el que deseas descargar las Inspecciones.
