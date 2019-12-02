@@ -131,18 +131,23 @@ class PdfController extends Controller
 
 		$pdf = PDF::loadView('clausura.clausuras-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
 		
-		return $pdf->download('Citatorios-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		return $pdf->download('Clausuras-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
 	public function descargarMultas($id){
-		$multa = Multa::where('inspeccion_id', $id)->get();
+		$multas = Multa::where('inspeccion_id', $id)->get();
+						
 
+		$inspeccion = Inspeccion::find($id);
+
+		// dd($inspeccion);
+		// die();
 
 		// $inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		// $documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
 		// $ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 		
-		$pdf = PDF::loadView('multas.multas', ['multa' => $multa]);
+		$pdf = PDF::loadView('multas.multas', ['multas' => $multas, 'inspeccion' => $inspeccion]);
 		return $pdf->download('Multa.pdf');
 	}
 

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>INSPECCION 2019-2021</title>
-		<link rel="stylesheet" href="{{ asset('css/acta-clausura.css') }}" />
+		<link rel="stylesheet" href="{{ asset('css/acta-clausura-oivp.css') }}" />
 	</head>
 	<body>
 		@foreach($inspecciones as $inspeccion)
