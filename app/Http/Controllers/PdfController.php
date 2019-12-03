@@ -107,7 +107,7 @@ class PdfController extends Controller
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 		
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIVP', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos]);
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
@@ -117,7 +117,7 @@ class PdfController extends Controller
 		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
-		$pdf = PDF::loadView('acta-inspeccion.citatorio-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones]);
+		$pdf = PDF::loadView('acta-inspeccion.citatorio-OIVP', ['inspecciones' => $inspecciones]);
 
 		return $pdf->download('Citatorios-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
@@ -136,18 +136,20 @@ class PdfController extends Controller
 
 	public function descargarMultas($id){
 		$multas = Multa::where('inspeccion_id', $id)->get();
-						
-
 		$inspeccion = Inspeccion::find($id);
+		$documentos_por_inspeccion = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get(['id', 'documentacionrequerida_id', 'solicitado', 'exhibido', 'observaciones']);
 
-		// dd($inspeccion);
-		// die();
+
+
+
+		//dd($documentos_por_inspeccion);
+		//die();
 
 		// $inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		// $documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
 		// $ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 		
-		$pdf = PDF::loadView('multas.multas', ['multas' => $multas, 'inspeccion' => $inspeccion]);
+		$pdf = PDF::loadView('multas.multas-'.$inspeccion->formaValorada->tipoInspeccion->clave, ['multas' => $multas, 'inspeccion' => $inspeccion, 'documentos_por_inspeccion' => $documentos_por_inspeccion]);
 		return $pdf->download('Multa.pdf');
 	}
 

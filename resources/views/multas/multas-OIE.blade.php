@@ -120,6 +120,87 @@
 	  
 	</table>
 
+	<div class="page_break"></div>
+	
+	<img src="{{ asset('img/header-orden-inspeccion.jpg') }}" width="100%">
+
+	<p class="c-header-datos">PROPIETARIO, REPRESENTANTE O APODERADO LEGAL DE @if(is_object($multa->inspeccion)) {{ $multa->inspeccion->comercio->denominacion }}, @else __________________________________________ @endif</p>
+	
+	<p class="c-header-datos">En ____________________________________________ siendo las ______ horas con ______ minutos del día _____ del mes de _________________________________ del año, el C. __________________________________________________________________________ notificador-ejecutor adscrito a la Dirección de Fiscalización de la Tesorería Municipal del Municipio de Benito Juárez, Quintana Roo identificándome con credencial No. ________________, con vigencia del ______________________________ al ____________________________, me constituí en el inmueble ubicado en @if(is_object($multa->inspeccion)) {{ $multa->inspeccion->comercio->domiciliofiscal }} @else _______________________________________________ @endif en esta ciudad de Cancún, Quintana Roo, cerciorándome por medio de ____________________________________________________________________________________________________________________________________ que es el domicilio de la persona al rubro citada, requerí la presencia del propietario, su representante o apoderado legal, presentándose el C.____________________________________________________________, en su carácter de _________________________________________________, quien se identifica con ______________________________________________________________________________________________ manifestando que la persona buscada no se encuentra, por lo que procedo a dejar en su poder el presente citatorio para que la persona al rubro citada espere al notificador a las __________ horas con __________ minutos, del día _________ del mes de ________________________ del año ____________, apercibido de que en caso de no hacerlo, la diligencia de notificación se entenderá con cualquier persona que se encuentre en el domicilio, y de negarse éstos a recibirla o en caso de encontrarse cerrado el mismo, se realizará por instructivo que se fijará en lugar visible de dicho domicilio, con fundamento en el artículo 37 segundo y tercer párrafo del Código de Justicia Administrativa del Estado de Quintana Roo.</p>
+	
+	<table style="width:100%">
+
+	  <tr>
+	    <td>
+	    	EL C. NOTIFICADOR
+	    	<p>_________________________________</p>
+	    </td>
+	    <td>
+	    	EL INTERESADO
+	    	<p>_________________________________</p>
+	    </td>
+	  </tr>
+	  
+	</table>
+
+	<div class="page_break"></div>
+
+	<img src="{{ asset('img/header-orden-inspeccion.jpg') }}" width="100%">
+
+	<p class="cpc-header-datos">PROPIETARIO, REPRESENTANTE O APODERADO LEGAL DE @if(is_object($multa->inspeccion)) {{ $multa->inspeccion->comercio->denominacion }}, @else __________________________________________ @endif</p>
+	
+	<p class="cpc-header-datos">En __________________________________________________________ siendo las ________ horas con __________ minutos del dia _________ del mes de __________________ del año ________, el C. ________________________________________________________________________ notificador-ejecutor adscrito a la Dirección de Fiscalización de la Tesorería Municipal del Municipio de Benito Juárez, Quintana Roo identificándome con credencial No. ___________________, con vigencia del _____________________________________ al ____________________________________, me constituí en el inmueble ubicado en @if(is_object($multa->inspeccion)) {{ $multa->inspeccion->comercio->domiciliofiscal }} @else _______________________________________________, @endif en esta ciudad de Cancún, Quintana Roo, cerciorándome por medio de _________________________________________________________________________________, que es el domicilio de la persona al rubro citada, y considerando que el día __________ del mes de _________________________ del año _________ se dejó citatorio en poder del C. ______________________________________________________________ en su carácter de ___________________________________________________________, y toda vez que ni la persona citada ni el propietario, representante o apoderado legal, atendieron el citatorio, hago efectivo el apercibimiento contenido en el citatorio aludido, y practico la diligencia con _____________________________________________________________ persona que encontré en el domicilio en el que actúo, quien se identifica con _____________________________________________. Con fundamento en el artículo 37 tercer párrafo del Código de Justicia Administrativa de Quintana Roo, procedo a notificar para todos los efectos legales a que haya lugar, original con firma autógrafa de la resolución de fecha ____________________________ con número de oficio {{ $inspeccion->folio }} constante de ________fojas dictada por el Ingeniero {{ $inspeccion->formavalorada->encargado->nombre }} {{ $inspeccion->formavalorada->encargado->apellidopaterno }} {{ $inspeccion->formavalorada->encargado->apellidomaterno }}, en su  carácter  de Director de Fiscalización de la Tesorería del Municipio de Benito Juárez, Quintana Roo, asimismo hago entrega de copia de la presente cédula. Esta notificación surtirá efectos el mismo día en el que fue practicada y los términos empezarán a correr el día hábil siguiente del en que haya surtido efectos la notificación, de conformidad con lo establecido en el artículo 39, del Código de Justicia Administrativa del Estado de Quintana Roo.</p>
+	
+	<table style="width:100%">
+
+	  <tr>
+	    <td>
+	    	EL C. NOTIFICADOR
+	    	<p>_________________________________</p>
+	    </td>
+	    <td>
+	    	EL INTERESADO
+	    	<p>_________________________________</p>
+	    </td>
+	  </tr>
+	  
+	</table>
+
+	<div class="page_break"></div>
+
+	<img src="{{ asset('img/header-orden-inspeccion.jpg') }}" width="100%">
+
+	<p class="npc-header-datos">PROPIETARIO, REPRESENTANTE O APODERADO LEGAL DE @if(is_object($multa->inspeccion)) {{ $multa->inspeccion->comercio->denominacion }}, @else __________________________________________ @endif</p>
+	
+	<p class="npc-header-contenido">En ____________________________________________________ siendo las _______ horas con ________ minutos del dia ______ del mes de _________________________________ del año ________, el C. ______________________________________________________________________ notificador-ejecutor adscrito a la Dirección de Fiscalización de la Tesorería Municipal del Municipio de Benito Juárez, Quintana Roo identificándome con credencial No. ___________________ con vigencia del ____________________________________________________ al ___________________________________________________, me constituí en el inmueble ubicado en @if(is_object($multa->inspeccion)) {{ $multa->inspeccion->comercio->domiciliofiscal }} @else _______________________________________________, @endif en esta ciudad de Cancún, Quintana Roo, cerciorándome por medio de _______________________________________________________________________________, que es el domicilio de la persona al rubro citada, y considerando que el día _________ del mes de ___________________ del año _________ se dejó citatorio en poder del C. _________________________________________________________ en su carácter  de _______________________________________________, y toda vez que ni la persona citada ni el propietario, representante o apoderado legal, atendieron el citatorio, hago efectivo el apercibimiento contenido en el citatorio aludido, y practico la diligencia con ______________________________________ en su carácter de (__________________________________________________________________________) vecino (________) persona que encontré en el domicilio en el que actúo, quien se niega a recibir la presente notificación; por lo que con fundamento en el artículo 37 segundo y tercer párrafo del Código de Justicia Administrativa del Estado de Quintana Roo, procedo a notificar al interesado o a su representante legal, por medio de instructivo, el original con firma autógrafa de la resolución de fecha _____________________________, con número de oficio {{ $inspeccion->folio }} constante de ________fojas dictada por el Ingeniero {{ $inspeccion->formavalorada->encargado->nombre }} {{ $inspeccion->formavalorada->encargado->apellidopaterno }} {{ $inspeccion->formavalorada->encargado->apellidomaterno }}, en su  carácter  de Director de Fiscalización de la Tesorería del Municipio de Benito Juárez, Quintana Roo fijándolo en la puerta del domicilio del interesado, así como copia de la presente cédula y asentando razón de tal circunstancia. Esta notificación surtirá efectos el mismo día en el que fue practicada y los términos empezarán a correr el día hábil siguiente del en que haya surtido efectos la notificación, de conformidad con lo establecido en el artículo 39, del Código de Justicia Administrativa del Estado de Quintana Roo.</p>
+
+	<table style="width:100%">
+	  <tr>
+	    <td>
+	    	EL C. NOTIFICADOR
+	    	<p>_________________________________</p>
+	    </td>
+	  </tr>
+	</table>
+
+
+	<div class="page_break"></div>
+
+	<img src="{{ asset('img/header-orden-inspeccion.jpg') }}" width="100%">
+
+	<p class="npc-b-header-datos">PROPIETARIO, REPRESENTANTE O APODERADO LEGAL DE @if(is_object($multa->inspeccion)) {{ $multa->inspeccion->comercio->denominacion }}, @else __________________________________________ @endif</p>
+
+	<p class="npc-b-header-contenido">En ___________________________________ siendo las _______ horas con ________ minutos del día ______ del mes de ____________________________ del año ________, el C. ______________________________________________________________________ notificador-ejecutor adscrito a la Dirección de Fiscalización de la Tesorería Municipal del Municipio de Benito Juárez, Quintana Roo identificándome con credencial No. ___________________ con vigencia del ____________________________________________________ al ___________________________________________________, me constituí en el inmueble ubicado en @if(is_object($multa->inspeccion)) {{ $multa->inspeccion->comercio->domiciliofiscal }} @else _______________________________________________, @endif en esta ciudad de Cancún, Quintana Roo, cerciorándome por medio de _______________________________________________________________________________, que es el domicilio de la persona al rubro citada, y considerando que el día _________ del mes de ___________________ del año _________ se dejó citatorio en poder del C. _________________________________________________________ en su carácter  de ____________________________________________________, y toda vez que el domicilio se encuentra cerrado y que en forma reiterada e insistente toqué la puerta del mismo sin que haya sido atendido el llamado, hago efectivo el apercibimiento contenido en el citatorio aludido; por lo que con fundamento en el artículo 37 segundo y tercer párrafo del Código de Justicia Administrativa del Estado de Quintana Roo, procedo a notificar por instructivo al interesado o a su representante legal, por medio de instructivo, el original con firma autógrafa de la resolución de fecha _____________________________ con número de oficio {{ $inspeccion->folio }}, constante de ________fojas, dictada por el Ingeniero {{ $inspeccion->formavalorada->encargado->nombre }} {{ $inspeccion->formavalorada->encargado->apellidopaterno }} {{ $inspeccion->formavalorada->encargado->apellidomaterno }}, en su  carácter  de Director de Fiscalización de la Tesorería del Municipio de Benito Juárez, Quintana Roo fijándolo en la puerta del domicilio del interesado, así como copia de la presente cédula y asentando razón de tal circunstancia. Esta notificación surtirá efectos el mismo día en el que fue practicada y los términos empezarán a correr el día hábil siguiente del en que haya surtido efectos la notificación, de conformidad con lo establecido en el artículo 39, del Código de Justicia Administrativa del Estado de Quintana Roo.</p>
+
+	<table style="width:100%">
+	  <tr>
+	    <td>
+	    	EL C. NOTIFICADOR
+	    	<p>_________________________________</p>
+	    </td>
+	  </tr>
+	</table>
+
 	@endforeach
 </body>
 </html>
