@@ -3,25 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\DocumentacionRequerida;
-use App\TipoDeInspeccion;
 
 class DocumentacionRequeridaController extends Controller
 {
     public function listadoDocumentacionRequerida(){
-    	$tipos_inspeccion = TipoDeInspeccion::all();
-		return view('documentacion-requerida.listado-documentacion-requerida', [
-			'tiposInspeccion' => $tipos_inspeccion
-		]);
+		return view('documentacion-requerida.listado-documentacion-requerida');
 	}
 
 	public function tbody(){
-		return datatables()
-			->eloquent(DocumentacionRequerida::query())
-			->addColumn('cambiarestatus', 'documentacion-requerida/boton-estatus')
-			->addColumn('editar', 'documentacion-requerida/boton-editar')
-			->rawColumns(['cambiarestatus', 'editar'])
-			->toJson();
+		return Datatables::of(DocumentacionRequerida::query()->select([
+			'id',
+			'clave',
+			'nombre',
+			'activo'
+		]))
+		->addColumn('cambiarestatus', 'documentacion-requerida/boton-estatus')
+		->addColumn('editar', 'documentacion-requerida/boton-editar')
+		->rawColumns(['cambiarestatus', 'editar'])
+		->make(true);
 	}
 
 	public function create(Request $request){

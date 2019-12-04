@@ -44,16 +44,6 @@
                         <input id="clave" type="text" class="form-control">
                         <p class="text-danger" id="error-clave"></p>
                     </div>
-                    <!--<div class="form-group">
-                        <label for="tipoInspeccion">{{ __('Tipo de inspección') }}</label>
-                        <select id="tipoInspeccion" class="form-control">
-                            <option value="">Seleccionar</option>
-                            @foreach($tiposInspeccion as $tipoInspeccion)
-                                <option value="{{ $tipoInspeccion->id }}">{{ $tipoInspeccion->nombre }}</option>
-                            @endforeach
-                        </select>
-                        <p class="text-danger" id="error-tipoInspeccion"></p>
-                    </div>-->
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">

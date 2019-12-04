@@ -20,6 +20,9 @@ $(document).ready(function(){
     function viewData(){
         $('#datatable').DataTable({
             'serverSide': true,
+            'processing': true,
+            'deferRender': true,
+            'pageLength': 10,
             'destroy': true,
             'ajax': url + '/estatus-inspecciones/listado',
             'columns': [
@@ -46,6 +49,8 @@ $(document).ready(function(){
                             return "<span class='badge badge-pill badge-warning'>"+ row.nombre +"</span>";
                         } else if(row.clave == 'P'){
                             return "<span class='badge badge-pill badge-info'>"+ row.nombre +"</span>";
+                        } else {
+                            return row.nombre
                         }
                     }
                 },

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\EstatusInspeccion;
 
 class EstatusInspeccionController extends Controller
@@ -12,10 +13,15 @@ class EstatusInspeccionController extends Controller
 	}
 
 	public function tbody(){
-		return datatables()
-			->eloquent(EstatusInspeccion::query())
-			->addColumn('btn', 'estatusInspeccion/actions-estatus-inspecciones')
-			->rawColumns(['btn'])->toJson();
+		return Datatables::of(EstatusInspeccion::query()->select([
+			'id',
+			'clave',
+			'nombre',
+			'created_at'
+		]))
+		->addColumn('btn', 'estatusInspeccion/actions-estatus-inspecciones')
+		->rawColumns(['btn'])
+		->make(true);
 	}
 
 	public function create(Request $request){
