@@ -35,11 +35,12 @@ class ComercioController extends Controller
 			'domiciliofiscal',
 			'rfc',
 			'clavecatastral',
-			'estatus']))
-			->addColumn('cambiarestatus', 'comercio/boton-estatus')
-			->addColumn('editar', 'comercio/boton-editar')
-			->rawColumns(['editar', 'cambiarestatus'])
-			->make(true);
+			'estatus'
+		]))
+		->addColumn('cambiarestatus', 'comercio/boton-estatus')
+		->addColumn('editar', 'comercio/boton-editar')
+		->rawColumns(['editar', 'cambiarestatus'])
+		->make(true);
 	}
 
 	public function create(Request $request){
