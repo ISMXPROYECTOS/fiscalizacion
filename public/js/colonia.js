@@ -18,10 +18,17 @@ $(document).ready(function(){
     function viewData(){
         $('#datatable').DataTable({
             'serverSide': true,
+            'processing': true,
+            'deferRender': true,
+            'pageLength': 10,
             'destroy': true,
             'ajax': url + '/colonias/listado',
             'columns': [
-                {data: 'municipio_id'},
+                {data: 'municipio_id',
+                    'render': function ( data, type, row ) {
+                        return (row.municipio.nombre);
+                    }
+                },
                 {data: 'nombre'},
                 {data: 'cp'},
                 {data: 'editar'},

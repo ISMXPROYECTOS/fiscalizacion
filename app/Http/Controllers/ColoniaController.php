@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\Municipio;
 use App\Colonia;
 
@@ -13,11 +14,19 @@ class ColoniaController extends Controller
 	}
 
 	public function tbody(){
-		return datatables()
-			->eloquent(Colonia::query())
-			->addColumn('editar', 'colonia/boton-editar')
-			->rawColumns(['editar'])
-			->toJson();
+		return Datatables::of(Colonia::query()->with([
+			'municipio' => function($query){
+				$query->select(['id', 'nombre', 'clave']);
+			}
+		])->get([
+			'id',
+			'municipio_id',
+			'nombre',
+			'cp'
+		]))
+		->addColumn('editar', 'colonia/boton-editar')
+		->rawColumns(['editar'])
+		->make(true);
 	}
 
 	public function create(Request $request){
