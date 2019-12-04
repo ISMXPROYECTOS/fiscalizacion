@@ -50,7 +50,7 @@ $(document).ready(function(){
                         } else if(row.clave == 'P'){
                             return "<span class='badge badge-pill badge-info'>"+ row.nombre +"</span>";
                         } else {
-                            return row.nombre
+                            return row.nombre;
                         }
                     }
                 },

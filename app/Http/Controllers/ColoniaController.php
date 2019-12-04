@@ -18,7 +18,7 @@ class ColoniaController extends Controller
 			'municipio' => function($query){
 				$query->select(['id', 'nombre', 'clave']);
 			}
-		])->get([
+		])->select([
 			'id',
 			'municipio_id',
 			'nombre',

@@ -44,6 +44,8 @@ $(document).ready(function(){
 							return "<span class='badge badge-pill badge-solventada'>"+ row.estatus_inspeccion.nombre +"</span>";
 						} else if (row.estatus_inspeccion.clave == 'C') {
 							return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
+						} else {
+							return row.estatus_inspeccion.nombre;
 						}
 					}
 				},

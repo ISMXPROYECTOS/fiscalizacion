@@ -109,7 +109,7 @@ class InspeccionController extends Controller
 			'comercio' => function($query){
 				$query->select(['id', 'nombreestablecimiento']);
 			}
-		])->orderBy('id', 'asc')->get([
+		])->orderBy('id', 'asc')->select([
 			'id',
 			'comercio_id',
 			'tipoinspeccion_id',
