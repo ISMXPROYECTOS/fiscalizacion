@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use DateTime;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Yajra\Datatables\Datatables;
+use DateTime;
+use App\User;
 
 class UserController extends Controller
 {
@@ -32,11 +33,17 @@ class UserController extends Controller
 	}
 
 	public function tbody(){
-		return datatables()
-			->eloquent(User::query())
-			->addColumn('editar', 'user/boton-editar')
-			->addColumn('cambiarestatus', 'user/boton-estatus')
-			->rawColumns(['editar', 'cambiarestatus'])->toJson();
+		return Datatables::of(User::query()->select([
+			'id',
+			'usuario',
+			'activo',
+			'role',
+			'vigencia'
+		]))
+		->addColumn('editar', 'user/boton-editar')
+		->addColumn('cambiarestatus', 'user/boton-estatus')
+		->rawColumns(['editar', 'cambiarestatus'])
+		->make(true);
 	}
 
 	public function create(Request $request){

@@ -19,6 +19,9 @@ $(document).ready(function(){
     function viewData(){
         $('#datatable-usuarios').DataTable({
             'serverSide': true,
+            'processing': true,
+            'deferRender': true,
+            'pageLength': 10,
             'destroy': true,
             'ajax': url + '/usuarios/listado',
             'columns': [
