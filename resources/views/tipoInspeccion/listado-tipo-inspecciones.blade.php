@@ -43,7 +43,6 @@
                             <div class="form-group">
                                 <label for="clave">{{ __('Clave') }}</label>
                                 <input id="clave" type="text" class="form-control" name="clave">
-                               
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
@@ -61,12 +60,10 @@
                     <div class="alert alert-info" role="alert">
                       Selecciona los documentos requeridos para este tipo de inspección.
                     </div>
-
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="seleccionar-todos">
                         <label for="">Seleccionar todos</label>
                     </div>
-                    
                     <div id="documentos">
                         @foreach($documentos as $documento)
                             <div class="form-check">
@@ -76,38 +73,6 @@
                               </label>
                             </div>
                         @endforeach
-                           <!--  <table class="table table-sm">
-                              <thead class="thead-dark">
-                                <tr>
-                                  <th scope="col">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="seleccionar-todos">
-                                    </div>
-                                  </th>
-                                  <th scope="col">DOCUMENTO REQUERIDO</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                              @foreach($documentos as $documento)
-                              
-                                <tr>
-                                  <th scope="row">
-                                      <div class="form-check">
-                                        <input class="form-check-input checkbox-documento check" type="checkbox" value="{{ $documento->id }}" id="documento-{{ $documento->id }}" name="documentos-requeridos[]">
-                                    </div>
-                                  </th>
-                                  <td>
-                                    <label class="form-check-label" for="documento-{{ $documento->id }}">
-                                        {{ $documento->nombre }}
-                                    </label>
-                                  </td>
-                                </tr>
-                              
-                              @endforeach
-                              </tbody>
-                            </table> -->
-
-                        
                     </div>
                     <hr>
                     <div class="form-group row mb-0">

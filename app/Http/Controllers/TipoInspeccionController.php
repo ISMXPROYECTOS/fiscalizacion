@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\TipoDeInspeccion;
 use App\DocumentacionRequerida;
 use App\DocumentacionPorTipoDeInspeccion;
@@ -18,10 +19,16 @@ class TipoInspeccionController extends Controller
 	}
 
 	public function tbody(){
-		return datatables()
-			->eloquent(TipoDeInspeccion::query())
-			->addColumn('btn', 'tipoInspeccion/actions-tipo-inspecciones')
-			->rawColumns(['btn'])->toJson();
+		return Datatables::of(TipoDeInspeccion::query()->select([
+			'id',
+			'clave',
+			'nombre',
+			'diasvencimiento',
+			'created_at'
+		]))
+		->addColumn('btn', 'tipoInspeccion/actions-tipo-inspecciones')
+		->rawColumns(['btn'])
+		->make(true);
 	}
 
 	public function create(Request $request){

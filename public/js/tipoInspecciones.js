@@ -12,14 +12,15 @@ $(document).ready(function(){
 		$('#error-nombre, #error-clave, #error-diasvencimiento').text('');
 		$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').addClass('hidden');
 		$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').text('');
-
 		$('#documentos-editar').text('');
 	});
-
 	
 	function viewData(){
 		$('#datatable').DataTable({
 			'serverSide': true,
+			'processing': true,
+            'deferRender': true,
+            'pageLength': 10,
 			'destroy': true,
 			'ajax': url + '/tipo-inspecciones/listado',
 			'columns': [
@@ -116,8 +117,6 @@ $(document).ready(function(){
 												"</label>"+
 												"</div>"
 											);
-
-						
 										} else {
 											$('#documentos-editar').append(
 												"<div class='form-check'>"+
@@ -128,7 +127,6 @@ $(document).ready(function(){
 												"</label>"+
 												"</div>"
 											);
-									
 										}
 									} else {
 										if (response.documentacionPorTipoDeInspeccion[i].documentacionrequerida_id == response.documentacionRequerida[a].id) {
@@ -141,11 +139,7 @@ $(document).ready(function(){
 												"</label>"+
 												"</div>"
 											);
-
-									
-
 											i++;
-
 										} else {
 											$('#documentos-editar').append(
 												"<div class='form-check'>"+
@@ -156,7 +150,6 @@ $(document).ready(function(){
 												"</label>"+
 												"</div>"
 											);
-
 										}
 									}
 								}
@@ -170,8 +163,6 @@ $(document).ready(function(){
 									response.documentacionRequerida[a].nombre+
 									"</label></div>"
 								);
-
-						
 							}
 						}
 					} else {
