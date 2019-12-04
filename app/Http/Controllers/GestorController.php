@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\Gestor;
 use App\Inspeccion;
-use Illuminate\Http\Request;
 
 class GestorController extends Controller
 {
@@ -13,12 +14,22 @@ class GestorController extends Controller
 	}
 
 	public function tbody(){
-		return datatables()
-			->eloquent(Gestor::query())
-			->addColumn('editar', 'gestor/boton-editar')
-			->addColumn('cambiarestatus', 'gestor/boton-estatus')
-			->addColumn('inspecciones', 'gestor/boton-inspecciones')
-			->rawColumns(['editar', 'cambiarestatus', 'inspecciones'])->toJson();
+		return Datatables::of(Gestor::query()->select([
+			'id',
+			'nombre',
+			'apellidopaterno',
+			'apellidomaterno',
+			'telefono',
+			'celular',
+			'correoelectronico',
+			'ine',
+			'estatus'
+		]))
+		->addColumn('editar', 'gestor/boton-editar')
+		->addColumn('cambiarestatus', 'gestor/boton-estatus')
+		->addColumn('inspecciones', 'gestor/boton-inspecciones')
+		->rawColumns(['editar', 'cambiarestatus', 'inspecciones'])
+		->make(true);
 	}
 
 	public function create(Request $request){

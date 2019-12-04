@@ -21,6 +21,9 @@ $(document).ready(function(){
     function viewData(){
         $('#datatable').DataTable({
             'serverSide': true,
+            'processing': true,
+            'deferRender': true,
+            'pageLength': 10,
             'destroy': true,
             'ajax': url + '/gestores/listado',
             'columns': [

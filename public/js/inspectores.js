@@ -25,6 +25,9 @@ $(document).ready(function(){
         // formato Json para que la libreria Datatable pueda detectar cada campo
         $('#datatable').DataTable({
             'serverSide': true,
+            'processing': true,
+            'deferRender': true,
+            'pageLength': 10,
             'destroy': true,
             'ajax': url + '/inspectores/listado',
             // Se seleccionan los campos que se desean mostrar en la tabla
