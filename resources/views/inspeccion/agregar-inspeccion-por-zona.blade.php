@@ -70,7 +70,6 @@
         </div>
     </div>
     <div id="comercios" class="hidden mt-3">
-
         <p class="text-danger mb-0" id="error-comercios"></p>
         <p class=" mb-0" id="error-results"></p>
         <table class="table table-sm" id="tabla-comercios">
@@ -86,13 +85,9 @@
                     <th>UBICACIÓN</th>
               </tr>
           </thead>
-          <tbody id="tbody-comercios">
-
-          </tbody>
+          <tbody id="tbody-comercios"></tbody>
       </table>
-
   </div>
-
   <br>
   <div class="form-group row mb-0">
     <div class="col-md-4">

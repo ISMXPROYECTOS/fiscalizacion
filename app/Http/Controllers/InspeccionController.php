@@ -109,7 +109,7 @@ class InspeccionController extends Controller
 			'comercio' => function($query){
 				$query->select(['id', 'nombreestablecimiento']);
 			}
-		])->orderBy('id', 'asc')->select([
+		])->select([
 			'id',
 			'comercio_id',
 			'tipoinspeccion_id',
@@ -123,6 +123,9 @@ class InspeccionController extends Controller
 			->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
 			->rawColumns(['cambiarestatus'])
 			->make(true);
+
+		/* Va antes de select */
+		/* ->orderBy('id', 'asc') */
 	}
 
 	/* Método que realiza la creación de las inspecciones, crea la inspección pero estas inspecciones son blancas, es decir, que no se sabe a que comercio se va a inspeccionar */
@@ -240,17 +243,16 @@ class InspeccionController extends Controller
 		$usuario = Auth::user();
 		
 		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
-		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->where('ejerciciofiscal_id', $ejercicio_fiscal_id)->get();
-		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
+		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->where('ejerciciofiscal_id', $ejercicio_fiscal_id)->get(['id', 'foliofin']);
+		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $tipo_inspeccion_id)->get(['id', 'documentacionrequerida_id']);
 
-		$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
+		$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id, ['id', 'anio']);
 		$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
 
 		$tipo_inspeccion = TipoDeInspeccion::find($tipo_inspeccion_id);
 		$tipo_inspeccion_clave = $tipo_inspeccion->clave;
 		
 		if ($forma_valorada->count() == 0) {
-
 			$nueva_forma_valorada = new FormaValorada();
 			$nueva_forma_valorada->usuario_id 			= $usuario->id;
 			$nueva_forma_valorada->tipoinspeccion_id 	= $tipo_inspeccion_id;
@@ -259,9 +261,7 @@ class InspeccionController extends Controller
 			$nueva_forma_valorada->folioinicio 			= 1;
 			$nueva_forma_valorada->foliofin 			= $cantidad;
 			$nueva_forma_valorada->save();
-
 		} else {
-
 			$folio_fin = $forma_valorada->last()->foliofin;
 			$nuevo_folio_inicio = $folio_fin + 1;
 			$nuevo_folio_fin = $folio_fin + $cantidad;
@@ -274,12 +274,10 @@ class InspeccionController extends Controller
 			$nueva_forma_valorada->folioinicio 			= $nuevo_folio_inicio;
 			$nueva_forma_valorada->foliofin 			= $nuevo_folio_fin;
 			$nueva_forma_valorada->save();
-
 		}
 
 		for ($a = 0; $a < $cantidad; $a++) {
-
-			$datos_comercio = Comercio::find($comercios[$a]);
+			$datos_comercio = Comercio::find($comercios[$a], ['id']);
 			$id_forma_valorada = $nueva_forma_valorada->id;
 
 			$folio_inicio = $nueva_forma_valorada->folioinicio;
@@ -294,19 +292,17 @@ class InspeccionController extends Controller
 			$inspeccion->estatusinspeccion_id 	= $estatus_inspeccion->id;
 			$inspeccion->folio 					= $ejercicio_fiscal_anio.'/'.$tipo_inspeccion_clave.'/'.$folio;
 			$inspeccion->save();
-			
-			$estatusinspeccion_id = $inspeccion->estatusInspeccion->id;
+
 			$datos_bitacora = [
 				'inspeccion_id' => $inspeccion->id,
-				'estatusinspeccion_id' => $estatusinspeccion_id,
+				'estatusinspeccion_id' => $inspeccion->estatusInspeccion->id,
 				'usuario_id' => $usuario->id,
 				'observacion' => 'Creada - ' . $estatus_inspeccion->nombre
 			];
 
 			BitacoraDeEstatus::create($datos_bitacora);
 
-			for ($b = 0; $b < count($documentacion_por_inspeccion) ; $b++) {
-
+			for ($b = 0; $b < count($documentacion_por_inspeccion); $b++) {
 				$datos = [
 					'tipoinspeccion_id' => $tipo_inspeccion_id,
 					'documentacionrequerida_id' => $documentacion_por_inspeccion[$b]->documentacionrequerida_id,

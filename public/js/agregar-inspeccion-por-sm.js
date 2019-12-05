@@ -18,12 +18,9 @@ $(document).ready(function(){
         }
     });
     
-
-    
     $('#error-comercios').addClass('hidden');
     $('#error-results').addClass('hidden');
     $('#error-sm').addClass('hidden');
-   
 
     $('#ejerciciofiscal').attr('disabled', '');
     $('#encargadoGob').attr('disabled', '');
@@ -48,8 +45,7 @@ $(document).ready(function(){
 
         if ($('#ejerciciofiscal').val() != '') {
             $('#encargadoGob').removeAttr('disabled');
-        } 
-
+        }
 
         $("#encargadoGob").val('');
         $("#calle").val('');
@@ -57,7 +53,6 @@ $(document).ready(function(){
         $('#folio-fin').text('');
         $('.results').remove();
         $("#seleccionar-todos").prop("checked", false);
-        
     });
 
     $('#encargadoGob').change(function(){
@@ -65,7 +60,6 @@ $(document).ready(function(){
     });
 
     function busquedaDeComerciosPorSM(){
- 
         $('#buscar-sm').click(function(){
             var calle = $('#calle').val();
             
@@ -152,14 +146,12 @@ $(document).ready(function(){
             }
             
             obtenerFoliosPorSMAjax(data);
-
         });
     }
 
     seleccionarTodosObtenerFoliosPorSM();
 
     function obtenerFoliosPorSM(){
-
         $('.check').each(function(key, value){
             $('#'+value.id).click(function(){
                 if ($(".check").length == $(".check:checked").length) {
