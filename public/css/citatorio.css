@@ -1,0 +1,65 @@
+@font-face{
+    font-family: arial;
+    src: url(../vendor/fonts/arial.ttf);
+}
+
+@font-face{
+    font-family: arialb;
+    src: url(../vendor/fonts/arialbd.ttf);
+    font-weight: bold;
+}
+
+b{
+	font-family: arialb !important;
+}
+
+.mb-0{
+	margin-bottom: 0;
+}
+
+.mt-0{
+	margin-top: 0;
+}
+
+.mbt-0{
+	margin-bottom: 0;
+	margin-top: 0;	
+}
+
+.text-center{
+	text-align: center;
+}
+
+/* Citatorio */
+
+.ci-header-datos{
+	font-family: arial;
+	font-size: .70em;
+}
+
+.ci-contenido-general{
+	font-family: arial;
+	text-align: justify;
+	font-size: .80em;
+}
+
+.firma-citatorio{
+	font-family: arial;
+	font-size: .90em;
+	text-transform: uppercase;
+	width: 100%;
+
+}
+
+.firma-citatorio .ci-citatorio-recibe{
+	width: 50%;
+}
+
+.firma-citatorio .ci-citatorio-inspector{
+	width: 50%;
+}
+
+
+.page_break{
+	page-break-after: always;
+}
