@@ -142,3 +142,17 @@ b{
 	text-align: left !important;
 	font-size: .37em !important;
 }
+
+.aic-firma-inspector{
+	font-family: arial;
+	text-transform: uppercase;
+	text-align: center;
+	width: 100%;
+}
+
+.aic-firma-testigo{
+	font-family: arial;
+	font-size: .90em;
+	text-align: center;
+	width: 100%;
+}
