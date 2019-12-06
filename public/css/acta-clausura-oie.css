@@ -1,0 +1,84 @@
+@font-face{
+    font-family: arial;
+    src: url(../vendor/fonts/arial.ttf);
+}
+
+@font-face{
+    font-family: arialb;
+    src: url(../vendor/fonts/arialbd.ttf);
+    font-weight: bold;
+}
+
+b{
+	font-family: arialb !important;
+}
+
+.mb-0{
+	margin-bottom: 0;
+}
+
+.mt-0{
+	margin-top: 0;
+}
+
+.mbt-0{
+	margin-bottom: 0;
+	margin-top: 0;	
+}
+
+.text-center{
+	text-align: center;
+}
+
+/* Orden de Clausura */
+
+.folio{
+	font-family: arialb;
+	float: right;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.oc-header-datos{
+	font-family: arial;
+	font-size: .65em;
+}
+
+.contenido-general{
+	font-family: arial;
+	text-align: justify;
+	font-size: .75em;
+}
+
+
+/* Acta de Clausura */
+
+.ac-header-datos{
+	font-family: arial;
+	font-size: .65em;
+}
+
+.ac-contenido-general{
+	font-family: arial;
+	text-align: justify;
+	font-size: .65em;
+}
+
+.firma-acta-clausura{
+	font-size: .50em;
+	text-transform: uppercase;
+	padding-left: 2%;
+	width: 100%;
+}
+
+.firma-acta-clausura .ac-firma-inspector{
+	width: 50%;
+}
+
+.firma-acta-clausura .ac-firma-encargado{
+	width: 50%;
+}
+
+.page_break{
+	page-break-after: always;
+}
