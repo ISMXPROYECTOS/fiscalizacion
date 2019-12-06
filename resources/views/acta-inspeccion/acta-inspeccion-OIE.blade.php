@@ -19,7 +19,7 @@
 			<p class="oi-header-datos mbt-0 text-right">TESORERÍA MUNICIPAL</p>
 			<p class="oi-header-datos mbt-0 text-right">DIRECCIÓN DE FISCALIZACIÓN</p>
 			<p class="oi-header-datos mbt-0 text-right">FOLIO: {{ $inspeccion->folio }}</p>
-			<p class="oi-header-datos mbt-0 text-right">CANCUN, QUINTANA ROO A "AQUI IRA LA FECHA DE?"</p>
+			<p class="oi-header-datos mbt-0 text-right">CANCUN, QUINTANA ROO A _______________________</p>
 
 			<br>
 			
@@ -37,7 +37,7 @@
 
 			@endif
 
-			<p class="contenido-general">De conformidad con lo dispuesto por los artículos 14 y 16 de la Constitución Política de los Estados Unidos Mexicanos, 65, 66 fracción I inciso b), de la Ley de los Municipios del Estado de Quintana Roo, 63, 64, 65, 66, 67, 68 en todas sus fracciones, 69 y 70 del Código de Justicia Administrativa del Estado de Quintana Roo, 1, 2, 3, 479, 482, 484, 485, del Bando de Gobierno y Policía del Municipio de Benito Juárez, 1, 3, fracción IV, 3 inciso D, fracción II, 39, fracción XXI, 71, 72, fracciones I, II y III del Reglamento de Estacionamientos del Municipio de Benito Juárez,  artículos  22 fracciones II, III, VIII, XII, XV y XVIII del Reglamento Interior de la Tesorería del Municipio de Benito Juárez, y considerando que el Reglamento de Estacionamientos del Municipio de Benito Juárez es de orden público e interés social, de observancia general y obligatoria y tiene por objeto regular la apertura, funcionamiento y operación de los estacionamientos en el Municipio de Benito Juárez, siendo esta Dirección de Fiscalización la facultada  ejercer las funciones de verificación, fiscalización y la imposición de sanciones del citado Reglamento, se le hace saber que se le practicará visita de verificación, la cual tomando en consideración que las actividades comerciales que realiza pueden ser realizados incluso más allá de los días y horarios señalados en los artículos 29 y 31 del Código de Justicia Administrativa del Estado de Quintana Roo, ésta también podrá practicarse en días y horas inhábiles, de conformidad con el artículo 29 del Código de Justicia Administrativa del Estado de Quintana Roo, para cuyo efecto se ha comisionado al/los <b>NOMBRE DE LOS INSPECTORES</b> quienes podrán actuar de manera conjunta o individualmente.</p>
+			<p class="contenido-general">De conformidad con lo dispuesto por los artículos 14 y 16 de la Constitución Política de los Estados Unidos Mexicanos, 65, 66 fracción I inciso b), de la Ley de los Municipios del Estado de Quintana Roo, 63, 64, 65, 66, 67, 68 en todas sus fracciones, 69 y 70 del Código de Justicia Administrativa del Estado de Quintana Roo, 1, 2, 3, 479, 482, 484, 485, del Bando de Gobierno y Policía del Municipio de Benito Juárez, 1, 3, fracción IV, 3 inciso D, fracción II, 39, fracción XXI, 71, 72, fracciones I, II y III del Reglamento de Estacionamientos del Municipio de Benito Juárez,  artículos  22 fracciones II, III, VIII, XII, XV y XVIII del Reglamento Interior de la Tesorería del Municipio de Benito Juárez, y considerando que el Reglamento de Estacionamientos del Municipio de Benito Juárez es de orden público e interés social, de observancia general y obligatoria y tiene por objeto regular la apertura, funcionamiento y operación de los estacionamientos en el Municipio de Benito Juárez, siendo esta Dirección de Fiscalización la facultada  ejercer las funciones de verificación, fiscalización y la imposición de sanciones del citado Reglamento, se le hace saber que se le practicará visita de verificación, la cual tomando en consideración que las actividades comerciales que realiza pueden ser realizados incluso más allá de los días y horarios señalados en los artículos 29 y 31 del Código de Justicia Administrativa del Estado de Quintana Roo, ésta también podrá practicarse en días y horas inhábiles, de conformidad con el artículo 29 del Código de Justicia Administrativa del Estado de Quintana Roo, para cuyo efecto se ha comisionado al/los @if($inspeccion->inspector == null) C. ____________________________________________________________ @else <b>C. {{ $inspeccion->inspector->nombre }} {{ $inspeccion->inspector->apellidopaterno }} {{ $inspeccion->inspector->apellidomaterno }},</b> @endif quienes podrán actuar de manera conjunta o individualmente.</p>
 
 			<p class="contenido-general">El personal comisionado, está obligado a identificarse con credencial vigente expedida por autoridad competente del Municipio de Benito Juárez, que lo acredite para realizar la diligencia de verificación, a entregarle el original de la presente orden de verificación, misma que cuenta con la firma autógrafa de su emisor, así como a levantar el acta circunstanciada de la diligencia en presencia de dos testigos de asistencia que serán nombrados por la persona que atienda la visita y ante la negativa de hacerlo, el personal comisionado deberá nombrarlos, todo lo anterior, de conformidad con lo establecido en los artículos 64, 66 y 67 del Código de Justicia Administrativa del Estado de Quintana Roo.</p>
 
@@ -76,7 +76,7 @@
 
 			<br>
 
-			<p class="ai-contenido-general">En la ciudad de Cancún, Municipio de Benito Juárez, Quintana Roo, Quintana Roo, siendo las _____ horas del día _____ de __________ del año ______, en cumplimiento a la orden de visita de verificación número {{ $inspeccion->folio }} de "AQUI IRA LA FECHA", emitida por el Ingeniero Alberto Covarrubias Cortés, en su carácter de Director de Fiscalización de la Tesorería Municipal de Benito Juárez, Quintana Roo, el (los) Verificador(es) _______________________________________________________________ adscrito(s) a la Dirección de Fiscalización de la Tesorería del Municipio de Benito Juárez, Quintana Roo, me constituí en el domicilio ubicado en ________________________________________________________________ en busca del propietario, representante legal, encargado o dependiente de la empresa __________________________________________________ con giro o actividades de ESTACIONAMIENTO AL PÚBLICO, cuyo Registro Federal de Contribuyentes es ________________________________ cerciorándome que es el domicilio buscado por medio de _____________________________________________________________________________________________________________ atendiendo la diligencia quien dijo llamarse _________________________________________________________ en su caracter de _______________________________________________________________________ acreditándolo con ______________________________________________________________________, y quien se identifica con ________________________________________________________________________ número ____________________________
+			<p class="ai-contenido-general">En la ciudad de Cancún, Municipio de Benito Juárez, Quintana Roo, Quintana Roo, siendo las _____ horas del día _____ de __________ del año ______, en cumplimiento a la orden de visita de verificación número {{ $inspeccion->folio }} de fecha __________________________, emitida por el Ingeniero {{ $inspeccion->formavalorada->encargado->nombre }} {{ $inspeccion->formavalorada->encargado->apellidopaterno }} {{ $inspeccion->formavalorada->encargado->apellidomaterno }}, en su carácter de {{ $inspeccion->formavalorada->encargado->puesto }}, el (los) Verificador(es) _______________________________________________________________ adscrito(s) a la Dirección de Fiscalización de la Tesorería del Municipio de Benito Juárez, Quintana Roo, me constituí en el domicilio ubicado en ________________________________________________________________ en busca del propietario, representante legal, encargado o dependiente de la empresa __________________________________________________ con giro o actividades de ESTACIONAMIENTO AL PÚBLICO, cuyo Registro Federal de Contribuyentes es ________________________________ cerciorándome que es el domicilio buscado por medio de _____________________________________________________________________________________________________________ atendiendo la diligencia quien dijo llamarse _________________________________________________________ en su caracter de _______________________________________________________________________ acreditándolo con ______________________________________________________________________, y quien se identifica con ________________________________________________________________________ número ____________________________
 			expedida por ___________________________________________________________.</p>
 
 			<p class="ai-contenido-general">Acto seguido, de conformidad con los artículos 66 y 67 del Código de Justicia Administrativa del Estado de Quintana Roo,  71 y 72 fracción II y III del Reglamento de Estacionamientos del Municipio de Benito Juárez se procede al desahogo de la diligencia de verificación, identificándose el/la suscrito/a ante la persona que atiende la diligencia,  con credencial(es) número(s) _______________________________________ con fotografía, vigentes del _________ al _____________________________ expedida(s), por el el Tesorero Municipal del Municipio de Benito Juárez, Quintana Roo, Lic. Marcelo José Guzmán, con fundamento en lo dispuesto en el artículo 11 fracción XI del Reglamento Interior de la Tesorería del Municipio de Benito Juárez, Quintana Roo, documentos que contiene su firma autógrafa y fotografía misma, que me(nos) acredita(n) como verificador(es) adscrito a la Dirección de Fiscalización de la Tesorería del Municipio de Benito Juárez. Exhortando al visitado para que corrobore que la(s) fotografía(s) que aparece(n) en dicha(s) credencial(es) concuerda(n) con los rasgos fisonómicos del (los) que actúa(n), procediendo en este acto a hacer entrega a la persona que atiende la diligencia, el original de la orden de verificación en términos del artículo 66 del Código de Justicia Administrativa del Estado de Quintana Roo. Acto seguido, de conformidad con lo establecido por el artículo 67 del Código de Justicia Administrativa del Estado de Quintana Roo y 72 fracción V, del Reglamento de Estacionamientos del Municipio de Benito Juárez,   se le hace saber el derecho que tiene para nombrar a dos testigos de asistencia, y en caso de no hacerlo, éstos serán designados por el(los) propio(s) verificador(es), manifestando que sí (____) no (____) los designa, por lo que el visitado (____) el verificador (____) designa como: Primer testigo a: ___________________________________________________________ de ______ años de edad, quien se identifica con ___________________________________________ número ______________________ expedida por ______________________________________________________________________ con domicilio en ______________________________________________________________________________ y como segundo testigo a: ___________________________________________________________ de ______ años de edad, quien se identifica con ___________________________________________ número ______________________ expedida por ______________________________________________________________________ con domicilio en _______________________________________________________________________________________________________.</p>
@@ -84,23 +84,245 @@
 
 			<p class="ai-contenido-general">Con la asistencia de los testigos antes mencionados, se procede a verificar al establecimiento de acuerdo al siguiente cuestionario:</p>
 
-			@foreach($documentos as $documento)
-
 			<table class="ai-documentacion-requerida">
-				<!-- <thead>
-					<tr>
-						<th class="doc">Documentación</th>
-						<th class="sol">SO</th>
-						<th class="exh">NO</th>
-						<th class="obs">N/A</th>
-					</tr>
-				</thead> -->
 				<tbody>
 					<tr>
-						<td class="doc">{{ $documento->documentacionRequerida->nombre }}</td>
+						<td class="doc">1.- ¿El establecimiento visitado cuenta con la Licencia de Funcionamiento Municipal que lo autorice para operar como Estacionamiento al Público?</td>
 						<td class="si-no sol">SI</td>
 						<td class="si-no exh">NO</td>
 						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 32, 39 fracción I y 41 del Reglamento de Estacionamientos del Municipio de Benito Juárez y 479 del Bando de Gobierno y Policía del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">2.- ¿El establecimiento visitado se encuentra inscrito en el Padrón Municipal de Contribuyentes del Municipio de Benito Juárez?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 41 primer párrafo del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<br>
+
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">3.- ¿El establecimiento visitado (Estacionamiento vinculado a establecimientos mercantiles)   cuenta con la anuencia por escrito del Secretario General del Ayuntamiento de Benito Juárez?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 45 primer párrafo del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">4.- ¿El establecimiento visitado (Estacionamiento vinculado a establecimientos mercantiles)   cuenta con la inscripción de su contrato de adhesión para la prestación del servicio de estacionamiento ante el Registro Público de Contratos de Adhesión de la Procuraduría Federal del Consumidor?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 41 fracción VIII, y 45 fracción V del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">5.- ¿El establecimiento visitado (Estacionamiento vinculado a establecimientos mercantiles)   Exhibe en lugar visible las tarifas autorizadas por el Ayuntamiento y el horario de funcionamiento del establecimiento?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 39 fracción III, del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">6.- ¿El establecimiento visitado tiene colocado en lugar visible los números telefónicos para quejas de los usuarios?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 39 fracción IV, del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">7.- ¿El establecimiento visitado expide a los usuarios boletos debidamente marcados con sello checador?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 32, 39 fracción I y 41 del Reglamento de Estacionamientos del Municipio de Benito Juárez y 479 del Bando de Gobierno y Policía del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">8.- ¿El establecimiento visitado expide a los usuarios el comprobante de pago para que el mismo pueda solicitar la emisión del comprobante fiscal?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 39 fracción VI, del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">9.- ¿El establecimiento visitado cuenta con póliza de seguro vigente al menos por la cantidad de 9,000 (nueve mil) Unidades Medida de Actualización, para garantizar los vehículos estacionados en ellos, contra robo total y/o de autopartes, pérdida total, daño parcial, así como por siniestros que pudiera sufrir el inmueble?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 39 fracción VII, del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">10.- ¿El establecimiento visitado cuenta con un registro o bitácora de los vehículos que de acuerdo al procedimiento establecido por el propio estacionamiento, salgan del mismo con el pago de boleto extraviado?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 39 fracción XI, del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">11.- Cuando se encuentren ocupados todos los lugares autorizados de estacionamiento, ¿Se coloca un anuncio que así lo indique a la entrada del establecimiento?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 39 fracción XV, del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">12.- ¿El establecimiento visitado cuenta con sanitarios suficientes y en condiciones higiénicas, para el servicio de los usuarios, separados para damas y caballeros?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 39 fracción XVI, del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">13.- El personal que labora en el establecimiento, ¿Porta en lugar visible, una identificación que contenga: nombre completo, fotografía y cargo, razón social del estacionamiento para el que trabaja y usar uniforme distintivo de la empresa?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 39 fracción XVII, del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">14.- El establecimiento visitado ¿Lleva un registro del personal que labora dando servicios complementarios en el estacionamiento?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 39 fracción XIX, del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br>
+
+			<table class="ai-documentacion-requerida">
+				<tbody>
+					<tr>
+						<td class="doc">15.- El boleto expedido por el establecimiento ¿Contiene como mínimo, los requisitos señalados en el artículo 40 fracciones 1 al 9   del Reglamento de Estacionamientos del Municipio de Benito Juárez?</td>
+						<td class="si-no sol">SI</td>
+						<td class="si-no exh">NO</td>
+						<td class="si-no na">N/A</td>
+					</tr>
+
+					<tr>
+						<td colspan="4">Fundamento Legal: Artículo 40 fracción 1 al 9, del Reglamento de Estacionamientos del Municipio de Benito Juárez.</td>
 					</tr>
 				</tbody>
 			</table>
@@ -108,7 +330,6 @@
 
 			<br>
 
-			@endforeach
 
 			<p class="ai-contenido-general">En virtud de la presente verificación y en cuanto se infringe el Reglamento de Estacionamientos del Municipio de Benito Juárez en sus artículos _____________________________________________________________________________________, ello en razón de que el establecimiento visitado, no cumple con las preguntas números _____________________________________________________________________________________, del cuestionario asentado en la presente acta, para dar cumplimiento a lo señalado en el artículo 72, fracción III del Reglamento de Estacionamientos del Municipio de Benito Juárez, sirva la presente acta circunstanciada como notificación del resultado de la visita. Asimismo, con fundamento en el artículo 72, fracción IV del Reglamento de Estacionamientos del Municipio de Benito Juárez, una vez que ya fue notificado al establecimiento el resultado de la visita, en este acto se le hace saber al visitado que cuenta con un plazo de cinco días hábiles contados a partir del día siguiente de la presente diligencia, para inconformarse y aportar las pruebas y formular los alegatos que a su derecho convengan.</p>
 
@@ -117,7 +338,6 @@
 			<p class="ai-contenido-general mbt-0">____________________________________________________________________________________________________________________</p>
 			<p class="ai-contenido-general mbt-0">____________________________________________________________________________________________________________________</p>
 			
-			<br>
 
 			<p class="ai-contenido-general mb-0">Independientemente de lo anterior, el verificador formula las siguientes observaciones: ______________________________________________</p>
 			<p class="ai-contenido-general mbt-0">____________________________________________________________________________________________________________________</p>
@@ -128,7 +348,7 @@
 
 			<p class="ai-contenido-general">Cabe señalar que con fundamento en el artículo 67 del Código de Justicia Administrativa del Estado de Quintana Roo, y 72 fracción V del Reglamento de Estacionamientos del Municipio de Benito Juárez, se hace del conocimiento del visitado que el hecho de negarse a designar testigos y/o firmar el acta, no invalida el acta.</p>
 
-			<p class="ai-contenido-general">No habiendo más que agregar, se cierra la presente acta a las ________ horas, el dia _______ del mes de _________________________, del año 2020, firmando de conformidad al margen y al calce los que en ella intervinieron y quisieron hacerlo, entregándose copia legible de la misma a la persona con quien se entendió la Diligencia misma que consta de (____) fojas útiles.</p>
+			<p class="ai-contenido-general">No habiendo más que agregar, se cierra la presente acta a las _____ horas, el dia _____ del mes de _________________________, del año ___________, firmando de conformidad al margen y al calce los que en ella intervinieron y quisieron hacerlo, entregándose copia legible de la misma a la persona con quien se entendió la Diligencia misma que consta de (____) fojas útiles.</p>
 			
 			<br>
 			<br>
@@ -188,10 +408,6 @@
 
 		</div>
 		
-
-		<div class="page_break"></div>
-
-
 
 	@endforeach
 	
