@@ -133,8 +133,6 @@
 	
 	<div class="page_break"></div>
 
-	
-
 	<img src="{{ asset('img/header-logo-simple.jpg') }}" width="100%">
 
 	<h1 class="mb-0">CÉDULA NOTIFICACIÓN</h1>
@@ -192,7 +190,7 @@
 
 	<img src="{{ asset('img/header-logo-simple.jpg') }}" width="100%">
 
-	<!-- http://localhost/fiscalizacion/public/pdf/descargar-multas/24 -->
+	
 
 	<h1 class="mb-0">NOTIFICACIÓN PREVIO CITATORIO</h1>
 	<p class="cn-subtitulo text-center mt-0"><b>(Con quien esté)</b></p>
