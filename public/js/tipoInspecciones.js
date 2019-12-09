@@ -28,7 +28,7 @@ $(document).ready(function(){
 			{data: 'nombre'},
 			{data: 'diasvencimiento'},
 			{data: 'created_at'},
-			{data: 'btn'},
+			{data: 'btn', orderable: false, searchable: false},
 			],
 			'language': {
 				'info': 'Total de registros _TOTAL_',

@@ -31,7 +31,7 @@ $(document).ready(function(){
                 },
                 {data: 'nombre'},
                 {data: 'cp'},
-                {data: 'editar'},
+                {data: 'editar', orderable: false, searchable: false},
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',

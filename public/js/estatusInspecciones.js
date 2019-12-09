@@ -55,7 +55,7 @@ $(document).ready(function(){
                     }
                 },
                 {data: 'created_at'},
-                {data: 'btn'},
+                {data: 'btn', orderable: false, searchable: false},
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',

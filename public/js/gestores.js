@@ -49,9 +49,9 @@ $(document).ready(function(){
                         }
                     }
                 },
-                {data: 'editar'},
-                {data: 'cambiarestatus'},
-                {data: 'inspecciones'},
+                {data: 'editar', orderable: false, searchable: false},
+                {data: 'cambiarestatus', orderable: false, searchable: false},
+                {data: 'inspecciones', orderable: false, searchable: false},
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',

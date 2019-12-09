@@ -55,9 +55,9 @@ $(document).ready(function(){
                     }
                 },
                 // La columna pertenece a los botones de editar o eliminar de cada registro
-                {data: 'editar'},
-                {data: 'cambiarestatus'},
-                {data: 'gafete'},
+                {data: 'editar', orderable: false, searchable: false},
+                {data: 'cambiarestatus', orderable: false, searchable: false},
+                {data: 'gafete', orderable: false, searchable: false},
             ],
             // Aquí se realiza la traduccion de la tabla, la libreria datatable esta en ingles
             // pero aqui se realiza las respectivas configuraciones y traducciones

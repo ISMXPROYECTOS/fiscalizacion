@@ -21,8 +21,12 @@ $(document).ready(function(){
 						return "<a href='#' class='folio-inspeccion' id='"+ row.id +"'>" + data + "</a>"
 					}
 				},
-				{data: 'tipo_inspeccion.clave'},
-				{data: 'estatus_inspeccion.nombre',
+				{data: 'tipoinspeccion_id',
+                    'render': function ( data, type, row ) {
+                        return (row.tipo_inspeccion.clave);
+                    }
+                },
+				{data: 'estatusinspeccion_id',
 					'render': function(data, type, row){
 						if (row.estatus_inspeccion.clave == 'NA') {
 							return "<span class='badge badge-pill badge-secondary'>"+ row.estatus_inspeccion.nombre +"</span>";
@@ -47,10 +51,10 @@ $(document).ready(function(){
 						} else {
 							return row.estatus_inspeccion.nombre;
 						}
-					}
+					}, orderable: false, searchable: false
 				},
-				{data: 'inspector.nombre', defaultContent: ''},
-				{data: 'comercio.nombreestablecimiento', defaultContent: ''},
+				{data: 'inspector.nombre', defaultContent: '', orderable: false},
+				{data: 'comercio.nombreestablecimiento', defaultContent: '', orderable: false},
 				{data: 'created_at', defaultContent: ''},
 				{data: 'fechavence',
 					'render': function(data, type, row){
@@ -125,7 +129,7 @@ $(document).ready(function(){
 						}
 					}
 				},
-				{data: 'cambiarestatus'}
+				{data: 'cambiarestatus', orderable: false, searchable: false}
 			],
 			'language': {
 				'info': 'Total de registros _TOTAL_',
