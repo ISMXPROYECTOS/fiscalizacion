@@ -1,0 +1,155 @@
+@font-face{
+    font-family: arial;
+    src: url(../vendor/fonts/arial.ttf);
+}
+
+@font-face{
+    font-family: arialb;
+    src: url(../vendor/fonts/arialbd.ttf);
+    font-weight: bold;
+}
+
+b{
+	font-family: arialb !important;
+}
+
+h1{
+	font-family: arialb !important;
+	font-size: .90em;
+	text-align: center;
+}
+
+.mb-0{
+	margin-bottom: 0;
+}
+
+.mt-0{
+	margin-top: 0;
+}
+
+.mbt-0{
+	margin-bottom: 0;
+	margin-top: 0;	
+}
+
+.mt-3{
+	margin-top: 3%;
+}
+
+.mt-10{
+	margin-top: 10%;
+}
+
+.pl-5{
+	padding-left: 5%;
+}
+
+.text-center{
+	text-align: center;
+}
+
+/* Multa Fiscal */
+
+
+.multa-header-datos-div{
+	padding-left: 30%;
+}
+
+.multa-header-datos{
+	font-family: arial;
+	font-size: .65em;
+}
+
+.contenido-general{
+	font-family: arial;
+	text-align: justify;
+	font-size: .75em;
+}
+
+.multa-documentacion-requerida{
+	font-family: arial;
+	border-collapse: collapse;
+	border: 1px solid black;
+	width: 100%;
+}
+
+.multa-documentacion-requerida .doc{
+	width: 50%;
+}
+
+.multa-documentacion-requerida .sol, .multa-documentacion-requerida .exh{
+	width: 5%;
+}
+
+.multa-documentacion-requerida .obs{
+	width: 30%;
+}
+
+.multa-documentacion-requerida td{
+	font-size: .40em;
+	font-family: arialb;
+	text-align: center;
+	text-transform: uppercase;
+	border: 1px solid black;
+}
+
+.multa-documentacion-requerida th{
+	font-family: arialb;
+	font-size: .40em;
+	text-transform: uppercase;
+	text-align: center;
+	border: 1px solid black;
+}
+
+.multa-documentacion-requerida .nombre-documento{
+	text-align: left !important;
+	font-size: .37em !important;
+}
+
+
+.multa-formula{
+	font-family: arial;
+	font-size: .75em;
+	width: 100%;
+}
+
+.multa-formula .cons{
+	width: 60%;
+}
+
+.multa-formula .cant{
+	width: 40%;
+}
+
+/* Cedula de notificacion */
+
+.cn-subtitulo{
+	font-family: arial;
+	text-align: center;
+	font-size: .85em;
+}
+
+
+.cn-header-datos{
+	font-family: arial;
+	font-size: .80em;
+}
+
+.cn-contenido-general{
+	font-family: arial;
+	text-align: justify;
+	font-size: .75em;
+}
+
+.firma-final{
+	font-family: arial;
+	font-size: .90em;
+	text-align: center;
+	width: 100%;
+}
+
+
+
+.page_break{
+	page-break-after: always;
+}
