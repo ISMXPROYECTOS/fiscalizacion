@@ -8,7 +8,8 @@
 	<body>
 		@foreach($inspecciones as $inspeccion)
 		<img src="{{ asset('img/header-citatorio.jpg') }}" width="100%">
-		<div class="container">
+
+		<div class="container mt-5">
 			@if($inspeccion->comercio == null)
 				<p class="ci-header-datos mbt-0"><b>NOMBRE DEL CONTRIBUYENTE: </b>_______________________________________________________________________________________</p>
 				<p class="ci-header-datos mbt-0"><b>DOMICILIO DEL ESTABLECIMIENTO: </b>____________________________________________________________________________________</p>
