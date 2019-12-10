@@ -2,19 +2,19 @@ $(document).ready(function(){
 
     var url = "http://localhost/fiscalizacion/public";
 
-    $('#error-nombre, #error-clave').addClass('hidden');
-    $('#error-nombre, #error-clave').text('');
+    $('#error-nombre').addClass('hidden');
+    $('#error-nombre').text('');
 
-    $('#error-nombre-edit, #error-clave-edit').addClass('hidden');
-    $('#error-nombre-edit, #error-clave-edit').text('');
+    $('#error-nombre-edit').addClass('hidden');
+    $('#error-nombre-edit').text('');
 
     $(document).on('click', '#btn-cancelar', function(e){
 
-        $('#error-nombre, #error-clave').addClass('hidden');
-        $('#error-nombre, #error-clave').text('');
+        $('#error-nombre').addClass('hidden');
+        $('#error-nombre').text('');
         
-        $('#error-nombre-edit, #error-clave-edit').addClass('hidden');
-        $('#error-nombre-edit, #error-clave-edit').text('');
+        $('#error-nombre-edit').addClass('hidden');
+        $('#error-nombre-edit').text('');
     });
     
     function viewData(){
@@ -96,14 +96,14 @@ $(document).ready(function(){
                     $("#formulario-estatus-inspeccion")[0].reset();
                     $('#crear-estatus-inspeccion').modal('hide');
                     $('#registro-correcto').modal('show');
-                    $('#error-nombre, #error-clave').addClass('hidden');
-                    $('#error-nombre, #error-clave').text('');
+                    $('#error-nombre').addClass('hidden');
+                    $('#error-nombre').text('');
                     viewData();
                 },
                 error: function(response) {
                     $('#btn-enviar').text('Crear Estatus');
-                    $('#error-nombre, #error-clave').addClass('hidden');
-                    $('#error-nombre, #error-clave').text('');
+                    $('#error-nombre').addClass('hidden');
+                    $('#error-nombre').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i).removeClass('hidden');
                         $('#error-'+i).text(item[0]);
@@ -142,8 +142,7 @@ $(document).ready(function(){
         $('#btn-editar').click(function(){
             var data = {
                 'id' : $('#id-edit').val(),
-                'nombre' : $('#nombre-edit').val(),
-                'clave' : $('#clave-edit').val()
+                'nombre' : $('#nombre-edit').val()
             }
             $.ajax({
                 url: url + '/estatus-inspecciones/actualizar',
@@ -157,14 +156,14 @@ $(document).ready(function(){
                     $('#btn-editar').text('Guardar');
                     $('#editar-estatus-inspeccion').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-                    $('#error-nombre-edit, #error-clave-edit').addClass('hidden');
-                    $('#error-nombre-edit, #error-clave-edit').text('');
+                    $('#error-nombre-edit').addClass('hidden');
+                    $('#error-nombre-edit').text('');
                     viewData();
                 },
                 error: function(response) {
                     $('#btn-editar').text('Guardar');
-                    $('#error-nombre-edit, #error-clave-edit').addClass('hidden');
-                    $('#error-nombre-edit, #error-clave-edit').text('');
+                    $('#error-nombre-edit').addClass('hidden');
+                    $('#error-nombre-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);

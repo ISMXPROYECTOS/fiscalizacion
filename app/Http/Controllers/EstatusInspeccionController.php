@@ -50,17 +50,14 @@ class EstatusInspeccionController extends Controller
 
 		// Validara los campos para evitar problemas
 		$validate = $this->validate($request,[
-			'nombre' => 'required|string|max:75',
-			'clave' => 'required|string|max:10|unique:estatusinspeccion,clave,' . $id
+			'nombre' => 'required|string|max:75'
 		]);
 
 		// Se reciben los datos del formulario y se crean variables
 		$nombre = $request->input('nombre');
-		$clave = $request->input('clave');
 
         // Una ves verificados los datos y creados las variables se actualiza en la BD
 		$tipoInspeccion->nombre = $nombre;
-		$tipoInspeccion->clave = $clave;
 		$tipoInspeccion->update();
 
         // Indica que fue correcta la modificación del tipo de inspección

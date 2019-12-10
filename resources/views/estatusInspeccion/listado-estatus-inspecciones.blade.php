@@ -75,7 +75,7 @@
                     </div>
                     <div class="form-group">
                         <label for="clave-edit">{{ __('Clave') }}</label>
-                        <input id="clave-edit" type="text" class="form-control">
+                        <input id="clave-edit" type="text" class="form-control" disabled>
                         <p class="text-danger" id="error-clave-edit"></p>
                     </div>
                     <hr>
