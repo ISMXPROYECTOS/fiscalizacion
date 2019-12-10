@@ -108,7 +108,7 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group">
                                 <label for="clave-edit">{{ __('Clave') }}</label>
-                                <input id="clave-edit" type="text" class="form-control" name="clave">
+                                <input id="clave-edit" type="text" class="form-control" disabled>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
@@ -126,31 +126,11 @@
                     <div class="alert alert-info" role="alert">
                       Selecciona los documentos requeridos para este tipo de inspección.
                     </div>
-                    
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="seleccionar-todos-editar">
                         <label for="seleccionar-todos-editar">Seleccionar todos</label>
                     </div>
-
-                    <div id="documentos-editar">
-
-                        
-                       <!-- <table class="table table-sm">
-                            <thead class="thead-dark">
-                                <tr>
-                                  <th scope="col">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="seleccionar-todos-sds">
-                                    </div>
-                                  </th>
-                                  <th scope="col">DOCUMENTO REQUERIDO</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbody-documentos">
-
-                            </tbody>
-                      </table> -->
-                    </div>
+                    <div id="documentos-editar"></div>
                     <hr>
                     <div class="form-group row mb-0">
                         <div class="col-md-6">

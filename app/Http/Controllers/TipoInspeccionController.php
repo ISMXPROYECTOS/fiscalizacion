@@ -97,20 +97,17 @@ class TipoInspeccionController extends Controller
 		// Validara los campos para evitar problemas
 		$validate = $this->validate($request,[
 			'nombre' => 'required|string|max:75',
-			'clave' => 'required|string|max:10|',
 			'diasvencimiento' => 'required|string|max:3'
 		]);
 
 		// Se reciben los datos del formulario y se crean variables
 		$data = $request->all();
 		$nombre = $request->input('nombre');
-		$clave = $request->input('clave');
 		$diasvencimiento = $request->input('diasvencimiento');
 		$nueva_documentacion = array_get($data, 'documentos-requeridos');
 
 		// Una ves verificados los datos y creados las variables se actualiza en la BD
 		$tipoInspeccion->nombre = $nombre;
-		$tipoInspeccion->clave = $clave;
 		$tipoInspeccion->diasvencimiento = $diasvencimiento;
 		$tipoInspeccion->update();
 
