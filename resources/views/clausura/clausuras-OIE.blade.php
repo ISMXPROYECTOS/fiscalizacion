@@ -41,10 +41,10 @@
 		<div class="container">
 			<h5 class="folio">FOLIO: {{ $inspeccion->folio }}</h5><br><br>
 			@if($inspeccion->comercio == null)
-				<p class="ac-header-datos mbt-0"><b>NOMBRE DEL CONTRIBUYENTE: </b>_____________________________________________________________________________________________________________________________________</p>
-				<p class="ac-header-datos mbt-0"><b>NOMBRE COMERCIAL DEL ESTABLECIMIENTO: </b>________________________________________________________________________________________________________________________</p>
-				<p class="ac-header-datos mbt-0"><b>DOMICILIO DEL ESTABLECIMIENTO: </b>__________________________________________________________________________________________________________________________________</p>
-				<p class="ac-header-datos mbt-0"><b>GIRO: </b>_____________________________________________________________________________________________________________________________________________________________</p>
+				<p class="ac-header-datos mbt-0"><b>NOMBRE DEL CONTRIBUYENTE: </b>_______________________________________________________________________________________________</p>
+				<p class="ac-header-datos mbt-0"><b>NOMBRE COMERCIAL DEL ESTABLECIMIENTO: </b>___________________________________________________________________________________</p>
+				<p class="ac-header-datos mbt-0"><b>DOMICILIO DEL ESTABLECIMIENTO: </b>_____________________________________________________________________________________________</p>
+				<p class="ac-header-datos mbt-0"><b>GIRO: </b>_______________________________________________________________________________________________________________________</p>
 			@else
 				<p class="ac-header-datos mbt-0"><b>NOMBRE DEL CONTRIBUYENTE: </b>{{ $inspeccion->comercio->propietarionombre }}</p>
 				<p class="ac-header-datos mbt-0"><b>NOMBRE COMERCIAL DEL ESTABLECIMIENTO: </b>{{ $inspeccion->comercio->nombreestablecimiento }}</p>
