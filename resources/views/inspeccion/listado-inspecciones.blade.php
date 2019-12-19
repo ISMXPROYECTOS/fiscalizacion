@@ -12,6 +12,7 @@
                     <th>Tipo de Inspección</th>
                     <th>Estatus</th>
                     <th>Inspector</th>
+                    <th>Razón social</th>
                     <th>Nombre del Local</th>
                     <th>Fecha Generada</th>
                     <th>Fecha vence</th>

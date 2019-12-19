@@ -221,7 +221,7 @@ class ComercioController extends Controller
 				'mensaje' => 'Ingresa un valor correcto.'
 			], 422);
 		} else {
-			$comercios = Comercio::where('nombreestablecimiento', 'like', '%'. $nombre .'%')->get(['id', 'licenciafuncionamiento', 'nombreestablecimiento', 'domiciliofiscal']);
+			$comercios = Comercio::where('denominacion', 'like', '%'. $nombre .'%')->orWhere('nombreestablecimiento', 'like', '%'. $nombre .'%')->get(['id', 'licenciafuncionamiento', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal']);
 			//$comercios = Comercio::where('nombreestablecimiento', 'like', '%'. $nombre .'%')->get();
 			if (count($comercios) == 0) {
 				return response()->json([

@@ -13,7 +13,7 @@ $(document).ready(function(){
 			'destroy': true,
 			'deferRender': true,
 			'pageLength': 10,
-			'order': [ 5, 'desc' ],
+			'order': [[ 5, 'desc' ], [ 1, 'desc' ]],
 			'ajax': url + '/inspecciones/listado',
 			'columns': [
 				{data: 'folio',
@@ -54,6 +54,7 @@ $(document).ready(function(){
 					}, orderable: false, searchable: false
 				},
 				{data: 'inspector.nombre', defaultContent: '', orderable: false},
+				{data: 'comercio.denominacion', defaultContent: '', orderable: false},
 				{data: 'comercio.nombreestablecimiento', defaultContent: '', orderable: false},
 				{data: 'created_at', defaultContent: ''},
 				{data: 'fechavence',

@@ -145,7 +145,7 @@
 	</div>
 	@else
 	<div class="form-group">
-		<label>Buscar negocio por nombre comercial</label>
+		<label>Buscar negocio por razón social o nombre comercial</label>
 		<div class="input-group">
 			<input type="text" class="form-control" name="calle" id="calle" placeholder="Nombre comercial del negocio">
 			<div class="input-group-append">
@@ -162,6 +162,7 @@
 				<tr>
 					<th></th>
 					<th>LICENCIA DE FUNCIONAMIENTO</th>
+					<th>RAZÓN SOCIAL</th>
 					<th>NOMBRE COMERCIAL</th>
 					<th>UBICACIÓN</th>
 				</tr>

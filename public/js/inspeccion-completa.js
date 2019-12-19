@@ -67,10 +67,9 @@ $(document).ready(function(){
 
 	updateInspector();
 
-	function busquedaDeComerciosPorNombre(){
+	function busquedaDeComerciosPorDenominacion(){
 		$('#buscar-sm').click(function(){
 			var calle = $('#calle').val();
-
 			if (calle == '') {
 				var calle = null;
 				$.ajax({
@@ -80,7 +79,6 @@ $(document).ready(function(){
 						$('#comercios').removeClass('hidden');
 						$('#error-sm').addClass('hidden');
 						$('#tabla-comercios').addClass('hidden');
-
 						$.each(response, function( key, value ){
 							$('#tbody-comercios').append(
 								"<tr class='results'>"+
@@ -90,6 +88,7 @@ $(document).ready(function(){
 								"</div>"+
 								"</th>"+
 								"<td>"+ value.licenciafuncionamiento +"</td>"+
+								"<td>"+ value.denominacion +"</td>"+
 								"<td>"+ value.nombreestablecimiento +"</td>"+
 								"<td>"+ value.domiciliofiscal +"</td>"+
 								"</tr>");
@@ -111,7 +110,6 @@ $(document).ready(function(){
 						$('#error-results').addClass('hidden');
 						$('#error-comercios').addClass('hidden');
 						$('#error-sm').addClass('hidden');
-
 						$.each(response, function( key, value ){
 							$('#tbody-comercios').append(
 								"<tr class='results'>"+
@@ -121,6 +119,7 @@ $(document).ready(function(){
 								"</div>"+
 								"</th>"+
 								"<td>"+ value.licenciafuncionamiento +"</td>"+
+								"<td>"+ value.denominacion +"</td>"+
 								"<td>"+ value.nombreestablecimiento +"</td>"+
 								"<td>"+ value.domiciliofiscal +"</td>"+
 								"</tr>");
@@ -138,7 +137,7 @@ $(document).ready(function(){
 		});
 	}
 
-	busquedaDeComerciosPorNombre();
+	busquedaDeComerciosPorDenominacion();
 
 	function seleccionarTodosDocumentosRequeridosSolicitado(){
 		$("#seleccionar-todos-solicitado").click(function() {
@@ -284,6 +283,4 @@ $(document).ready(function(){
 	}
 
 	confirmarMulta();
-
-
 });

@@ -92,7 +92,6 @@ class InspeccionController extends Controller
 	/* Método encargado de ir a la base de datos seleccionar la información solicitada y devolverla a la petición para ser mostrada */
 	public function tbody(){
 		//$inspecciones = Inspeccion::all()->load('tipoInspeccion')->load('estatusInspeccion')->load('inspector')->load('comercio');
-
 		return Datatables::of(Inspeccion::query()->with([
 			'tipoInspeccion' => function($query){
 				$query->select(['id', 'clave']);
@@ -107,7 +106,7 @@ class InspeccionController extends Controller
 			}
 		])->with([
 			'comercio' => function($query){
-				$query->select(['id', 'nombreestablecimiento']);
+				$query->select(['id', 'denominacion', 'nombreestablecimiento']);
 			}
 		])->select([
 			'id',
@@ -120,9 +119,9 @@ class InspeccionController extends Controller
 			'fechavence',
 			'fechaprorroga'
 		]))
-			->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
-			->rawColumns(['cambiarestatus'])
-			->make(true);
+		->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
+		->rawColumns(['cambiarestatus'])
+		->make(true);
 
 		/* Va antes de select */
 		/* ->orderBy('id', 'asc') */
@@ -801,7 +800,7 @@ class InspeccionController extends Controller
 		$validate = $this->validate($request, [
 			'inspeccion-id' => 'required|string',
 			'establecimiento' => 'required|string',
-			'encargado' => 'string',
+			'encargado' => 'nullable',
 			'cargo' => 'nullable',
 			'identificacion' => 'nullable',
 			'folioidentificacion' => 'nullable',
