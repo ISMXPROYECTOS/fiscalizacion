@@ -573,7 +573,7 @@
 					@csrf
 					<input type="hidden" id="id-agregar-multa" value="{{ $inspeccion->id }}">
 					<div class="form-group">
-						<label for="cantidad-multa">{{ __('Monto de la multa') }}</label>
+						<label for="cantidad-multa">{{ __('Monto de la multa en UMAS') }}</label>
 						<input id="cantidad-multa" type="number" class="form-control"><br>
 						<p class="text-danger" id="error-cantidad-multa"></p>
 					</div>

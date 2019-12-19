@@ -201,7 +201,8 @@ class ComercioController extends Controller
 				'mensaje' => 'Ingresa un valor correcto.'
 			], 422);
 		} else {
-			$comercios = Comercio::where('domiciliofiscal', 'like', '%'. $domiciliofiscal .'%')->get();
+			$comercios = Comercio::where('domiciliofiscal', 'like', '%'. $domiciliofiscal .'%')->orderBy('denominacion', 'asc')->get(['id', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal']);
+			//$comercios = Comercio::where('domiciliofiscal', 'like', '%'. $domiciliofiscal .'%')->get();
 			if (count($comercios) == 0) {
 				return response()->json([
 					'mensaje' => 'No se encontro ningun resultado.'
