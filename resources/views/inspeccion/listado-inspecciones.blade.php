@@ -18,6 +18,7 @@
                     <th>Fecha vence</th>
                     <th>Fecha prorroga</th>
                     <th>Estatus</th>
+                    <th>Imprimir</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -67,6 +68,24 @@
         </div>
     </div>
 </div>
+
+<!-- Generando PDF -->
+<div class="modal fade" id="creando-pdf-inspecciones" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-registro-correcto">Descarga de Inspecciones</h3>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info" role="alert">
+                    Selecciona el Formato en el que deseas descargar las Inspecciones.
+                </div>
+                <div id="descargas"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Alerta de actualización -->
 <div class="modal fade" id="actualizacion-correcta" tabindex="-1" role="dialog" aria-labelledby="modal-actualizacion-correcta" aria-hidden="true">

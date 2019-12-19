@@ -89,6 +89,38 @@ class PdfController extends Controller
 		return $data;
 	}
 
+	public function imprimirInspeccionesIndividual($id){
+		$inspeccion = Inspeccion::find($id);
+		$estatus_NA = EstatusInspeccion::where('clave', 'NA')->first();
+
+		$data = [
+			'code' 		=> 400,
+			'message' 	=> 'error, ocurrió algo inesperado'
+		];
+
+		if (!empty($inspeccion)) {
+			if ($inspeccion->estatusInspeccion->clave != $estatus_NA->clave) {
+				$data = [
+					'code' 				=> 200,
+					'message' 			=> 'Datos de la inspección',
+					'tipoInspeccion' 	=> $inspeccion->tipoInspeccion->clave
+				];
+			} else {
+				$data = [
+					'code' 			=> 400,
+					'message' 		=> 'La inspección debe estar asignada para imprimir la documentación'
+				];
+			}
+		} else {
+			$data = [
+				'code' 		=> 400,
+				'message' 	=> 'No se encontro la inspección'
+			];
+		}
+
+		return $data;
+	}
+
 	/* Descarga las inspecciones con las actas comunes */
 	public function descargarPdfInspecciones($id){
 		$forma_valorada = FormaValorada::find($id);
@@ -139,9 +171,6 @@ class PdfController extends Controller
 		$inspeccion = Inspeccion::find($id);
 		$documentos_por_inspeccion = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get(['id', 'documentacionrequerida_id', 'solicitado', 'exhibido', 'observaciones']);
 
-
-
-
 		//dd($documentos_por_inspeccion);
 		//die();
 
@@ -178,6 +207,17 @@ class PdfController extends Controller
 		return $pdf->download('Orden-Clausura-'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
 	}
 
+	/* Descarga inspecciones individuales con las actas comunes */
+	public function descargarPdfInspeccionIndividual($id){
+		$inspeccion = Inspeccion::find($id);
+		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
+		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+	
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos]);
+
+		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
+	}
+
 	public function verGafete($id){
 		$gafete = Gafete::find($id);
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
@@ -186,7 +226,6 @@ class PdfController extends Controller
 		$pdf = PDF::loadView('gafete.gafete', ['gafete' => $gafete])->setPaper($customPaper, "landscape");
 
 		return $pdf->download('Gafete-'.$ejercicio_fiscal->anio.'-'.$gafete->inspector->nombre.'.pdf');
-		
 	}
 
 	public function inspeccionesPorPaquete($id){

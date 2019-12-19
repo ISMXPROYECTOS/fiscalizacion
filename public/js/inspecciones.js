@@ -130,7 +130,8 @@ $(document).ready(function(){
 						}
 					}
 				},
-				{data: 'cambiarestatus', orderable: false, searchable: false}
+				{data: 'cambiarestatus', orderable: false, searchable: false},
+				{data: 'imprimir', orderable: false, searchable: false}
 			],
 			'language': {
 				'info': 'Total de registros _TOTAL_',
@@ -243,4 +244,43 @@ $(document).ready(function(){
 	}
 
 	cambiarEstatusAutomaticamente();
+
+	function imprimirInspeccionIndividual(){
+		$(document).on('click', '.descargar', function(e){
+			e.preventDefault();
+			$('#descargas').text('');
+			var id = $(this).attr('id');
+
+			$.ajax({
+				url: url + '/pdf/imrpimir-inspeccion-individual/' + id,
+				type: 'get',
+				success: function (response) {
+					$('#creando-pdf-inspecciones').modal('show');
+					if (response.code == 200) {
+						if (response.tipoInspeccion == 'OIVP') {
+							$('#descargas').append(
+								"<a href='"+url+'/pdf/descargar-pdf-citatorios/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Citatorios</a>" +
+								"&nbsp;" +
+								"<a href='"+url+'/pdf/descargar-pdf-inspeccion-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
+								"&nbsp;" +
+								"<a href='"+url+'/pdf/descargar-pdf-inspecciones-complejas/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Complejo</a>" +
+								"&nbsp;" +
+								"<a href='"+url+'/pdf/descargar-pdf-clausuras/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
+							);
+						} else {
+							$('#descargas').append(
+								"<a href='"+ url + '/pdf/descargar-pdf-inspeccion-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
+								"&nbsp;" +
+								"<a href='"+url+'/pdf/descargar-pdf-clausuras/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
+							);
+						}
+					} else {
+						$('#descargas').text(response.message);
+					}
+				}
+			});
+		});
+	}
+
+	imprimirInspeccionIndividual();
 });

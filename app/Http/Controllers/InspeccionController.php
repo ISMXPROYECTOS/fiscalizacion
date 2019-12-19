@@ -120,7 +120,8 @@ class InspeccionController extends Controller
 			'fechaprorroga'
 		]))
 		->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
-		->rawColumns(['cambiarestatus'])
+		->addColumn('imprimir', 'inspeccion/boton-imprimir')
+		->rawColumns(['cambiarestatus', 'imprimir'])
 		->make(true);
 
 		/* Va antes de select */
