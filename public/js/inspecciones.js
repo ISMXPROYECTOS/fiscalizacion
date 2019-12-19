@@ -259,19 +259,19 @@ $(document).ready(function(){
 					if (response.code == 200) {
 						if (response.tipoInspeccion == 'OIVP') {
 							$('#descargas').append(
-								"<a href='"+url+'/pdf/descargar-pdf-citatorios/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Citatorios</a>" +
+								"<a href='"+url+'/pdf/descargar-pdf-citatorio-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Citatorios</a>" +
 								"&nbsp;" +
 								"<a href='"+url+'/pdf/descargar-pdf-inspeccion-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
 								"&nbsp;" +
-								"<a href='"+url+'/pdf/descargar-pdf-inspecciones-complejas/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Complejo</a>" +
+								"<a href='"+url+'/pdf/descargar-pdf-inspeccion-compleja-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Complejo</a>" +
 								"&nbsp;" +
-								"<a href='"+url+'/pdf/descargar-pdf-clausuras/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
+								"<a href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
 							);
 						} else {
 							$('#descargas').append(
 								"<a href='"+ url + '/pdf/descargar-pdf-inspeccion-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
 								"&nbsp;" +
-								"<a href='"+url+'/pdf/descargar-pdf-clausuras/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
+								"<a href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
 							);
 						}
 					} else {
