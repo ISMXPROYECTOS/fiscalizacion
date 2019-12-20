@@ -78,6 +78,7 @@ class InspeccionController extends Controller
 		//$ejerciciosFiscales = EjercicioFiscal::all();
 		$estatusInspecciones = EstatusInspeccion::get(['id', 'clave', 'nombre']);
 		//$colonias = Colonia::all();
+		$inspectores = Inspector::where('estatus', 'A')->orWhere('estatus', 'V')->get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno']);
 		return view('inspeccion.listado-inspecciones', [
 			//'inspecciones' => $inspecciones,
 			//'inspectores' => $inspectores,
@@ -85,7 +86,8 @@ class InspeccionController extends Controller
 			//'tiposInspecciones' => $tiposInspecciones,
 			//'ejerciciosFiscales' => $ejerciciosFiscales,
 			'estatusInspecciones' => $estatusInspecciones,
-			//'colonias' => $colonias
+			//'colonias' => $colonias,
+			'inspectores' => $inspectores
 		]);
 	}
 

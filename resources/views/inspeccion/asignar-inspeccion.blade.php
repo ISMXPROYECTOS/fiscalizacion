@@ -4,7 +4,6 @@
     <h2>Asignar Inspecciones</h2>
 </header>
 
-
 <form method="POST" action="{{ route('asignar-inspecciones') }}" id="formulario-asignar-inspeccion">
     @csrf
     <div class="form-group">
@@ -55,8 +54,6 @@
             <option value="100">100</option>
             <option value="150">150</option>
             <option value="200">200</option>
-            <option value="250">250</option>
-            <option value="300">300</option>
         </select>
         <p class="text-danger mb-0">{{ $errors->first('cantidad-asignar') }}</p>
     </div>

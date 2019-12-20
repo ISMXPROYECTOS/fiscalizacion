@@ -249,7 +249,15 @@ $(document).ready(function(){
 		$(document).on('click', '.descargar', function(e){
 			e.preventDefault();
 			$('#descargas').text('');
+
 			var id = $(this).attr('id');
+			var inspectores = [];
+
+			$("input[type=checkbox]:checked").each(function(){
+				inspectores.push(this.value);
+			});
+
+			inspectores = JSON.stringify(inspectores);
 
 			$.ajax({
 				url: url + '/pdf/imrpimir-inspeccion-individual/' + id,
@@ -261,15 +269,16 @@ $(document).ready(function(){
 							$('#descargas').append(
 								"<a href='"+url+'/pdf/descargar-pdf-citatorio-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Citatorios</a>" +
 								"&nbsp;" +
-								"<a href='"+url+'/pdf/descargar-pdf-inspeccion-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
+								"<a href='"+url+'/pdf/descargar-pdf-inspeccion-individual/'+id+'/'+inspectores+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
 								"&nbsp;" +
 								"<a href='"+url+'/pdf/descargar-pdf-inspeccion-compleja-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Complejo</a>" +
 								"&nbsp;" +
 								"<a href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
 							);
+							
 						} else {
 							$('#descargas').append(
-								"<a href='"+ url + '/pdf/descargar-pdf-inspeccion-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
+								"<a href='"+url+'/pdf/descargar-pdf-inspeccion-individual/'+id+'/'+inspectores+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
 								"&nbsp;" +
 								"<a href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
 							);

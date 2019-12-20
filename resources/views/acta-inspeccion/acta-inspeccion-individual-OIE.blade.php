@@ -13,6 +13,7 @@
 		<p class="oi-header-datos mbt-0 text-right">DIRECCIÓN DE FISCALIZACIÓN</p>
 		<p class="oi-header-datos mbt-0 text-right">FOLIO: {{ $inspeccion->folio }}</p>
 		<p class="oi-header-datos mbt-0 text-right">CANCUN, QUINTANA ROO A _______________________</p>
+		
 		<br>
 		@if($inspeccion->comercio == null)
 		<p class="oi-header-datos mbt-0"><b>NOMBRE DEL CONTRIBUYENTE: </b>________________________________________________________________________________________________</p>

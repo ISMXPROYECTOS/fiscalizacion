@@ -17,6 +17,7 @@ use App\Gafete;
 use App\Multa;
 use App\EstatusInspeccion;
 use App\BitacoraDeEstatus;
+use App\Inspector;
 
 class PdfController extends Controller
 {
@@ -102,7 +103,7 @@ class PdfController extends Controller
 			if ($inspeccion->estatusInspeccion->clave != $estatus_NA->clave) {
 				$data = [
 					'code' 				=> 200,
-					'message' 			=> 'Datos de la inspección',
+					'message' 			=> 'Descargar documentos de la inspección',
 					'tipoInspeccion' 	=> $inspeccion->tipoInspeccion->clave
 				];
 			} else {
@@ -208,12 +209,14 @@ class PdfController extends Controller
 	}
 
 	/* Descarga inspecciones individuales con las actas comunes */
-	public function descargarPdfInspeccionIndividual($id){
+	public function descargarPdfInspeccionIndividual($id, $inspectores){
+		dd($inspectores);
+		
 		$inspeccion = Inspeccion::find($id);
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 	
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos]);
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectores' => $inspectores]);
 
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
 	}

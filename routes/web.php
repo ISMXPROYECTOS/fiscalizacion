@@ -98,7 +98,7 @@ Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete'
 //Route::get('/pdf/validar-acta-inspeccion/{id}', 'PdfController@validarActaInspeccion');
 //Route::get('/pdf/descargar-acta-inspeccion/{id}', 'PdfController@descargarActaInspeccion');
 Route::get('/pdf/descargar-pdf-inspecciones/{id}', 'PdfController@descargarPdfInspecciones');
-Route::get('/pdf/descargar-pdf-inspeccion-individual/{id}', 'PdfController@descargarPdfInspeccionIndividual');
+Route::get('/pdf/descargar-pdf-inspeccion-individual/{id}/{inspectores?}', 'PdfController@descargarPdfInspeccionIndividual');
 Route::get('/pdf/descargar-pdf-inspecciones-complejas/{id}', 'PdfController@descargarPdfInspeccionesComplejas');
 Route::get('/pdf/descargar-pdf-inspeccion-compleja-individual/{id}', 'PdfController@descargarPdfInspeccionComplejaIndividual');
 Route::get('/pdf/validar-folios-asignados/{id}', 'PdfController@validarFoliosAsignados');

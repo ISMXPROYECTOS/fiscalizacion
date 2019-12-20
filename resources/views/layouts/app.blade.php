@@ -157,12 +157,6 @@
                                                     <span>Documentacion requerida</span>
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a class="nav-link" href="#">
-                                                    
-                                                    <span>Giros y Subgiros comerciales</span>
-                                                </a>
-                                            </li>
                                         </ul>
                                     </li>
                                     <li>
