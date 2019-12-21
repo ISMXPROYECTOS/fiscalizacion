@@ -217,14 +217,22 @@ class PdfController extends Controller
 		$inspectores = array();
 
 		for ($i = 0; $i < count($id_inspectores); $i++) {
-			$inspector = Inspector::where('id', $id_inspectores[$i])->get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno']);
-			$inspectores = array_add($inspectores, 'id', $inspector->id);
+			$inspector = Inspector::where('id', $id_inspectores[$i])->get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno'])->toArray();
+			$inspectores[] = $inspector;
 		}
 
-		dd($inspectores);
-	
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectores' => $inspectores]);
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores]);
 
+		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
+	}
+
+	/* Descarga la inspeccion con las actas complejas (con testigos) individualmente  */
+	public function descargarPdfInspeccionComplejaIndividual($id){
+		$inspeccion = Inspeccion::find($id);
+		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
+		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIVP', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos]);
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
 	}
 
@@ -247,16 +255,6 @@ class PdfController extends Controller
 		$pdf = PDF::loadView('acta-inspeccion.citatorio-individual-OIVP', ['inspeccion' => $inspeccion]);
 
 		return $pdf->download('Citatorios-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
-	}
-
-	/* Descarga la inspeccion con las actas complejas (con testigos) individualmente  */
-	public function descargarPdfInspeccionComplejaIndividual($id){
-		$inspeccion = Inspeccion::find($id);
-		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
-		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
-		
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIVP', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos]);
-		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
 	}
 
 	public function verGafete($id){
