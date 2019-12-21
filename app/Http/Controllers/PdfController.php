@@ -210,11 +210,18 @@ class PdfController extends Controller
 
 	/* Descarga inspecciones individuales con las actas comunes */
 	public function descargarPdfInspeccionIndividual($id, $inspectores){
-		dd($inspectores);
-		
+		$id_inspectores = json_decode($inspectores);
 		$inspeccion = Inspeccion::find($id);
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		$inspectores = array();
+
+		for ($i = 0; $i < count($id_inspectores); $i++) {
+			$inspector = Inspector::where('id', $id_inspectores[$i])->get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno']);
+			$inspectores = array_add($inspectores, 'id', $inspector->id);
+		}
+
+		dd($inspectores);
 	
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectores' => $inspectores]);
 
