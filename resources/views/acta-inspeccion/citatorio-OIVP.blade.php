@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>INSPECCION 2019-2021</title>
+		<title>CITATORIO 2019-2021</title>
 		<link rel="stylesheet" href="{{ asset('css/citatorio.css') }}" />
 	</head>
 	<body>
