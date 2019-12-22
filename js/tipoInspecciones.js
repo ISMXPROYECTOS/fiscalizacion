@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var url = "http://localhost/fiscalizacion/public";
+	//var url = "http://localhost/fiscalizacion/public";
 
 	$('#error-nombre, #error-clave, #error-diasvencimiento').addClass('hidden');
 	$('#error-nombre, #error-clave, #error-diasvencimiento').text('');

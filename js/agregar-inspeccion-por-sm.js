@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var url = "http://localhost/fiscalizacion/public";
+    //var url = "http://localhost/fiscalizacion/public";
 
     /*$("#seleccionar-todos").click(function() {
         $(".check").attr("checked", this.checked);

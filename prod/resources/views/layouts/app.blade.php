@@ -296,6 +296,13 @@
                 
                 <script src="{{ asset('js/examples/examples.modals.js') }} "></script>
                 <script src="{{ asset('js/navbar.js') }} "></script>
+
+                <script type="text/javascript">
+                    var url = window.location.origin+"/fiscalizacion";
+
+                    //console.log(u);
+                </script>
+                
                 @yield('scripts')
             </body>
         </html>

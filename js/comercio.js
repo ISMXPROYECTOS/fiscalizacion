@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var url = "http://localhost/fiscalizacion/public";
+	//var url = "http://localhost/fiscalizacion/public";
 
 	$('#error-propietario, #error-denominacion, #error-nombreestablecimiento, #error-domiciliofiscal').addClass('hidden');
 	$('#error-propietario, #error-denominacion, #error-nombreestablecimiento, #error-domiciliofiscal').text('');

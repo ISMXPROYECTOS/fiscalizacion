@@ -1,31 +1,35 @@
 $(document).ready(function(){
-    
-    var url = "http://localhost/fiscalizacion/public";
 
-    $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
-    $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
+    //var url = "http://localhost/fiscalizacion/public";
 
-    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
-    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').text('');
+    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-puesto').addClass('hidden');
+    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-puesto').text('');
+    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-puesto-edit').addClass('hidden');
+    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-puesto-edit').text('');
+    $('#error-activo-edit').addClass('hidden');
+    $('#error-activo-edit').text('');
 
     $(document).on('click', '#btn-cancelar', function(e){
-        $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
-        $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
-
-        $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
-        $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').text('');
+        $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-puesto').addClass('hidden');
+        $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-puesto').text('');
+        $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-puesto-edit').addClass('hidden');
+        $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-puesto-edit').text('');
+        $('#error-activo-edit').addClass('hidden');
+        $('#error-activo-edit').text('');
     });
-    
+
     function viewData(){
-        $('#datatable-usuarios').DataTable({
+        $('#datatable').DataTable({
             'serverSide': true,
-            'processing': true,
-            'deferRender': true,
-            'pageLength': 10,
             'destroy': true,
-            'ajax': url + '/usuarios/listado',
+            'ajax': url + '/encargado/listado',
             'columns': [
-                {data: 'usuario'},
+                {data: 'nombre',
+                    'render': function ( data, type, row ) {
+                        return (row.nombre + ' ' + row.apellidopaterno + ' ' + row.apellidomaterno);
+                    }
+                }, 
+                {data: 'puesto'},
                 {data: 'activo',
                     'render': function(data, type, row){
                         if (row.activo == 1) {
@@ -35,20 +39,8 @@ $(document).ready(function(){
                         }
                     }
                 },
-                {data: 'role',
-                    'render': function(data, type, row){
-                        if (row.role == 'ROLE_ADMIN') {
-                            return "<span class='badge badge-pill badge-success'>Administrador</span>"
-                        }else if(row.role == 'ROLE_INSPECTOR'){
-                            return "<span class='badge badge-pill badge-info'>Inspector</span>"
-                        }else if(row.role == 'ROLE_VENTANILLA'){
-                            return "<span class='badge badge-pill badge-secondary'>Ventanilla</span>"
-                        }
-                    }
-                },
-                {data: 'vigencia'},
                 {data: 'editar', orderable: false, searchable: false},
-                {data: 'cambiarestatus', orderable: false, searchable: false},
+                {data: 'cambiarestatus', orderable: false, searchable: false}
             ],
             'language': {
                 'info': 'Total de registros _TOTAL_',
@@ -59,7 +51,7 @@ $(document).ready(function(){
                 'lengthMenu': 'Mostrar _MENU_ registros',
                 'loadingRecords': 'Cargando...',
                 'processing': 'Procesando...',
-                'emptyTable': 'No se hay registros',
+                'emptyTable': 'No se encontraron registros',
                 'zeroRecords': 'No se encontraron registros',
                 'infoEmpty': '',
                 'infoFiltered': ''
@@ -72,34 +64,33 @@ $(document).ready(function(){
     function saveData(){
         $('#btn-enviar').click(function(){
             var data = {
-                'usuario' : $('#usuario').val(),
-                'role' : $('#role').val(),
-                'vigencia' : $('#vigencia').val(),
-                'password' : $('#password').val(),
-                'password_confirmation' : $('#password-confirm').val()
+                'nombre' : $('#nombre').val(),
+                'apellidopaterno' : $('#apellidopaterno').val(),
+                'apellidomaterno' : $('#apellidomaterno').val(),
+                'puesto' : $('#puesto').val()
             }
 
             $.ajax({
-                url: url + '/usuarios/nuevo',
+                url: url + '/encargado/nuevo',
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 beforeSend: function(){
-                    $('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Usuario...');
+                    $('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Encargado...');
                 },
                 success: function (response) {
-                    $('#btn-enviar').text('Crear Usuario');
-                    $("#formulario-usuario")[0].reset();
-                    $('#crear-usuario').modal('hide');
+                    $('#btn-enviar').text('Crear Encargado');
+                    $("#formulario-encargado")[0].reset();
+                    $('#crear-encargado').modal('hide');
                     $('#registro-correcto').modal('show');
-                    $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
-                    $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-puesto').addClass('hidden');
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-puesto').text('');
                     viewData();
                 },
                 error: function(response) {
-                    $('#btn-enviar').text('Crear Usuario');
-                    $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
-                    $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
+                    $('#btn-enviar').text('Crear Encargado');
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-puesto').addClass('hidden');
+                    $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-puesto').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i).removeClass('hidden');
                         $('#error-'+i).text(item[0]);
@@ -117,18 +108,17 @@ $(document).ready(function(){
             e.preventDefault();
             var id = $(this).attr('id');
              $.ajax({
-                url: url + '/usuarios/editar/' + id,
+                url: url + '/encargado/editar/' + id,
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
-                        $('#editar-usuario').modal({backdrop: 'static', keyboard: false})
-                        $('#editar-usuario').modal('show');
+                        $('#editar-encargado').modal({backdrop: 'static', keyboard: false})
+                        $('#editar-encargado').modal('show');
                         $('#id-edit').val(response.id);
-                        $('#usuario-edit').val(response.usuario);
-                        $('#role-edit').val(response.role);
-                        $('#vigencia-edit').val(response.vigencia);
-                        $('#password-edit').val(response.password);
-                        $('#password-confirm-edit').val(response.password);
+                        $('#nombre-edit').val(response.nombre);
+                        $('#apellidopaterno-edit').val(response.apellidopaterno);
+                        $('#apellidomaterno-edit').val(response.apellidomaterno);
+                        $('#puesto-edit').val(response.puesto);
                     }
                 }
             });
@@ -141,15 +131,14 @@ $(document).ready(function(){
         $('#btn-editar').click(function(){
             var data = {
                 'id' : $('#id-edit').val(),
-                'usuario' : $('#usuario-edit').val(),
-                'role' : $('#role-edit').val(),
-                'vigencia' : $('#vigencia-edit').val(),
-                'password' : $('#password-edit').val(),
-                'password_confirmation' : $('#password-confirm-edit').val()
+                'nombre' : $('#nombre-edit').val(),
+                'apellidopaterno' : $('#apellidopaterno-edit').val(),
+                'apellidomaterno' : $('#apellidomaterno-edit').val(),
+                'puesto' : $('#puesto-edit').val()
             }
 
             $.ajax({
-                url: url + '/usuarios/actualizar',
+                url: url + '/encargado/actualizar',
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -158,16 +147,16 @@ $(document).ready(function(){
                 },
                 success: function (response) {
                     $('#btn-editar').text('Guardar');
-                    $('#editar-usuario').modal('hide');
+                    $('#editar-encargado').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').addClass('hidden');
-                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').text('');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-puesto-edit').addClass('hidden');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-puesto-edit').text('');
                     viewData();
                 },
                 error: function(response) {
                     $('#btn-editar').text('Guardar');
-                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').addClass('hidden');
-                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').text('');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-puesto-edit').addClass('hidden');
+                    $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-puesto-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);
@@ -185,7 +174,7 @@ $(document).ready(function(){
             e.preventDefault();
             var id = $(this).attr('id');
              $.ajax({
-                url: url + '/usuarios/editar/' + id,
+                url: url + '/encargado/editar/' + id,
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
@@ -209,7 +198,7 @@ $(document).ready(function(){
             }
 
             $.ajax({
-                url: url + '/usuarios/estatus',
+                url: url + '/encargado/estatus',
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -239,5 +228,5 @@ $(document).ready(function(){
     }
 
     updateEstatus();
-    
+
 });

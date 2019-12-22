@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var url = "http://localhost/fiscalizacion/public";
+	//var url = "http://localhost/fiscalizacion/public";
 
 	var elementos = $('.nav-link');
 

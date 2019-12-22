@@ -1,29 +1,31 @@
 $(document).ready(function(){
-	// Se crea una variable con la ruta raiz del proyecto
-    var url = "http://localhost/fiscalizacion/public";
+    
+    //var url = "http://localhost/fiscalizacion/public";
 
-    $('#error-anio').addClass('hidden');
-    $('#error-anio').text('');
-    $('#error-anio-edit, #error-activo-edit').addClass('hidden');
-    $('#error-anio-edit, #error-activo-edit').text('');
+    $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
+    $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
+
+    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
+    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').text('');
 
     $(document).on('click', '#btn-cancelar', function(e){
+        $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
+        $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
 
-        $('#error-anio').addClass('hidden');
-        $('#error-anio').text('');
-
-        $('#error-anio-edit, #error-activo-edit').addClass('hidden');
-        $('#error-anio-edit, #error-activo-edit').text('');
+        $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').addClass('hidden');
+        $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-activo-edit, #error-password-edit').text('');
     });
-
-    // Esta función muetra los años fiscales en una tabla
+    
     function viewData(){
-        $('#datatable').DataTable({
+        $('#datatable-usuarios').DataTable({
             'serverSide': true,
+            'processing': true,
+            'deferRender': true,
+            'pageLength': 10,
             'destroy': true,
-            'ajax': url + '/ejercicios-fiscales/listado',
+            'ajax': url + '/usuarios/listado',
             'columns': [
-                {data: 'anio'},
+                {data: 'usuario'},
                 {data: 'activo',
                     'render': function(data, type, row){
                         if (row.activo == 1) {
@@ -33,6 +35,18 @@ $(document).ready(function(){
                         }
                     }
                 },
+                {data: 'role',
+                    'render': function(data, type, row){
+                        if (row.role == 'ROLE_ADMIN') {
+                            return "<span class='badge badge-pill badge-success'>Administrador</span>"
+                        }else if(row.role == 'ROLE_INSPECTOR'){
+                            return "<span class='badge badge-pill badge-info'>Inspector</span>"
+                        }else if(row.role == 'ROLE_VENTANILLA'){
+                            return "<span class='badge badge-pill badge-secondary'>Ventanilla</span>"
+                        }
+                    }
+                },
+                {data: 'vigencia'},
                 {data: 'editar', orderable: false, searchable: false},
                 {data: 'cambiarestatus', orderable: false, searchable: false},
             ],
@@ -45,7 +59,7 @@ $(document).ready(function(){
                 'lengthMenu': 'Mostrar _MENU_ registros',
                 'loadingRecords': 'Cargando...',
                 'processing': 'Procesando...',
-                'emptyTable': 'No se encontraron registros',
+                'emptyTable': 'No se hay registros',
                 'zeroRecords': 'No se encontraron registros',
                 'infoEmpty': '',
                 'infoFiltered': ''
@@ -53,36 +67,39 @@ $(document).ready(function(){
         });
     }
 
-    // Se ejecuta la función cuando todo el archivo este cargado
     viewData();
 
-    // Esta función agrega nuevos registros, se encuentra enlazada con el método create de EjercicioFiscalController
     function saveData(){
         $('#btn-enviar').click(function(){
             var data = {
-                'anio' : $('#ejercicio-fiscal').val()
+                'usuario' : $('#usuario').val(),
+                'role' : $('#role').val(),
+                'vigencia' : $('#vigencia').val(),
+                'password' : $('#password').val(),
+                'password_confirmation' : $('#password-confirm').val()
             }
+
             $.ajax({
-                url: url + '/ejercicios-fiscales/nuevo',
+                url: url + '/usuarios/nuevo',
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 beforeSend: function(){
-                    $('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Año Fiscal...');
+                    $('#btn-enviar').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Usuario...');
                 },
                 success: function (response) {
-                    $('#btn-enviar').text('Crear Año Fiscal');
-                    $("#formulario-ejercicio-fiscal")[0].reset();
-                    $('#crear-ejercicio-fiscal').modal('hide');
+                    $('#btn-enviar').text('Crear Usuario');
+                    $("#formulario-usuario")[0].reset();
+                    $('#crear-usuario').modal('hide');
                     $('#registro-correcto').modal('show');
-                    $('#error-anio').addClass('hidden');
-                    $('#error-anio').text('');
+                    $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
+                    $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
                     viewData();
                 },
                 error: function(response) {
-                    $('#btn-enviar').text('Crear Año Fiscal');
-                    $('#error-anio').addClass('hidden');
-                    $('#error-anio').text('');
+                    $('#btn-enviar').text('Crear Usuario');
+                    $('#error-usuario, #error-role, #error-vigencia, #error-password').addClass('hidden');
+                    $('#error-usuario, #error-role, #error-vigencia, #error-password').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i).removeClass('hidden');
                         $('#error-'+i).text(item[0]);
@@ -93,41 +110,46 @@ $(document).ready(function(){
         });
     }
 
-    // Se ejecuta la función cuando todo el archivo este cargado
     saveData();
 
-    // Esta función selecciona registros para modificarlos, se encuentra enlazada con el método editarEjercicioFiscal de EjercicioFiscalController
     function editData(){
         $(document).on('click', '.editar', function(e){
             e.preventDefault();
             var id = $(this).attr('id');
              $.ajax({
-                url: url + '/ejercicios-fiscales/editar/' + id,
+                url: url + '/usuarios/editar/' + id,
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
-                        $('#editar-ejercicio-fiscal').modal({backdrop: 'static', keyboard: false})
-                        $('#editar-ejercicio-fiscal').modal('show');
+                        $('#editar-usuario').modal({backdrop: 'static', keyboard: false})
+                        $('#editar-usuario').modal('show');
                         $('#id-edit').val(response.id);
-                        $('#ejercicio-fiscal-edit').val(response.anio);
+                        $('#usuario-edit').val(response.usuario);
+                        $('#role-edit').val(response.role);
+                        $('#vigencia-edit').val(response.vigencia);
+                        $('#password-edit').val(response.password);
+                        $('#password-confirm-edit').val(response.password);
                     }
                 }
             });
         });
     }
 
-    // Se ejecuta la función cuando todo el archivo este cargado
     editData();
 
-    // Esta función modifica registros, se encuentra enlazada con el método update de EjercicioFiscalController
     function updateData(){
         $('#btn-editar').click(function(){
             var data = {
                 'id' : $('#id-edit').val(),
-                'anio' : $('#ejercicio-fiscal-edit').val()
+                'usuario' : $('#usuario-edit').val(),
+                'role' : $('#role-edit').val(),
+                'vigencia' : $('#vigencia-edit').val(),
+                'password' : $('#password-edit').val(),
+                'password_confirmation' : $('#password-confirm-edit').val()
             }
+
             $.ajax({
-                url: url + '/ejercicios-fiscales/actualizar',
+                url: url + '/usuarios/actualizar',
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -136,16 +158,16 @@ $(document).ready(function(){
                 },
                 success: function (response) {
                     $('#btn-editar').text('Guardar');
-                    $('#editar-ejercicio-fiscal').modal('hide');
+                    $('#editar-usuario').modal('hide');
                     $('#actualizacion-correcta').modal('show');
-                    $('#error-anio-edit').addClass('hidden');
-                    $('#error-anio-edit').text('');
+                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').addClass('hidden');
+                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').text('');
                     viewData();
                 },
                 error: function(response) {
                     $('#btn-editar').text('Guardar');
-                    $('#error-anio-edit').addClass('hidden');
-                    $('#error-anio-edit').text('');
+                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').addClass('hidden');
+                    $('#error-usuario-edit, #error-role-edit, #error-vigencia-edit, #error-password-edit').text('');
                     $.each(response.responseJSON.errors, function(i, item) {
                         $('#error-'+i+'-edit').removeClass('hidden');
                         $('#error-'+i+'-edit').text(item[0]);
@@ -156,7 +178,6 @@ $(document).ready(function(){
         });
     }
 
-    // Se ejecuta la función cuando todo el archivo este cargado
     updateData();
 
     function editEstatus(){
@@ -164,7 +185,7 @@ $(document).ready(function(){
             e.preventDefault();
             var id = $(this).attr('id');
              $.ajax({
-                url: url + '/ejercicios-fiscales/editar/' + id,
+                url: url + '/usuarios/editar/' + id,
                 type: 'get',
                 success: function (response) {
                     if (response != ""){
@@ -178,10 +199,8 @@ $(document).ready(function(){
         });
     }
 
-    // Se ejecuta la función cuando todo el archivo este cargado
     editEstatus();
 
-    // Esta función modifica el estatus del registro, se encuentra enlazada con el método updateEstatus de EjercicioFiscalController
     function updateEstatus(){
         $('#btn-activo').click(function(){
             var data = {
@@ -190,7 +209,7 @@ $(document).ready(function(){
             }
 
             $.ajax({
-                url: url + '/ejercicios-fiscales/estatus',
+                url: url + '/usuarios/estatus',
                 data: data,
                 type: 'post',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -219,7 +238,6 @@ $(document).ready(function(){
         });
     }
 
-    // Se ejecuta la función cuando todo el archivo este cargado
     updateEstatus();
-
+    
 });
