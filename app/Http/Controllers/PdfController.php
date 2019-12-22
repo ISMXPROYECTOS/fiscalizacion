@@ -236,8 +236,12 @@ class PdfController extends Controller
 			$inspectores[] = $inspector;
 		}
 
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores]);
 
+		// fecha de hoy en español 
+		setlocale(LC_TIME, 'es_CO.UTF-8');
+		$fecha_hoy = strftime("%d de %B del %G");
+
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
 	}
 
@@ -246,8 +250,12 @@ class PdfController extends Controller
 		$inspeccion = Inspeccion::find($id);
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+
+		// fecha de hoy en español 
+		setlocale(LC_TIME, 'es_CO.UTF-8');
+		$fecha_hoy = strftime("%d de %B del %G");
 		
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIVP', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos]);
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIVP', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
 	}
 
