@@ -6,7 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name', 'Fiscalización') }}</title>
+
+        <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
+        
+        <title>{{ config('app.name', 'Sistema de Fiscalización') }}</title>
 
         <!-- Fonts -->
         <!-- Web Fonts  -->
