@@ -192,10 +192,14 @@ class PdfController extends Controller
 
 		// $inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		// $documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
-		// $ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+
+		// fecha de hoy en español 
+		setlocale(LC_TIME, 'es_CO.UTF-8');
+		$fecha_hoy = strftime("%d de %B del %G");
 		
-		$pdf = PDF::loadView('multas.multas-'.$inspeccion->formaValorada->tipoInspeccion->clave, ['multas' => $multas, 'inspeccion' => $inspeccion, 'documentos_por_inspeccion' => $documentos_por_inspeccion]);
-		return $pdf->download('Multa.pdf');
+		$pdf = PDF::loadView('multas.multas-'.$inspeccion->formaValorada->tipoInspeccion->clave, ['multas' => $multas, 'inspeccion' => $inspeccion, 'documentos_por_inspeccion' => $documentos_por_inspeccion, 'fecha_hoy' => $fecha_hoy]);
+		return $pdf->download('Multa'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
 	}
 
 	public function descargarOrdenClausura($id){

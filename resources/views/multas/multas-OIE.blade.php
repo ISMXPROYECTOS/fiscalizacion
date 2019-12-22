@@ -16,7 +16,7 @@
 		<p class="multa-header-datos mbt-0 ">DIRECCIÓN DE FISCALIZACIÓN</p>
 		<p class="multa-header-datos mbt-0 ">FOLIO: <b>{{ $inspeccion->folio }}</b></p>
 		<p class="multa-header-datos mbt-0 "><b>ASUNTO: RESOLUCIÓN ADMINISTRATIVA</b></p>
-		<p class="multa-header-datos mbt-0 ">CANCUN, QUINTANA ROO A ____________________________</p>
+		<p class="multa-header-datos mbt-0" style="text-transform: uppercase;">CANCUN, QUINTANA ROO A @if($inspeccion->comercio == null) _______________________ @else {{ $fecha_hoy}} @endif </p>
 	</div>
 
 	<p class="contenido-general">Visto el estado que guarda el presente expediente, formado con motivo de la visita de verificación efectuada en el domicilio de la empresa @if(is_object($inspeccion->comercio)) {{ $inspeccion->comercio->propietarionombre }}, @else ____________________________________________, @endif esta autoridad procede a emitir la resolución en el presente asunto, en base a los siguientes:</p>
