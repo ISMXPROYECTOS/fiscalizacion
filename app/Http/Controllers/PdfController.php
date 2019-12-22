@@ -125,8 +125,6 @@ class PdfController extends Controller
 	/* Descarga las inspecciones con las actas comunes */
 	public function descargarPdfInspecciones($id){
 
-		
-
 		$forma_valorada = FormaValorada::find($id);
 		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
