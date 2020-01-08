@@ -35,7 +35,7 @@ class InspeccionController extends Controller
 	public function vistaAgregarInspeccion(){
 		$tiposInspecciones = TipoDeInspeccion::all();
 		$ejerciciosFiscales = EjercicioFiscal::all();
-		$encargadosGob = Encargado::all();
+		$encargadosGob = Encargado::get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'activo']);
 		return view('inspeccion.agregar-inspeccion', [
 			'tiposInspecciones' => $tiposInspecciones,
 			'ejerciciosFiscales' => $ejerciciosFiscales,
@@ -47,19 +47,17 @@ class InspeccionController extends Controller
 	public function vistaAgregarInspeccionPorZona(){
 		$tiposInspecciones = TipoDeInspeccion::all();
 		$ejerciciosFiscales = EjercicioFiscal::all();
-		$encargadosGob = Encargado::all();
-		$colonias = Colonia::all();
+		$encargadosGob = Encargado::get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'activo']);
 		return view('inspeccion.agregar-inspeccion-por-zona', [
 			'tiposInspecciones' => $tiposInspecciones,
 			'ejerciciosFiscales' => $ejerciciosFiscales,
-			'colonias' => $colonias,
 			'encargadosGob' => $encargadosGob
 		]);
 	}
 
 	/* Muestra la vista donde se realiza la asignación del inspector a las inspecciones */
 	public function vistaAsignarInspeccion(){
-		$inspectores = Inspector::all();
+		$inspectores = Inspector::get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'estatus']);
 		$tiposInspecciones = TipoDeInspeccion::all();
 		$ejerciciosFiscales = EjercicioFiscal::all();
 		return view('inspeccion.asignar-inspeccion', [

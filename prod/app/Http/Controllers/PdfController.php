@@ -240,7 +240,6 @@ class PdfController extends Controller
 			$inspectores[] = $inspector;
 		}
 
-
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
