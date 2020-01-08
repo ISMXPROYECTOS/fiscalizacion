@@ -13,7 +13,7 @@ $(document).ready(function(){
 			'destroy': true,
 			'deferRender': true,
 			'pageLength': 10,
-			'order': [[ 5, 'desc' ], [ 1, 'desc' ]],
+			'order': [[1, 'desc'], [6, 'desc'], [0, 'desc']],
 			'ajax': url + '/inspecciones/listado',
 			'columns': [
 				{data: 'folio',

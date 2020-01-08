@@ -5,7 +5,11 @@ $(document).ready(function(){
 	function viewData(){
 		$('#datatable').DataTable({
 			'serverSide': true,
+			'processing': true,
 			'destroy': true,
+			'deferRender': true,
+			'pageLength': 10,
+			'order': [0, 'desc'],
 			'ajax': url + '/pdf/listado',
 			'columns': [
 				{data: 'folioinicio',

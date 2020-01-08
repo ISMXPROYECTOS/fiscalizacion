@@ -16,7 +16,7 @@ class ColoniaController extends Controller
 	public function tbody(){
 		return Datatables::of(Colonia::query()->with([
 			'municipio' => function($query){
-				$query->select(['id', 'nombre', 'clave']);
+				$query->select(['id', 'nombre']);
 			}
 		])->select([
 			'id',
