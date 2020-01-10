@@ -22,10 +22,10 @@ $(document).ready(function(){
 					}
 				},
 				{data: 'tipoinspeccion_id',
-                    'render': function ( data, type, row ) {
-                        return (row.tipo_inspeccion.clave);
-                    }
-                },
+					'render': function ( data, type, row ) {
+						return (row.tipo_inspeccion.clave);
+					}
+				},
 				{data: 'estatusinspeccion_id',
 					'render': function(data, type, row){
 						if (row.estatus_inspeccion.clave == 'NA') {
@@ -292,4 +292,15 @@ $(document).ready(function(){
 	}
 
 	imprimirInspeccionIndividual();
+
+	$('.inspectores').on('change', function() {
+		if($(this).is(':checked')) {
+			// Hacer algo si el checkbox ha sido seleccionado
+			alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
+		} else {
+			// Hacer algo si el checkbox ha sido deseleccionado
+			alert("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+		}
+	});
+
 });

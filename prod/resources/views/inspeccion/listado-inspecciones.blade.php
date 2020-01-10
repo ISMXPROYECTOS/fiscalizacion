@@ -85,7 +85,7 @@
 					<label for="inspectores">Inspectores adicionales:</label>
 					@foreach($inspectores as $inspector)
 					<div class="form-check">
-						<input name="inspectores[]" class="form-check-input" type="checkbox" value="{{ $inspector->id}}" id="inspector-{{ $var }}">
+						<input name="inspectores[]" class="form-check-input inspectores" type="checkbox" value="{{ $inspector->id}}" id="inspector-{{ $var }}">
 						<label class="form-check-label" for="inspector-{{ $var }}">
 							{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}
 						</label>
