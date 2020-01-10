@@ -491,7 +491,25 @@ class InspeccionController extends Controller
 
 	/* El método envia las variables necesarias a la vista de inspección individual, donde se guarda toda la información de cada una */
 	public function verMasInformacion($id){
-		
+		$inspeccion = Inspeccion::find($id, [
+			'id',
+			'comercio_id',
+			'gestores_id',
+			'inspector_id',
+			'estatusinspeccion_id',
+			'fechaprorroga',
+			'fecharealizada',
+			'horarealizada',
+			'comentario',
+			'folio',
+			'nombreencargado',
+			'cargoencargado',
+			'identificacion',
+			'folioidentificacion',
+			'fechavence'
+		]);
+
+		/*
 		$inspeccion = Inspeccion::find($id, [
 			'id',
 			'comercio_id',
@@ -509,6 +527,7 @@ class InspeccionController extends Controller
 			'folioidentificacion',
 			'fechavence'
 		])->load('documentacionPorInspeccion');
+		*/
 		
 		//$inspeccion = Inspeccion::find($id)->load('documentacionPorInspeccion');
 		$multas = Multa::where('inspeccion_id', $inspeccion->id)->get();
@@ -790,12 +809,13 @@ class InspeccionController extends Controller
 		$inspeccion = Inspeccion::find($inspeccion_id);
 		$configuracion = TipoDeInspeccion::find($inspeccion->tipoInspeccion->id);
 		$configuracion_dias_vence = $configuracion->diasvencimiento;
+		$dias_vence = $configuracion_dias_vence;
 		$texto_presento = Configuracion::where('id', 2)->first();
 		$texto_no_presento = Configuracion::where('id', 3)->first();
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'Cap')->first();
 		$id_estatus_nuevo = $estatus_nuevo->id;
 		$estatus_A = EstatusInspeccion::where('clave', 'A')->first();
-		$dias_inhabiles = DiaInhabil::all();
+		$dias_inhabiles = DiaInhabil::get(['id', 'ejerciciofiscal_id', 'fecha']);
 		$usuario = Auth::user();
 
 		$validate = $this->validate($request, [
@@ -881,7 +901,7 @@ class InspeccionController extends Controller
 		$inspeccion->horarealizada = $hora;
 		$inspeccion->comentario = $observacion;
 		$inspeccion->gestores_id = $gestor;
-		$inspeccion->diasvence = $configuracion_dias_vence;
+		$inspeccion->diasvence = $dias_vence;
 		$inspeccion->fechavence = $fecha_vence;
 		$inspeccion->usuario_id = $usuario->id;
 
@@ -903,11 +923,43 @@ class InspeccionController extends Controller
 
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoInspeccion->id)->get();
 
+		if ($solicitado != null) {
+			for ($i = 0; $i < count($solicitado); $i++) {
+				for ($a = 0; $a < count($documentos_requeridos); $a++) {
+					if (($i+1) == count($solicitado)) {
+						if ($solicitado[$i] == $documentos_requeridos[$a]->documentacionrequerida_id) {
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $solicitado[$i])
+							->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->solicitado = 1;
+							$documentacion_requerida->update();
+						} else {
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->solicitado = 0;
+							$documentacion_requerida->update();
+						}
+					} else {
+						if ($solicitado[$i] == $documentos_requeridos[$a]->documentacionrequerida_id) {
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $solicitado[$i])
+							->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->solicitado = 1;				
+							$documentacion_requerida->update();
+							$i++;
+						} else {
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->solicitado = 0;
+							$documentacion_requerida->update();
+						}
+					}	
+				}
+			}
+		}
+
+		/*
 		if ($solicitado == null) {
 			return back()->withErrors('Selecciona al menos un documento solicitado.');
 		} else {
 			for ($i = 0; $i < count($solicitado); $i++) {
-				for ($a = 0; $a < count($documentos_requeridos) ; $a++) {
+				for ($a = 0; $a < count($documentos_requeridos); $a++) {
 					if (($i+1) == count($solicitado)) {
 						if ($solicitado[$i] == $documentos_requeridos[$a]->documentacionrequerida_id) {
 							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $solicitado[$i])
@@ -935,7 +987,40 @@ class InspeccionController extends Controller
 				}
 			}
 		}
+		*/
 
+		if ($exhibido != null) {
+			for ($b = 0; $b < count($exhibido); $b++) {
+				for ($c = 0; $c < count($documentos_requeridos); $c++) {
+					if (($b+1) == count($exhibido)) { // if del ultimo
+						if ($exhibido[$b] == $documentos_requeridos[$c]->documentacionrequerida_id) {
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $exhibido[$b])
+							->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->exhibido = 1;
+							$documentacion_requerida->update();
+						} else {
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->exhibido = 0;
+							$documentacion_requerida->update();
+						}
+					} else { 
+						if ($exhibido[$b] == $documentos_requeridos[$c]->documentacionrequerida_id) {
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $exhibido[$b])
+							->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->exhibido = 1;
+							$documentacion_requerida->update();
+							$b++;
+						} else {
+							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
+							$documentacion_requerida->exhibido = 0;
+							$documentacion_requerida->update();
+						}
+					}	
+				}
+			}
+		}
+
+		/*
 		if ($exhibido == null) {
 			return back()->withErrors('Selecciona al menos un documento exhibido');
 		} else {
@@ -968,6 +1053,7 @@ class InspeccionController extends Controller
 				}
 			}
 		}
+		*/
 
 		$documentacion_requerida = DocumentacionPorInspeccion::where('inspeccion_id', $inspeccion_id)->get();
 		

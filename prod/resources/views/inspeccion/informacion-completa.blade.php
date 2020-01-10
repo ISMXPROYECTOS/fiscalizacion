@@ -76,7 +76,6 @@
 	</div>
 @endif
 
-
 @if($inspeccion->fechavence != false)
 	@if(date("Y-m-d", strtotime($inspeccion->fechavence."-1 days")) == date("Y-m-d"))
 		<div>
@@ -97,7 +96,6 @@
 	@endif
 @endif
 
-
 @if($inspeccion->fechaprorroga != false)
 	@if($inspeccion->fechaprorroga < date("Y-m-d"))
 	<div>
@@ -111,7 +109,6 @@
 	</div>
 	@endif
 @endif
-
 
 <h4 >Inspector: <b id="nombre-inspector">{{ $inspeccion->inspector->nombre }} {{ $inspeccion->inspector->apellidopaterno }} {{ $inspeccion->inspector->apellidomaterno }}</b></h4>
 <button type="button" class="btn btn-primary btn-sm cambiar-inspector" id="{{ $inspeccion->id }}">
@@ -317,8 +314,6 @@
 			</tr>
 		</thead>
 		<tbody>
-			
-
 			@foreach($documentos as $documento)
 			<tr>
 				<th class="documento-requerido-nombre">{{ $documento->documentacionRequerida->nombre }}</th>
