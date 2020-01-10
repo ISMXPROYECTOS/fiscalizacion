@@ -1083,18 +1083,17 @@ class InspeccionController extends Controller
 		return redirect('/inspecciones/informacion/'.$inspeccion_id)->with('status', 'Se ha capturado la informacion correctamente.');
 	}
 
+	/* Método encargado de limpiar inspecciones, borrar toda la información que tenga y la deja en blanco lista para reutilizar. */
 	public function limpiarInspeccion($id){
-		
 		$inspeccion = Inspeccion::find($id);
-		$documentacion_por_inspeccion = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get();
-
+		$documentacion_por_inspeccion = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get(['id', 'solicitado', 'exhibido', 'observaciones']);
 		$estatus_inspeccion = EstatusInspeccion::where('clave', 'A')->first();
 
 		//$inspeccion->formavalorada_id = null;
 		$inspeccion->comercio_id = null;
 		//$inspeccion->tipoinspeccion_id = null;
 		//$inspeccion->usuario_id = null;
-		$inspeccion->gestores_id = null; 
+		$inspeccion->gestores_id = null;
 		//$inspeccion->ejerciciofiscal_id = null;
 		//$inspeccion->inspector_id = null;
 		$inspeccion->estatusinspeccion_id = $estatus_inspeccion->id;
@@ -1113,26 +1112,17 @@ class InspeccionController extends Controller
 		$inspeccion->fechavence = null;
 		$inspeccion->update();
 
-		for ($i = 0; $i < count($documentacion_por_inspeccion); $i++) {
-			$documento_por_inspeccion = DocumentacionPorInspeccion::where('inspeccion_id', $id)
-																			->where('solicitado', 1)
-																			->where('exhibido', 1)
-																			->first();
-
-			if ($documento_por_inspeccion == null) {
-				break;
-			}
-
-			$documento_por_inspeccion->solicitado = 0;
-			$documento_por_inspeccion->exhibido = 0;
-			$documento_por_inspeccion->observaciones = '';
-			$documento_por_inspeccion->update();
+		foreach ($documentacion_por_inspeccion as $documento) {
+			$documento->solicitado = 0;
+			$documento->exhibido = 0;
+			$documento->observaciones = '';
+			$documento->update();
 		}
 
 		return redirect('/inspecciones/informacion/'.$id)->with('status', 'La inspeccción se ha limpiado correctamente.');
 	}
 
-
+	/* Verifica si una inspeccion esta o no asignada */
 	public function validarFolioAsignado($id){
 		$inspeccion = Inspeccion::find($id);
 		$estatus_inspeccion = $inspeccion->estatusinspeccion->clave;
@@ -1195,6 +1185,7 @@ class InspeccionController extends Controller
 		return $inspecciones;
 	}
 
+	/* Método encargado de generar las prorrogas a las inspecciones, primero se debe multar la inspección porque se necesita el folio de la multa para generar una prorroga. */
 	public function confirmarAgregarProrroga(Request $request){
 		$validate = $this->validate($request, [
 			'folio-multa' => 'required|string',
