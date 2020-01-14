@@ -12,6 +12,11 @@ $(document).ready(function(){
 			'order': [0, 'desc'],
 			'ajax': url + '/pdf/listado',
 			'columns': [
+				{data: 'created_at',
+					'render': function ( data, type, row ) {
+						return row.created_at;
+					}
+				},
 				{data: 'folioinicio',
 					'render': function ( data, type, row ) {
 						return "<a href='#' class='inspecciones' id='"+ row.id +"'>" + row.ejercicio_fiscal.anio + '/' + row.tipo_inspeccion.clave + '/' + row.folioinicio + "</a>";
@@ -77,7 +82,7 @@ $(document).ready(function(){
 				success: function (response) {
 					if (response.code == 200) {
 						$('#creando-pdf-inspecciones').modal('show');
-						if (response.FormaValorada.tipo_inspeccion.clave == 'OIVP') {
+						if (response.FormaValorada.tipo_inspeccion.clave == 'OIF') {
 							$('#descargas').append(
 								"<a href='"+url+'/pdf/descargar-pdf-citatorios/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Citatorios</a>" +
 								"&nbsp;" +

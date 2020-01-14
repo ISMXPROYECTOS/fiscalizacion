@@ -265,7 +265,7 @@ $(document).ready(function(){
 				success: function (response) {
 					$('#creando-pdf-inspecciones').modal('show');
 					if (response.code == 200) {
-						if (response.tipoInspeccion == 'OIVP') {
+						if (response.tipoInspeccion == 'OIF') {
 							$('#descargas').append(
 								"<a href='"+url+'/pdf/descargar-pdf-citatorio-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Citatorios</a>" +
 								"&nbsp;" +
