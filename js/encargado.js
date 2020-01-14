@@ -21,14 +21,18 @@ $(document).ready(function(){
     function viewData(){
         $('#datatable').DataTable({
             'serverSide': true,
+            'processing': true,
             'destroy': true,
+            'deferRender': true,
+            'pageLength': 10,
+            'order': [ 0, 'asc' ],
             'ajax': url + '/encargado/listado',
             'columns': [
                 {data: 'nombre',
                     'render': function ( data, type, row ) {
                         return (row.nombre + ' ' + row.apellidopaterno + ' ' + row.apellidomaterno);
                     }
-                }, 
+                },
                 {data: 'puesto'},
                 {data: 'activo',
                     'render': function(data, type, row){

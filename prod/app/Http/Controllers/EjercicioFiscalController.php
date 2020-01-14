@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\EjercicioFiscal;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
+use App\EjercicioFiscal;
 
 class EjercicioFiscalController extends Controller
 {
@@ -14,16 +15,19 @@ class EjercicioFiscalController extends Controller
 
 	// Selecciona todos los años fiscales de la base de datos y los regresa a la función
 	public function tbody(){
-		return datatables()
-			->eloquent(EjercicioFiscal::query())
-			->addColumn('editar', 'ejercicioFiscal/boton-editar')
-			->addColumn('cambiarestatus', 'ejercicioFiscal/boton-estatus')
-			->rawColumns(['editar', 'cambiarestatus'])->toJson();
+		return Datatables::of(EjercicioFiscal::query()->select([
+			'id',
+			'anio',
+			'activo'
+		]))
+		->addColumn('editar', 'ejercicioFiscal/boton-editar')
+		->addColumn('cambiarestatus', 'ejercicioFiscal/boton-estatus')
+		->rawColumns(['editar', 'cambiarestatus'])
+		->make(true);
 	}
 
 	// Valida la información antes de agregarla a la base de datos y despues regresa a la función el registro
 	public function create(Request $request){
-
 		$validate = $request->validate([
 			'anio' => 'required|string|min:4|max:4|unique:ejerciciofiscal',
 	    ]);

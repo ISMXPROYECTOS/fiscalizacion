@@ -26,7 +26,6 @@ class DocumentacionRequeridaController extends Controller
 	}
 
 	public function create(Request $request){
-
 		// Valida los campos para evitar problemas y poder agregarlos a la base de datos
 		$validate = $request->validate([
 			'nombre' => 'required|string|max:255',

@@ -70,7 +70,6 @@ class GestorController extends Controller
     }
 
     public function update(Request $request){
-
 		/* Se selecciona el gestor para ser modificado */
 		$id = $request->input('id');
 		$gestor = Gestor::find($id);
@@ -85,7 +84,6 @@ class GestorController extends Controller
             'correoelectronico' => 'required|string|max:75|unique:gestores,correoelectronico,' . $id,
             'ine' => 'required|string|max:30|unique:gestores,ine,' . $id
 		]);
-
 
 		/* Se reciben los datos del formulario y se crean variables */
 		/* Optiene la id del usuario administrador que modifica los gestores */
@@ -111,11 +109,9 @@ class GestorController extends Controller
 		$gestor->update();
 
         return $gestor;
-
 	}
 
 	public function updateEstatus(Request $request){
-
 		/* Se selecciona el gestor para ser modificado */
 		$id = $request->input('id');
 		$gestor = Gestor::find($id);
@@ -134,7 +130,6 @@ class GestorController extends Controller
 		$gestor->update();
 
         return $gestor;
-
 	}
 
 	public function inspeccionesPorGestor($id){

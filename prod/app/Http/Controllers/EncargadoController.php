@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 use App\Encargado;
 
 class EncargadoController extends Controller
@@ -12,11 +13,18 @@ class EncargadoController extends Controller
 	}
 
 	public function tbody(){
-		return datatables()
-			->eloquent(Encargado::query())
-			->addColumn('editar', 'encargado/boton-editar')
-			->addColumn('cambiarestatus', 'encargado/boton-estatus')
-			->rawColumns(['editar', 'cambiarestatus'])->toJson();
+		return Datatables::of(Encargado::query()->select([
+			'id',
+			'nombre',
+			'apellidopaterno',
+			'apellidomaterno',
+			'puesto',
+			'activo'
+		]))
+		->addColumn('editar', 'encargado/boton-editar')
+		->addColumn('cambiarestatus', 'encargado/boton-estatus')
+		->rawColumns(['editar', 'cambiarestatus'])
+		->make(true);
 	}
 
 	public function create(Request $request){

@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
+use Barryvdh\DomPDF\Facade as PDF;
 use DateTime;
 use App\Gafete;
 use App\Inspector;
 use App\EjercicioFiscal;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\URL;
-
-use Barryvdh\DomPDF\Facade as PDF;
 
 class GafetesController extends Controller
 {
 	public function registrar($id){
-
 		$gafetes = Gafete::whereYear('vigencia', date('Y'))
 							->where('inspector_id', $id)
 							->get();
@@ -26,12 +24,9 @@ class GafetesController extends Controller
 			$inspector = Inspector::find($id);
     		return $inspector;
 		}
-
-		
 	}
 
 	public function generar(Request $request){
-	
 		// Validamos los campos que estamos enviando por AJAX
 		$validate = $request->validate([
             'gafete-image' => 'required|image|mimes:jpeg,png,jpg'

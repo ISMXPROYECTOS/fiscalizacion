@@ -22,9 +22,10 @@ $(document).ready(function(){
         $('#datatable').DataTable({
             'serverSide': true,
             'processing': true,
+            'destroy': true,
             'deferRender': true,
             'pageLength': 10,
-            'destroy': true,
+            'order': [ 0, 'asc' ],
             'ajax': url + '/gestores/listado',
             'columns': [
                 {data: 'nombre',

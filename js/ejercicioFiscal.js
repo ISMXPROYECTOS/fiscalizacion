@@ -8,10 +8,8 @@ $(document).ready(function(){
     $('#error-anio-edit, #error-activo-edit').text('');
 
     $(document).on('click', '#btn-cancelar', function(e){
-
         $('#error-anio').addClass('hidden');
         $('#error-anio').text('');
-
         $('#error-anio-edit, #error-activo-edit').addClass('hidden');
         $('#error-anio-edit, #error-activo-edit').text('');
     });
@@ -20,7 +18,11 @@ $(document).ready(function(){
     function viewData(){
         $('#datatable').DataTable({
             'serverSide': true,
+            'processing': true,
             'destroy': true,
+            'deferRender': true,
+            'pageLength': 10,
+            'order': [ 0, 'desc' ],
             'ajax': url + '/ejercicios-fiscales/listado',
             'columns': [
                 {data: 'anio'},

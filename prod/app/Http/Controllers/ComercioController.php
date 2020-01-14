@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use SoapClient;
 use App\Comercio;
 use App\Colonia;
 use App\Municipio;
 use App\Estado;
-use SoapClient;
 
 class ComercioController extends Controller
 {
