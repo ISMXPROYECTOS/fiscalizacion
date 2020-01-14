@@ -1143,7 +1143,7 @@ class InspeccionController extends Controller
 		$estatus_capturada = EstatusInspeccion::where('clave', 'Cap')->first();
 		$estatus_vencida = EstatusInspeccion::where('clave', 'V')->first();
 		//$estatus_multa = EstatusInspeccion::where('clave', 'M')->first();
-		$inspecciones = Inspeccion::where('estatusinspeccion_id', $estatus_capturada->id)->where('fechavence', '<', $hoy)->get();
+		$inspecciones = Inspeccion::where('estatusinspeccion_id', $estatus_capturada->id)->where('fechavence', '<', $hoy)->get(['id', 'estatusinspeccion_id']);
 		$usuario = Auth::user();
 
 		//$total_exhibidos = 0;

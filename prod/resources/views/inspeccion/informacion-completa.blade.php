@@ -389,22 +389,20 @@
 			<div class="historial-prorrogas">
 				@if ($historial_prorroga->isEmpty())
 					<p>No hay resultados</p>
-
 				@else
 					<table class="table table-sm">
 					  <thead>
 					    <tr>
 					      <th scope="col">Usuario</th>
-					      <th scope="col">Multa</th>
+					      <th scope="col">Multa en UMAS</th>
 					      <th scope="col">Dias</th>
 					      <th scope="col">Observaciones</th>
 					    </tr>
 					  </thead>
 					  <tbody>
-					    
 					    @foreach($historial_prorroga as $historial)
 							<tr> 
-						      <td>{{ $historial->usuario_id}}</td>
+						      <td>{{ $historial->usuario->usuario}}</td>
 						      <td>{{ $historial->folioMulta }}</td>
 						      <td>{{ $historial->diasdeprorroga }}</td>
 						      <td>{{ $historial->observaciones }}</td>
@@ -413,8 +411,6 @@
 					  </tbody>
 					</table>
 				@endif
-				
-				
 			</div>
 			<br>
 			<button type="button" class="btn btn-primary btn-sm prorroga">

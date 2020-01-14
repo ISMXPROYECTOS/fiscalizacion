@@ -31,7 +31,7 @@ class Inspeccion extends Model
 
 	/* Relación muchos a uno */
 	public function usuario(){
-		return $this->belongsTo('App\Usuario', 'usuario_id');
+		return $this->belongsTo('App\User', 'usuario_id');
 	}
 
 	/* Relación muchos a uno */
