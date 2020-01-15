@@ -174,4 +174,6 @@ class InspectorController extends Controller
 
 	}
 
+	
+
 }

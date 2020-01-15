@@ -71,30 +71,39 @@
 
 <!-- Generando PDF -->
 <div class="modal fade" id="creando-pdf-inspecciones" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3 class="modal-title" id="modal-registro-correcto">Descarga de Inspecciones</h3>
 			</div>
+
 			<div class="modal-body">
 				<div class="alert alert-info" role="alert">
-					Selecciona el formato que deseas descargar.
+					Selecciona el formato que deseas descargar y los inspectores adicionales en caso de requerirlos.
 				</div>
-				<div class="form-group">
-					@php $var = 1; @endphp
-					<label for="inspectores">Inspectores adicionales:</label>
-					@foreach($inspectores as $inspector)
-					<div class="form-check">
-						<input name="inspectores[]" class="form-check-input inspectores" type="checkbox" value="{{ $inspector->id}}" id="inspector-{{ $var }}">
-						<label class="form-check-label" for="inspector-{{ $var }}">
-							{{ $inspector->nombre }} {{ $inspector->apellidopaterno }}
-						</label>
-					</div>
-					@php $var++; @endphp
-					@endforeach
-					<p class="text-danger" id="error-inspectores"></p>
-					<p class="text-danger">{{ $errors->first('inspectores') }}</p>
+
+				<div id="inspectores-adicionales" class="mb-3">
+					<form id="formulario-imprimir" role="form">
+						<div class="form-group">
+
+							@php $var = 1; @endphp
+							<label for="inspectores">Inspectores adicionales:</label>
+							@foreach($inspectores as $inspector)
+								
+								<div class="form-check">
+									<input name="inspectores[]" class="form-check-input inspectores" type="checkbox" value="{{ $inspector->id}}" id="inspector-{{ $var }}">
+									<label class="form-check-label" for="inspector-{{ $var }}">
+										{{ $inspector->nombre }} {{ $inspector->apellidopaterno }} {{ $inspector->apellidomaterno }}
+									</label>
+								</div>
+							@php $var++; @endphp
+							@endforeach
+							<p class="text-danger" id="error-inspectores"></p>
+							<p class="text-danger">{{ $errors->first('inspectores') }}</p>
+						</div>
+					</form>
 				</div>
+				
 				<div id="descargas"></div>
 			</div>
 		</div>

@@ -38,6 +38,8 @@ Route::post('/inspectores/actualizar', 'InspectorController@update');
 Route::post('/inspectores/estatus', 'InspectorController@updateEstatus');
 Route::get('/inspectores/perfil/{hash}', 'InspectorController@perfil');
 
+
+
 /* Rutas Gestores */
 Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');
 Route::get('/gestores/listado', 'GestorController@tbody');
@@ -100,7 +102,7 @@ Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete'
 Route::get('/pdf/descargar-pdf-inspecciones/{id}', 'PdfController@descargarPdfInspecciones');
 Route::get('/pdf/descargar-pdf-inspeccion-individual/{id}/{inspectores?}', 'PdfController@descargarPdfInspeccionIndividual');
 Route::get('/pdf/descargar-pdf-inspecciones-complejas/{id}', 'PdfController@descargarPdfInspeccionesComplejas');
-Route::get('/pdf/descargar-pdf-inspeccion-compleja-individual/{id}', 'PdfController@descargarPdfInspeccionComplejaIndividual');
+Route::get('/pdf/descargar-pdf-inspeccion-compleja-individual/{id}/{inspectores?}', 'PdfController@descargarPdfInspeccionComplejaIndividual');
 Route::get('/pdf/validar-folios-asignados/{id}', 'PdfController@validarFoliosAsignados');
 Route::get('/pdf/imrpimir-inspeccion-individual/{id}', 'PdfController@imprimirInspeccionesIndividual');
 Route::get('/pdf/descargar-orden-clausura/{id}', 'PdfController@descargarOrdenClausura')->name('descargar-clausura');

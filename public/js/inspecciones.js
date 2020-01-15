@@ -245,19 +245,17 @@ $(document).ready(function(){
 
 	cambiarEstatusAutomaticamente();
 
-	function imprimirInspeccionIndividual(){
+	function modalImprimirInspeccionIndividual(){
 		$(document).on('click', '.descargar', function(e){
 			e.preventDefault();
 			$('#descargas').text('');
 
 			var id = $(this).attr('id');
-			var inspectores = [];
 
-			$("input[type=checkbox]:checked").each(function(){
-				inspectores.push(this.value);
-			});
+			imprimirInspeccionComunIndividual(id);
+			imprimirInspeccionComplejoIndividual(id);
 
-			inspectores = JSON.stringify(inspectores);
+
 
 			$.ajax({
 				url: url + '/pdf/imrpimir-inspeccion-individual/' + id,
@@ -267,18 +265,18 @@ $(document).ready(function(){
 					if (response.code == 200) {
 						if (response.tipoInspeccion == 'OIF') {
 							$('#descargas').append(
+								"<a href='javascript:void(0)' class='btn btn-primary btn-lg btn-primary-custom' role='button' id='formato-comun'>Formato Común</a>" +
+								"&nbsp;" +
+								"<a href='javascript:void(0)' class='btn btn-primary btn-lg btn-primary-custom' role='button' id='formato-complejo'>Formato Complejo</a>" +
+								"&nbsp;" +
 								"<a href='"+url+'/pdf/descargar-pdf-citatorio-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Citatorios</a>" +
-								"&nbsp;" +
-								"<a href='"+url+'/pdf/descargar-pdf-inspeccion-individual/'+id+'/'+inspectores+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
-								"&nbsp;" +
-								"<a href='"+url+'/pdf/descargar-pdf-inspeccion-compleja-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Complejo</a>" +
 								"&nbsp;" +
 								"<a href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
 							);
 							
 						} else {
 							$('#descargas').append(
-								"<a href='"+url+'/pdf/descargar-pdf-inspeccion-individual/'+id+'/'+inspectores+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Formato Común</a>" +
+								"<a href='javascript:void(0)' class='btn btn-primary btn-lg btn-primary-custom' role='button' id='formato-comun'>Formato Común</a>" +
 								"&nbsp;" +
 								"<a href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
 							);
@@ -291,16 +289,53 @@ $(document).ready(function(){
 		});
 	}
 
-	imprimirInspeccionIndividual();
+	modalImprimirInspeccionIndividual();
 
-	$('.inspectores').on('change', function() {
-		if($(this).is(':checked')) {
-			// Hacer algo si el checkbox ha sido seleccionado
-			alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
-		} else {
-			// Hacer algo si el checkbox ha sido deseleccionado
-			alert("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
-		}
-	});
+	function imprimirInspeccionComunIndividual(id){
+		$(document).on('click', '#formato-comun', function(e){
+
+			var inspectores = [];
+
+			$("input[type=checkbox]:checked").each(function(){
+				inspectores.push(this.value);
+			});
+
+			inspectores = JSON.stringify(inspectores);
+
+			window.location.replace(url+'/pdf/descargar-pdf-inspeccion-individual/'+id+'/'+inspectores)
+			//console.log(url);
+		});
+	}
+
+	imprimirInspeccionComunIndividual();
+
+	function imprimirInspeccionComplejoIndividual(id){
+		$(document).on('click', '#formato-complejo', function(e){
+
+			var inspectores = [];
+
+			$("input[type=checkbox]:checked").each(function(){
+				inspectores.push(this.value);
+			});
+
+			inspectores = JSON.stringify(inspectores);
+
+			window.location.replace(url+'/pdf/descargar-pdf-inspeccion-compleja-individual/'+id+'/'+inspectores)
+			//console.log(url);
+		});
+	}
+
+	imprimirInspeccionComplejoIndividual();
+
+	
+	// $('.inspectores').on('change', function() {
+	// 	if($(this).is(':checked')) {
+	// 		// Hacer algo si el checkbox ha sido seleccionado
+	// 		alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
+	// 	} else {
+	// 		// Hacer algo si el checkbox ha sido deseleccionado
+	// 		alert("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+	// 	}
+	// });
 
 });

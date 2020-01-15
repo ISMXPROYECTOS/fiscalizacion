@@ -264,16 +264,24 @@ class PdfController extends Controller
 	}
 
 	/* Descarga la inspeccion con las actas complejas (con testigos) individualmente  */
-	public function descargarPdfInspeccionComplejaIndividual($id){
+	public function descargarPdfInspeccionComplejaIndividual($id, $inspectores){
+		$id_inspectores = json_decode($inspectores);
 		$inspeccion = Inspeccion::find($id);
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+
+		$inspectores = array();
+
+		for ($i = 0; $i < count($id_inspectores); $i++) {
+			$inspector = Inspector::where('id', $id_inspectores[$i])->get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno'])->toArray();
+			$inspectores[] = $inspector;
+		}
 
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 		
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
+		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
 	}
 
