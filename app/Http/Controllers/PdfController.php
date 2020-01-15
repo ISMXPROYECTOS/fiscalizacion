@@ -107,6 +107,7 @@ class PdfController extends Controller
 
 	public function imprimirInspeccionesIndividual($id){
 		$inspeccion = Inspeccion::find($id);
+		$inspectores = Inspector::all();
 		$estatus_NA = EstatusInspeccion::where('clave', 'NA')->first();
 
 		$data = [
@@ -119,7 +120,8 @@ class PdfController extends Controller
 				$data = [
 					'code' 				=> 200,
 					'message' 			=> 'Descargar documentos de la inspección',
-					'tipoInspeccion' 	=> $inspeccion->tipoInspeccion->clave
+					'inspeccion' 	=> $inspeccion,
+					'inspectores'		=> $inspectores
 				];
 			} else {
 				$data = [

@@ -84,9 +84,11 @@
 
 				<div id="inspectores-adicionales" class="mb-3">
 					<form id="formulario-imprimir" role="form">
-						<div class="form-group">
+						<div class="form-group" id="form-group-inspectores">
 
-							@php $var = 1; @endphp
+							<label for="inspectores">Inspectores adicionales:</label>
+
+							<!-- @php $var = 1; @endphp
 							<label for="inspectores">Inspectores adicionales:</label>
 							@foreach($inspectores as $inspector)
 								
@@ -97,9 +99,9 @@
 									</label>
 								</div>
 							@php $var++; @endphp
-							@endforeach
-							<p class="text-danger" id="error-inspectores"></p>
-							<p class="text-danger">{{ $errors->first('inspectores') }}</p>
+							@endforeach -->
+							<!-- <p class="text-danger" id="error-inspectores"></p>
+							<p class="text-danger">{{ $errors->first('inspectores') }}</p> -->
 						</div>
 					</form>
 				</div>
