@@ -298,7 +298,7 @@
                 <script src="{{ asset('js/navbar.js') }} "></script>
 
                 <script type="text/javascript">
-                    var url = window.location.origin+"/fiscalizacion";
+                    var url = window.location.origin+"/fiscalizacion/public";
 
                     //console.log(u);
                 </script>

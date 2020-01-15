@@ -72,6 +72,31 @@
     <div id="comercios" class="hidden mt-3">
         <p class="text-danger mb-0" id="error-comercios"></p>
         <p class=" mb-0" id="error-results"></p>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Buscar por:</label>
+                    <select name="buscar-por" class="form-control" id="buscar-por">
+                        <option value="0">Seleccionar</option>
+                        <option value="1">Nombre Comercial</option>
+                        <option value="2">Razón Social</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Ingresar </label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="valor" id="valor" >
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="buscar-valor">Buscar</button>
+                        </div>
+                    </div>
+                    <p class="text-danger mb-0" id="error-sm">{{ $errors->first('valor') }}</p>
+                </div>
+            </div>
+        </div><br>
         <table class="table table-sm" id="tabla-comercios">
             <thead class="thead-dark">
                 <tr>
