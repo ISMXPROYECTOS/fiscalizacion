@@ -25,6 +25,9 @@ $(document).ready(function(){
     $('#ejerciciofiscal').attr('disabled', '');
     $('#encargadoGob').attr('disabled', '');
     $('#calle').attr('disabled', '');
+    $('#buscar-sm').attr('disabled', '');
+    $('#valor').attr('disabled', '');
+    $('#buscar-valor').attr('disabled', '');
 
     $('#tipoinspeccion').change(function(){
         if ($('#tipoinspeccion').val() != '') {
@@ -57,6 +60,23 @@ $(document).ready(function(){
 
     $('#encargadoGob').change(function(){
         $('#calle').removeAttr('disabled');
+        $('#buscar-sm').removeAttr('disabled');
+    });
+
+    $('#buscar-por').change(function(){
+    
+        // console.log($('#buscar-por option:selected').val());
+        if ($('#buscar-por option:selected').val() == 0) {
+            $('#valor').attr('disabled', '');
+            $('#buscar-valor').attr('disabled', '');
+            $('#valor').val('');
+            // console.log('hola');
+        } else {
+            $('#valor').removeAttr('disabled');
+            $('#buscar-valor').removeAttr('disabled');
+        }
+
+        
     });
 
     function busquedaDeComerciosPorSM(){
@@ -199,6 +219,58 @@ $(document).ready(function(){
             }
         });
     }
+
+    function filtroParaBuscarComercios(){
+        $('#buscar-valor').click(function(){
+
+            var data = {
+                'supermanzana' : $('#calle').val(),
+                'opcion' : $('#buscar-por option:selected').val(),
+                'valor' : $('#valor').val()
+            }
+
+            $.ajax({
+                url: url + '/comercios/filtrar',
+                data: data,
+                type: 'post',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    $('.results').remove();
+
+                    $('#comercios').removeClass('hidden');
+                    $('#tabla-comercios').removeClass('hidden');
+                    $('#error-results').addClass('hidden');
+                    $('#error-comercios').addClass('hidden');
+                    $('#error-sm').addClass('hidden');
+
+                    $.each(response, function( key, value ){
+                            $('#tbody-comercios').append(
+                                "<tr class='results'>"+
+                                    "<th>"+
+                                        "<div class='form-check'>"+
+                                          "<input class='form-check-input check' type='checkbox' value='"+ value.id +"' id='comercio-"+ value.id +"' name='comercio[]'>"+
+                                        "</div>"+
+                                    "</th>"+
+                                    "<td>"+ value.denominacion +"</td>"+
+                                    "<td>"+ value.nombreestablecimiento +"</td>"+
+                                    "<td>"+ value.domiciliofiscal +"</td>"+
+                                "</tr>");
+                        });
+
+                    obtenerFoliosPorSM();
+                },
+                error: function(response) {
+                    $('#tabla-comercios').addClass('hidden');
+                    $('#comercios').removeClass('hidden');
+                    $('#error-results').removeClass('hidden');
+                    $('#error-results').text(response.responseJSON.mensaje);
+                    $('#error-comercios').addClass('hidden');
+                }
+            });
+        });
+    }
+
+    filtroParaBuscarComercios();
 
     
 });

@@ -234,6 +234,44 @@ class ComercioController extends Controller
 		}
 	}
 
+	public function filtroParaBuscarComercios(Request $request){
+		// Valida los campos para evitar problemas y poder agregarlos a la base de datos
+		$validate = $request->validate([
+			'supermanzana' => 'required|string|max:255',
+			'opcion' => 'required|string|max:1',
+			'valor' => 'required|string|max:255',
+		]);
+
+		// Se reciben los datos del formulario y se crean variables
+		$supermanzana = $request->input('supermanzana');
+		$opcion = $request->input('opcion');
+		$valor = $request->input('valor');
+
+		if ($opcion == 1) {
+			$comercios = Comercio::where('nombreestablecimiento', 'like', '%'. $valor .'%')->get(['id', 'denominacion', 'nombreestablecimiento',
+				'domiciliofiscal']);
+			if (count($comercios) == 0) {
+				return response()->json([
+					'mensaje' => 'No se encontro ningun resultado.'
+				], 404);
+			} else {
+				return $comercios;  
+			}
+		} else {
+			$comercios = Comercio::where('denominacion', 'like', '%'. $valor .'%')->get(['id', 'denominacion', 'nombreestablecimiento',
+				'domiciliofiscal']);
+
+			if (count($comercios) == 0) {
+				return response()->json([
+					'mensaje' => 'No se encontro ningun resultado.'
+				], 404);
+			} else {
+				return $comercios;  
+			}
+		}
+		
+	}
+
 	public function comerciosDesdeSoap(){
 		$comercios_sincronizados = 0;
 		$url = "http://201.144.238.68:8030/dsaws/IServiceObtieneLicencias.svc?wsdl";

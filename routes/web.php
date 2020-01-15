@@ -141,6 +141,7 @@ Route::post('/comercios/estatus', 'ComercioController@updateEstatus');
 Route::get('/comercios/buscar/supermanzana/{domiciliofiscal}', 'ComercioController@buscarComercios');
 Route::get('/comercios/buscar/nombre/{nombre}', 'ComercioController@buscarComerciosPorNombre');
 Route::get('/comercios/sincronizar', 'ComercioController@comerciosDesdeSoap')->name('sincronizar-comercios');
+Route::post('/comercios/filtrar', 'ComercioController@filtroParaBuscarComercios');
 
 /* Rutas Encargado */
 Route::get('/encargado', 'EncargadoController@listadoEncargados')->name('listado-encargados');

@@ -70,9 +70,6 @@
         </div>
     </div>
     <div id="comercios" class="hidden mt-3">
-        <p class="text-danger mb-0" id="error-comercios"></p>
-        <p class=" mb-0" id="error-results"></p>
-
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group">
@@ -90,13 +87,17 @@
                     <div class="input-group">
                         <input type="text" class="form-control" name="valor" id="valor" >
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="buscar-valor">Buscar</button>
+                            <button class="btn btn-outline-secondary" type="button" id="buscar-valor">Aplicar filtro</button>
                         </div>
                     </div>
                     <p class="text-danger mb-0" id="error-sm">{{ $errors->first('valor') }}</p>
                 </div>
             </div>
         </div><br>
+
+        <p class="text-danger mb-0" id="error-comercios"></p>
+        <p class=" mb-0" id="error-results"></p>
+        <br>
         <table class="table table-sm" id="tabla-comercios">
             <thead class="thead-dark">
                 <tr>
