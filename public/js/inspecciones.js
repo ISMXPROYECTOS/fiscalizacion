@@ -261,7 +261,7 @@ $(document).ready(function(){
 				url: url + '/pdf/imrpimir-inspeccion-individual/' + id,
 				type: 'get',
 				success: function (response) {
-					console.log(response.inspeccion.inspector_id);
+					console.log(response);
 					$('#creando-pdf-inspecciones').modal('show');
 					if (response.code == 200) {
 						if (response.tipoInspeccion == 'OIF') {
@@ -275,10 +275,21 @@ $(document).ready(function(){
 								"<a href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
 							);
 
+							$.each(response.inspectores, function( key, value ){
+								if (value.id != response.inspeccion.inspector_id) {
+									$('#form-group-inspectores').append(
+		                            	"<div class='form-check'>"+
+		                            		"<input name='inspectores[]' class='form-check-input inspectores' type='checkbox' value='"+value.id+"' id='inspector-"+ value.id +"'/> "+
+		                            		"<label class='form-check-label' for='inspector-"+value.id +"'>"+ 
+		                            			value.nombre +" "+ value.apellidopaterno +" "+ value.apellidomaterno +
+		                            		"</label>"+
+		                            	"</div>");
+								}
+	                            
 
-
-
-							
+	                            //console.log(key);
+	                        });
+	
 						} else {
 							$('#descargas').append(
 								"<a href='javascript:void(0)' class='btn btn-primary btn-lg btn-primary-custom' role='button' id='formato-comun'>Formato Común</a>" +

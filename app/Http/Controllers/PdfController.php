@@ -120,7 +120,8 @@ class PdfController extends Controller
 				$data = [
 					'code' 				=> 200,
 					'message' 			=> 'Descargar documentos de la inspección',
-					'inspeccion' 	=> $inspeccion,
+					'tipoInspeccion' 	=> $inspeccion->tipoInspeccion->clave,
+					'inspeccion' 		=> $inspeccion,
 					'inspectores'		=> $inspectores
 				];
 			} else {
