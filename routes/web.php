@@ -109,11 +109,14 @@ Route::get('/pdf/descargar-orden-clausura/{id}', 'PdfController@descargarOrdenCl
 Route::get('/pdf/inspecciones/{id}', 'PdfController@inspeccionesPorPaquete');
 Route::get('/pdf/inspecciones/reasignar/{id}', 'PdfController@reasignarInspeccionesPorPaquete');
 Route::post('/pdf/inspecciones/descargar-por-tipo-de-documento', 'PdfController@descargarInspeccionesPorTipoDeDocumento');
-Route::get('/pdf/descargar-multas/{id}', 'PdfController@descargarMultas');
+//Route::get('/pdf/descargar-multas/{id}', 'PdfController@descargarMultas');
 Route::get('/pdf/descargar-pdf-citatorios/{id}', 'PdfController@descargarPdfCitatorios');
 Route::get('/pdf/descargar-pdf-citatorio-individual/{id}', 'PdfController@descargarPdfCitatorioIndividual');
 Route::get('/pdf/descargar-pdf-clausuras/{id}', 'PdfController@descargarPdfClausuras');
 Route::get('/pdf/descargar-pdf-clausura-individual/{id}', 'PdfController@descargarPdfClausuraIndividual');
+
+/* Rutas Word */
+Route::get('/word/descargar-multas/{id}', 'WordController@descargarMultas');
 
 /* Rutas Tipos Inspecciones*/
 Route::get('/tipo-inspecciones', 'TipoInspeccionController@listadoTipoInspecciones')->name('listado-tipo-inspecciones');

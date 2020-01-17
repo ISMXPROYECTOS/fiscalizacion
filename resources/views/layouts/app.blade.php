@@ -11,7 +11,7 @@
         <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
         
-        <title>{{ config('app.name', 'Sistema de Fiscalización') }}</title>
+        <title>Fiscalización</title>
         <!-- Web Fonts  -->
         <!--<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">-->
         <!-- Vendor CSS -->

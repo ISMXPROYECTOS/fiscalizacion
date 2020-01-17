@@ -259,7 +259,7 @@ $(document).ready(function(){
 				success: function (response) {
 					if (response.code == 200){
 						//$('#formulario-multa')[0].reset();
-						window.location.replace(url + "/pdf/descargar-multas/" + id);
+						window.location.replace(url + "/word/descargar-multas/" + id);
 						$('#agregar-multa').modal('hide');
 						$('#error-cantidad-multa').addClass('hidden');
 						$('#error-cantidad-multa').text('');

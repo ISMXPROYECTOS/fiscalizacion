@@ -10,7 +10,7 @@
         <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
         
-        <title>{{ config('app.name', 'Sistema de Fiscalización') }}</title>
+        <title>Fiscalización</title>
 
         <!-- Fonts -->
         <!-- Web Fonts  -->
