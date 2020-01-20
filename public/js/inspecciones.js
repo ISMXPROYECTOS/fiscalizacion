@@ -255,8 +255,6 @@ $(document).ready(function(){
 			imprimirInspeccionComunIndividual(id);
 			imprimirInspeccionComplejoIndividual(id);
 
-
-
 			$.ajax({
 				url: url + '/pdf/imrpimir-inspeccion-individual/' + id,
 				type: 'get',
@@ -285,9 +283,6 @@ $(document).ready(function(){
 		                            		"</label>"+
 		                            	"</div>");
 								}
-	                            
-
-	                            //console.log(key);
 	                        });
 	
 						} else {
@@ -307,9 +302,6 @@ $(document).ready(function(){
 		                            		"</label>"+
 		                            	"</div>");
 								}
-	                            
-
-	                            //console.log(key);
 	                        });
 						}
 					} else {
@@ -357,16 +349,5 @@ $(document).ready(function(){
 	}
 
 	imprimirInspeccionComplejoIndividual();
-
-	
-	// $('.inspectores').on('change', function() {
-	// 	if($(this).is(':checked')) {
-	// 		// Hacer algo si el checkbox ha sido seleccionado
-	// 		alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
-	// 	} else {
-	// 		// Hacer algo si el checkbox ha sido deseleccionado
-	// 		alert("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
-	// 	}
-	// });
 
 });
