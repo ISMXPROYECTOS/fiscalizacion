@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Style\Font;
+use PhpOffice\PhpWord\TemplateProcessor;
 use App\DocumentacionPorInspeccion;
 use App\Inspeccion;
 use App\Multa;
@@ -14,6 +15,7 @@ use App\EjercicioFiscal;
 class WordController extends Controller
 {
 	public function descargarMultas($id){
+		/*
 		$multas = Multa::where('inspeccion_id', $id)->get();
 		$inspeccion = Inspeccion::find($id);
 		$documentos_por_inspeccion = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get(['id', 'documentacionrequerida_id', 'solicitado', 'exhibido', 'observaciones']);
@@ -67,5 +69,15 @@ class WordController extends Controller
 		}
 
 		return response()->download(storage_path('holi.rtf'));
+		*/
+		$templateWord = new TemplateProcessor(storage_path('plantillaMultas.docx'));
+
+		$empresa = 'Crealab';
+		$folio = '2020/OIF/1';
+
+		$templateWord->setValue('nombre_empresa', $empresa);
+		$templateWord->setValue('folio', $folio);
+		
+		$templateWord->saveAs('Holiwis.rft');
 	}
 }
