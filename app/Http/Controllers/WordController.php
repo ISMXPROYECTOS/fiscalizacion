@@ -9,17 +9,25 @@ use PhpOffice\PhpWord\Style\Font;
 use PhpOffice\PhpWord\TemplateProcessor;
 use App\DocumentacionPorInspeccion;
 use App\Inspeccion;
+use App\Encargado;
+use App\FormaValorada;
+use App\Comercio;
 use App\Multa;
 use App\EjercicioFiscal;
 
 class WordController extends Controller
 {
 	public function descargarMultas($id){
-		/*
-		$multas = Multa::where('inspeccion_id', $id)->get();
+		$multas = Multa::where('inspeccion_id', $id)->get(['id', 'montoMulta', 'valorUma', 'total']);
+		$ultima_multa = $multas->last();
 		$inspeccion = Inspeccion::find($id);
 		$documentos_por_inspeccion = DocumentacionPorInspeccion::where('inspeccion_id', $id)->get(['id', 'documentacionrequerida_id', 'solicitado', 'exhibido', 'observaciones']);
+		$total_documentos = count($documentos_por_inspeccion);
+		$comercio = Comercio::find($inspeccion->Comercio->id);
+		$forma_valorada = FormaValorada::find($inspeccion->formaValorada->id);
+		$encargado = Encargado::find($forma_valorada->encargado->id);
 		
+		/*
 		$multa = new PhpWord();
 
 		$seccion_1 = $multa->addSection();
@@ -53,11 +61,6 @@ class WordController extends Controller
 		// 						<br/><br/>EXPEDIENTE: <b>".$inspeccion->folio."</b>";
 		// $datos_encabezado->addCell(5500)->addText(\PhpOffice\PhpWord\Shared\Html::addHtml($seccion_1, $contenido_encabezado));
 
-
-		
-
-
-
 		$objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($multa, 'Word2007');
 
 		//$objectWriter = \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
@@ -70,14 +73,52 @@ class WordController extends Controller
 
 		return response()->download(storage_path('holi.rtf'));
 		*/
-		$templateWord = new TemplateProcessor(storage_path('plantillaMultas.docx'));
 
-		$empresa = 'Crealab';
-		$folio = '2020/OIF/1';
-
-		$templateWord->setValue('nombre_empresa', $empresa);
-		$templateWord->setValue('folio', $folio);
+		$templateWord = new TemplateProcessor(storage_path('PlantillaMultaOIF.docx'));
 		
-		$templateWord->saveAs('Holiwis.rft');
+		// fecha de hoy en español 
+		setlocale(LC_TIME, 'es_CO.UTF-8');
+		$hoy = strftime("%d de %B del %G");
+		$puesto = $encargado->puesto;
+		$nombre_completo_encargado = $encargado->nombre.' '.$encargado->apellidopaterno.' '.$encargado->apellidomaterno;
+
+		$folio = $inspeccion->folio;
+		$fecha_hoy = $hoy;
+		$empresa = $comercio->denominacion;
+		$fecha_vence = $inspeccion->fechavence;
+		$domicilio_fiscal = $comercio->domiciliofiscal;
+		$monto_total = $ultima_multa->total;
+		$umas = $ultima_multa->montoMulta;
+		$valor_uma = $ultima_multa->valorUma;
+		$encargado = $nombre_completo_encargado;
+		$puesto_encargado = $puesto;
+		$documentos_array = array();
+
+        for ($i = 0; $i < count($documentos_por_inspeccion); $i++) {
+            $documento = $documentos_por_inspeccion[$i]->documentacionRequerida->nombre;
+            $documentos_array[] = $documento;
+		}
+
+		$documentos = implode("; ", $documentos_array);
+
+		$templateWord->setValue('folio', $folio);
+		$templateWord->setValue('fecha_hoy', $fecha_hoy);
+		$templateWord->setValue('empresa', $empresa);
+		$templateWord->setValue('fecha_vence', $fecha_vence);
+		$templateWord->setValue('domicilio_fiscal', $domicilio_fiscal);
+		$templateWord->setValue('monto_total', $monto_total);
+		$templateWord->setValue('umas', $umas);
+		$templateWord->setValue('valor_uma', $valor_uma);
+		$templateWord->setValue('encargado', $encargado);
+		$templateWord->setValue('puesto_esncargado', $puesto_encargado);
+		$templateWord->setValue('documentos', $documentos);
+
+		/*
+		for ($i = 0; $i < count($documentos); $i++) { 
+			$templateWord->setValue('documentos', $documentos[$i]);
+		}
+		*/
+
+		return $templateWord->saveAs('Holiwis.rft');
 	}
 }
