@@ -3,14 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
-        
         <title>Fiscalización</title>
         <!-- Web Fonts  -->
         <!--<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">-->
@@ -30,9 +26,6 @@
         <link rel="stylesheet" href="{{ asset('css/skins/default.css') }}" />
         <!-- Theme Custom CSS -->
         <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-
-        
-
         <!-- Head Libs -->
         <script src="{{ asset('vendor/modernizr/modernizr.js') }}"></script>
     </head>
@@ -46,13 +39,10 @@
                         <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
                     </div>
                 </div>
-                
                 <!-- start: search & user box -->
                 <div class="header-right">
                     <span id="ultima-sesion-dt">Ultima sesion: <b>{{ auth()->user()->ultimasesion->format('D j M Y, h:i:s A') }}</b></span>
-                    
-                    <span class="separator"></span>
-                    
+                    <span class="separator"></span>                    
                     <div id="userbox" class="userbox">
                         <a href="#" data-toggle="dropdown">
                             <!--<figure class="profile-picture">
@@ -68,10 +58,8 @@
                                 <span class="role">Ventanilla</span>
                                 @endif
                             </div>
-                            
                             <i class="fa custom-caret"></i>
                         </a>
-                        
                         <div class="dropdown-menu">
                             <ul class="list-unstyled mb-2">
                                 <li class="divider"></li>
@@ -96,7 +84,6 @@
             <div class="inner-wrapper">
                 <!-- start: sidebar -->
                 <aside id="sidebar-left" class="sidebar-left">
-                    
                     <div class="sidebar-header">
                         <div class="sidebar-title">
                             Panel de Control
@@ -105,11 +92,9 @@
                             <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
                         </div>
                     </div>
-                    
                     <div class="nano">
                         <div class="nano-content">
                             <nav id="menu" class="nav-main" role="navigation">
-                                
                                 <ul class="nav nav-main">
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
@@ -117,16 +102,13 @@
                                             <span>Catalogos</span>
                                         </a>
                                         <ul class="nav nav-children">
-                                            
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-inspectores') }}">
-                                                    
                                                     <span>Inspectores</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="{{ route('listado-gestores') }}">
-                                                    
+                                                <a class="nav-link" href="{{ route('listado-gestores') }}">                                                    
                                                     <span>Gestores</span>
                                                 </a>
                                             </li>
@@ -149,19 +131,16 @@
                                             </li>
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-tipo-inspecciones') }}">
-                                                    
                                                     <span>Tipo de Inspecciones</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="{{ route('listado-estatus-inspecciones') }}">
-                                                    
+                                                <a class="nav-link" href="{{ route('listado-estatus-inspecciones') }}">                                                    
                                                     <span>Estatus de Inspecciones</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" href="{{ route('listado-documentacion') }}">
-                                                    
+                                                <a class="nav-link" href="{{ route('listado-documentacion') }}">                                                    
                                                     <span>Documentacion requerida</span>
                                                 </a>
                                             </li>
@@ -234,8 +213,7 @@
                                     </li>
                                     <ul>
                                     </nav>
-                                    <hr class="separator" id="separator" />
-                                    
+                                    <hr class="separator" id="separator" />                                    
                                     <div class="sidebar-widget widget-tasks" id="ultima-sesion-mv">
                                         <div class="widget-header">
                                             <h6 class="text-white">Ultima sesión</h6>
@@ -249,11 +227,11 @@
                                 <script>
                                 // Maintain Scroll Position
                                 if (typeof localStorage !== 'undefined') {
-                                if (localStorage.getItem('sidebar-left-position') !== null) {
-                                var initialPosition = localStorage.getItem('sidebar-left-position'),
-                                sidebarLeft = document.querySelector('#sidebar-left .nano-content');
-                                sidebarLeft.scrollTop = initialPosition;
-                                }
+                                    if (localStorage.getItem('sidebar-left-position') !== null) {
+                                        var initialPosition = localStorage.getItem('sidebar-left-position'),
+                                        sidebarLeft = document.querySelector('#sidebar-left .nano-content');
+                                        sidebarLeft.scrollTop = initialPosition;
+                                    }
                                 }
                                 </script>
                             </div>
@@ -293,16 +271,11 @@
                 <script src="{{ asset('js/custom.js') }}"></script>
                 <!-- Theme Initialization Files -->
                 <script src="{{ asset('js/theme.init.js') }}"></script>
-                
                 <script src="{{ asset('js/examples/examples.modals.js') }} "></script>
                 <script src="{{ asset('js/navbar.js') }} "></script>
-
                 <script type="text/javascript">
                     var url = window.location.origin+"/fiscalizacion/public";
-
-                    //console.log(u);
                 </script>
-                
                 @yield('scripts')
             </body>
         </html>
