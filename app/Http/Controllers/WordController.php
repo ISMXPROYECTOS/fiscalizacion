@@ -27,50 +27,57 @@ class WordController extends Controller
 		$comercio = Comercio::find($inspeccion->Comercio->id);
 		$forma_valorada = FormaValorada::find($inspeccion->formaValorada->id);
 		$encargado = Encargado::find($forma_valorada->encargado->id);
-		
-		$claves = [
-			'documentos_tabla',
-			'solicitado',
-			'exhibido',
-			'observaciones'
-		];
-
-		$templateWord = new TemplateProcessor(storage_path('PlantillaMultaOIF.docx'));
-
-		for ($i = 0; $i < $total_documentos; $i++) {
-			if ($documentos_por_inspeccion[$i]->exhibido == 0) {
-				if ($documentos_por_inspeccion[$i]->solicitado == 0) {
-					$solicitado = 'No';
-				} else {
-					$solicitado = 'Si';
-				}
-
-				$documento_tabla = [
-					[
-						$documentos_por_inspeccion[$i]->documentacionRequerida->nombre,
-						$solicitado,
-						'No',
-						$documentos_por_inspeccion[$i]->observaciones
-					]
-				];
-
-				$documentos_tabla_array[] = array_combine($claves, array_flatten($documento_tabla));
-			}
-		}
 
 		// fecha de hoy en español 
 		setlocale(LC_ALL, 'es_ES');
 		$hoy = date('d-m-Y');
 		$hoy_formateado = Carbon::parse($hoy);
 		$hoy_formateado = $hoy_formateado->formatLocalized('%d de %B del %G');
+		$fecha_vence_formateado = Carbon::parse($inspeccion->fechavence);
+		$fecha_vence_formateado = $fecha_vence_formateado->formatLocalized('%d de %B del %G');
+
+		if ($inspeccion->tipoInspeccion->clave == 'OIF') {
+			$templateWord = new TemplateProcessor(storage_path('PlantillaMultaOIF.docx'));
+
+			$claves = [
+				'documentos_tabla',
+				'solicitado',
+				'exhibido',
+				'observaciones'
+			];
+	
+			for ($i = 0; $i < $total_documentos; $i++) {
+				if ($documentos_por_inspeccion[$i]->exhibido == 0) {
+					if ($documentos_por_inspeccion[$i]->solicitado == 0) {
+						$solicitado = 'No';
+					} else {
+						$solicitado = 'Si';
+					}
+	
+					$documento_tabla = [
+						[
+							$documentos_por_inspeccion[$i]->documentacionRequerida->nombre,
+							$solicitado,
+							'No',
+							$documentos_por_inspeccion[$i]->observaciones
+						]
+					];
+	
+					$documentos_tabla_array[] = array_combine($claves, array_flatten($documento_tabla));
+				}
+			}
+
+			$templateWord->cloneRowAndSetValues('documentos_tabla', $documentos_tabla_array);
+		} else {
+			$templateWord = new TemplateProcessor(storage_path('PlantillaMultaOIE.docx'));
+		}
+
 		$puesto = $encargado->puesto;
 		$nombre_completo_encargado = $encargado->nombre.' '.$encargado->apellidopaterno.' '.$encargado->apellidomaterno;
 		
 		$folio = $inspeccion->folio;
 		$fecha_hoy = $hoy_formateado;
 		$empresa = $comercio->denominacion;
-		$fecha_vence_formateado = Carbon::parse($inspeccion->fechavence);
-		$fecha_vence_formateado = $fecha_vence_formateado->formatLocalized('%d de %B del %G');
 		$fecha_vence = $fecha_vence_formateado;
 		$domicilio_fiscal = $comercio->domiciliofiscal;
 		$monto_total = $ultima_multa->total;
@@ -100,9 +107,8 @@ class WordController extends Controller
 		$templateWord->setValue('umas', $umas);
 		$templateWord->setValue('valor_uma', $valor_uma);
 		$templateWord->setValue('encargado', $encargado);
-		$templateWord->setValue('puesto_esncargado', $puesto_encargado);
+		$templateWord->setValue('puesto_encargado', $puesto_encargado);
 		$templateWord->setValue('documentos', $documentos);
-		$templateWord->cloneRowAndSetValues('documentos_tabla', $documentos_tabla_array);
 
 		return $templateWord->saveAs('MultaFolio-'.$nombre_archivo.'.rft');
 	}
