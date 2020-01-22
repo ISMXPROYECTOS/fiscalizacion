@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Style\Font;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Carbon\Carbon;
 use App\DocumentacionPorInspeccion;
 use App\Inspeccion;
 use App\Encargado;
@@ -27,65 +28,50 @@ class WordController extends Controller
 		$forma_valorada = FormaValorada::find($inspeccion->formaValorada->id);
 		$encargado = Encargado::find($forma_valorada->encargado->id);
 		
-		/*
-		$multa = new PhpWord();
-
-		$seccion_1 = $multa->addSection();
-		$seccion_1->addTextBreak(2);
-
-		$membrete = $seccion_1->addHeader();
-
-		$membrete->addImage(
-			'https://www.crealab.com.mx/images/clientes/header-multa-fiscal-word.jpg',
-			array(
-				'width'         => 500,
-				'height'        => 73,
-				'wrappingStyle' => 'behind',
-				'positioning'   => 'absolute',
-				'posHorizontalRel' => 'margin',
-				'posVerticalRel' => 'line',
-			)
-		);
-
-		$letra_negrita = 'negrita';
-		$multa->addFontStyle($letra_negrita,
-			array('name' => 'Arial', 'size' => '10', 'bold' => 'true')
-		);
-
-		$datos_encabezado = $seccion_1->addTable();
-		$datos_encabezado->addRow();
-		$datos_encabezado->addCell(3500);
-		$datos_encabezado->addCell(5500)->addText("AYUNTAMIENTO DE BENITO JUÁREZ QUINTANA ROO <w:br/>TESORERÍA MUNICIPAL <w:br/>DIRECCIÓN DE FISCALIZACIÓN
-			 <w:br/><w:br/>EXPEDIENTE: ".$inspeccion->folio."<w:br/> <w:br/>ASUNTO: RESOLUCIÓN ADMINISTRATIVA<w:br/><w:br/>Cancún, Quintana Roo a ".strftime( "%d-%m-%Y %H:%M")."");
-		// $contenido_encabezado = "AYUNTAMIENTO DE BENITO JUÁREZ QUINTANA ROO <br/>TESORERÍA MUNICIPAL <br/>DIRECCIÓN DE FISCALIZACIÓN
-		// 						<br/><br/>EXPEDIENTE: <b>".$inspeccion->folio."</b>";
-		// $datos_encabezado->addCell(5500)->addText(\PhpOffice\PhpWord\Shared\Html::addHtml($seccion_1, $contenido_encabezado));
-
-		$objectWriter = \PhpOffice\PhpWord\IOFactory::createWriter($multa, 'Word2007');
-
-		//$objectWriter = \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
-
-		try {
-			$objectWriter->save(storage_path('holi.rtf'));
-		} catch (Exception $e) {
-			
-		}
-
-		return response()->download(storage_path('holi.rtf'));
-		*/
+		$claves = [
+			'documentos_tabla',
+			'solicitado',
+			'exhibido',
+			'observaciones'
+		];
 
 		$templateWord = new TemplateProcessor(storage_path('PlantillaMultaOIF.docx'));
-		
+
+		for ($i = 0; $i < $total_documentos; $i++) {
+			if ($documentos_por_inspeccion[$i]->exhibido == 0) {
+				if ($documentos_por_inspeccion[$i]->solicitado == 0) {
+					$solicitado = 'No';
+				} else {
+					$solicitado = 'Si';
+				}
+
+				$documento_tabla = [
+					[
+						$documentos_por_inspeccion[$i]->documentacionRequerida->nombre,
+						$solicitado,
+						'No',
+						$documentos_por_inspeccion[$i]->observaciones
+					]
+				];
+
+				$documentos_tabla_array[] = array_combine($claves, array_flatten($documento_tabla));
+			}
+		}
+
 		// fecha de hoy en español 
-		setlocale(LC_TIME, 'es_CO.UTF-8');
-		$hoy = strftime("%d de %B del %G");
+		setlocale(LC_ALL, 'es_ES');
+		$hoy = date('d-m-Y');
+		$hoy_formateado = Carbon::parse($hoy);
+		$hoy_formateado = $hoy_formateado->formatLocalized('%d de %B del %G');
 		$puesto = $encargado->puesto;
 		$nombre_completo_encargado = $encargado->nombre.' '.$encargado->apellidopaterno.' '.$encargado->apellidomaterno;
-
+		
 		$folio = $inspeccion->folio;
-		$fecha_hoy = $hoy;
+		$fecha_hoy = $hoy_formateado;
 		$empresa = $comercio->denominacion;
-		$fecha_vence = $inspeccion->fechavence;
+		$fecha_vence_formateado = Carbon::parse($inspeccion->fechavence);
+		$fecha_vence_formateado = $fecha_vence_formateado->formatLocalized('%d de %B del %G');
+		$fecha_vence = $fecha_vence_formateado;
 		$domicilio_fiscal = $comercio->domiciliofiscal;
 		$monto_total = $ultima_multa->total;
 		$umas = $ultima_multa->montoMulta;
@@ -101,6 +87,10 @@ class WordController extends Controller
 
 		$documentos = implode("; ", $documentos_array);
 
+		// Remplaza las / del folio por -
+		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
+
+		// Se reemplazan las variables en el documento word
 		$templateWord->setValue('folio', $folio);
 		$templateWord->setValue('fecha_hoy', $fecha_hoy);
 		$templateWord->setValue('empresa', $empresa);
@@ -112,13 +102,8 @@ class WordController extends Controller
 		$templateWord->setValue('encargado', $encargado);
 		$templateWord->setValue('puesto_esncargado', $puesto_encargado);
 		$templateWord->setValue('documentos', $documentos);
+		$templateWord->cloneRowAndSetValues('documentos_tabla', $documentos_tabla_array);
 
-		/*
-		for ($i = 0; $i < count($documentos); $i++) { 
-			$templateWord->setValue('documentos', $documentos[$i]);
-		}
-		*/
-
-		return $templateWord->saveAs('Holiwis.rft');
+		return $templateWord->saveAs('MultaFolio-'.$nombre_archivo.'.rft');
 	}
 }
