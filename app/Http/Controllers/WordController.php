@@ -67,9 +67,41 @@ class WordController extends Controller
 				}
 			}
 
+			// Se reemplazan las variables de la tabla en el documento word
 			$templateWord->cloneRowAndSetValues('documentos_tabla', $documentos_tabla_array);
 		} else {
 			$templateWord = new TemplateProcessor(storage_path('PlantillaMultaOIE.docx'));
+
+			$claves = [
+				'documentos_tabla',
+				'solicitado',
+				'exhibido',
+				'observaciones'
+			];
+	
+			for ($i = 0; $i < $total_documentos; $i++) {
+				if ($documentos_por_inspeccion[$i]->exhibido == 0) {
+					if ($documentos_por_inspeccion[$i]->solicitado == 0) {
+						$solicitado = 'No';
+					} else {
+						$solicitado = 'Si';
+					}
+	
+					$documento_tabla = [
+						[
+							$documentos_por_inspeccion[$i]->documentacionRequerida->nombre,
+							$solicitado,
+							'No',
+							$documentos_por_inspeccion[$i]->observaciones
+						]
+					];
+	
+					$documentos_tabla_array[] = array_combine($claves, array_flatten($documento_tabla));
+				}
+			}
+
+			// Se reemplazan las variables de la tabla en el documento word
+			$templateWord->cloneRowAndSetValues('documentos_tabla', $documentos_tabla_array);
 		}
 
 		$puesto = $encargado->puesto;
