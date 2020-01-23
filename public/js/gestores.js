@@ -245,7 +245,6 @@ $(document).ready(function(){
                     });
                 }
             });
-
         });
     }
 
@@ -259,13 +258,24 @@ $(document).ready(function(){
             $('#inspecciones').modal('show');
             $('#inspecciones-datatable').DataTable({
                 'serverSide': true,
+                'processing': true,
                 'destroy': true,
-                'order': [ 1, 'asc' ],
+                'deferRender': true,
+                'pageLength': 10,
+                'order': [ 0, 'desc' ],
                 'ajax': url + '/gestores/inspecciones/' + id,
                 'columns': [
                     {data: 'folio'},
-                    {data: 'tipoInspeccion'},
-                    {data: 'estatusInspeccion'},
+                    {data: 'tipoinspeccion_id',
+                        'render': function ( data, type, row ) {
+                            return (row.tipo_inspeccion.clave);
+                        }, orderable: false
+                    },
+                    {data: 'estatusinspeccion_id',
+                        'render': function ( data, type, row ) {
+                            return (row.estatus_inspeccion.nombre);
+                        }, orderable: false, searchable: false
+                    },
                 ],
                 'language': {
                     'info': 'Total de registros _TOTAL_',

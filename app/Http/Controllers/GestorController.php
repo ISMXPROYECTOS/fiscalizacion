@@ -133,15 +133,21 @@ class GestorController extends Controller
 	}
 
 	public function inspeccionesPorGestor($id){
-		return datatables()
-			->eloquent(Inspeccion::where('gestores_id', $id))
-			->addColumn('tipoInspeccion', function(Inspeccion $inspeccion){
-				return $inspeccion->tipoInspeccion->clave;
-			})
-			->addColumn('estatusInspeccion', function(Inspeccion $inspeccion){
-				return $inspeccion->estatusInspeccion->nombre;
-			})
-			->toJson();
+		return Datatables::of(Inspeccion::where('gestores_id', $id)->with([
+			'tipoInspeccion' => function($query){
+				$query->select(['id', 'clave']);
+			}
+		])->with([
+			'estatusInspeccion' => function($query){
+				$query->select(['id', 'nombre']);
+			}
+		])->select([
+			'id',
+			'tipoinspeccion_id',
+			'estatusinspeccion_id',
+			'folio'
+		]))
+		->make(true);
 	}
 
 }
