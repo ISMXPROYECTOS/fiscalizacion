@@ -17,8 +17,7 @@ $(document).ready(function(){
 	function obtenerTotalInspecciones(){
 		var idtipo = $('#tipoinspeccion-asignar').val();
 		var anio = $('#ejerciciofiscal-asignar').val();
-
-
+		
         $.ajax({
             url: url + '/inspecciones/obtener-total-inspecciones/' + idtipo +'/'+ anio,
             type: 'get',

@@ -104,7 +104,7 @@ Route::get('/pdf/descargar-pdf-inspeccion-individual/{id}/{inspectores?}', 'PdfC
 Route::get('/pdf/descargar-pdf-inspecciones-complejas/{id}', 'PdfController@descargarPdfInspeccionesComplejas');
 Route::get('/pdf/descargar-pdf-inspeccion-compleja-individual/{id}/{inspectores?}', 'PdfController@descargarPdfInspeccionComplejaIndividual');
 Route::get('/pdf/validar-folios-asignados/{id}', 'PdfController@validarFoliosAsignados');
-Route::get('/pdf/imrpimir-inspeccion-individual/{id}', 'PdfController@imprimirInspeccionesIndividual');
+Route::get('/pdf/imprimir-inspeccion-individual/{id}', 'PdfController@imprimirInspeccionesIndividual');
 Route::get('/pdf/descargar-orden-clausura/{id}', 'PdfController@descargarOrdenClausura')->name('descargar-clausura');
 Route::get('/pdf/inspecciones/{id}', 'PdfController@inspeccionesPorPaquete');
 Route::get('/pdf/inspecciones/reasignar/{id}', 'PdfController@reasignarInspeccionesPorPaquete');

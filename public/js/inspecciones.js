@@ -256,7 +256,7 @@ $(document).ready(function(){
 			imprimirInspeccionComplejoIndividual(id);
 
 			$.ajax({
-				url: url + '/pdf/imrpimir-inspeccion-individual/' + id,
+				url: url + '/pdf/imprimir-inspeccion-individual/' + id,
 				type: 'get',
 				success: function (response) {
 					console.log(response);

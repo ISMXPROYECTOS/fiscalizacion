@@ -56,7 +56,6 @@ class EncargadoController extends Controller
     }
 
     public function update(Request $request){
-
 		/* Se selecciona el gestor para ser modificado */
 		$id = $request->input('id');
 		$encargado = Encargado::find($id);
@@ -82,11 +81,9 @@ class EncargadoController extends Controller
 		$encargado->update();
 
         return $encargado;
-
 	}
 
 	public function updateEstatus(Request $request){
-
 		$id = $request->input('id');
 		$encargado = Encargado::find($id);
 
@@ -100,6 +97,5 @@ class EncargadoController extends Controller
 		$encargado->update();
 
     	return $encargado;
-
 	}
 }

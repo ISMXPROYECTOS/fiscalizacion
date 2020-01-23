@@ -28,7 +28,6 @@ class PdfController extends Controller
 
 	public function tbody(){
 		//$formas_valoradas = FormaValorada::all()->load('tipoInspeccion')->load('ejercicioFiscal');
-
 		return Datatables::of(FormaValorada::query()->with([
 			'tipoInspeccion' => function($query){
 				$query->select(['id', 'clave']);
@@ -107,7 +106,7 @@ class PdfController extends Controller
 
 	public function imprimirInspeccionesIndividual($id){
 		$inspeccion = Inspeccion::find($id);
-		$inspectores = Inspector::all();
+		$inspectores = Inspector::get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno']);
 		$estatus_NA = EstatusInspeccion::where('clave', 'NA')->first();
 
 		$data = [
@@ -142,7 +141,6 @@ class PdfController extends Controller
 
 	/* Descarga las inspecciones con las actas comunes */
 	public function descargarPdfInspecciones($id){
-
 		$forma_valorada = FormaValorada::find($id);
 		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();

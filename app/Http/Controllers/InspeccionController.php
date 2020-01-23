@@ -146,7 +146,7 @@ class InspeccionController extends Controller
 		
 		$estatus_inspeccion = EstatusInspeccion::where('clave', 'NA')->first();
 		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->where('ejerciciofiscal_id', $ejercicio_fiscal_id)->get();
-		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $tipo_inspeccion_id)->get();
+		$documentacion_por_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $tipo_inspeccion_id)->get(['id', 'documentacionrequerida_id']);
 
 		$ejercicio_fiscal = EjercicioFiscal::find($ejercicio_fiscal_id);
 		$ejercicio_fiscal_anio = $ejercicio_fiscal->anio;
@@ -155,7 +155,6 @@ class InspeccionController extends Controller
 		$tipo_inspeccion_clave = $tipo_inspeccion->clave;
 
 		if ($forma_valorada->count() == 0) {
-
 			$nueva_forma_valorada = new FormaValorada();
 			$nueva_forma_valorada->usuario_id 			= $usuario->id;
 			$nueva_forma_valorada->tipoinspeccion_id 	= $tipo_inspeccion_id;
@@ -164,9 +163,7 @@ class InspeccionController extends Controller
 			$nueva_forma_valorada->folioinicio 			= 1;
 			$nueva_forma_valorada->foliofin 			= $cantidad;
 			$nueva_forma_valorada->save();
-			
 		} else {
-
 			$folio_fin = $forma_valorada->last()->foliofin;
 			$nuevo_folio_inicio = $folio_fin + 1;
 			$nuevo_folio_fin = $folio_fin + $cantidad;
@@ -179,11 +176,9 @@ class InspeccionController extends Controller
 			$nueva_forma_valorada->folioinicio 			= $nuevo_folio_inicio;
 			$nueva_forma_valorada->foliofin 			= $nuevo_folio_fin;
 			$nueva_forma_valorada->save();
-
 		}
 
 		for ($a = 0; $a < $cantidad; $a++) {
-
 			$id_forma_valorada = $nueva_forma_valorada->id;
 			$folio_inicio = $nueva_forma_valorada->folioinicio;
 			$folio = $folio_inicio + $a;
@@ -208,7 +203,6 @@ class InspeccionController extends Controller
 			BitacoraDeEstatus::create($datos_bitacora);
 
 			for ($b = 0; $b < count($documentacion_por_inspeccion); $b++) {
-
 				$datos = [
 					'tipoinspeccion_id' => $tipo_inspeccion_id,
 					'documentacionrequerida_id' => $documentacion_por_inspeccion[$b]->documentacionrequerida_id,
@@ -321,7 +315,6 @@ class InspeccionController extends Controller
 	/* Selecciona la inspección que se desea editar y regresa la inspección a la petición */
 	public function editarInspeccion($id){
 		$inspeccion = Inspeccion::find($id);
-
 		return $inspeccion;
 	}
 
@@ -617,7 +610,7 @@ class InspeccionController extends Controller
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'A')->first();
 		$id_estatus_nuevo = $estatus_nuevo->id;
 
-		$inspecciones = Inspeccion::where('estatusinspeccion_id', $id_estatus_anterior)->where('tipoinspeccion_id', $tipoinspeccion)->get();
+		$inspecciones = Inspeccion::where('estatusinspeccion_id', $id_estatus_anterior)->where('tipoinspeccion_id', $tipoinspeccion)->get(['id', 'tipoinspeccion_id', 'estatusinspeccion_id', 'inspector_id', 'estatusinspeccion_id', 'fechaasignada']);
 		$tipos_inspecciones = TipoDeInspeccion::find($tipoinspeccion);
 
 		if ($inspectores == null) {
@@ -677,7 +670,7 @@ class InspeccionController extends Controller
 		$tipo_inspeccion_id = $request->input('tipoinspeccion');
 		$cantidad = $request->input('cantidad');
 		$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
-		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->where('ejerciciofiscal_id', $ejercicio_fiscal_id)->get();
+		$forma_valorada = FormaValorada::where('tipoinspeccion_id', $tipo_inspeccion_id)->where('ejerciciofiscal_id', $ejercicio_fiscal_id)->get(['id', 'folioinicio', 'foliofin']);
 
 		if ($cantidad == 0) {
 			return response()->json([
@@ -744,7 +737,7 @@ class InspeccionController extends Controller
 		$inspecciones = Inspeccion::where('estatusinspeccion_id', $estatus_inspeccion->id)
 							->where('ejerciciofiscal_id', $ejercicio_fiscal_id)
 							->where('tipoinspeccion_id', $tipo_inspeccion_id)
-							->get();
+							->get(['id', 'folio']);
 		
 		$datos = [];
 		$inspectores_array = [];
@@ -921,7 +914,7 @@ class InspeccionController extends Controller
 
 		$inspeccion->update();
 
-		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoInspeccion->id)->get();
+		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoInspeccion->id)->get(['id', 'documentacionrequerida_id']);
 
 		if ($solicitado != null) {
 			for ($i = 0; $i < count($solicitado); $i++) {
@@ -1055,7 +1048,7 @@ class InspeccionController extends Controller
 		}
 		*/
 
-		$documentacion_requerida = DocumentacionPorInspeccion::where('inspeccion_id', $inspeccion_id)->get();
+		$documentacion_requerida = DocumentacionPorInspeccion::where('inspeccion_id', $inspeccion_id)->get(['id', 'exhibido', 'observaciones']);
 		
 		for ($e = 0; $e < count($observaciones); $e++) { 
 			if ($observaciones[$e] == null) {
@@ -1199,7 +1192,7 @@ class InspeccionController extends Controller
 		$observacion_prorroga = $request->input('observacion-prorroga');
 		$estatus_prorroga = EstatusInspeccion::where('clave', 'P')->first();
 		$estatus_multa = EstatusInspeccion::where('clave', 'M')->first();
-		$dias_inhabiles = DiaInhabil::all();
+		$dias_inhabiles = DiaInhabil::all(['id', 'fecha']);
 		$usuario = Auth::user();
 
 		$data = [

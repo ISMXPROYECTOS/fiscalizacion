@@ -62,7 +62,6 @@ class EstatusInspeccionController extends Controller
 
         // Indica que fue correcta la modificación del tipo de inspección
     	return $tipoInspeccion;
-
 	}
 
 }

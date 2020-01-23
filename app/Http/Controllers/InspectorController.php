@@ -130,7 +130,6 @@ class InspectorController extends Controller
 
         // Indica que fue correcta la modificación del inspector
     	return $inspector;
-
 	}
 
 	public function updateEstatus(Request $request){
@@ -158,11 +157,9 @@ class InspectorController extends Controller
 
         // Una vez actualizado el inspector redirige e indica que fue correcta la modificación del inspector
     	return $inspector;
-
 	}
 
 	public function perfil($hash){
-
 		$inspector = Inspector::where('hash', $hash)->first();
 		$gafetes = Gafete::where('inspector_id', $inspector->id)->get();
 		$gafete = $gafetes->last();
@@ -171,9 +168,6 @@ class InspectorController extends Controller
 			'inspector' => $inspector,
 			'gafete' => $gafete
 		]);
-
 	}
-
-	
 
 }

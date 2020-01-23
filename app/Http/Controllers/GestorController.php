@@ -33,7 +33,6 @@ class GestorController extends Controller
 	}
 
 	public function create(Request $request){
-
 		// Validara los campos para evitar problemas 
 		$validate = $request->validate([
 			'nombre' => 'required|string|max:50',
