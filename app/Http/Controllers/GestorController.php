@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+//use Illuminate\Support\Facades\DB;
 use App\Gestor;
 use App\Inspeccion;
 
@@ -23,7 +24,8 @@ class GestorController extends Controller
 			'celular',
 			'correoelectronico',
 			'ine',
-			'estatus'
+			'estatus',
+			//DB::raw('concat(nombre, " ", apellidopaterno, " ", apellidomaterno) AS nombreCompleto'),
 		]))
 		->addColumn('editar', 'gestor/boton-editar')
 		->addColumn('cambiarestatus', 'gestor/boton-estatus')
