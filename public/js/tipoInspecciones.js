@@ -252,8 +252,4 @@ $(document).ready(function(){
 	}
 
 	seleccionarTodosEditar();
-
-
-	
-	
 });

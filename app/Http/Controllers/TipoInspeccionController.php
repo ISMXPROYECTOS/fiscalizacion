@@ -11,7 +11,7 @@ use App\DocumentacionPorTipoDeInspeccion;
 class TipoInspeccionController extends Controller
 {
 	public function listadoTipoInspecciones(){
-		$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get();
+		$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get(['id', 'clave', 'nombre']);
 
 		return view('tipoInspeccion.listado-tipo-inspecciones', array(
 			'documentos' => $documentacion_requerida
@@ -67,8 +67,8 @@ class TipoInspeccionController extends Controller
 
 	public function editarTipoInspeccion($id){
 		$tipoInspeccion = TipoDeInspeccion::find($id);
-		$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get();
-		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $id)->get();
+		$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get(['id', 'nombre']);
+		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $id)->get(['id', 'documentacionrequerida_id']);
 
 		if (!empty($tipoInspeccion) && !empty($documentacion_por_tipo_inspeccion) && !empty($documentacion_requerida)) {
 			$data = [
@@ -91,8 +91,8 @@ class TipoInspeccionController extends Controller
 		// Se selecciona el tipo de inspección para ser modificado
 		$id = $request->input('id-edit');
 		$tipoInspeccion = TipoDeInspeccion::find($id);
-		$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get();
-		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $id)->get();
+		//$documentacion_requerida = DocumentacionRequerida::where('activo', 1)->get();
+		$documentacion_por_tipo_inspeccion = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $id)->get(['id']);
 
 		// Validara los campos para evitar problemas
 		$validate = $this->validate($request,[
@@ -132,7 +132,6 @@ class TipoInspeccionController extends Controller
 
 		// Indica que fue correcta la modificación del tipo de inspección
 		return $tipoInspeccion;
-
 	}
 
 }
