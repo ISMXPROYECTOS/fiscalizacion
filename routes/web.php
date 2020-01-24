@@ -98,7 +98,7 @@ Route::get('/pdf', 'PdfController@listadoInspeccionesParaDescargar')->name('list
 Route::get('/pdf/listado', 'PdfController@tbody');
 Route::get('/pdf/ver-gafete/{id}', 'PdfController@verGafete')->name('ver-gafete');
 //Route::get('/pdf/validar-acta-inspeccion/{id}', 'PdfController@validarActaInspeccion');
-//Route::get('/pdf/descargar-acta-inspeccion/{id}',     'PdfController@descargarActaInspeccion');
+//Route::get('/pdf/descargar-acta-inspeccion/{id}', 'PdfController@descargarActaInspeccion');
 Route::get('/pdf/descargar-pdf-inspecciones/{id}', 'PdfController@descargarPdfInspecciones');
 Route::get('/pdf/descargar-pdf-inspeccion-individual/{id}/{inspectores?}', 'PdfController@descargarPdfInspeccionIndividual');
 Route::get('/pdf/descargar-pdf-inspecciones-complejas/{id}', 'PdfController@descargarPdfInspeccionesComplejas');
