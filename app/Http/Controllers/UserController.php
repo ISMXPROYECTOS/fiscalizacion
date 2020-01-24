@@ -11,7 +11,7 @@ use App\User;
 class UserController extends Controller
 {
 	public function verificarUsuario($username){
-		$usuario = User::where('usuario', $username)->get();
+		$usuario = User::where('usuario', $username)->get(['id', 'activo', 'vigencia']);
 
 		$fecha = new DateTime('now');
 		$fecha_hoy = $fecha->format('Y-m-d');
@@ -73,16 +73,12 @@ class UserController extends Controller
 	    return User::create($datos);
 	}
 
-
 	public function editarUsuario($id){
-
     	$usuario = User::find($id);
     	return $usuario;
-
     }
 
 	public function update(Request $request){
-
 		// Se reciben la id del usuario que se esta modificando
 		$id = $request->input('id');
 
@@ -121,11 +117,9 @@ class UserController extends Controller
 
         // Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario
     	return $usuario;
-
 	}
 
 	public function updateEstatus(Request $request){
-
 		// Se reciben la id del usuario que se esta modificando
 		$id = $request->input('id');
 
@@ -146,7 +140,6 @@ class UserController extends Controller
 
         // Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario
     	return $usuario;
-
 	}
 
 	public function cambiarPassword(){
@@ -154,7 +147,6 @@ class UserController extends Controller
 	}
 
 	public function updatePassword(Request $request){
-
 		// Se obtiene la id del usuario con la sesión
 		$id = \Auth::user()->id;
 
@@ -178,7 +170,6 @@ class UserController extends Controller
 
         // Una vez actualizado el usuario redirige e indica que fue correcta la modificación del usuario
     	return redirect()->route('home')->with('status', 'Contraseña Modificada');
-
 	}
 
 }
