@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Route;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Style\Font;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -142,6 +143,13 @@ class WordController extends Controller
 		$templateWord->setValue('puesto_encargado', $puesto_encargado);
 		$templateWord->setValue('documentos', $documentos);
 
-		return $templateWord->saveAs('MultaFolio-'.$nombre_archivo.'.rft');
+		$tempFile = tempnam(sys_get_temp_dir(), 'PHPWord');
+		$templateWord->saveAs($tempFile);
+
+		$headers = [
+			"Content-Type: application/octet-stream",
+		];
+
+		return response()->download($tempFile, 'MultaFolio-'.$nombre_archivo.'.rft', $headers)->deleteFileAfterSend(true);
 	}
 }

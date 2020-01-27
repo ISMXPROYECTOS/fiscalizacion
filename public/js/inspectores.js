@@ -26,15 +26,16 @@ $(document).ready(function(){
         $('#datatable').DataTable({
             'serverSide': true,
             'processing': true,
+            'destroy': true,
             'deferRender': true,
             'pageLength': 10,
-            'destroy': true,
+            'order': [ 0, 'asc' ],
             'ajax': url + '/inspectores/listado',
             // Se seleccionan los campos que se desean mostrar en la tabla
             'columns': [
-                {data: 'nombre',
+                {data: 'apellidopaterno',
                     'render': function ( data, type, row ) {
-                        return (row.nombre + ' ' + row.apellidopaterno + ' ' + row.apellidomaterno);
+                        return row.nombre +' '+ row.apellidopaterno +' '+ row.apellidomaterno;
                     }
                 },
                 {data: 'clave'},
