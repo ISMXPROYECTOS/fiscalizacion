@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 use App\Gestor;
 use App\Inspeccion;
 
@@ -25,12 +25,14 @@ class GestorController extends Controller
 			'correoelectronico',
 			'ine',
 			'estatus',
-			DB::raw('concat(nombre, " ", apellidopaterno, " ", apellidomaterno) AS nombreCompleto'),
+			//DB::raw('concat(nombre, " ", apellidopaterno, " ", apellidomaterno) AS nombreCompleto'),
 		]))
+		/*
 		->filterColumn('nombreCompleto', function($query, $keyword) {
 			$sql = 'concat(nombre, " ", apellidopaterno, " ", apellidomaterno)  like ?';
 			$query->whereRaw($sql, ["%{$keyword}%"]);
 		})
+		*/
 		->addColumn('editar', 'gestor/boton-editar')
 		->addColumn('cambiarestatus', 'gestor/boton-estatus')
 		->addColumn('inspecciones', 'gestor/boton-inspecciones')
