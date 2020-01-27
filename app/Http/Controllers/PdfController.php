@@ -260,6 +260,8 @@ class PdfController extends Controller
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
+		//$pdf = \App::make('dompdf.wrapper');
+
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
 	}
