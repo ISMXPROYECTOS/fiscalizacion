@@ -28,11 +28,7 @@ $(document).ready(function(){
             'order': [ 0, 'asc' ],
             'ajax': url + '/gestores/listado',
             'columns': [
-                {data: 'apellidopaterno',
-                    'render': function ( data, type, row ) {
-                        return row.nombre +' '+ row.apellidopaterno +' '+ row.apellidomaterno;
-                    }
-                },
+                {data: 'nombreCompleto'},
                 {data: 'telefono'},
                 {data: 'celular'},
                 {data: 'correoelectronico'},
