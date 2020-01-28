@@ -18,6 +18,7 @@ use App\Multa;
 use App\EstatusInspeccion;
 use App\BitacoraDeEstatus;
 use App\Inspector;
+use App\ImpresionDeFormato;
 
 class PdfController extends Controller
 {
@@ -149,7 +150,18 @@ class PdfController extends Controller
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
-	
+
+		$usuario = Auth::user();
+
+		$datos_bitacora_impresion = [
+			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
+			'usuario_id' => $usuario->id,
+			'folioinicio' => $forma_valorada->folioinicio,
+			'foliofin' => $forma_valorada->folioinicio
+		];
+
+		ImpresionDeFormato::create($datos_bitacora_impresion);
+
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
@@ -164,6 +176,17 @@ class PdfController extends Controller
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
+
+		$usuario = Auth::user();
+
+		$datos_bitacora_impresion = [
+			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
+			'usuario_id' => $usuario->id,
+			'folioinicio' => $forma_valorada->folioinicio,
+			'foliofin' => $forma_valorada->folioinicio
+		];
+
+		ImpresionDeFormato::create($datos_bitacora_impresion);
 		
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIF', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
@@ -179,6 +202,17 @@ class PdfController extends Controller
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
+		$usuario = Auth::user();
+
+		$datos_bitacora_impresion = [
+			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
+			'usuario_id' => $usuario->id,
+			'folioinicio' => $forma_valorada->folioinicio,
+			'foliofin' => $forma_valorada->folioinicio
+		];
+
+		ImpresionDeFormato::create($datos_bitacora_impresion);
+
 		$pdf = PDF::loadView('acta-inspeccion.citatorio-OIF', ['inspecciones' => $inspecciones, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Citatorios-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
@@ -193,6 +227,17 @@ class PdfController extends Controller
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
+
+		$usuario = Auth::user();
+
+		$datos_bitacora_impresion = [
+			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
+			'usuario_id' => $usuario->id,
+			'folioinicio' => $forma_valorada->folioinicio,
+			'foliofin' => $forma_valorada->folioinicio
+		];
+
+		ImpresionDeFormato::create($datos_bitacora_impresion);
 
 		$pdf = PDF::loadView('clausura.clausuras-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Clausuras-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
@@ -213,6 +258,17 @@ class PdfController extends Controller
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
+
+		$usuario = Auth::user();
+
+		$datos_bitacora_impresion = [
+			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'usuario_id' => $usuario->id,
+			'folioinicio' => $inspeccion->formaValorada->folioinicio,
+			'foliofin' => $inspeccion->formaValorada->folioinicio
+		];
+
+		ImpresionDeFormato::create($datos_bitacora_impresion);
 		
 		$pdf = PDF::loadView('multas.multas-'.$inspeccion->formaValorada->tipoInspeccion->clave, ['multas' => $multas, 'inspeccion' => $inspeccion, 'documentos_por_inspeccion' => $documentos_por_inspeccion, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Multa'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
@@ -239,6 +295,15 @@ class PdfController extends Controller
 			BitacoraDeEstatus::create($datos_bitacora);
 		}
 
+		$datos_bitacora_impresion = [
+			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'usuario_id' => $usuario->id,
+			'folioinicio' => $inspeccion->formaValorada->folioinicio,
+			'foliofin' => $inspeccion->formaValorada->folioinicio
+		];
+
+		ImpresionDeFormato::create($datos_bitacora_impresion);
+
 		$pdf = PDF::loadView('clausura.acta-clausura', ['inspeccion' => $inspeccion, 'documentos' => $documentos_no_presentados]);
 		return $pdf->download('Orden-Clausura-'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
 	}
@@ -259,6 +324,17 @@ class PdfController extends Controller
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
+
+		$usuario = Auth::user();
+
+		$datos_bitacora_impresion = [
+			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'usuario_id' => $usuario->id,
+			'folioinicio' => $inspeccion->formaValorada->folioinicio,
+			'foliofin' => $inspeccion->formaValorada->folioinicio
+		];
+
+		ImpresionDeFormato::create($datos_bitacora_impresion);
 
 		//$pdf = \App::make('dompdf.wrapper');
 
@@ -283,6 +359,17 @@ class PdfController extends Controller
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
+
+		$usuario = Auth::user();
+
+		$datos_bitacora_impresion = [
+			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'usuario_id' => $usuario->id,
+			'folioinicio' => $inspeccion->formaValorada->folioinicio,
+			'foliofin' => $inspeccion->formaValorada->folioinicio
+		];
+
+		ImpresionDeFormato::create($datos_bitacora_impresion);
 		
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
@@ -298,6 +385,17 @@ class PdfController extends Controller
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
+		$usuario = Auth::user();
+
+		$datos_bitacora_impresion = [
+			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'usuario_id' => $usuario->id,
+			'folioinicio' => $inspeccion->formaValorada->folioinicio,
+			'foliofin' => $inspeccion->formaValorada->folioinicio
+		];
+
+		ImpresionDeFormato::create($datos_bitacora_impresion);
+
 		$pdf = PDF::loadView('clausura.clausura-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy ]);
 		return $pdf->download('Clausuras-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
 	}
@@ -310,6 +408,17 @@ class PdfController extends Controller
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'es_CO.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
+
+		$usuario = Auth::user();
+
+		$datos_bitacora_impresion = [
+			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'usuario_id' => $usuario->id,
+			'folioinicio' => $inspeccion->formaValorada->folioinicio,
+			'foliofin' => $inspeccion->formaValorada->folioinicio
+		];
+
+		ImpresionDeFormato::create($datos_bitacora_impresion);
 
 		$pdf = PDF::loadView('acta-inspeccion.citatorio-individual-OIF', ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Citatorios-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
