@@ -13,6 +13,9 @@ $(document).ready(function(){
 		$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').addClass('hidden');
 		$('#error-nombre-edit, #error-clave-edit, #error-diasvencimiento-edit').text('');
 		$('#documentos-editar').text('');
+
+		$(".check").prop("checked", false);
+		$("#seleccionar-todos").prop("checked", false);
 	});
 	
 	function viewData(){
@@ -238,7 +241,7 @@ $(document).ready(function(){
 	    });
 
 		$('.check-editar').each(function(key, value){
-			console.log("hola");
+			console.log(value);
 	        $('#'+value.id).click(function(){
 	            if ($(".check-editar").length == $(".check-editar:checked").length) {
 	                $("#seleccionar-todos-editar").prop("checked", true);

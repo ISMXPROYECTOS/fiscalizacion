@@ -153,11 +153,13 @@ class PdfController extends Controller
 
 		$usuario = Auth::user();
 
+
+
 		$datos_bitacora_impresion = [
 			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $forma_valorada->folioinicio,
-			'foliofin' => $forma_valorada->folioinicio
+			'foliofin' => $forma_valorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);

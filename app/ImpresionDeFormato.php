@@ -18,5 +18,9 @@ class ImpresionDeFormato extends Model
 	public function usuario(){
 		return $this->belongsTo('App\User', 'usuario_id');
 	}
+
+	protected $fillable = [
+    	'tipoinspeccion_id'
+    ];
 	
 }

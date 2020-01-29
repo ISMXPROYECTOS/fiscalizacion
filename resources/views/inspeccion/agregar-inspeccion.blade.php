@@ -4,6 +4,7 @@
     <h2>Agregar Inspecciones</h2>
 </header>
 
+
     <div class="row">
         <div class="col-md-4">
             <h4 >Folio inicio: <b id="folio-inicio"></b></h4>

@@ -131,12 +131,16 @@ class InspeccionController extends Controller
 	/* Método que realiza la creación de las inspecciones, crea la inspección pero estas inspecciones son blancas, es decir, que no se sabe a que comercio se va a inspeccionar */
 	public function create(Request $request){
 		// Valida cada array en cada posición con el .*
+
+	
+
 		$validate = $this->validate($request, [
 			'cantidad' => 'required|string',
 			'ejerciciofiscal' => 'required|string',
 			'tipoinspeccion' => 'required|string',
 			'encargadoGob' => 'required'
 		]);
+
 
 		$cantidad = $request->input('cantidad');
 		$ejercicio_fiscal_id = $request->input('ejerciciofiscal');
