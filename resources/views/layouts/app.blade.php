@@ -96,9 +96,52 @@
                         <div class="nano-content">
                             <nav id="menu" class="nav-main" role="navigation">
                                 <ul class="nav nav-main">
+
+                                    <li>
+
+                                        <a class="nav-link" href="{{ route('listado-inspecciones') }}">
+                                            <i class="fas fa-list"></i>
+                                            <span>Administrador de Inspecciones</span>
+                                        </a>
+                                    </li>
                                     <li class="nav-parent">
+                                        
                                         <a class="nav-link" href="#">
-                                            <i class="fas fa-th-list"></i>
+                                            <i class="fas fa-folder-plus"></i>
+                                            <span>Generar Inspecciones</span>
+                                        </a>
+                                        <ul class="nav nav-children">
+                                            <li>
+                                                <a class="nav-link" href="{{ route('vista-agregar-inspecciones') }}">
+                                                    <span>Inspecciones en limpio</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="nav-link" href="{{ route('vista-agregar-inspecciones-por-zona') }}">
+                                                    <span>Inspecciones por SM</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a class="nav-link" href="{{ route('vista-asignar-inspecciones') }}">
+                                            <i class="fas fa-user-plus"></i>
+                                            <span>Asignar Inspección</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-de-inspecciones-para-descargar') }}">
+                                            <i class="fas fa-file-download"></i>
+                                            <span>Descargar Inspecciones</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-parent">
+                                        
+                                        <a class="nav-link" href="#">
+                                            <i class="fas fa-file-alt"></i>
                                             <span>Catalogos</span>
                                         </a>
                                         <ul class="nav nav-children">
@@ -112,18 +155,6 @@
                                                     <span>Gestores</span>
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a class="nav-link" href="{{ route('listado-inspecciones') }}">
-                                                    <span>Inspecciones</span>
-                                                </a>
-                                            </li>
-                                            @if(Auth::user()->role == "ROLE_ADMIN")
-                                            <li>
-                                                <a class="nav-link" href="{{ route('listado-usuarios') }}">
-                                                    <span>Usuarios</span>
-                                                </a>
-                                            </li>
-                                            @endif
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-colonias') }}">
                                                     <span>Colonias</span>
@@ -144,50 +175,14 @@
                                                     <span>Documentacion requerida</span>
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a class="nav-link" href="{{ route('listado-comercios') }}">
+                                                    <span>Comercios</span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-encargados') }}">
-                                            <i class="fas fa-users"></i>
-                                            <span>Encargados</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-comercios') }}">
-                                            <i class="fas fa-store"></i>
-                                            <span>Comercios</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-ejercicios-fiscales') }}">
-                                            <i class="fas fa-calendar-alt"></i>
-                                            <span>Años fiscales y dias inhabiles</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{{ route('vista-agregar-inspecciones') }}">
-                                            <i class="fas fa-folder-plus"></i>
-                                            <span>Generar Inspección</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{{ route('vista-agregar-inspecciones-por-zona') }}">
-                                            <i class="fas fa-folder-plus"></i>
-                                            <span>Generar Inspección Por SM</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{{ route('vista-asignar-inspecciones') }}">
-                                            <i class="fas fa-arrow-alt-circle-right"></i>
-                                            <span>Asignar Inspección</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-de-inspecciones-para-descargar') }}">
-                                            <i class="fas fa-file-pdf"></i>
-                                            <span>Descargar Inspecciones</span>
-                                        </a>
-                                    </li>
+                                    
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
                                             <i class="fas fa-wrench"></i>
@@ -195,21 +190,43 @@
                                         </a>
                                         <ul class="nav nav-children">
                                             <li>
+                                                <a class="nav-link" href="{{ route('listado-ejercicios-fiscales') }}">
+                                                    <span>Años fiscales y dias inhabiles</span>
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a class="nav-link" href="{{ route('cambiar-password') }}">
                                                     Cambiar contraseña
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="nav-link" role="menuitem" tabindex="-1" href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                                    <span>{{ __('Cerrar sesión') }}</span>
+                                                <a class="nav-link" href="{{ route('listado-encargados') }}">
+                                                    <span>Encargados</span>
                                                 </a>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                    @csrf
-                                                </form>
                                             </li>
+                                            
                                         </ul>
+                                    </li>
+
+                                    @if(Auth::user()->role == "ROLE_ADMIN")
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-usuarios') }}">
+                                            <i class="fas fa-users"></i>
+                                            <span>Usuarios</span>
+                                        </a>
+                                    </li>
+                                    @endif
+
+                                    <li>
+                                        <a class="nav-link" role="menuitem" tabindex="-1" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                                            <i class="fas fa-power-off"></i>
+                                            <span>{{ __('Cerrar sesión') }}</span>
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
                                     </li>
                                     <ul>
                                     </nav>
@@ -274,8 +291,8 @@
                 <script src="{{ asset('js/examples/examples.modals.js') }} "></script>
                 <script src="{{ asset('js/navbar.js') }} "></script>
                 <script type="text/javascript">
-                    var url = window.location.origin;
-                    //var url = window.location.origin+"/fiscalizacion/public";
+                    //var url = window.location.origin;
+                    var url = window.location.origin+"/fiscalizacion/public";
                 </script>
                 @yield('scripts')
             </body>
