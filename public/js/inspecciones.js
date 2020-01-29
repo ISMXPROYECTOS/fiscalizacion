@@ -249,6 +249,7 @@ $(document).ready(function(){
 		$(document).on('click', '.descargar', function(e){
 			e.preventDefault();
 			$('#descargas').text('');
+			$('#form-group-inspectores').text('');
 
 			var id = $(this).attr('id');
 

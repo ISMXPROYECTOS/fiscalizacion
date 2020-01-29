@@ -20,7 +20,7 @@
 
 <!-- Alerta de Generando PDF -->
 <div class="modal fade" id="creando-pdf-inspecciones" tabindex="-1" role="dialog" aria-labelledby="modal-registro-exitoso" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h3 class="modal-title" id="modal-registro-correcto">Descarga de Inspecciones</h3>
