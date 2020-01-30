@@ -14,7 +14,7 @@
                     <th>Clave</th>
                     <th>Nombre</th>
                     <th>Días de vencimiento</th>
-                    <th>Fecha creado</th>
+                    <th>Fecha Creado</th>
                     <th>Editar</th>
                 </tr>
             </thead>

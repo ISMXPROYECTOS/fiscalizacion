@@ -12,11 +12,7 @@ $(document).ready(function(){
 			'order': [0, 'desc'],
 			'ajax': url + '/pdf/listado',
 			'columns': [
-				{data: 'created_at',
-					'render': function ( data, type, row ) {
-						return row.created_at;
-					}
-				},
+				
 				{data: 'folioinicio',
 					'render': function ( data, type, row ) {
 						return "<a href='#' class='inspecciones' id='"+ row.id +"'>" + row.ejercicio_fiscal.anio + '/' + row.tipo_inspeccion.clave + '/' + row.folioinicio + "</a>";
@@ -25,6 +21,26 @@ $(document).ready(function(){
 				{data: 'foliofin',
 					'render': function ( data, type, row ) {
 						return row.ejercicio_fiscal.anio + '/' + row.tipo_inspeccion.clave + '/' + row.foliofin;
+					}
+				},
+				{data: 'created_at',
+					'render': function ( data, type, row ) {
+						var fecha = new Date(row.created_at);
+
+						var meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+
+						var dia = fecha.getUTCDate();
+						var mes = fecha.getUTCMonth();
+						var anio = fecha.getUTCFullYear();
+
+						//console.log(dia + '/' + meses[mes] + '/' + anio);
+
+
+						if (row.created_at == null) {
+							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
+						} else {
+							return "<span class='badge badge-pill badge-primary'>"+ dia + '/' + meses[mes] + '/' + anio +"</span> ";
+						}
 					}
 				},
 				{data: 'descargar'}

@@ -8,9 +8,10 @@
 		<table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
 			<thead>
 				<tr>
-					<th>Fecha y Hora</th>
+					
 					<th>Folio Inicio</th>
 					<th>Folio Fin</th>
+					<th>Fecha Creado</th>
 					<th>Descargar PDF</th>
 				</tr>
 			</thead>

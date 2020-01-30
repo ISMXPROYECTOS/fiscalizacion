@@ -46,7 +46,26 @@ $(document).ready(function(){
                         }
                     }
                 },
-                {data: 'vigencia'},
+                {data: 'vigencia',
+                    'render': function ( data, type, row ) {
+                        var fecha = new Date(row.vigencia);
+
+                        var meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+
+                        var dia = fecha.getUTCDate();
+                        var mes = fecha.getUTCMonth();
+                        var anio = fecha.getUTCFullYear();
+
+                        //console.log(dia + '/' + meses[mes] + '/' + anio);
+
+
+                        if (row.vigencia == null) {
+                            return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
+                        } else {
+                            return "<span class='badge badge-pill badge-primary'>"+ dia + '/' + meses[mes] + '/' + anio +"</span> ";
+                        }
+                    }
+                },
                 {data: 'editar', orderable: false, searchable: false},
                 {data: 'cambiarestatus', orderable: false, searchable: false},
             ],
