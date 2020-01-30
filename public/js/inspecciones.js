@@ -185,6 +185,7 @@ $(document).ready(function(){
 				headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 				success: function (response) {
 					$('#editar-estatus').modal('hide');
+					$(".formulario-estatus")[0].reset();
 					if (response.code == 200){
 						$('#actualizacion-correcta').modal('show');
 					}else{

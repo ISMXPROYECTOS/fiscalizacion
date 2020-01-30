@@ -435,7 +435,7 @@
 	@endif
 
 	@if (auth()->user()->role == 'ROLE_ADMIN')
-		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#alerta-confirmacion-limpieza">
+		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#alerta-confirmacion-limpieza">
 		  Limpiar Inspección
 		</button>
 		

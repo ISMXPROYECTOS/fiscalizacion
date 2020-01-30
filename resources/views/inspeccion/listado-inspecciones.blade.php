@@ -185,8 +185,8 @@
 						<i class="fas fa-exclamation-triangle"></i>
 					</div>
 					<div class="modal-text">
-						<h4>Este folio ya ha sido solventado</h4>
-						<p>No se puede realizar la acción por que el folio ya ha sido solventado</p>
+						<h4>La acción no se pudo realizar</h4>
+						<p>La acción no se pudo realizar, intentalo mas tarde.</p>
 					</div>
 				</div>
 			</div>

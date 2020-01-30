@@ -259,6 +259,7 @@ $(document).ready(function(){
 				success: function (response) {
 					if (response.code == 200){
 						//$('#formulario-multa')[0].reset();
+						$('#btn-agregar-multa').text('Generar multa');
 						window.location.replace(url + "/word/descargar-multas/" + id);
 						$('#agregar-multa').modal('hide');
 						$('#error-cantidad-multa').addClass('hidden');
