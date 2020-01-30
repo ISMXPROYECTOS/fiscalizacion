@@ -56,77 +56,78 @@ $(document).ready(function(){
 				{data: 'inspector.nombre', defaultContent: '', orderable: false},
 				{data: 'comercio.denominacion', defaultContent: '', orderable: false},
 				{data: 'comercio.nombreestablecimiento', defaultContent: '', orderable: false},
-				{data: 'created_at', defaultContent: ''},
+				{data: 'created_at',
+					'render': function(data, type, row){
+
+						var fecha = new Date(row.created_at);
+
+						var meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+
+						var dia = fecha.getUTCDate();
+						var mes = fecha.getUTCMonth();
+						var anio = fecha.getUTCFullYear();
+
+						//console.log(dia + '/' + meses[mes] + '/' + anio);
+
+
+						if (row.created_at == null) {
+							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
+						} else {
+							return "<span class='badge badge-pill badge-primary'>"+ dia + '/' + meses[mes] + '/' + anio +"</span> ";
+						}
+					}
+				},
 				{data: 'fechavence',
 					'render': function(data, type, row){
 
-						var month = new Array();
-						month[0] = "01";
-						month[1] = "02";
-						month[2] = "03";
-						month[3] = "04";
-						month[4] = "05";
-						month[5] = "06";
-						month[6] = "07";
-						month[7] = "08";
-						month[8] = "09";
-						month[9] = "10";
-						month[10] = "11";
-						month[11] = "12";
+						var fechavence = new Date(row.fechavence);
 
 						var hoy = new Date();
-						var fecha = new Date(row.fechavence);
-						var dia = fecha.getDate();
-						var mes = month[fecha.getMonth()];
-						var anio = fecha.getFullYear();
 
+						var meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+
+						var dia = fechavence.getUTCDate();
+						var mes = fechavence.getUTCMonth();
+						var anio = fechavence.getUTCFullYear();
+
+						//console.log(dia + '/' + meses[mes] + '/' + anio);
 
 						if (row.fechavence == null) {
 							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
-						} else if(fecha.getDate() == hoy.getDate() ){
-							return "<span class='badge badge-pill badge-warning'>"+ row.fechavence +"</span> ";
-						} else if(fecha > hoy){
+						} else if(fechavence.getUTCDate() == hoy.getUTCDate() ){
+							return "<span class='badge badge-pill badge-warning'>"+ dia + '/' + meses[mes] + '/' + anio +"</span> ";
+						} else if(fechavence.toISOString() > hoy.toISOString()){
 							//return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
-							return "<span class='badge badge-pill badge-success'>"+ row.fechavence +"</span>";
+							return "<span class='badge badge-pill badge-success'>"+ dia + '/' + meses[mes] + '/' + anio +"</span>";
 						} else {
 							//return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
-							return "<span class='badge badge-pill badge-danger'>"+ row.fechavence +"</span> ";
+							return "<span class='badge badge-pill badge-danger'>"+ dia + '/' + meses[mes] + '/' + anio +"</span> ";
 						}
 					}
 				},
 				{data: 'fechaprorroga',
 					'render': function(data, type, row){
-						var month = new Array();
-						month[0] = "01";
-						month[1] = "02";
-						month[2] = "03";
-						month[3] = "04";
-						month[4] = "05";
-						month[5] = "06";
-						month[6] = "07";
-						month[7] = "08";
-						month[8] = "09";
-						month[9] = "10";
-						month[10] = "11";
-						month[11] = "12";
-
+						
+						var fechaprorroga = new Date(row.fechaprorroga);
 						var hoy = new Date();
-						var fecha = new Date(row.fechaprorroga);
-						var dia = fecha.getDate();
-						var mes = month[fecha.getMonth()];
-						var anio = fecha.getFullYear();
+
+						var meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+
+						var dia = fechaprorroga.getUTCDate();
+						var mes = fechaprorroga.getUTCMonth();
+						var anio = fechaprorroga.getUTCFullYear();
 
 						if (row.fechaprorroga == null) {
 							return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
 
-						} else if(fecha.getDate() == hoy.getDate() ){
-							return "<span class='badge badge-pill badge-warning'>"+ row.fechaprorroga +"</span> <span class='badge badge-pill badge-warning'> Vence mañana </span>";
-						} else if (fecha < hoy) {
+						} else if(fechaprorroga.getUTCDate() == hoy.getUTCDate() ){
+							return "<span class='badge badge-pill badge-warning'>"+ dia + '/' + meses[mes] + '/' + anio +"</span>";
+						} else if (fechaprorroga.toISOString() < hoy.toISOString()) {
 							//return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
-							return "<span class='badge badge-pill badge-danger'>"+ row.fechaprorroga +"</span>";
+							return "<span class='badge badge-pill badge-danger'>"+ dia + '/' + meses[mes] + '/' + anio +"</span>";
 						} else {
 							//return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
-							return "<span class='badge badge-pill badge-success'>"+ row.fechaprorroga +"</span>";
+							return "<span class='badge badge-pill badge-success'>"+ dia + '/' + meses[mes] + '/' + anio +"</span>";
 						}
 					}
 				},
