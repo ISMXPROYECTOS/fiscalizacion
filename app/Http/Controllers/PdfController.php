@@ -148,7 +148,8 @@ class PdfController extends Controller
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		// fecha de hoy en español 
-		setlocale(LC_TIME, 'es_CO.UTF-8');
+		setlocale(LC_TIME, 'spanish');
+		setlocale(LC_TIME, 'es_MX.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
 		$usuario = Auth::user();
@@ -176,7 +177,8 @@ class PdfController extends Controller
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		// fecha de hoy en español 
-		setlocale(LC_TIME, 'es_CO.UTF-8');
+		setlocale(LC_TIME, 'spanish');
+		setlocale(LC_TIME, 'es_MX.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
 		$usuario = Auth::user();
@@ -201,7 +203,8 @@ class PdfController extends Controller
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		// fecha de hoy en español 
-		setlocale(LC_TIME, 'es_CO.UTF-8');
+		setlocale(LC_TIME, 'spanish');
+		setlocale(LC_TIME, 'es_MX.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
 		$usuario = Auth::user();
@@ -227,7 +230,8 @@ class PdfController extends Controller
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		// fecha de hoy en español 
-		setlocale(LC_TIME, 'es_CO.UTF-8');
+		setlocale(LC_TIME, 'spanish');
+		setlocale(LC_TIME, 'es_MX.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
 		$usuario = Auth::user();
@@ -258,7 +262,8 @@ class PdfController extends Controller
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		// fecha de hoy en español 
-		setlocale(LC_TIME, 'es_CO.UTF-8');
+		setlocale(LC_TIME, 'spanish');
+		setlocale(LC_TIME, 'es_MX.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
 		$usuario = Auth::user();
@@ -324,7 +329,8 @@ class PdfController extends Controller
 		}
 
 		// fecha de hoy en español 
-		setlocale(LC_TIME, 'es_CO.UTF-8');
+		setlocale(LC_TIME, 'spanish');
+		setlocale(LC_TIME, 'es_MX.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
 		$usuario = Auth::user();
@@ -359,7 +365,8 @@ class PdfController extends Controller
 		}
 
 		// fecha de hoy en español 
-		setlocale(LC_TIME, 'es_CO.UTF-8');
+		setlocale(LC_TIME, 'spanish');
+		setlocale(LC_TIME, 'es_MX.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
 		$usuario = Auth::user();
@@ -384,7 +391,8 @@ class PdfController extends Controller
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		// fecha de hoy en español 
-		setlocale(LC_TIME, 'es_CO.UTF-8');
+		setlocale(LC_TIME, 'spanish');
+		setlocale(LC_TIME, 'es_MX.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
 		$usuario = Auth::user();
@@ -408,7 +416,8 @@ class PdfController extends Controller
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		// fecha de hoy en español 
-		setlocale(LC_TIME, 'es_CO.UTF-8');
+		setlocale(LC_TIME, 'spanish');
+		setlocale(LC_TIME, 'es_MX.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
 		$usuario = Auth::user();
