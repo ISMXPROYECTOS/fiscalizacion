@@ -13,6 +13,7 @@ $(document).ready(function(){
 			'destroy': true,
 			'deferRender': true,
 			'pageLength': 10,
+			'order': [[1, 'desc'], [6, 'desc'], [0, 'desc']],
 			'ajax': url + '/inspecciones/listado',
 			'columns': [
 				{data: 'folio',
@@ -108,6 +109,7 @@ $(document).ready(function(){
 
 						if (row.fechaprorroga == null) {
 							return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
+
 						} else if(fechaprorroga.getUTCDate() == hoy.getUTCDate() ){
 							return "<span class='badge badge-pill badge-warning'>"+ dia + '/' + meses[mes] + '/' + anio +"</span>";
 						} else if (fechaprorroga.toISOString() < hoy.toISOString()) {
