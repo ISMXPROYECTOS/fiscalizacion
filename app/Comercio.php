@@ -14,6 +14,11 @@ class Comercio extends Model
         return $this->hasMany('App\Inspeccion');
     }
 
+    /* Relación muchos a uno */
+    public function giroComercial(){
+        return $this->belongsTo('App\GiroComercial', 'giro_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

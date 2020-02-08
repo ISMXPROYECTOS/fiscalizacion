@@ -38,8 +38,6 @@ Route::post('/inspectores/actualizar', 'InspectorController@update');
 Route::post('/inspectores/estatus', 'InspectorController@updateEstatus');
 Route::get('/inspectores/perfil/{hash}', 'InspectorController@perfil');
 
-
-
 /* Rutas Gestores */
 Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');
 Route::get('/gestores/listado', 'GestorController@tbody');

@@ -48,10 +48,13 @@ class InspeccionController extends Controller
 		$tiposInspecciones = TipoDeInspeccion::all();
 		$ejerciciosFiscales = EjercicioFiscal::all();
 		$encargadosGob = Encargado::get(['id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'activo']);
+		$giros = GiroComercial::where('activo', 1)->orderBy('nombre', 'ASC')->get(['id', 'nombre']);
+
 		return view('inspeccion.agregar-inspeccion-por-zona', [
 			'tiposInspecciones' => $tiposInspecciones,
 			'ejerciciosFiscales' => $ejerciciosFiscales,
-			'encargadosGob' => $encargadosGob
+			'encargadosGob' => $encargadosGob,
+			'giros' => $giros
 		]);
 	}
 

@@ -18,4 +18,9 @@ class GiroComercial extends Model
     public function inspeccion(){
         return $this->hasMany('App\Inspeccion');
     }
+
+    /* Relación uno a mucho */
+    public function comercio(){
+        return $this->hasMany('App\GiroComercial');
+    }
 }

@@ -201,7 +201,11 @@ class ComercioController extends Controller
 				'mensaje' => 'Ingresa un valor correcto.'
 			], 422);
 		} else {
-			$comercios = Comercio::where('domiciliofiscal', 'like', '%'. $domiciliofiscal .'%')->orderBy('denominacion', 'asc')->get(['id', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal']);
+			$comercios = Comercio::with([
+				'giroComercial' => function($query){
+					$query->select(['id', 'nombre']);
+				}
+			])->where('domiciliofiscal', 'like', '%'. $domiciliofiscal .'%')->orderBy('denominacion', 'asc')->orderBy('denominacion', 'ASC')->get(['id', 'giro_id', 'licenciafuncionamiento', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal']);
 			//$comercios = Comercio::where('domiciliofiscal', 'like', '%'. $domiciliofiscal .'%')->get();
 			if (count($comercios) == 0) {
 				return response()->json([
@@ -237,37 +241,72 @@ class ComercioController extends Controller
 	public function filtroParaBuscarComercios(Request $request){
 		// Valida los campos para evitar problemas y poder agregarlos a la base de datos
 		$validate = $request->validate([
-			'supermanzana' => 'required|string|max:255',
-			'opcion' => 'required|string|max:1',
-			'valor' => 'required|string|max:255',
+			'supermanzana' 	=> 'required|string|max:255',
+			'opcion' 		=> 'required|string|max:1',
+			'valor' 		=> 'nullable|string|max:255',
+			'giro' 			=> 'nullable'
 		]);
 
 		// Se reciben los datos del formulario y se crean variables
 		$supermanzana = $request->input('supermanzana');
 		$opcion = $request->input('opcion');
 		$valor = $request->input('valor');
+		$giro = $request->input('giro');
 
-		if ($opcion == 1) {
-			$comercios = Comercio::where('nombreestablecimiento', 'like', '%'. $valor .'%')->get(['id', 'denominacion', 'nombreestablecimiento',
-				'domiciliofiscal']);
-			if (count($comercios) == 0) {
-				return response()->json([
-					'mensaje' => 'No se encontro ningun resultado.'
-				], 404);
-			} else {
-				return $comercios;  
-			}
-		} else {
-			$comercios = Comercio::where('denominacion', 'like', '%'. $valor .'%')->get(['id', 'denominacion', 'nombreestablecimiento',
-				'domiciliofiscal']);
+		switch ($opcion) {
+			case 1:
+				$comercios = Comercio::with([
+					'giroComercial' => function($query){
+						$query->select(['id', 'nombre']);
+					}
+				])->where('domiciliofiscal', 'like', '%'. $supermanzana .'%')->where('nombreestablecimiento', 'like', '%'. $valor .'%')->orderBy('nombreestablecimiento', 'asc')->get(['id', 'giro_id', 'licenciafuncionamiento', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal']);
 
-			if (count($comercios) == 0) {
+				if (count($comercios) == 0) {
+					return response()->json([
+						'mensaje' => 'No se encontro ningun resultado.'
+					], 404);
+				} else {
+					return $comercios;  
+				}
+			break;
+
+			case 2:
+				$comercios = Comercio::with([
+					'giroComercial' => function($query){
+						$query->select(['id', 'nombre']);
+					}
+				])->where('domiciliofiscal', 'like', '%'. $supermanzana .'%')->where('denominacion', 'like', '%'. $valor .'%')->orderBy('nombreestablecimiento', 'asc')->get(['id', 'giro_id', 'licenciafuncionamiento', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal']);
+
+				if (count($comercios) == 0) {
+					return response()->json([
+						'mensaje' => 'No se encontro ningun resultado.'
+					], 404);
+				} else {
+					return $comercios;  
+				}
+			break;
+
+			case 3:
+				$comercios = Comercio::with([
+					'giroComercial' => function($query){
+						$query->select(['id', 'nombre']);
+					}
+				])->where('domiciliofiscal', 'like', '%'. $supermanzana .'%')->where('giro_id', $giro)->orderBy('nombreestablecimiento', 'asc')->get(['id','giro_id', 'licenciafuncionamiento', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal']);
+
+				if (count($comercios) == 0) {
+					return response()->json([
+						'mensaje' => 'No se encontro ningun resultado.'
+					], 404);
+				} else {
+					return $comercios;
+				}
+			break;
+
+			default:
 				return response()->json([
-					'mensaje' => 'No se encontro ningun resultado.'
-				], 404);
-			} else {
-				return $comercios;  
-			}
+						'mensaje' => 'No se encontro ningun resultado.'
+					], 404);
+			break;
 		}
 		
 	}

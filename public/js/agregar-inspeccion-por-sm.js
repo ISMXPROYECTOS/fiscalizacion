@@ -27,7 +27,7 @@ $(document).ready(function(){
     $('#calle').attr('disabled', '');
     $('#buscar-sm').attr('disabled', '');
     $('#valor').attr('disabled', '');
-    $('#buscar-valor').attr('disabled', '');
+    //$('#buscar-valor').attr('disabled', '');
 
     $('#tipoinspeccion').change(function(){
         if ($('#tipoinspeccion').val() != '') {
@@ -64,13 +64,14 @@ $(document).ready(function(){
     });
 
     $('#buscar-por').change(function(){
-    
         // console.log($('#buscar-por option:selected').val());
         if ($('#buscar-por option:selected').val() == 0) {
             $('#valor').attr('disabled', '');
-            $('#buscar-valor').attr('disabled', '');
+            //$('#buscar-valor').attr('disabled', '');
             $('#valor').val('');
             // console.log('hola');
+        } if($('#buscar-por option:selected').val() == 3) {
+            $('#filtro-palabras').remove();
         } else {
             $('#valor').removeAttr('disabled');
             $('#buscar-valor').removeAttr('disabled');
@@ -104,6 +105,8 @@ $(document).ready(function(){
                                     "<td>"+ value.denominacion +"</td>"+
                                     "<td>"+ value.nombreestablecimiento +"</td>"+
                                     "<td>"+ value.domiciliofiscal +"</td>"+
+                                    "<td>"+ value.giro_comercial.nombre +"</td>"+
+                                    "<td>"+ value.licenciafuncionamiento +"</td>"+
                                 "</tr>");
                         });
 
@@ -137,6 +140,8 @@ $(document).ready(function(){
                                     "<td>"+ value.denominacion +"</td>"+
                                     "<td>"+ value.nombreestablecimiento +"</td>"+
                                     "<td>"+ value.domiciliofiscal +"</td>"+
+                                    "<td>"+ value.giro_comercial.nombre +"</td>"+
+                                    "<td>"+ value.licenciafuncionamiento +"</td>"+
                                 "</tr>");
                         });
 
@@ -226,7 +231,8 @@ $(document).ready(function(){
             var data = {
                 'supermanzana' : $('#calle').val(),
                 'opcion' : $('#buscar-por option:selected').val(),
-                'valor' : $('#valor').val()
+                'valor' : $('#valor').val(),
+                'giro' : $('#giros option:selected').val()
             }
 
             $.ajax({
@@ -254,6 +260,8 @@ $(document).ready(function(){
                                     "<td>"+ value.denominacion +"</td>"+
                                     "<td>"+ value.nombreestablecimiento +"</td>"+
                                     "<td>"+ value.domiciliofiscal +"</td>"+
+                                    "<td>"+ value.giro_comercial.nombre +"</td>"+
+                                    "<td>"+ value.licenciafuncionamiento +"</td>"+
                                 "</tr>");
                         });
 
