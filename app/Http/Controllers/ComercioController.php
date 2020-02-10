@@ -313,8 +313,8 @@ class ComercioController extends Controller
 
 	public function comerciosDesdeSoap(){
 		$comercios_sincronizados = 0;
-		$url = "http://201.144.238.68:8030/dsaws/IServiceObtieneLicencias.svc?wsdl";
-
+		$url = "http://201.144.238.68:8010/dsaws/IServiceObtieneLicencias.svc?wsdl";
+		
 		try{
 			$cliente = new SoapClient($url);
 			$data = $cliente->obtieneComerciosLicenciasId();
@@ -331,6 +331,7 @@ class ComercioController extends Controller
 					$comercio_bd = Comercio::where('licenciafuncionamientoid', $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->LicenciasFuncionamientoId)->first();
 					if (empty($comercio_bd)) {
 						$datos = [
+							'giro_id' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->GiroId,
 							'rfc' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->RFCPersona,
 							'licenciafuncionamientoid' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->LicenciasFuncionamientoId,
 							'licenciafuncionamiento' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->LicenciasFuncionamientoFolio,
@@ -351,6 +352,8 @@ class ComercioController extends Controller
 							'folio' => $comercios_array->obtieneComerciosLicenciasIdResult->claEntComercio[$i]->Folio,
 							'estatus' => 'A'
 						];
+
+						//dd($datos);
 
 						Comercio::create($datos);
 						$comercios_sincronizados = $comercios_sincronizados + 1;

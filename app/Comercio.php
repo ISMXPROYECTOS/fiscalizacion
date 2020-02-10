@@ -25,7 +25,7 @@ class Comercio extends Model
      * @var array
      */
     protected $fillable = [
-        'rfc', 'licenciafuncionamientoid', 'licenciafuncionamiento', 'propietarioid', 'propietarionombre', 
+        'giro_id', 'rfc', 'licenciafuncionamientoid', 'licenciafuncionamiento', 'propietarioid', 'propietarionombre', 
         'clavecatastral', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal', 'calle', 'nointerior',
         'noexterior', 'cp', 'colonia', 'localidad', 'municipio', 'estado', 'folio', 'estatus'
     ];

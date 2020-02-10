@@ -51,7 +51,7 @@ $(document).ready(function(){
 						} else {
 							return row.estatus_inspeccion.nombre;
 						}
-					}, orderable: false, searchable: false
+					}, searchable: false
 				},
 				{data: 'inspector.nombre', defaultContent: '', orderable: false},
 				{data: 'comercio.denominacion', defaultContent: '', orderable: false},
