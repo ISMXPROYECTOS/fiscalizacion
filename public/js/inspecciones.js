@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	// Se crea una variable con la ruta raíz del proyecto
-	//var url = "http://localhost/fiscalizacion/public";
+	// var url = "http://localhost/fiscalizacion/public";
 
 	$('#error-estatusinspeccion-edit, #error-comentario-edit').addClass('hidden');
 	$('#error-estatusinspeccion-edit, #error-comentario-edit').text('');
