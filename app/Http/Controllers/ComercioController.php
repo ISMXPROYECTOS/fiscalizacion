@@ -314,9 +314,10 @@ class ComercioController extends Controller
 	public function comerciosDesdeSoap(){
 		$comercios_sincronizados = 0;
 		$url = "http://201.144.238.68:8010/dsaws/IServiceObtieneLicencias.svc?wsdl";
-		
+
 		try{
 			$cliente = new SoapClient($url);
+			//dd($cliente->__getTypes());
 			$data = $cliente->obtieneComerciosLicenciasId();
 			//dd($data);
 
