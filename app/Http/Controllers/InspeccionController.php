@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use App\Inspeccion;
 use App\Inspector;
@@ -95,7 +96,9 @@ class InspeccionController extends Controller
 	/* Método encargado de ir a la base de datos seleccionar la información solicitada y devolverla a la petición para ser mostrada */
 	public function tbody(){
 		//$inspecciones = Inspeccion::all()->load('tipoInspeccion')->load('estatusInspeccion')->load('inspector')->load('comercio');
-		return Datatables::of(Inspeccion::query()->with([
+		$collection = new Collection();
+		
+		$inspecciones = Inspeccion::with([
 			'tipoInspeccion' => function($query){
 				$query->select(['id', 'clave']);
 			}
@@ -105,7 +108,7 @@ class InspeccionController extends Controller
 			}
 		])->with([
 			'inspector' => function($query){
-				$query->select(['id', 'nombre']);
+				$query->select(['id', 'nombre', 'apellidopaterno', 'apellidomaterno']);
 			}
 		])->with([
 			'comercio' => function($query){
@@ -121,14 +124,52 @@ class InspeccionController extends Controller
 			'created_at',
 			'fechavence',
 			'fechaprorroga'
-		]))
+		]);
+		
+		if($inspecciones){
+			foreach($inspecciones as $inspeccion){
+				if(!empty($inspeccion->fechavence)){
+					$date = strtotime($inspeccion->fechavence);
+					$fechavence = date("d-m-Y", $date);
+				} else {
+					$fechavence = '';
+				}
+
+				if(!empty($inspeccion->fechaprorroga)){
+					$date_2 = strtotime($inspeccion->fechaprorroga);
+					$fechaprorroga = date("d-m-Y", $date_2);
+				} else {
+					$fechaprorroga = '';
+				}
+
+				$hoy = new \DateTime();
+
+				$tmp = [
+					'id' => $inspeccion->id,
+					'comercio_denominacion' => is_object($inspeccion->comercio) ? $inspeccion->comercio->denominacion : '',
+					'comercio_nombre' => is_object($inspeccion->comercio) ? $inspeccion->comercio->nombreestablecimiento : '',
+					'tipoinspeccion' => $inspeccion->tipoInspeccion->clave,
+					'inspector' => is_object($inspeccion->inspector) ? $inspeccion->inspector->nombre.' '.$inspeccion->inspector->apellidopaterno.' '.$inspeccion->inspector->apellidomaterno : '',
+					'estatusinspeccion_id' => $inspeccion->estatusInspeccion->id,
+					'estatusinspeccion_clave' => $inspeccion->estatusInspeccion->clave,
+					'estatusinspeccion_nombre' => $inspeccion->estatusInspeccion->nombre,
+					'folio' => $inspeccion->folio,
+					'created_at' => $inspeccion->created_at->format('d-m-Y'),
+					'fechavence' => $fechavence,
+					'fechaprorroga' => $fechaprorroga,
+					'hoy' => $hoy->format('d-m-Y')
+				];
+				
+				$collection->push($tmp);
+				unset($tmp);
+			}
+		}
+		
+		return DataTables::of($collection)
 		->addColumn('cambiarestatus', 'inspeccion/boton-estatus')
 		->addColumn('imprimir', 'inspeccion/boton-imprimir')
 		->rawColumns(['cambiarestatus', 'imprimir'])
 		->make(true);
-
-		/* Va antes de select */
-		/* ->orderBy('id', 'asc') */
 	}
 
 	/* Método que realiza la creación de las inspecciones, crea la inspección pero estas inspecciones son blancas, es decir, que no se sabe a que comercio se va a inspeccionar */

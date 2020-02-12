@@ -21,103 +21,69 @@ $(document).ready(function(){
 						return "<a href='#' class='folio-inspeccion' id='"+ row.id +"'>" + data + "</a>"
 					}
 				},
-				{data: 'tipoinspeccion_id',
-					'render': function ( data, type, row ) {
-						return (row.tipo_inspeccion.clave);
+				{data: 'tipoinspeccion'},
+				{data: 'estatusinspeccion_nombre',
+					'render': function(data, type, row){
+						if (row.estatusinspeccion_clave == 'NA') {
+							return "<span class='badge badge-pill badge-secondary'>"+ row.estatusinspeccion_nombre +"</span>";
+						} else if(row.estatusinspeccion_clave == 'A'){
+							return "<span class='badge badge-pill badge-primary'>"+ row.estatusinspeccion_nombre +"</span>";
+						} else if(row.estatusinspeccion_clave == 'Cap'){
+							return "<span class='badge badge-pill badge-success'>"+ row.estatusinspeccion_nombre +"</span>";
+						} else if (row.estatusinspeccion_clave == 'V') {
+							return "<span class='badge badge-pill badge-danger'>"+ row.estatusinspeccion_nombre +"</span>";
+						} else if (row.estatusinspeccion_clave == 'Epc') {
+							return "<span class='badge badge-pill badge-epc'>"+ row.estatusinspeccion_nombre +"</span>";
+						} else if (row.estatusinspeccion_clave == 'Claus') {
+							return "<span class='badge badge-pill badge-claus'>"+ row.estatusinspeccion_nombre +"</span>";
+						} else if(row.estatusinspeccion_clave == 'M'){
+							return "<span class='badge badge-pill badge-multa'>"+ row.estatusinspeccion_nombre +"</span>";
+						} else if(row.estatusinspeccion_clave == 'P'){
+							return "<span class='badge badge-pill badge-info'>"+ row.estatusinspeccion_nombre +"</span>";
+						} else if(row.estatusinspeccion_clave == 'S'){
+							return "<span class='badge badge-pill badge-solventada'>"+ row.estatusinspeccion_nombre +"</span>";
+						} else if (row.estatusinspeccion_clave == 'C') {
+							return "<span class='badge badge-pill badge-warning'>"+ row.estatusinspeccion_nombre +"</span>";
+						} else {
+							return row.estatusinspeccion_nombre;
+						}
 					}
 				},
-				{data: 'estatusinspeccion_id',
-					'render': function(data, type, row){
-						if (row.estatus_inspeccion.clave == 'NA') {
-							return "<span class='badge badge-pill badge-secondary'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else if(row.estatus_inspeccion.clave == 'A'){
-							return "<span class='badge badge-pill badge-primary'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else if(row.estatus_inspeccion.clave == 'Cap'){
-							return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else if (row.estatus_inspeccion.clave == 'V') {
-							return "<span class='badge badge-pill badge-danger'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else if (row.estatus_inspeccion.clave == 'Epc') {
-							return "<span class='badge badge-pill badge-epc'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else if (row.estatus_inspeccion.clave == 'Claus') {
-							return "<span class='badge badge-pill badge-claus'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else if(row.estatus_inspeccion.clave == 'M'){
-							return "<span class='badge badge-pill badge-multa'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else if(row.estatus_inspeccion.clave == 'P'){
-							return "<span class='badge badge-pill badge-info'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else if(row.estatus_inspeccion.clave == 'S'){
-							return "<span class='badge badge-pill badge-solventada'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else if (row.estatus_inspeccion.clave == 'C') {
-							return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
-						} else {
-							return row.estatus_inspeccion.nombre;
-						}
-					}, searchable: false
-				},
-				{data: 'inspector.nombre', defaultContent: '', orderable: false},
-				{data: 'comercio.denominacion', defaultContent: '', orderable: false},
-				{data: 'comercio.nombreestablecimiento', defaultContent: '', orderable: false},
+				{data: 'inspector', defaultContent: '', orderable: false},
+				{data: 'comercio_denominacion', defaultContent: '', orderable: false},
+				{data: 'comercio_nombre', defaultContent: '', orderable: false},
 				{data: 'created_at',
 					'render': function(data, type, row){
-						var fecha = new Date(row.created_at);
-						var meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
-
-						var dia = fecha.getUTCDate();
-						var mes = fecha.getUTCMonth();
-						var anio = fecha.getUTCFullYear();
-						//console.log(dia + '/' + meses[mes] + '/' + anio);
-
 						if (row.created_at == null) {
 							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
 						} else {
-							return "<span class='badge badge-pill badge-primary'>"+ dia + '/' + meses[mes] + '/' + anio +"</span> ";
+							return "<span class='badge badge-pill badge-primary'>"+ row.created_at +"</span> ";
 						}
 					}
 				},
 				{data: 'fechavence',
 					'render': function(data, type, row){
-						var fechavence = new Date(row.fechavence);
-						var hoy = new Date();
-						var meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
-
-						var dia = fechavence.getUTCDate();
-						var mes = fechavence.getUTCMonth();
-						var anio = fechavence.getUTCFullYear();
-						//console.log(dia + '/' + meses[mes] + '/' + anio);
-
-						if (row.fechavence == null) {
+						if (row.fechavence == '') {
 							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
-						} else if(fechavence.getUTCDate() == hoy.getUTCDate() ){
-							return "<span class='badge badge-pill badge-warning'>"+ dia + '/' + meses[mes] + '/' + anio +"</span> ";
-						} else if(fechavence.toISOString() > hoy.toISOString()){
-							//return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>"
-							return "<span class='badge badge-pill badge-success'>"+ dia + '/' + meses[mes] + '/' + anio +"</span>";
+						} else if(row.fechavence == row.hoy ){
+							return "<span class='badge badge-pill badge-warning'>"+ row.fechavence +"</span> ";
+						} else if(row.fechavence > row.hoy){
+							return "<span class='badge badge-pill badge-success'>"+ row.fechavence +"</span>";
 						} else {
-							//return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
-							return "<span class='badge badge-pill badge-danger'>"+ dia + '/' + meses[mes] + '/' + anio +"</span> ";
+							return "<span class='badge badge-pill badge-danger'>"+ row.fechavence +"</span> ";
 						}
 					}
 				},
 				{data: 'fechaprorroga',
 					'render': function(data, type, row){
-						var fechaprorroga = new Date(row.fechaprorroga);
-						var hoy = new Date();
-						var meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
-
-						var dia = fechaprorroga.getUTCDate();
-						var mes = fechaprorroga.getUTCMonth();
-						var anio = fechaprorroga.getUTCFullYear();
-
-						if (row.fechaprorroga == null) {
+						if (row.fechaprorroga == '') {
 							return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
-
-						} else if(fechaprorroga.getUTCDate() == hoy.getUTCDate() ){
-							return "<span class='badge badge-pill badge-warning'>"+ dia + '/' + meses[mes] + '/' + anio +"</span>";
-						} else if (fechaprorroga.toISOString() < hoy.toISOString()) {
-							//return "<span class='badge badge-pill badge-danger'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
-							return "<span class='badge badge-pill badge-danger'>"+ dia + '/' + meses[mes] + '/' + anio +"</span>";
+						} else if(row.fechaprorroga == row.hoy ){
+							return "<span class='badge badge-pill badge-warning'>"+ row.fechaprorroga +"</span>";
+						} else if (row.fechaprorroga < row.hoy) {
+							return "<span class='badge badge-pill badge-danger'>"+ row.fechaprorroga +"</span>";
 						} else {
-							//return "<span class='badge badge-pill badge-success'>"+ dia +"/"+ mes +"/"+ anio +"</span>";
-							return "<span class='badge badge-pill badge-success'>"+ dia + '/' + meses[mes] + '/' + anio +"</span>";
+							return "<span class='badge badge-pill badge-success'>"+ row.fechaprorroga +"</span>";
 						}
 					}
 				},
