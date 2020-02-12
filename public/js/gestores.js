@@ -9,13 +9,11 @@ $(document).ready(function(){
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
 
     $(document).on('click', '#btn-cancelar', function(e){
-
         $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').addClass('hidden');
         $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-telefono, #error-celular, #error-correoelectronico, #error-ine, #error-estatus').text('');
 
         $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').addClass('hidden');
         $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-telefono-edit, #error-celular-edit, #error-correoelectronico-edit, #error-ine-edit, #error-estatus-edit').text('');
-
     });
 
     function viewData(){
@@ -28,11 +26,7 @@ $(document).ready(function(){
             'order': [ 0, 'asc' ],
             'ajax': url + '/gestores/listado',
             'columns': [
-                {data: 'apellidopaterno',
-                    'render': function ( data, type, row ) {
-                        return row.nombre +' '+ row.apellidopaterno +' '+ row.apellidomaterno;
-                    }
-                },
+                {data: 'nombre'},
                 {data: 'telefono'},
                 {data: 'celular'},
                 {data: 'correoelectronico'},

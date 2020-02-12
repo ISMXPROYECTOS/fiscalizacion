@@ -2,7 +2,6 @@ $(document).ready(function(){
 
     // Se crea una variable con la ruta raíz del proyecto
     //var url = "http://localhost/fiscalizacion/public";
-
     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').addClass('hidden');
     $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').text('');
 
@@ -10,7 +9,6 @@ $(document).ready(function(){
     $('#error-nombre-edit, #error-apellidopaterno-edit, #error-apellidomaterno-edit, #error-clave-edit, #error-estatus-edit, #error-vigenciainicio-edit, #error-vigenciafin-edit').text('');
 
     $(document).on('click', '#btn-cancelar', function(e){
-
         $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').addClass('hidden');
         $('#error-nombre, #error-apellidopaterno, #error-apellidomaterno, #error-clave, #error-estatus, #error-vigenciainicio, #error-vigenciafin').text('');
 
@@ -33,11 +31,7 @@ $(document).ready(function(){
             'ajax': url + '/inspectores/listado',
             // Se seleccionan los campos que se desean mostrar en la tabla
             'columns': [
-                {data: 'apellidopaterno',
-                    'render': function ( data, type, row ) {
-                        return row.nombre +' '+ row.apellidopaterno +' '+ row.apellidomaterno;
-                    }
-                },
+                {data: 'nombre'},
                 {data: 'clave'},
                 // Este campo contiene una funcion la cual selecciona la columna estatus y
                 // realiza el cambio del caracter A por la palabra Activo 
@@ -53,7 +47,7 @@ $(document).ready(function(){
                         } else if (row.estatus == 'V') {
                             return "<span class='badge badge-pill badge-primary'>Vigente</span>"
                         }
-                    }
+                    }, searchable: false
                 },
                 // La columna pertenece a los botones de editar o eliminar de cada registro
                 {data: 'editar', orderable: false, searchable: false},

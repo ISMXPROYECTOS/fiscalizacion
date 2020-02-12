@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Collection;
 use App\Inspector;
 use App\Gafete;
 
@@ -22,14 +23,32 @@ class InspectorController extends Controller
 	// gobernado por el archivo actions-inspectores en ese archivo se
 	// encuentran los botones de editar y eliminar para cada registro
 	public function tbody(){
-		return Datatables::of(Inspector::query()->select([
+		$collection = new Collection();
+		
+		$inspectores = Inspector::get([
 			'id',
 			'nombre',
 			'apellidopaterno',
 			'apellidomaterno',
 			'clave',
 			'estatus'
-		]))
+		]);
+
+		if($inspectores){
+			foreach($inspectores as $inspector){
+				$tmp = [
+					'id' 				=> $inspector->id,
+					'nombre' 			=> $inspector->nombre.' '.$inspector->apellidopaterno.' '.$inspector->apellidomaterno,
+					'clave' 			=> $inspector->clave,
+					'estatus' 			=> $inspector->estatus
+				];
+				
+				$collection->push($tmp);
+				unset($tmp);
+			}
+		}
+		
+		return DataTables::of($collection)
 		->addColumn('editar', 'inspector/boton-editar')
 		->addColumn('cambiarestatus', 'inspector/boton-estatus')
 		->addColumn('gafete', 'inspector/boton-gafete')
