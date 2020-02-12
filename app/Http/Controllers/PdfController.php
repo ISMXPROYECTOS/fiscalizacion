@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Barryvdh\DomPDF\Facade as PDF;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use App\DocumentacionRequerida;
 use App\DocumentacionPorTipoDeInspeccion;
 use App\DocumentacionPorInspeccion;
@@ -29,7 +30,9 @@ class PdfController extends Controller
 
 	public function tbody(){
 		//$formas_valoradas = FormaValorada::all()->load('tipoInspeccion')->load('ejercicioFiscal');
-		return Datatables::of(FormaValorada::query()->with([
+		$collection = new Collection();
+		
+		$formas_valoradas = FormaValorada::with([
 			'tipoInspeccion' => function($query){
 				$query->select(['id', 'clave']);
 			}
@@ -37,14 +40,30 @@ class PdfController extends Controller
 			'ejercicioFiscal' => function($query){
 				$query->select(['id', 'anio']);
 			}
-		])->select([
+		])->get([
 			'id',
 			'tipoinspeccion_id',
 			'ejerciciofiscal_id',
 			'folioinicio',
 			'foliofin',
 			'created_at'
-		]))
+		]);
+
+		if($formas_valoradas){
+			foreach($formas_valoradas as $forma_valorada){
+				$tmp = [
+					'id' 					=> $forma_valorada->id,
+					'folioinicio' 			=> $forma_valorada->ejercicioFiscal->anio.'/'.$forma_valorada->tipoInspeccion->clave.'/'.$forma_valorada->folioinicio,
+					'foliofin' 				=> $forma_valorada->ejercicioFiscal->anio.'/'.$forma_valorada->tipoInspeccion->clave.'/'.$forma_valorada->foliofin,
+					'created_at' 			=> $forma_valorada->created_at->format('d-m-Y')
+				];
+				
+				$collection->push($tmp);
+				unset($tmp);
+			}
+		}
+		
+		return DataTables::of($collection)
 		->addColumn('descargar', 'pdf/boton-descargar')
 		->rawColumns(['descargar'])
 		->make(true);

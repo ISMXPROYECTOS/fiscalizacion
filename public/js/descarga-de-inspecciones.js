@@ -9,37 +9,21 @@ $(document).ready(function(){
 			'destroy': true,
 			'deferRender': true,
 			'pageLength': 10,
-			'order': [0, 'desc'],
+			'order': [[2, 'desc'], [0, 'asc']],
 			'ajax': url + '/pdf/listado',
 			'columns': [
-				
 				{data: 'folioinicio',
 					'render': function ( data, type, row ) {
-						return "<a href='#' class='inspecciones' id='"+ row.id +"'>" + row.ejercicio_fiscal.anio + '/' + row.tipo_inspeccion.clave + '/' + row.folioinicio + "</a>";
+						return "<a href='#' class='inspecciones' id='"+ row.id +"'>"+ row.folioinicio +"</a>";
 					}
 				},
-				{data: 'foliofin',
-					'render': function ( data, type, row ) {
-						return row.ejercicio_fiscal.anio + '/' + row.tipo_inspeccion.clave + '/' + row.foliofin;
-					}
-				},
+				{data: 'foliofin'},
 				{data: 'created_at',
 					'render': function ( data, type, row ) {
-						var fecha = new Date(row.created_at);
-
-						var meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
-
-						var dia = fecha.getUTCDate();
-						var mes = fecha.getUTCMonth();
-						var anio = fecha.getUTCFullYear();
-
-						//console.log(dia + '/' + meses[mes] + '/' + anio);
-
-
 						if (row.created_at == null) {
 							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
 						} else {
-							return "<span class='badge badge-pill badge-primary'>"+ dia + '/' + meses[mes] + '/' + anio +"</span> ";
+							return "<span class='badge badge-pill badge-primary'>"+ row.created_at +"</span> ";
 						}
 					}
 				},
