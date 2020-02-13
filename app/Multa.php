@@ -19,6 +19,11 @@ class Multa extends Model
 		return $this->belongsTo('App\User', 'usuario_id');
 	}
 
+	/* Relación uno a mucho */
+    public function prorroga(){
+        return $this->hasMany('App\BitacoraDeProrroga');
+    }
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -31,6 +36,7 @@ class Multa extends Model
 		'valorUma',
 		'total',
 		'estatus',
+		'folio',
 		'oficio',
 		'expediente',
 		'fechacreada',

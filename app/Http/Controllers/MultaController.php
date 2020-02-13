@@ -12,6 +12,11 @@ use SoapClient;
 
 class MultaController extends Controller
 {
+	/* Muetra la vista del listado de las multas */
+	public function listadoMultas(){
+		return view('inspeccion.listado-inspecciones');
+	}
+
 	/* El método se encarga de crear multas para las inspecciones que estan vencidas o deben documentos los comercios */
 	public function confirmarMulta(Request $request){
 		$validate = $this->validate($request, [
@@ -67,6 +72,9 @@ class MultaController extends Controller
 				$inspeccion->usuario_id = $usuario->id;
 				$inspeccion->estatusinspeccion_id = $estatus_multa->id;
 				$inspeccion->update();
+
+				$nueva_multa->folio = $inspeccion->folio . '-Multa-' . $nueva_multa->id;
+				$nueva_multa->update();
 
 				$datos_bitacora = [
 					'inspeccion_id' => $inspeccion->id,

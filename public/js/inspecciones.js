@@ -13,7 +13,7 @@ $(document).ready(function(){
 			'destroy': true,
 			'deferRender': true,
 			'pageLength': 10,
-			'order': [[1, 'desc'], [6, 'desc'], [0, 'desc']],
+			'order': [[1, 'asc'], [6, 'desc'], [0, 'desc']],
 			'ajax': url + '/inspecciones/listado',
 			'columns': [
 				{data: 'folio',
@@ -80,7 +80,7 @@ $(document).ready(function(){
 							return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
 						} else if(row.fechaprorroga == row.hoy ){
 							return "<span class='badge badge-pill badge-warning'>"+ row.fechaprorroga +"</span>";
-						} else if (row.fechaprorroga < row.hoy) {
+						} else if (row.fechaprorroga > row.hoy) {
 							return "<span class='badge badge-pill badge-danger'>"+ row.fechaprorroga +"</span>";
 						} else {
 							return "<span class='badge badge-pill badge-success'>"+ row.fechaprorroga +"</span>";

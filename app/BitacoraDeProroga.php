@@ -19,9 +19,15 @@ class BitacoraDeProroga extends Model
 		return $this->belongsTo('App\User', 'usuario_id');
 	}
 
+	/* Relación muchos a uno */
+	public function multa(){
+		return $this->belongsTo('App\Multa', 'multa_id');
+	}
+
 	protected $fillable = [
 		'usuario_id',
-    	'inspeccion_id',
+		'inspeccion_id',
+		'multa_id',
     	'folioMulta',
     	'fechavence',
     	'diasdeprorroga',

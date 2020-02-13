@@ -403,7 +403,7 @@
 					    @foreach($historial_prorroga as $historial)
 							<tr> 
 						      <td>{{ $historial->usuario->usuario}}</td>
-						      <td>{{ $historial->folioMulta }}</td>
+						      <td>{{ $historial->multa->montoMulta }}</td>
 						      <td>{{ $historial->diasdeprorroga }}</td>
 						      <td>{{ $historial->observaciones }}</td>
 						    </tr>

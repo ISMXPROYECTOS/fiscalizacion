@@ -163,4 +163,5 @@ Route::post('/documentacion-requerida/actualizar', 'DocumentacionRequeridaContro
 Route::post('/documentacion-requerida/estatus', 'DocumentacionRequeridaController@updateEstatus');
 
 /* Rutas Multas */
+Route::get('/multas', 'MultaController@listadoMultas')->name('listado-multas');
 Route::post('/multas/agregar-multa', 'MultaController@confirmarMulta');

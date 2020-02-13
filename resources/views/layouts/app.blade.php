@@ -96,16 +96,19 @@
                         <div class="nano-content">
                             <nav id="menu" class="nav-main" role="navigation">
                                 <ul class="nav nav-main">
-
                                     <li>
-
                                         <a class="nav-link" href="{{ route('listado-inspecciones') }}">
                                             <i class="fas fa-list"></i>
                                             <span>Administrador de Inspecciones</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-multas') }}">
+                                            <i class="fas fa-list"></i>
+                                            <span>Multas</span>
+                                        </a>
+                                    </li>
                                     <li class="nav-parent">
-                                        
                                         <a class="nav-link" href="#">
                                             <i class="fas fa-folder-plus"></i>
                                             <span>Generar Inspecciones</span>
