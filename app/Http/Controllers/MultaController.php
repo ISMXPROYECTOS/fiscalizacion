@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\Datatables\Datatables;
+use Illuminate\Support\Collection;
 use App\Inspeccion;
 use App\Multa;
 use App\EstatusInspeccion;
@@ -12,12 +14,89 @@ use SoapClient;
 
 class MultaController extends Controller
 {
-	/* Muetra la vista del listado de las multas */
 	public function listadoMultas(){
-		return view('inspeccion.listado-inspecciones');
+		return view('multas.listado-multas');
 	}
 
-	/* El método se encarga de crear multas para las inspecciones que estan vencidas o deben documentos los comercios */
+	public function tbody(){
+		$collection = new Collection();
+		
+		$multas = Multa::with([
+			'inspeccion' => function($query){
+				$query->select(['id', 'folio']);
+			}
+		])->with([
+			'usuario' => function($query){
+				$query->select(['id', 'usuario']);
+			}
+		])->orderBy('id', 'DESC')->get([
+			'id',
+			'inspeccion_id',
+			'usuario_id',
+			'montoMulta',
+			'valorUma',
+			'total',
+			'estatus',
+			'folio',
+			'fechavence',
+			'created_at'
+		]);
+
+		if($multas){
+			foreach($multas as $multa){
+				if(!empty($multa->fechavence)){
+					$date = strtotime($multa->fechavence);
+					$fechavence = date("d-m-Y", $date);
+				} else {
+					$fechavence = '';
+				}
+
+				$tmp = [
+					'id' 				=> $multa->id,
+					'folioMulta' 		=> $multa->folio,
+					'folioInspeccion' 	=> $multa->inspeccion->folio,
+					'montoMulta' 		=> $multa->montoMulta,
+					'valorUma'	 		=> $multa->valorUma,
+					'total' 			=> $multa->total,
+					'estatus' 			=> $multa->estatus,
+					'fechacreada' 		=> $multa->created_at->format('d-m-Y'),
+					'fechavence' 		=> $fechavence
+				];
+				
+				$collection->push($tmp);
+				unset($tmp);
+			}
+		}
+		
+		return DataTables::of($collection)
+		->addColumn('cambiarestatus', 'multas/boton-estatus')
+		->rawColumns(['cambiarestatus'])
+		->make(true);
+	}
+
+	public function editarEstatus($id){
+		$multa = Multa::find($id);
+		
+    	return $multa;
+	}
+	
+	public function updateEstatus(Request $request){
+		$validate = $this->validate($request,[
+			'estatus' => 'required|string|max:3'
+		]);
+
+		$id = $request->input('id');
+		$estatus = $request->input('estatus');
+		
+		$usuario = Auth::user();
+		$multa = Multa::find($id);
+
+		$multa->estatus = $estatus;
+		$multa->update();
+
+    	return $multa;
+	}
+
 	public function confirmarMulta(Request $request){
 		$validate = $this->validate($request, [
 			'cantidad-multa' => 'required|string'
