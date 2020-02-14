@@ -84,6 +84,34 @@
         </div>
     </div>
 </div>
+
+<!-- Alerta de no asignado -->
+<div class="modal fade" id="validar-folio-asignado" tabindex="-1" role="dialog" aria-labelledby="modal-validar-folio-asignado" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="modal-validar-folio-asignado">Folio no asignado</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-wrapper">
+					<div class="modal-icon">
+						<i class="fas fa-exclamation-triangle"></i>
+					</div>
+					<div class="modal-text">
+						<h4>Este folio no ha sido asignado</h4>
+						<p>Favor de realizar la asignación antes de continuar</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" data-dismiss="modal">OK</button>
+			</div>
+		</div>
+	</div>
+</div>
 @endsection
 @section('scripts')
 <script src="{{ asset('js/multas.js') }}" defer></script>

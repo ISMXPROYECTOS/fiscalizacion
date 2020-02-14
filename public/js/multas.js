@@ -15,7 +15,11 @@ $(document).ready(function(){
             'ajax': url + '/multas/listado',
             'columns': [
                 {data: 'folioMulta'},
-                {data: 'folioInspeccion'},
+                {data: 'folioInspeccion',
+                    'render': function(data, type, row){
+                        return "<a href='#' class='folio-inspeccion' id='"+ row.idInspeccion +"'>" + row.folioInspeccion + "</a>"
+                    }
+                },
                 {data: 'montoMulta'},
                 {data: 'valorUma'},
                 {data: 'total'},
@@ -42,6 +46,26 @@ $(document).ready(function(){
     }
 
     viewData();
+
+    function validarFolioAsignado(){
+		$(document).on('click', '.folio-inspeccion', function(e){
+			e.preventDefault();
+			var id = $(this).attr('id');
+			 $.ajax({
+				url: url + '/inspecciones/validar-folio-asignado/' + id,
+				type: 'get',
+				success: function (response) {
+					if (response == 'true') {
+						window.location.href = url + '/inspecciones/informacion/' + id;
+					} else {
+						$('#validar-folio-asignado').modal('show');
+					}
+				}
+			});
+		});
+	}
+
+	validarFolioAsignado();
 
     function editEstatus(){
         $(document).on('click', '.estatus', function(e){

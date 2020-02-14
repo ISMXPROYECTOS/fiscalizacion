@@ -102,12 +102,12 @@
                                             <span>Administrador de Inspecciones</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <!--<li>
                                         <a class="nav-link" href="{{ route('listado-multas') }}">
                                             <i class="fas fa-list"></i>
                                             <span>Multas</span>
                                         </a>
-                                    </li>
+                                    </li>-->
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
                                             <i class="fas fa-folder-plus"></i>

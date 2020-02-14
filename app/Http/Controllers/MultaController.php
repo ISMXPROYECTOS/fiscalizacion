@@ -46,20 +46,21 @@ class MultaController extends Controller
 			foreach($multas as $multa){
 				if(!empty($multa->fechavence)){
 					$date = strtotime($multa->fechavence);
-					$fechavence = date("d-m-Y", $date);
+					$fechavence = date("d/m/Y", $date);
 				} else {
 					$fechavence = '';
 				}
 
 				$tmp = [
 					'id' 				=> $multa->id,
+					'idInspeccion' 		=> $multa->inspeccion->id,
 					'folioMulta' 		=> $multa->folio,
 					'folioInspeccion' 	=> $multa->inspeccion->folio,
 					'montoMulta' 		=> $multa->montoMulta,
 					'valorUma'	 		=> $multa->valorUma,
 					'total' 			=> $multa->total,
 					'estatus' 			=> $multa->estatus,
-					'fechacreada' 		=> $multa->created_at->format('d-m-Y'),
+					'fechacreada' 		=> $multa->created_at->format('d/m/Y'),
 					'fechavence' 		=> $fechavence
 				];
 				
