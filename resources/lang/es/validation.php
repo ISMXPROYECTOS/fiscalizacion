@@ -238,6 +238,22 @@ return [
             'string' => 'Solo se permite ingresa letras en este campo',
         ],
 
+        'encargadoGob' => [
+            'required' => 'Es necesario seleccionar a un encargado',
+        ],
+
+        'calle' => [
+            'required' => 'Ingreso un valor correcto',
+        ],
+
+        'vigenciainicio' => [
+            'required' => 'Ingresa el inicio de la vigencia correctamente'
+        ],
+
+        'vigenciafin' => [
+            'required' => 'Ingresa el fin de la vigencia correctamente'
+        ]
+
     ],
 
     /*

@@ -94,7 +94,7 @@
 			</div>
 			<div class="col-md-3" id="filtro-select">
 				<div class="form-group">
-					<label>Seleccionar Giro </label>
+					<label>Giro comercial</label>
 					<div class="input-group">
 						<select name="giros" id="giros" class="form-control">
 							<option value="0">Seleccionar</option>
@@ -106,9 +106,13 @@
 					<p class="text-danger mb-0" id="error-sm">{{ $errors->first('valor') }}</p>
 				</div>
 			</div>
-			<div class="input-group-append">
+
+			<div class="col-md-3">
 				<button class="btn btn-outline-secondary" type="button" id="buscar-valor">Aplicar filtro</button>
 			</div>
+			
+				
+			
 		</div><br>
 
 		<p class="text-danger mb-0" id="error-comercios"></p>

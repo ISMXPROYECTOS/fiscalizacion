@@ -241,6 +241,10 @@ ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus
   width: 40%;
 }
 
+#buscar-valor{
+  margin-top: 14%;
+}
+
 
 /* Validacion de Folios Asignados */
 

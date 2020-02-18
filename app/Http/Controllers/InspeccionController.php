@@ -272,7 +272,8 @@ class InspeccionController extends Controller
 			'comercio.*' => 'required|string',
 			'ejerciciofiscal' => 'required|string',
 			'tipoinspeccion' => 'required|string',
-			'encargadoGob' => 'required'
+			'encargadoGob' => 'required',
+			'calle' => 'required'
 		]);
 
 		$data = $request->all();
