@@ -211,7 +211,32 @@ return [
 
         'ejerciciofiscal-asignar' => [
             "required" => 'Es necesario seleccionar el año de ejercicio fiscal',
-        ]
+        ],
+
+        'establecimiento' => [
+            'required' => 'El nombre del negocio es necesario',
+        ],
+
+        'fecha' => [
+            'required' => 'Ingresa la fecha correctamente',
+
+        ],
+
+        'hora' => [
+            'required' => 'Ingresa la hora correctamente',
+        ],
+
+        'observaciones' => [
+            'string' => 'Solo se permite ingresa letras en este campo',
+        ],
+
+        'observacion' => [
+            'string' => 'Solo se permite ingresa letras en este campo',
+        ],
+
+        'gestor' => [
+            'string' => 'Solo se permite ingresa letras en este campo',
+        ],
 
     ],
 

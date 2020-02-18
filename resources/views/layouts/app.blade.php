@@ -294,8 +294,8 @@
                 <script src="{{ asset('js/examples/examples.modals.js') }} "></script>
                 <script src="{{ asset('js/navbar.js') }} "></script>
                 <script type="text/javascript">
-                    var url = window.location.origin;
-                    //var url = window.location.origin+"/fiscalizacion/public";
+                    //var url = window.location.origin;
+                    var url = window.location.origin+"/fiscalizacion/public";
                 </script>
                 @yield('scripts')
             </body>

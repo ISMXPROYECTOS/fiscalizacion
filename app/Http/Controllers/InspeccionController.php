@@ -143,6 +143,8 @@ class InspeccionController extends Controller
 				}
 
 				$hoy = new \DateTime();
+				$dia_anterior = date("d/m/Y", strtotime($inspeccion->fechavence."-1 days"));
+
 
 				$tmp = [
 					'id' => $inspeccion->id,
@@ -156,6 +158,7 @@ class InspeccionController extends Controller
 					'folio' => $inspeccion->folio,
 					'created_at' => $inspeccion->created_at->format('d/m/Y'),
 					'fechavence' => $fechavence,
+					'dia_anterior' => $dia_anterior,
 					'fechaprorroga' => $fechaprorroga,
 					'hoy' => $hoy->format('d/m/Y')
 				];
@@ -856,11 +859,18 @@ class InspeccionController extends Controller
 		$configuracion = TipoDeInspeccion::find($inspeccion->tipoInspeccion->id);
 		$configuracion_dias_vence = $configuracion->diasvencimiento;
 		$dias_vence = $configuracion_dias_vence;
+
 		$texto_presento = Configuracion::where('id', 2)->first();
 		$texto_no_presento = Configuracion::where('id', 3)->first();
+
 		$estatus_nuevo = EstatusInspeccion::where('clave', 'Cap')->first();
 		$id_estatus_nuevo = $estatus_nuevo->id;
+
 		$estatus_A = EstatusInspeccion::where('clave', 'A')->first();
+
+		$estatus_V = EstatusInspeccion::where('clave', 'V')->first();
+		$id_estatus_vencido = $estatus_V->id;
+
 		$dias_inhabiles = DiaInhabil::get(['id', 'ejerciciofiscal_id', 'fecha']);
 		$usuario = Auth::user();
 
@@ -935,8 +945,11 @@ class InspeccionController extends Controller
 			}
 		}
 
+
+		$hoy = new \DateTime();
 		$fecha_vence = end($working_days);
 
+	
 		$inspeccion->fechacapturada = $hoy;
 		$inspeccion->nombreencargado = $encargado;
 		$inspeccion->comercio_id = $establecimiento;
@@ -951,6 +964,7 @@ class InspeccionController extends Controller
 		$inspeccion->fechavence = $fecha_vence;
 		$inspeccion->usuario_id = $usuario->id;
 
+
 		if ($inspeccion->estatusinspeccion_id == $estatus_A->id) {
 			$inspeccion->estatusinspeccion_id = $id_estatus_nuevo;
 			$inspeccion->update();
@@ -963,7 +977,8 @@ class InspeccionController extends Controller
 			];
 
 			BitacoraDeEstatus::create($datos_bitacora);
-		}
+
+		} 
 
 		$inspeccion->update();
 
@@ -1000,40 +1015,6 @@ class InspeccionController extends Controller
 			}
 		}
 
-		/*
-		if ($solicitado == null) {
-			return back()->withErrors('Selecciona al menos un documento solicitado.');
-		} else {
-			for ($i = 0; $i < count($solicitado); $i++) {
-				for ($a = 0; $a < count($documentos_requeridos); $a++) {
-					if (($i+1) == count($solicitado)) {
-						if ($solicitado[$i] == $documentos_requeridos[$a]->documentacionrequerida_id) {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $solicitado[$i])
-																				->where('inspeccion_id', $inspeccion_id)->first();
-							$documentacion_requerida->solicitado = 1;
-							$documentacion_requerida->update();
-						} else {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
-							$documentacion_requerida->solicitado = 0;
-							$documentacion_requerida->update();
-						}
-					} else {
-						if ($solicitado[$i] == $documentos_requeridos[$a]->documentacionrequerida_id) {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $solicitado[$i])
-																				->where('inspeccion_id', $inspeccion_id)->first();
-							$documentacion_requerida->solicitado = 1;				
-							$documentacion_requerida->update();
-							$i++;
-						} else {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$a]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
-							$documentacion_requerida->solicitado = 0;
-							$documentacion_requerida->update();
-						}
-					}	
-				}
-			}
-		}
-		*/
 
 		if ($exhibido != null) {
 			for ($b = 0; $b < count($exhibido); $b++) {
@@ -1066,40 +1047,6 @@ class InspeccionController extends Controller
 			}
 		}
 
-		/*
-		if ($exhibido == null) {
-			return back()->withErrors('Selecciona al menos un documento exhibido');
-		} else {
-			for ($b = 0; $b < count($exhibido); $b++) {
-				for ($c = 0; $c < count($documentos_requeridos); $c++) {
-					if (($b+1) == count($exhibido)) { // if del ultimo
-						if ($exhibido[$b] == $documentos_requeridos[$c]->documentacionrequerida_id) {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $exhibido[$b])
-																				->where('inspeccion_id', $inspeccion_id)->first();
-							$documentacion_requerida->exhibido = 1;
-							$documentacion_requerida->update();
-						} else {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
-							$documentacion_requerida->exhibido = 0;
-							$documentacion_requerida->update();
-						}
-					} else { 
-						if ($exhibido[$b] == $documentos_requeridos[$c]->documentacionrequerida_id) {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $exhibido[$b])
-																				->where('inspeccion_id', $inspeccion_id)->first();
-							$documentacion_requerida->exhibido = 1;
-							$documentacion_requerida->update();
-							$b++;
-						} else {
-							$documentacion_requerida = DocumentacionPorInspeccion::where('documentacionrequerida_id', $documentos_requeridos[$c]->documentacionrequerida_id)->where('inspeccion_id', $inspeccion_id)->first();
-							$documentacion_requerida->exhibido = 0;
-							$documentacion_requerida->update();
-						}
-					}	
-				}
-			}
-		}
-		*/
 
 		$documentacion_requerida = DocumentacionPorInspeccion::where('inspeccion_id', $inspeccion_id)->get(['id', 'exhibido', 'observaciones']);
 		
@@ -1126,7 +1073,7 @@ class InspeccionController extends Controller
 			}
 		}
 
-		return redirect('/inspecciones/informacion/'.$inspeccion_id)->with('status', 'Se ha capturado la informacion correctamente.');
+		return redirect('/inspecciones/informacion/'.$inspeccion_id)->with('status', 'La información se ha guardado correctamente.');
 	}
 
 	/* Método encargado de limpiar inspecciones, borrar toda la información que tenga y la deja en blanco lista para reutilizar. */

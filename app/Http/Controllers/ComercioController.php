@@ -223,7 +223,7 @@ class ComercioController extends Controller
 		if ($nombre == 'null') {
 			return response()->json([
 				'error' => true,
-				'mensaje' => 'Ingresa un valor correcto.'
+				'mensaje' => 'Ingresa la razón social o el nombre del negocio.'
 			], 422);
 		} else {
 			$comercios = Comercio::where('denominacion', 'like', '%'. $nombre .'%')->orWhere('nombreestablecimiento', 'like', '%'. $nombre .'%')->get(['id', 'licenciafuncionamiento', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal']);

@@ -23,9 +23,39 @@ $(document).ready(function(){
                 {data: 'montoMulta'},
                 {data: 'valorUma'},
                 {data: 'total'},
-                {data: 'estatus'},
-                {data: 'fechacreada'},
-                {data: 'fechavence'},
+                {data: 'estatus', 
+                    'render': function(data, type, row){
+                        if (row.estatus == 'P') {
+                            return "<span class='badge badge-pill badge-success'>Pagado</span>";
+                        } else if(row.estatus == 'PP') {
+                            return "<span class='badge badge-pill badge-warning'>Pendiende de pago</span> ";
+                        } else {
+                            return "<span class='badge badge-pill badge-warning'>Cancelado</span> ";
+                        }
+                    }
+                },
+                {data: 'fechacreada',
+                    'render': function(data, type, row){
+                        if (row.fechacreada == null) {
+                            return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
+                        } else {
+                            return "<span class='badge badge-pill badge-primary'>"+ row.fechacreada +"</span> ";
+                        }
+                    }
+                },
+                {data: 'fechavence',
+                    'render': function(data, type, row){
+                        if (row.fechavence == '') {
+                            return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
+                        } else if(row.dia_anterior == row.hoy ){
+                            return "<span class='badge badge-pill badge-warning'>"+ row.fechavence +"</span> ";
+                        } else if(row.fechavence > row.hoy){
+                            return "<span class='badge badge-pill badge-success'>"+ row.fechavence +"</span>";
+                        } else {
+                            return "<span class='badge badge-pill badge-danger'>"+ row.fechavence +"</span> ";
+                        }
+                    }
+                },
                 {data: 'cambiarestatus', orderable: false, searchable: false},
             ],
             'language': {

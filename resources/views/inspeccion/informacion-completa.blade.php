@@ -4,11 +4,11 @@
 	<h2>Folio de Inspección: {{ $inspeccion->folio }}</h2>
 </header>
 
-@if ($errors->any())
+<!-- @if ($errors->any())
 <div class="alert alert-danger" role="alert">
-	{{ $errors->first() }}
+	{{ $errors }}
 </div>
-@endif
+@endif -->
 
 @if ($errors->has('solicitar'))
 <span class="invalid-feedback" role="alert">
@@ -120,27 +120,33 @@
 	<input type="hidden" name="inspeccion-id" value="{{ $inspeccion->id }}">
 	<h3>Datos del Comercio</h3>
 	<hr>
-	@if(is_object($inspeccion->comercio))
+
+	
+	@if(is_object($inspeccion->comercio)) <!-- campos del comercio si ya esta elegido el negocio -->
 	<input type="hidden" name="establecimiento" value="{{ $inspeccion->comercio->id }}">
 	<div class="form-group">
-		<label for="nombrelocal">{{ __('Nombre Establecimiento') }}</label>
-		<input id="nombrelocal" type="text" name="nombrelocal" class="form-control" value="{{ $inspeccion->comercio->nombreestablecimiento }}" required>
+		<label for="nombrelocal">{{ __('Nombre del establecimiento') }}</label>
+		<input id="nombrelocal" type="text" name="nombrelocal" class="form-control" value="{{ $inspeccion->comercio->nombreestablecimiento }}" >
+		@if ($errors->has('establecimiento'))
+      		<p class="text-danger" id="error-informacion-completa">{{ $errors->first('establecimiento') }}</p>
+		@endif
 	</div>
 	<div class="row mb-3">
 		<div class="col-lg-6">
 			<div class="form-group">
 				<label for="domicilio">{{ __('Domicilio') }}</label>
-				<input id="domicilio" type="text" name="domicilio" class="form-control" value="{{ $inspeccion->comercio->domiciliofiscal }}" required>
+				<input id="domicilio" type="text" name="domicilio" class="form-control" value="{{ $inspeccion->comercio->domiciliofiscal }}" >
 			</div>
 		</div>
 		<div class="col-lg-6">
 			<div class="form-group">
 				<label for="clavecatastral">{{ __('Clave catastral') }}</label>
-				<input id="clavecatastral" type="number" name="clavecatastral" class="form-control" value="{{ $inspeccion->comercio->clavecatastral }}" required>
+				<input id="clavecatastral" type="number" name="clavecatastral" class="form-control" value="{{ $inspeccion->comercio->clavecatastral }}" >
 			</div>
 		</div>
 	</div>
-	@else
+	@else <!-- si no esta seleccionado el comercio se muestran estos campos -->
+
 	<div class="form-group">
 		<label>Buscar negocio por razón social o nombre comercial</label>
 		<div class="input-group">
@@ -149,7 +155,10 @@
 				<button class="btn btn-outline-secondary" type="button" id="buscar-sm">Buscar</button>
 			</div>
 		</div>
-		<p class="text-danger mb-0" id="error-sm">{{ $errors->first('calle') }}</p>
+		@if ($errors->has('establecimiento'))
+      		<p class="text-danger" id="error-informacion-completa">{{ $errors->first('establecimiento') }}</p>
+		@endif
+		<p class="text-danger mb-0" id="error-sm"></p>
 	</div>
 	<div id="comercios" class="hidden mt-3 mb-3">
 		<p class="text-danger mb-0" id="error-comercios"></p>
@@ -167,134 +176,119 @@
 			<tbody id="tbody-comercios"></tbody>
 		</table>
 	</div>
+
+
 	@endif
+
 	@if ($is_edit == 'true')
-	<div class="form-group ">
-		<label for="encargado">{{ __('Nombre del encargado') }}</label>
-		<input id="encargado" type="text" class="form-control" name="encargado" value="{{ $inspeccion->nombreencargado }}">
-	</div>
-	<div class="row mb-3">
-		<div class="col-lg-4">
-			<div class="form-group ">
-				<label for="cargo">{{ __('Puesto del encargado') }}</label>
-				<input id="cargo" type="text" class="form-control" name="cargo" value="{{ $inspeccion->cargoencargado }}">
+		<div class="form-group ">
+			<label for="encargado">{{ __('Nombre del encargado') }}</label>
+			<input id="encargado" type="text" class="form-control" name="encargado" value="{{ $inspeccion->nombreencargado }}">
+		</div>
+		<div class="row mb-3">
+			<div class="col-lg-4">
+				<div class="form-group ">
+					<label for="cargo">{{ __('Puesto del encargado') }}</label>
+					<input id="cargo" type="text" class="form-control" name="cargo" value="{{ $inspeccion->cargoencargado }}">
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group ">
+					<label for="identificacion">{{ __('Identificación del encargado') }}</label>
+					<input id="identificacion" type="text" class="form-control" name="identificacion" value="{{ $inspeccion->identificacion }}">
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group ">
+					<label for="folioidentificacion">{{ __('Folio de Identificación del encargado') }}</label>
+					<input id="folioidentificacion" type="text" class="form-control" name="folioidentificacion" value="{{ $inspeccion->folioidentificacion }}">
+				</div>
 			</div>
 		</div>
-		<div class="col-lg-4">
-			<div class="form-group ">
-				<label for="identificacion">{{ __('Identificación del encargado') }}</label>
-				<input id="identificacion" type="text" class="form-control" name="identificacion" value="{{ $inspeccion->identificacion }}">
+		@if ($is_edit == 'true' && auth()->user()->role == 'ROLE_ADMIN')
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group ">
+						<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
+						<input id="fecharealizada" type="date" class="form-control" name="fecha" value="{{ $inspeccion->fecharealizada }}"  >
+						@if ($errors->has('fecha'))
+				      		<p class="text-danger" id="error-informacion-completa">{{ $errors->first('fecha') }}</p>
+						@endif
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group ">
+						<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
+						<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ date('H:i', strtotime($inspeccion->horarealizada)) }}">
+						@if ($errors->has('hora'))
+				      		<p class="text-danger" id="error-informacion-completa">{{ $errors->first('hora') }}</p>
+						@endif
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="form-group ">
-				<label for="folioidentificacion">{{ __('Folio de Identificación del encargado') }}</label>
-				<input id="folioidentificacion" type="text" class="form-control" name="folioidentificacion" value="{{ $inspeccion->folioidentificacion }}">
+		@else
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group ">
+						<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
+						<p>{{ $inspeccion->fecharealizada }}</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group ">
+						<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
+						<p>{{ date('H:i', strtotime($inspeccion->horarealizada)) }}</p>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-	@if ($is_edit == 'true' && auth()->user()->role == 'ROLE_ADMIN')
-	<div class="row">
-		<div class="col-md-4">
-			<div class="form-group ">
-				<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
-				<input id="fecharealizada" type="date" class="form-control" name="fecha" value="{{ $inspeccion->fecharealizada }}" required >
-				@if ($errors->has('hora'))
-				<span class="invalid-feedback" role="alert">
-					<strong>{{ $errors->first('hora') }}</strong>
-				</span>
-				@endif
-			</div>
-		</div>
-		<div class="col-md-4">
-			<div class="form-group ">
-				<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
-				<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ date('H:i', strtotime($inspeccion->horarealizada)) }}" required>
-				@if ($errors->has('hora'))
-				<span class="invalid-feedback" role="alert">
-					<strong>{{ $errors->first('hora') }}</strong>
-				</span>
-				@endif
-			</div>
-		</div>
-	</div>
+		@endif
 	@else
-	<div class="row">
-		<div class="col-md-4">
-			<div class="form-group ">
-				<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
-				<p>{{ $inspeccion->fecharealizada }}</p>
-				@if ($errors->has('hora'))
-				<span class="invalid-feedback" role="alert">
-					<strong>{{ $errors->first('hora') }}</strong>
-				</span>
-				@endif
+		<div class="form-group ">
+			<label for="encargado">{{ __('Nombre del encargado') }}</label>
+			<input id="encargado" type="text" class="form-control" name="encargado" value="{{ old('encargado') }}">
+		</div>
+		<div class="row mb-3">
+			<div class="col-lg-4">
+				<div class="form-group ">
+					<label for="cargo">{{ __('Puesto del encargado') }}</label>
+					<input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}">
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group ">
+					<label for="identificacion">{{ __('Identificación del encargado') }}</label>
+					<input id="identificacion" type="text" class="form-control" name="identificacion" value="{{ old('identificacion') }}">
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group ">
+					<label for="folioidentificacion">{{ __('Folio de Identificación del encargado') }}</label>
+					<input id="folioidentificacion" type="text" class="form-control" name="folioidentificacion"
+					value="{{ old('folioidentificacion') }}">
+				</div>
 			</div>
 		</div>
-		<div class="col-md-4">
-			<div class="form-group ">
-				<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
-				<p>{{ date('H:i', strtotime($inspeccion->horarealizada)) }}</p>
-				@if ($errors->has('hora'))
-				<span class="invalid-feedback" role="alert">
-					<strong>{{ $errors->first('hora') }}</strong>
-				</span>
-				@endif
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="form-group ">
+					<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
+					<input id="fecharealizada" type="date" class="form-control" name="fecha" value="{{ old('hora') }}"  >
+					
+					@if ($errors->has('fecha'))
+			      		<p class="text-danger" id="error-informacion-completa">{{ $errors->first('fecha') }}</p>
+					@endif
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="form-group ">
+					<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
+					<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ old('hora') }}"  >
+					@if ($errors->has('hora'))
+			      		<p class="text-danger" id="error-informacion-completa">{{ $errors->first('hora') }}</p>
+					@endif
+				</div>
 			</div>
 		</div>
-	</div>
-	@endif
-	@else
-	<div class="form-group ">
-		<label for="encargado">{{ __('Nombre del encargado') }}</label>
-		<input id="encargado" type="text" class="form-control" name="encargado" value="{{ old('encargado') }}">
-	</div>
-	<div class="row mb-3">
-		<div class="col-lg-4">
-			<div class="form-group ">
-				<label for="cargo">{{ __('Puesto del encargado') }}</label>
-				<input id="cargo" type="text" class="form-control" name="cargo" value="{{ old('cargo') }}">
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="form-group ">
-				<label for="identificacion">{{ __('Identificación del encargado') }}</label>
-				<input id="identificacion" type="text" class="form-control" name="identificacion" value="{{ old('identificacion') }}">
-			</div>
-		</div>
-		<div class="col-lg-4">
-			<div class="form-group ">
-				<label for="folioidentificacion">{{ __('Folio de Identificación del encargado') }}</label>
-				<input id="folioidentificacion" type="text" class="form-control" name="folioidentificacion"
-				value="{{ old('folioidentificacion') }}">
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-6">
-			<div class="form-group ">
-				<label for="fecharealizada">{{ __('Fecha en que se realizó la inspección') }}</label>
-				<input id="fecharealizada" type="date" class="form-control" name="fecha" value="{{ old('hora') }}" required >
-				
-				@if ($errors->has('hora'))
-				<span class="invalid-feedback" role="alert">
-					<strong>{{ $errors->first('hora') }}</strong>
-				</span>
-				@endif
-			</div>
-		</div>
-		<div class="col-lg-6">
-			<div class="form-group ">
-				<label for="horarealizada">{{ __('Hora en que se realizó la inspección') }}</label>
-				<input id="horarealizada" type="time" class="form-control" name="hora" value="{{ old('hora') }}" required >
-				@if ($errors->has('hora'))
-				<span class="invalid-feedback" role="alert">
-					<strong>{{ $errors->first('hora') }}</strong>
-				</span>
-				@endif
-			</div>
-		</div>
-	</div>
 	@endif
 	<h3>Documentación Presentada</h3>
 	<hr>
@@ -319,7 +313,12 @@
 				<th class="documento-requerido-nombre">{{ $documento->documentacionRequerida->nombre }}</th>
 				<td class="text-center"><input class="form-check-input check-solicitado" @if($documento->solicitado == 1) checked @endif type="checkbox" id="solicitado-{{ $documento->documentacionRequerida->id }}" value="{{ $documento->documentacionRequerida->id }}" name="solicitado[]"></td>
 				<td class="text-center"><input class="form-check-input check-exhibido" @if($documento->exhibido == 1) checked @endif type="checkbox" id="exhibido-{{ $documento->documentacionRequerida->id }}" value="{{ $documento->documentacionRequerida->id }}"  name="exhibido[]"></td>
-				<td><input class="form-control form-control-sm" type="text" value="{{ $documento->observaciones }}" name="observaciones[]"></td>
+				<td>
+					<input class="form-control form-control-sm" type="text" value="{{ $documento->observaciones }}" name="observaciones[]">
+					@if ($errors->has('observaciones'))
+			      		<p class="text-danger" id="error-informacion-completa">{{ $errors->first('observaciones') }}</p>
+					@endif
+				</td>
 			</tr>
 			@endforeach
 		</tbody>
@@ -327,6 +326,9 @@
 	<div class="form-group">
 		<label for="observacion">Observaciones</label>
 		<textarea class="form-control" id="observacion" rows="3"  name="observacion">{{ $inspeccion->comentario }}</textarea>
+		@if ($errors->has('observacion'))
+      		<p class="text-danger" id="error-informacion-completa">{{ $errors->first('observacion') }}</p>
+		@endif
 	</div>
 	<div class="row">
 		<div class="col-lg-4">
@@ -425,7 +427,7 @@
 	@endif
 	
 	@if ($inspeccion->estatusInspeccion->clave == 'V')
-	<a href="{{ route('descargar-clausura', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Generar orden de clausura</a>
+	<a href="{{ route('descargar-clausura-individual', $inspeccion->id) }}" class="btn btn-primary btn-lg btn-primary-custom">Generar orden de clausura</a>
 	@endif
 
 	@if(is_object($ultima_multa))

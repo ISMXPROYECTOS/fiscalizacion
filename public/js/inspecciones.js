@@ -65,7 +65,7 @@ $(document).ready(function(){
 					'render': function(data, type, row){
 						if (row.fechavence == '') {
 							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
-						} else if(row.fechavence == row.hoy ){
+						} else if(row.dia_anterior == row.hoy ){
 							return "<span class='badge badge-pill badge-warning'>"+ row.fechavence +"</span> ";
 						} else if(row.fechavence > row.hoy){
 							return "<span class='badge badge-pill badge-success'>"+ row.fechavence +"</span>";
@@ -77,6 +77,7 @@ $(document).ready(function(){
 				{data: 'fechaprorroga',
 					'render': function(data, type, row){
 						if (row.fechaprorroga == '') {
+
 							return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
 						} else if(row.fechaprorroga == row.hoy ){
 							return "<span class='badge badge-pill badge-warning'>"+ row.fechaprorroga +"</span>";

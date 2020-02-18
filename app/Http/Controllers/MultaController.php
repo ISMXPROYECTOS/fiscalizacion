@@ -51,6 +51,9 @@ class MultaController extends Controller
 					$fechavence = '';
 				}
 
+				$hoy = new \DateTime();
+				$dia_anterior = date("d/m/Y", strtotime($multa->fechavence."-1 days"));
+
 				$tmp = [
 					'id' 				=> $multa->id,
 					'idInspeccion' 		=> $multa->inspeccion->id,
@@ -61,7 +64,9 @@ class MultaController extends Controller
 					'total' 			=> $multa->total,
 					'estatus' 			=> $multa->estatus,
 					'fechacreada' 		=> $multa->created_at->format('d/m/Y'),
-					'fechavence' 		=> $fechavence
+					'fechavence' 		=> $fechavence,
+					'dia_anterior'		=> $dia_anterior,
+					'hoy' 				=> $hoy->format('d/m/Y')
 				];
 				
 				$collection->push($tmp);

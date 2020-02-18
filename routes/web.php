@@ -111,7 +111,7 @@ Route::post('/pdf/inspecciones/descargar-por-tipo-de-documento', 'PdfController@
 Route::get('/pdf/descargar-pdf-citatorios/{id}', 'PdfController@descargarPdfCitatorios');
 Route::get('/pdf/descargar-pdf-citatorio-individual/{id}', 'PdfController@descargarPdfCitatorioIndividual');
 Route::get('/pdf/descargar-pdf-clausuras/{id}', 'PdfController@descargarPdfClausuras');
-Route::get('/pdf/descargar-pdf-clausura-individual/{id}', 'PdfController@descargarPdfClausuraIndividual');
+Route::get('/pdf/descargar-pdf-clausura-individual/{id}', 'PdfController@descargarPdfClausuraIndividual')->name('descargar-clausura-individual');
 
 /* Rutas Word */
 Route::get('/word/descargar-multas/{id}', 'WordController@descargarMultas');

@@ -280,6 +280,10 @@ ul.nav-main li .nav-children li a:hover, ul.nav-main li .nav-children li a:focus
   border-radius: 5px;
 }
 
+#error-informacion-completa{
+  margin-bottom: 0 !important;
+}
+
 /* Inspectores adicionales */
 
 #inspectores-adicionales{
