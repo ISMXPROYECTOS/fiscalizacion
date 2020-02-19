@@ -1,7 +1,15 @@
+<?php
+
+set_time_limit(0);
+ini_set("memory_limit",-1);
+ini_set('max_execution_time', 0);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<title>INSPECCION 2019-2021</title>
 		<link rel="stylesheet" href="{{ asset('css/acta-inspeccion-oivp-comp.css') }}" />
 	</head>
