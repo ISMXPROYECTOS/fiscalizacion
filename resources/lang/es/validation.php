@@ -247,11 +247,55 @@ return [
         ],
 
         'vigenciainicio' => [
-            'required' => 'Ingresa el inicio de la vigencia correctamente'
+            'required' => 'Ingresa el inicio de la vigencia correctamente',
         ],
 
         'vigenciafin' => [
-            'required' => 'Ingresa el fin de la vigencia correctamente'
+            'required' => 'Ingresa el fin de la vigencia correctamente',
+        ],
+
+        'cp' => [
+            'required' => 'Ingresa un codigo postal valido',
+        ],
+
+        'diasvencimiento' => [
+            'required' => 'Ingresa los días de vencimiento',
+        ],
+
+        'rfc' => [
+            'required' => 'Es necesario ingresar el RFC correctamente',
+        ],
+
+        'propietario' => [
+            'required' => 'Ingresa el nombre del propietario',
+        ],
+
+        'denominacion' => [
+            'required' => 'Ingresa la denominacion correctamente',
+        ],
+
+        'nombreestablecimiento' => [
+            'required' => 'Ingresa el nombre del establecimiento correctamente',
+        ],
+
+        'domiciliofiscal' => [
+            'required' => 'Ingresa el domicilio fiscal correctamente',
+        ],
+
+        'nointerior' => [
+            'required' => 'Ingresa el número interior del negocio',
+        ],
+
+        'noexterior' => [
+            'required' => 'Ingresa el número exterior del negocio',
+        ],
+
+        'puesto' => [
+            'required' => 'Ingresa el puesto del encargado',
+        ],
+
+        'vigencia' => [
+            'required' => 'Ingresa la vigencia del usuario correctamente',
         ]
 
     ],
