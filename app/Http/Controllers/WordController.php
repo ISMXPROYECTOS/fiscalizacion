@@ -150,6 +150,6 @@ class WordController extends Controller
 			"Content-Type: application/octet-stream",
 		];
 
-		return response()->download($tempFile, 'MultaFolio-'.$nombre_archivo.'.rft', $headers)->deleteFileAfterSend(true);
+		return response()->download($tempFile, 'Multa-'.$nombre_archivo.'.rft', $headers)->deleteFileAfterSend(true);
 	}
 }

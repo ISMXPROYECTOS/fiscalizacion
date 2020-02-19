@@ -185,7 +185,9 @@ class PdfController extends Controller
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
-		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+
+
+		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
 	/* Descarga las inspecciones con las actas complejas (con testigos) */
@@ -212,7 +214,7 @@ class PdfController extends Controller
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 		
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIF', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
-		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		return $pdf->download('Inspeccion-Compleja-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
 	/* Descarga los citatorios de las inspecciones */
@@ -238,7 +240,7 @@ class PdfController extends Controller
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
 		$pdf = PDF::loadView('acta-inspeccion.citatorio-OIF', ['inspecciones' => $inspecciones, 'fecha_hoy' => $fecha_hoy]);
-		return $pdf->download('Citatorios-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		return $pdf->download('Citatorio-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
 	/* Descarga las clausuras de las inspecciones */
@@ -265,7 +267,7 @@ class PdfController extends Controller
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
 		$pdf = PDF::loadView('clausura.clausuras-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
-		return $pdf->download('Clausuras-'.$ejercicio_fiscal->anio.'-Folio-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		return $pdf->download('Clausuras-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
 	public function descargarMultas($id){
@@ -297,7 +299,7 @@ class PdfController extends Controller
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 		
 		$pdf = PDF::loadView('multas.multas-'.$inspeccion->formaValorada->tipoInspeccion->clave, ['multas' => $multas, 'inspeccion' => $inspeccion, 'documentos_por_inspeccion' => $documentos_por_inspeccion, 'fecha_hoy' => $fecha_hoy]);
-		return $pdf->download('Multa'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
+		return $pdf->download('Multa-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$id.'.pdf');
 	}
 
 	public function descargarOrdenClausura($id){
@@ -366,7 +368,10 @@ class PdfController extends Controller
 		//$pdf = \App::make('dompdf.wrapper');
 
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
-		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
+
+		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
+
+		return $pdf->download('Inspeccion-'.$nombre_archivo.'.pdf');
 	}
 
 	/* Descarga la inspeccion con las actas complejas (con testigos) individualmente  */
@@ -400,7 +405,10 @@ class PdfController extends Controller
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 		
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
-		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
+
+		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
+
+		return $pdf->download('Inspeccion-Compleja-'.$nombre_archivo.'.pdf');
 	}
 
 	/* Descarga clausura individual y limpia no tiene fechas ni datos */
@@ -426,7 +434,9 @@ class PdfController extends Controller
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
 		$pdf = PDF::loadView('clausura.clausura-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy ]);
-		return $pdf->download('Clausuras-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
+
+		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
+		return $pdf->download('Clausura-'.$nombre_archivo.'.pdf');
 	}
 
 	/* Descarga citatorios individuales */
@@ -451,7 +461,9 @@ class PdfController extends Controller
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
 		$pdf = PDF::loadView('acta-inspeccion.citatorio-individual-OIF', ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy]);
-		return $pdf->download('Citatorios-'.$ejercicio_fiscal->anio.'-Folio-'.$inspeccion->folio.'.pdf');
+
+		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
+		return $pdf->download('Citatorio-'.$nombre_archivo.'.pdf');
 	}
 
 	public function verGafete($id){
