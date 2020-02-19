@@ -224,13 +224,13 @@ $(document).ready(function(){
 					if (response.code == 200) {
 						if (response.tipoInspeccion == 'OIF') {
 							$('#descargas').append(
-								"<a href='javascript:void(0)' class='btn btn-primary btn-lg btn-primary-custom' role='button' id='formato-comun'>Formato Común</a>" +
+								"<a target='_blank' href='' class='btn btn-primary btn-lg btn-primary-custom' role='button' id='formato-comun'>Formato Común</a>" +
 								"&nbsp;" +
-								"<a href='javascript:void(0)' class='btn btn-primary btn-lg btn-primary-custom' role='button' id='formato-complejo'>Formato Complejo</a>" +
+								"<a target='_blank' href='' class='btn btn-primary btn-lg btn-primary-custom' role='button' id='formato-complejo'>Formato Complejo</a>" +
 								"&nbsp;" +
-								"<a href='"+url+'/pdf/descargar-pdf-citatorio-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Citatorios</a>" +
+								"<a target='_blank' href='"+url+'/pdf/descargar-pdf-citatorio-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Citatorios</a>" +
 								"&nbsp;" +
-								"<a href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
+								"<a target='_blank' href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
 							);
 
 							$.each(response.inspectores, function( key, value ){
@@ -247,9 +247,9 @@ $(document).ready(function(){
 	
 						} else {
 							$('#descargas').append(
-								"<a href='javascript:void(0)' class='btn btn-primary btn-lg btn-primary-custom' role='button' id='formato-comun'>Formato Común</a>" +
+								"<a target='_blank' href='#' class='btn btn-primary btn-lg btn-primary-custom' role='button' id='formato-comun'>Formato Común</a>" +
 								"&nbsp;" +
-								"<a href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
+								"<a target='_blank' href='"+url+'/pdf/descargar-pdf-clausura-individual/'+id+"' class='btn btn-primary btn-lg btn-primary-custom' role='button'>Clausuras</a>"
 							);
 
 							$.each(response.inspectores, function( key, value ){
