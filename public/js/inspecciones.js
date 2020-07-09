@@ -54,6 +54,7 @@ $(document).ready(function(){
 				{data: 'comercio_nombre', defaultContent: '', orderable: false},
 				{data: 'created_at',
 					'render': function(data, type, row){
+						console.log(data);
 						if (row.created_at == null) {
 							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
 						} else {
