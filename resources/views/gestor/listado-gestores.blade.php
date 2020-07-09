@@ -207,7 +207,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-editar-estatus">Estatus Inspector</h3>
+                <h3 class="modal-title" id="modal-editar-estatus">Estatus Gestor</h3>
             </div>
             <div class="modal-body">
                 <form class="formulario-estatus" role="form">

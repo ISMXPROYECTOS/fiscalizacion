@@ -53,7 +53,7 @@
                                 @if( Auth::user()->role == 'ROLE_ADMIN')
                                 <span class="role">Administrador</span>
                                 @elseif( Auth::user()->role == 'ROLE_INSPECTOR')
-                                <span class="role">Inspector</span>
+                                <span class="role">Fiscal</span>
                                 @elseif( Auth::user()->role == 'ROLE_VENTANILLA')
                                 <span class="role">Ventanilla</span>
                                 @endif
@@ -150,7 +150,7 @@
                                         <ul class="nav nav-children">
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-inspectores') }}">
-                                                    <span>Inspectores</span>
+                                                    <span>Fiscales</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -175,7 +175,7 @@
                                             </li>
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-documentacion') }}">                                                    
-                                                    <span>Documentacion requerida</span>
+                                                    <span>Documentacion Requerida</span>
                                                 </a>
                                             </li>
                                             <li>

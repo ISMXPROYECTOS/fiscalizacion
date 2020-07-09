@@ -43,7 +43,7 @@
                         <select id="role" class="form-control">
                             <option value="">Seleccionar</option>
                             <option value="ROLE_ADMIN">Administrador</option>
-                            <option value="ROLE_INSPECTOR">Inspector</option>
+                            <option value="ROLE_INSPECTOR">Fiscal</option>
                             <option value="ROLE_VENTANILLA">Ventanilla</option>
                         </select>
                         <p class="text-danger  " id="error-role"></p>
@@ -105,7 +105,7 @@
                         <select id="role-edit" class="form-control">
                             <option value="">Seleccionar</option>
                             <option value="ROLE_ADMIN">Administrador</option>
-                            <option value="ROLE_INSPECTOR">Inspector</option>
+                            <option value="ROLE_INSPECTOR">Fiscal</option>
                             <option value="ROLE_VENTANILLA">Ventanilla</option>
                         </select>
                         <p class="text-danger" id="error-role-edit"></p>

@@ -107,7 +107,7 @@
                     </div>
                     <div class="modal-text">
                         <h4>Registro Exitoso</h4>
-                        <p>Se ha registrado al inspector correctamente.</p>
+                        <p>Se ha registrado al estatus correctamente.</p>
                     </div>
                 </div>
             </div>

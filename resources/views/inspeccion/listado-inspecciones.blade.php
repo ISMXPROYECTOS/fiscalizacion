@@ -11,7 +11,7 @@
 					<th>Folio</th>
 					<th>Tipo de Inspección</th>
 					<th>Estatus</th>
-					<th>Inspector</th>
+					<th>Fiscal</th>
 					<th>Razón social</th>
 					<th>Nombre del Local</th>
 					<th>Fecha Generada</th>
@@ -31,7 +31,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3 class="modal-title" id="modal-editar-estatus">Estatus Inspector</h3>
+				<h3 class="modal-title" id="modal-editar-estatus">Estatus de la Inspección</h3>
 			</div>
 			<div class="modal-body">
 				<form class="formulario-estatus" role="form">
@@ -79,14 +79,14 @@
 
 			<div class="modal-body">
 				<div class="alert alert-info" role="alert">
-					Selecciona el formato que deseas descargar y los inspectores adicionales en caso de requerirlos.
+					Selecciona el formato que deseas descargar y los fiscales adicionales en caso de requerirlos.
 				</div>
 
 				<div id="inspectores-adicionales" class="mb-3">
 					<form id="formulario-imprimir" role="form">
 						<div class="form-group" id="form-group-inspectores">
 
-							<label for="inspectores">Inspectores adicionales:</label>
+							<label for="inspectores">Fiscales adicionales:</label>
 
 							<!-- @php $var = 1; @endphp
 							<label for="inspectores">Inspectores adicionales:</label>

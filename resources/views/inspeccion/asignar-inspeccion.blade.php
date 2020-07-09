@@ -58,7 +58,7 @@
         <p class="text-danger mb-0">{{ $errors->first('cantidad-asignar') }}</p>
     </div>
     @php $var = 1; @endphp
-    <label for="inspectores-asignar">Inspectores </label>
+    <label for="inspectores-asignar">Fiscales</label>
     <p class="text-danger mb-0" id="error-inspectores-asignar"></p>
     <p class="text-danger mb-0">{{ $errors->first('inspectores-asignar.*') }}</p>
     @foreach($inspectores as $inspector)

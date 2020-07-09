@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
 <header class="page-header">
-    <h2>Catalogo de Inspectores</h2>
+    <h2>Catalogo de Fiscales</h2>
 </header>
 <button type="button" class="btn btn-primary mb-3 btn-primary-custom" data-toggle="modal" data-target="#crear-inspector" data-backdrop="static" data-keyboard="false">
-    <i class="fas fa-user-plus"></i> Agregar Inspector
+    <i class="fas fa-user-plus"></i> Agregar Fiscal
 </button>
 <div class="row">
     <div class="col">
@@ -32,7 +32,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-crear-inspector">Agregar Inspector</h3>
+                <h3 class="modal-title" id="modal-crear-inspector">Agregar Fiscal</h3>
             </div>
             <div class="modal-body">
                 <form id="formulario-inspector" role="form">
@@ -107,7 +107,7 @@
                         <div class="col-md-6">
 
                             <button type="button" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">
-                                {{ __('Crear Inspector') }} 
+                                {{ __('Crear Fiscal') }} 
                             </button>
                             
                         </div>
@@ -123,7 +123,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-editar-inspector">Editar Inspector</h3>
+                <h3 class="modal-title" id="modal-editar-inspector">Editar Fiscal</h3>
             </div>
             <div class="modal-body">
                 <form class="formulario-gestor" role="form">
@@ -197,7 +197,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="modal-editar-estatus">Estatus Inspector</h3>
+                <h3 class="modal-title" id="modal-editar-estatus">Estatus Fiscal</h3>
             </div>
             <div class="modal-body">
                 <form class="formulario-estatus" role="form">
@@ -245,11 +245,11 @@
                         <p class="mb-0">Nombre Completo: <b id="gafete-nombre"></b></p>
                         <p class="mb-0">Apellido Paterno: <b id="gafete-apellidopaterno"></b></p>
                         <p class="mb-0">Apellido Materno: <b id="gafete-apellidomaterno"></b></p>
-                        <p class="mb-0">Clave de Inspector: <b id="gafete-clave"></b></p>
+                        <p class="mb-0">Clave de Fiscal: <b id="gafete-clave"></b></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="gafete-image">Foto del Inspector (110px x 132px)</label>
+                        <label for="gafete-image">Foto del Fiscal (110px x 132px)</label>
                         <input  name="gafete-image" type="file" class="form-control-file" >
                         <p class="text-danger" id="error-gafete-image"></p>
                     </div>
@@ -311,7 +311,7 @@
                     </div>
                     <div class="modal-text">
                         <h4>Registro Exitoso</h4>
-                        <p>Se ha registrado al inspector correctamente.</p>
+                        <p>Se ha registrado al fiscal correctamente.</p>
                     </div>
                 </div>
             </div>

@@ -110,9 +110,9 @@
 	@endif
 @endif
 
-<h4 >Inspector: <b id="nombre-inspector">{{ $inspeccion->inspector->nombre }} {{ $inspeccion->inspector->apellidopaterno }} {{ $inspeccion->inspector->apellidomaterno }}</b></h4>
+<h4 >Fiscal: <b id="nombre-inspector">{{ $inspeccion->inspector->nombre }} {{ $inspeccion->inspector->apellidopaterno }} {{ $inspeccion->inspector->apellidomaterno }}</b></h4>
 <button type="button" class="btn btn-primary btn-sm cambiar-inspector" id="{{ $inspeccion->id }}">
-	<i class="fas fa-exchange-alt"></i> Cambiar Inspector
+	<i class="fas fa-exchange-alt"></i> Cambiar Fiscal
 </button>
 
 <form method="POST" action="{{ route('actualizar-informacion-inspeccion') }}">
@@ -449,7 +449,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h3 class="modal-title" id="modal-cambiar-inspector">Cambiar de Inspector</h3>
+				<h3 class="modal-title" id="modal-cambiar-inspector">Cambiar de Fiscal</h3>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 				</button>
@@ -459,7 +459,7 @@
 					@csrf
 					<input type="hidden" id="id-cambio-inspector">
 					<div class="form-group">
-						<label for="inspector-edit">{{ __('Inspector') }}</label>
+						<label for="inspector-edit">{{ __('Fiscal') }}</label>
 						<select id="inspector-edit" class="form-control">
 							<option value="">Seleccionar</option>
 							<option value="">Ninguno</option>
