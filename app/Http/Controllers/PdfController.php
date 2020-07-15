@@ -178,6 +178,9 @@ class PdfController extends Controller
 			},
 			'inspeccion.inspector' => function($query){
 				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno');
+			},
+			'encargado' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'puesto');
 			}
 		])->find($id, ['id', 'tipoinspeccion_id', 'folioinicio', 'foliofin']);
 
@@ -204,16 +207,40 @@ class PdfController extends Controller
 
 		//$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-' . $forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy]);
 		
-		return \PDF::loadView('acta-inspeccion.acta-inspeccion-' . $forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])->download('nombre-archivo.pdf');
+		return \PDF::loadView('acta-inspeccion.acta-inspeccion-' . $forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])->download('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 
 		//return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
 	/* Descarga las inspecciones con las actas complejas (con testigos) */
 	public function descargarPdfInspeccionesComplejas($id){
-		$forma_valorada = FormaValorada::find($id);
-		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
-		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
+		$forma_valorada = FormaValorada::with([
+			'tipoInspeccion' => function($query){
+				$query->select('id', 'clave');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion' => function($query){
+				$query->select('id', 'tipoinspeccion_id', 'documentacionrequerida_id');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion.documentacionRequerida' => function($query){
+				$query->select('id', 'nombre');
+			},
+			'inspeccion' => function($query){
+				$query->select('id', 'formavalorada_id', 'comercio_id', 'inspector_id', 'folio', 'fechavence');
+			},
+			'inspeccion.comercio' => function($query){
+				$query->select('id', 'propietarionombre', 'nombreestablecimiento', 'domiciliofiscal');
+			},
+			'inspeccion.inspector' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno');
+			},
+			'encargado' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'puesto');
+			}
+		])->find($id, ['id', 'tipoinspeccion_id', 'encargado_id', 'folioinicio', 'foliofin']);
+
+		//$forma_valorada = FormaValorada::find($id);
+		//$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
+		//$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		// fecha de hoy en español 
@@ -232,8 +259,10 @@ class PdfController extends Controller
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 		
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIF', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
-		return $pdf->download('Inspeccion-Compleja-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		return \PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIF', ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])->download('Inspeccion-Compleja-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+
+		//$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIF', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
+		//return $pdf->download('Inspeccion-Compleja-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
 	/* Descarga los citatorios de las inspecciones */
