@@ -154,7 +154,7 @@ return [
 
         Jenssegers\Date\DateServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
+        //Barryvdh\DomPDF\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -165,6 +165,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
 
     ],
 
@@ -218,7 +219,8 @@ return [
 
         'Date' => Jenssegers\Date\Date::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+	    'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
     ],
 
 ];

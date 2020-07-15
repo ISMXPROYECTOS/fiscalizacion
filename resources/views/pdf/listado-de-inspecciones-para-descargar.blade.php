@@ -8,7 +8,6 @@
 		<table class="table table-responsive-lg table-bordered table-striped mb-0" id="datatable">
 			<thead>
 				<tr>
-					
 					<th>Folio Inicio</th>
 					<th>Folio Fin</th>
 					<th>Fecha Creado</th>

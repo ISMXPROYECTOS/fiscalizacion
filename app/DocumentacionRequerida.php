@@ -11,7 +11,7 @@ class DocumentacionRequerida extends Model
 
 	/* Relación uno a mucho */
     public function documentacionPorTipoDeInspeccion(){
-        return $this->hasMany('App\DocumentacionPorTipoDeInspeccion');
+        return $this->hasMany('App\DocumentacionPorTipoDeInspeccion', 'documentacionrequerida_id');
     }
 
     /* Relación uno a mucho */

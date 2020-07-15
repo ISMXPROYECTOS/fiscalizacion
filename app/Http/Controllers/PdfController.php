@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Multa;
+use App\Gafete;
+use App\Inspector;
+use App\Inspeccion;
+use App\FormaValorada;
+use App\EjercicioFiscal;
+use App\BitacoraDeEstatus;
+use App\EstatusInspeccion;
+use App\ImpresionDeFormato;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Barryvdh\DomPDF\Facade as PDF;
-use Yajra\Datatables\Datatables;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Collection;
 use App\DocumentacionRequerida;
-use App\DocumentacionPorTipoDeInspeccion;
+use Yajra\Datatables\Datatables;
+use Illuminate\Support\Collection;
 use App\DocumentacionPorInspeccion;
-use App\EjercicioFiscal;
-use App\FormaValorada;
-use App\Inspeccion;
-use App\Gafete;
-use App\Multa;
-use App\EstatusInspeccion;
-use App\BitacoraDeEstatus;
-use App\Inspector;
-use App\ImpresionDeFormato;
+use Illuminate\Support\Facades\Auth;
+use App\DocumentacionPorTipoDeInspeccion;
 
 class PdfController extends Controller
 {
@@ -161,19 +160,38 @@ class PdfController extends Controller
 
 	/* Descarga las inspecciones con las actas comunes */
 	public function descargarPdfInspecciones($id){
-		$forma_valorada = FormaValorada::find($id);
-		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
-		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
+		$forma_valorada = FormaValorada::with([
+			'tipoInspeccion' => function($query){
+				$query->select('id', 'clave');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion' => function($query){
+				$query->select('id', 'tipoinspeccion_id', 'documentacionrequerida_id');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion.documentacionRequerida' => function($query){
+				$query->select('id', 'nombre');
+			},
+			'inspeccion' => function($query){
+				$query->select('id', 'formavalorada_id', 'comercio_id', 'inspector_id', 'folio', 'fechavence');
+			},
+			'inspeccion.comercio' => function($query){
+				$query->select('id', 'propietarionombre', 'nombreestablecimiento', 'domiciliofiscal');
+			},
+			'inspeccion.inspector' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno');
+			}
+		])->find($id, ['id', 'tipoinspeccion_id', 'folioinicio', 'foliofin']);
+
+		//$forma_valorada = FormaValorada::find($id);
+		//$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
+		//$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
-		// fecha de hoy en español 
+		// fecha de hoy en español
 		setlocale(LC_TIME, 'spanish');
 		setlocale(LC_TIME, 'es_MX.UTF-8');
 		$fecha_hoy = strftime("%d de %B del %G");
 
 		$usuario = Auth::user();
-
-
 
 		$datos_bitacora_impresion = [
 			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
@@ -184,10 +202,11 @@ class PdfController extends Controller
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
-		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
+		//$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-' . $forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy]);
+		
+		return \PDF::loadView('acta-inspeccion.acta-inspeccion-' . $forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])->download('nombre-archivo.pdf');
 
-
-		return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		//return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
 
 	/* Descarga las inspecciones con las actas complejas (con testigos) */

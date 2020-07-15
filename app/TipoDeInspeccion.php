@@ -16,7 +16,7 @@ class TipoDeInspeccion extends Model
 
 	/* Relación uno a mucho */
 	public function documentacionPorTipoDeInspeccion(){
-		return $this->hasMany('App\DocumentacionPorTipoDeInspeccion');
+		return $this->hasMany('App\DocumentacionPorTipoDeInspeccion', 'tipoinspeccion_id');
 	}
 
 	/* Relación uno a mucho */

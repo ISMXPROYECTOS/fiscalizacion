@@ -31,7 +31,7 @@ class FormaValorada extends Model
 
 	/* Relación uno a mucho */
     public function inspeccion(){
-        return $this->hasMany('App\Inspeccion');
+        return $this->hasMany('App\Inspeccion', 'formavalorada_id');
     }
 
     /**
