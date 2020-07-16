@@ -434,9 +434,33 @@ class PdfController extends Controller
 	/* Descarga inspecciones individuales con las actas comunes */
 	public function descargarPdfInspeccionIndividual($id, $inspectores){
 		$id_inspectores = json_decode($inspectores);
-		$inspeccion = Inspeccion::find($id);
-		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
-		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		$inspeccion = Inspeccion::with([
+			'formaValorada' => function($query){
+				$query->select('id', 'encargado_id', 'folioinicio', 'foliofin');
+			},
+			'formaValorada.encargado' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'puesto');
+			},
+			'tipoInspeccion' => function($query){
+				$query->select('id', 'clave');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion' => function($query){
+				$query->select('id', 'tipoinspeccion_id', 'documentacionrequerida_id');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion.documentacionRequerida' => function($query){
+				$query->select('id', 'nombre');
+			},
+			'comercio' => function($query){
+				$query->select('id', 'propietarionombre', 'nombreestablecimiento', 'domiciliofiscal');
+			},
+			'inspector' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno');
+			}
+		])->find($id, ['id', 'formavalorada_id', 'tipoinspeccion_id', 'comercio_id', 'inspector_id', 'folio', 'fechavence', 'fecharealizada', 'fechaprorroga', 'created_at']);
+
+		//$inspeccion = Inspeccion::find($id);
+		//$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
+		//$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 		$inspectores = array();
 
 		for ($i = 0; $i < count($id_inspectores); $i++) {
@@ -452,7 +476,7 @@ class PdfController extends Controller
 		$usuario = Auth::user();
 
 		$datos_bitacora_impresion = [
-			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'tipoinspeccion_id' => $inspeccion->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
 			'foliofin' => $inspeccion->formaValorada->foliofin
@@ -460,21 +484,47 @@ class PdfController extends Controller
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
-		//$pdf = \App::make('dompdf.wrapper');
+		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
+		return \PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy])->download('Inspeccion-'.$nombre_archivo.'.pdf');
 
+		/*
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
 
 		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
 
 		return $pdf->download('Inspeccion-'.$nombre_archivo.'.pdf');
+		*/
 	}
 
 	/* Descarga la inspeccion con las actas complejas (con testigos) individualmente  */
 	public function descargarPdfInspeccionComplejaIndividual($id, $inspectores){
 		$id_inspectores = json_decode($inspectores);
-		$inspeccion = Inspeccion::find($id);
-		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
-		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		$inspeccion = Inspeccion::with([
+			'formaValorada' => function($query){
+				$query->select('id', 'encargado_id', 'folioinicio', 'foliofin');
+			},
+			'formaValorada.encargado' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'puesto');
+			},
+			'tipoInspeccion' => function($query){
+				$query->select('id', 'clave');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion' => function($query){
+				$query->select('id', 'tipoinspeccion_id', 'documentacionrequerida_id');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion.documentacionRequerida' => function($query){
+				$query->select('id', 'nombre');
+			},
+			'comercio' => function($query){
+				$query->select('id', 'propietarionombre', 'nombreestablecimiento', 'domiciliofiscal', 'cp');
+			},
+			'inspector' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno');
+			}
+		])->find($id, ['id', 'formavalorada_id', 'tipoinspeccion_id', 'comercio_id', 'inspector_id', 'folio', 'fechavence', 'fecharealizada', 'fechaprorroga', 'created_at']);
+
+		//$inspeccion = Inspeccion::find($id);
+		//$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
 
 		$inspectores = array();
 
@@ -491,19 +541,24 @@ class PdfController extends Controller
 		$usuario = Auth::user();
 
 		$datos_bitacora_impresion = [
-			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'tipoinspeccion_id' => $inspeccion->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
 			'foliofin' => $inspeccion->formaValorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
-		
+
+		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
+		return \PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy])->download('Inspeccion-Compleja-'.$nombre_archivo.'.pdf');
+
+		/*
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
 
 		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
 
 		return $pdf->download('Inspeccion-Compleja-'.$nombre_archivo.'.pdf');
+		*/
 	}
 
 	/* Descarga clausura individual y limpia no tiene fechas ni datos */

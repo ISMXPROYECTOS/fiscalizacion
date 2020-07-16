@@ -54,7 +54,6 @@ $(document).ready(function(){
 				{data: 'comercio_nombre', defaultContent: '', orderable: false},
 				{data: 'created_at',
 					'render': function(data, type, row){
-						console.log(data);
 						if (row.created_at == null) {
 							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
 						} else {
@@ -78,7 +77,6 @@ $(document).ready(function(){
 				{data: 'fechaprorroga',
 					'render': function(data, type, row){
 						if (row.fechaprorroga == '') {
-
 							return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
 						} else if(row.fechaprorroga == row.hoy ){
 							return "<span class='badge badge-pill badge-warning'>"+ row.fechaprorroga +"</span>";
