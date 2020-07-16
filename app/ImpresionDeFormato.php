@@ -20,7 +20,10 @@ class ImpresionDeFormato extends Model
 	}
 
 	protected $fillable = [
-    	'tipoinspeccion_id'
+		'tipoinspeccion_id',
+		'usuario_id',
+		'folioinicio',
+		'foliofin'
     ];
 	
 }

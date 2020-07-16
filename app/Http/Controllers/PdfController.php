@@ -254,7 +254,7 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $forma_valorada->folioinicio,
-			'foliofin' => $forma_valorada->folioinicio
+			'foliofin' => $forma_valorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -267,8 +267,23 @@ class PdfController extends Controller
 
 	/* Descarga los citatorios de las inspecciones */
 	public function descargarPdfCitatorios($id){
-		$forma_valorada = FormaValorada::find($id);
-		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
+		$forma_valorada = FormaValorada::with([
+			'tipoInspeccion' => function($query){
+				$query->select('id', 'clave');
+			},
+			'inspeccion' => function($query){
+				$query->select('id', 'formavalorada_id', 'comercio_id', 'inspector_id', 'folio');
+			},
+			'inspeccion.comercio' => function($query){
+				$query->select('id', 'propietarionombre', 'nombreestablecimiento', 'domiciliofiscal', 'cp');
+			},
+			'inspeccion.inspector' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno');
+			}
+		])->find($id, ['id', 'tipoinspeccion_id', 'encargado_id', 'folioinicio', 'foliofin']);
+
+		//$forma_valorada = FormaValorada::find($id);
+		//$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		// fecha de hoy en español 
@@ -282,20 +297,48 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $forma_valorada->folioinicio,
-			'foliofin' => $forma_valorada->folioinicio
+			'foliofin' => $forma_valorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
+		return \PDF::loadView('acta-inspeccion.citatorio-OIF', ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])->download('Citatorio-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+
+		/*
 		$pdf = PDF::loadView('acta-inspeccion.citatorio-OIF', ['inspecciones' => $inspecciones, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Citatorio-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		*/
 	}
 
 	/* Descarga las clausuras de las inspecciones */
 	public function descargarPdfClausuras($id){
-		$forma_valorada = FormaValorada::find($id);
-		$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
-		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
+		$forma_valorada = FormaValorada::with([
+			'tipoInspeccion' => function($query){
+				$query->select('id', 'clave');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion' => function($query){
+				$query->select('id', 'tipoinspeccion_id', 'documentacionrequerida_id');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion.documentacionRequerida' => function($query){
+				$query->select('id', 'nombre');
+			},
+			'inspeccion' => function($query){
+				$query->select('id', 'formavalorada_id', 'comercio_id', 'inspector_id', 'folio', 'fechavence', 'fecharealizada', 'fechaprorroga', 'created_at');
+			},
+			'inspeccion.comercio' => function($query){
+				$query->select('id', 'propietarionombre', 'nombreestablecimiento', 'domiciliofiscal');
+			},
+			'inspeccion.inspector' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno');
+			},
+			'encargado' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'puesto');
+			}
+		])->find($id, ['id', 'tipoinspeccion_id', 'encargado_id', 'folioinicio', 'foliofin']);
+
+		//$forma_valorada = FormaValorada::find($id);
+		//$inspecciones = Inspeccion::where('formavalorada_id', $id)->get();
+		//$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $forma_valorada->tipoinspeccion_id)->get();
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 
 		// fecha de hoy en español 
@@ -309,13 +352,17 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $forma_valorada->folioinicio,
-			'foliofin' => $forma_valorada->folioinicio
+			'foliofin' => $forma_valorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
+		return \PDF::loadView('clausura.clausuras-'.$forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])->download('Clausuras-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+
+		/*
 		$pdf = PDF::loadView('clausura.clausuras-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Clausuras-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		*/
 	}
 
 	public function descargarMultas($id){
@@ -341,7 +388,7 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
-			'foliofin' => $inspeccion->formaValorada->folioinicio
+			'foliofin' => $inspeccion->formaValorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -375,7 +422,7 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
-			'foliofin' => $inspeccion->formaValorada->folioinicio
+			'foliofin' => $inspeccion->formaValorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -408,7 +455,7 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
-			'foliofin' => $inspeccion->formaValorada->folioinicio
+			'foliofin' => $inspeccion->formaValorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -447,7 +494,7 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
-			'foliofin' => $inspeccion->formaValorada->folioinicio
+			'foliofin' => $inspeccion->formaValorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -476,7 +523,7 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
-			'foliofin' => $inspeccion->formaValorada->folioinicio
+			'foliofin' => $inspeccion->formaValorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -503,7 +550,7 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
-			'foliofin' => $inspeccion->formaValorada->folioinicio
+			'foliofin' => $inspeccion->formaValorada->foliofin
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
