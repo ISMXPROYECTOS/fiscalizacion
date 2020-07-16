@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="{{ asset('css/acta-clausura-oie.css') }}" />
 	</head>
 	<body>
-		@foreach($inspecciones as $inspeccion)
+		@foreach($formavalorada->inspeccion as $inspeccion)
 		<img src="{{ asset('img/header-orden-clausura-est.jpg') }}" width="100%">
 		<div class="container">
 			<h5 class="folio">FOLIO: {{ $inspeccion->folio }}</h5><br><br>
