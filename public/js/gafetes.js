@@ -53,7 +53,6 @@ $(document).ready(function(){
                     $('#btn-generar-gafete').html('<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Creando Gafete...');
                 },
                 success:function(response){
-
                     $('#btn-generar-gafete').text('Crear Gafete');
                     $("#formulario-generar-gafete")[0].reset();
                     $('#generar-gafete').modal('hide');

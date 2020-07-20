@@ -695,11 +695,15 @@ class PdfController extends Controller
 	public function verGafete($id){
 		$gafete = Gafete::find($id);
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+
+		return \PDF::loadView('gafete.gafete', ['gafete' => $gafete])->setOrientation('landscape')->download('Gafete-'.$ejercicio_fiscal->anio.'-'.$gafete->inspector->nombre.'.pdf');
 		
+		/*
 		$customPaper = array(0,0,425,328);
 		$pdf = PDF::loadView('gafete.gafete', ['gafete' => $gafete])->setPaper($customPaper, "landscape");
 
 		return $pdf->download('Gafete-'.$ejercicio_fiscal->anio.'-'.$gafete->inspector->nombre.'.pdf');
+		*/
 	}
 
 	public function inspeccionesPorPaquete($id){
