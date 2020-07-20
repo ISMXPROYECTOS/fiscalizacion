@@ -365,6 +365,7 @@ class PdfController extends Controller
 		*/
 	}
 
+	/*
 	public function descargarMultas($id){
 		$multas = Multa::where('inspeccion_id', $id)->get();
 		$inspeccion = Inspeccion::find($id);
@@ -396,10 +397,34 @@ class PdfController extends Controller
 		$pdf = PDF::loadView('multas.multas-'.$inspeccion->formaValorada->tipoInspeccion->clave, ['multas' => $multas, 'inspeccion' => $inspeccion, 'documentos_por_inspeccion' => $documentos_por_inspeccion, 'fecha_hoy' => $fecha_hoy]);
 		return $pdf->download('Multa-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$id.'.pdf');
 	}
+	*/
 
 	public function descargarOrdenClausura($id){
-		$inspeccion = Inspeccion::find($id);
-		$documentos_no_presentados = DocumentacionPorInspeccion::where('inspeccion_id', $id)->where('exhibido', 0)->get();
+		//$inspeccion = Inspeccion::find($id);
+		$inspeccion = Inspeccion::with([
+			'formaValorada' => function($query){
+				$query->select('id', 'encargado_id', 'folioinicio', 'foliofin');
+			},
+			'formaValorada.encargado' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'puesto');
+			},
+			'tipoInspeccion' => function($query){
+				$query->select('id', 'clave');
+			},
+			'comercio' => function($query){
+				$query->select('id', 'propietarionombre', 'nombreestablecimiento', 'domiciliofiscal');
+			},
+			'inspector' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno');
+			}
+		])->find($id, ['id', 'formavalorada_id', 'tipoinspeccion_id', 'comercio_id', 'inspector_id', 'folio', 'fecharealizada']);
+
+		$documentos_no_presentados = DocumentacionPorInspeccion::with([
+			'documentacionRequerida' => function($query){
+				$query->select('id', 'nombre');
+			}
+		])->where('inspeccion_id', $inspeccion->id)->where('exhibido', 0)->get(['id', 'documentacionrequerida_id']);
+
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
 		$estatus_ProcesoClausura = EstatusInspeccion::where('clave', 'Epc')->first();
 		$usuario = Auth::user();
@@ -419,7 +444,7 @@ class PdfController extends Controller
 		}
 
 		$datos_bitacora_impresion = [
-			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'tipoinspeccion_id' => $inspeccion->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
 			'foliofin' => $inspeccion->formaValorada->foliofin
@@ -427,8 +452,12 @@ class PdfController extends Controller
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
+		return \PDF::loadView('clausura.acta-clausura', ['inspeccion' => $inspeccion, 'documentos' => $documentos_no_presentados])->download('Orden-Clausura-'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
+
+		/*
 		$pdf = PDF::loadView('clausura.acta-clausura', ['inspeccion' => $inspeccion, 'documentos' => $documentos_no_presentados]);
 		return $pdf->download('Orden-Clausura-'.$ejercicio_fiscal->anio.'-Folio-'.$id.'.pdf');
+		*/
 	}
 
 	/* Descarga inspecciones individuales con las actas comunes */
@@ -563,9 +592,32 @@ class PdfController extends Controller
 
 	/* Descarga clausura individual y limpia no tiene fechas ni datos */
 	public function descargarPdfClausuraIndividual($id){
-		$inspeccion = Inspeccion::find($id);
-		$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
-		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		$inspeccion = Inspeccion::with([
+			'formaValorada' => function($query){
+				$query->select('id', 'encargado_id', 'folioinicio', 'foliofin');
+			},
+			'formaValorada.encargado' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno', 'puesto');
+			},
+			'tipoInspeccion' => function($query){
+				$query->select('id', 'clave');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion' => function($query){
+				$query->select('id', 'tipoinspeccion_id', 'documentacionrequerida_id');
+			},
+			'tipoInspeccion.documentacionPorTipoDeInspeccion.documentacionRequerida' => function($query){
+				$query->select('id', 'nombre');
+			},
+			'comercio' => function($query){
+				$query->select('id', 'propietarionombre', 'nombreestablecimiento', 'domiciliofiscal', 'denominacion', 'cp');
+			},
+			'inspector' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno');
+			}
+		])->find($id, ['id', 'formavalorada_id', 'tipoinspeccion_id', 'comercio_id', 'inspector_id', 'folio', 'fechavence', 'fecharealizada', 'fechaprorroga', 'created_at']);
+
+		//$inspeccion = Inspeccion::find($id);
+		//$documentos_requeridos = DocumentacionPorTipoDeInspeccion::where('tipoinspeccion_id', $inspeccion->tipoinspeccion_id)->get();
 
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'spanish');
@@ -575,7 +627,7 @@ class PdfController extends Controller
 		$usuario = Auth::user();
 
 		$datos_bitacora_impresion = [
-			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'tipoinspeccion_id' => $inspeccion->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
 			'foliofin' => $inspeccion->formaValorada->foliofin
@@ -583,16 +635,35 @@ class PdfController extends Controller
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
+		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
+		return \PDF::loadView('clausura.clausura-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy])->download('Clausura-'.$nombre_archivo.'.pdf');
+		
+		/*
 		$pdf = PDF::loadView('clausura.clausura-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy ]);
 
 		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
 		return $pdf->download('Clausura-'.$nombre_archivo.'.pdf');
+		*/
 	}
 
 	/* Descarga citatorios individuales */
 	public function descargarPdfCitatorioIndividual($id){
-		$inspeccion = Inspeccion::find($id);
-		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
+		$inspeccion = Inspeccion::with([
+			'formaValorada' => function($query){
+				$query->select('id', 'folioinicio', 'foliofin');
+			},
+			'tipoInspeccion' => function($query){
+				$query->select('id', 'clave');
+			},
+			'comercio' => function($query){
+				$query->select('id', 'propietarionombre', 'nombreestablecimiento', 'domiciliofiscal', 'cp');
+			},
+			'inspector' => function($query){
+				$query->select('id', 'nombre', 'apellidopaterno', 'apellidomaterno');
+			}
+		])->find($id, ['id', 'formavalorada_id', 'tipoinspeccion_id', 'comercio_id', 'inspector_id', 'folio']);
+		
+		//$inspeccion = Inspeccion::find($id);
 
 		// fecha de hoy en español 
 		setlocale(LC_TIME, 'spanish');
@@ -602,7 +673,7 @@ class PdfController extends Controller
 		$usuario = Auth::user();
 
 		$datos_bitacora_impresion = [
-			'tipoinspeccion_id' => $inspeccion->formaValorada->tipoInspeccion->id,
+			'tipoinspeccion_id' => $inspeccion->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
 			'foliofin' => $inspeccion->formaValorada->foliofin
@@ -610,10 +681,15 @@ class PdfController extends Controller
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
+		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
+		return \PDF::loadView('acta-inspeccion.citatorio-individual-OIF', ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy])->download('Citatorio-'.$nombre_archivo.'.pdf');
+
+		/*
 		$pdf = PDF::loadView('acta-inspeccion.citatorio-individual-OIF', ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy]);
 
 		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
 		return $pdf->download('Citatorio-'.$nombre_archivo.'.pdf');
+		*/
 	}
 
 	public function verGafete($id){
