@@ -1,3 +1,6 @@
+*{
+	margin: 0 !important;
+}
 html, body{
 	margin: 0 !important;
 }
@@ -29,4 +32,8 @@ body{
 
 .footer-img{
 	margin-top: 354px;
+}
+
+.img-inspector{
+	width: 10%;
 }
