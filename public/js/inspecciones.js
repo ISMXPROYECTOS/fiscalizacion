@@ -107,6 +107,8 @@ $(document).ready(function(){
 		});
 	}
 
+	viewData();
+
 	function editEstatus(){
 		$(document).on('click', '.estatus', function(e){
 			e.preventDefault();
@@ -186,6 +188,8 @@ $(document).ready(function(){
 	}
 
 	validarFolioAsignado();
+	
+	/* Si se requiere cambio automatico de estatus cap a multa se descomenta aqui
 
 	function cambiarEstatusAutomaticamente(){
 		$.ajax({
@@ -202,6 +206,7 @@ $(document).ready(function(){
 	}
 
 	cambiarEstatusAutomaticamente();
+	*/
 
 	function modalImprimirInspeccionIndividual(){
 		$(document).on('click', '.descargar', function(e){

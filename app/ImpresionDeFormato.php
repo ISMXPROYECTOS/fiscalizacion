@@ -23,7 +23,8 @@ class ImpresionDeFormato extends Model
 		'tipoinspeccion_id',
 		'usuario_id',
 		'folioinicio',
-		'foliofin'
+		'foliofin',
+		'tipodedescarga'
     ];
 	
 }

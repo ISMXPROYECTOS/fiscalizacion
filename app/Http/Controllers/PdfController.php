@@ -200,7 +200,8 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $forma_valorada->folioinicio,
-			'foliofin' => $forma_valorada->foliofin
+			'foliofin' => $forma_valorada->foliofin,
+			'tipodedescarga' => 'Paquete de inspecciones'
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -254,7 +255,8 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $forma_valorada->folioinicio,
-			'foliofin' => $forma_valorada->foliofin
+			'foliofin' => $forma_valorada->foliofin,
+			'tipodedescarga' => 'Paquete de inspecciones complejas'
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -297,7 +299,8 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $forma_valorada->folioinicio,
-			'foliofin' => $forma_valorada->foliofin
+			'foliofin' => $forma_valorada->foliofin,
+			'tipodedescarga' => 'Paquete de citatorios'
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -352,7 +355,8 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $forma_valorada->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $forma_valorada->folioinicio,
-			'foliofin' => $forma_valorada->foliofin
+			'foliofin' => $forma_valorada->foliofin,
+			'tipodedescarga' => 'Paquete de clausuras'
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -437,7 +441,8 @@ class PdfController extends Controller
 				'inspeccion_id' => $inspeccion->id,
 				'estatusinspeccion_id' => $estatus_ProcesoClausura->id,
 				'usuario_id' => $usuario->id,
-				'observacion' => $estatus_ProcesoClausura->nombre
+				'observacion' => $estatus_ProcesoClausura->nombre,
+				'tipodedescarga' => 'Clausura individual'
 			];
 
 			BitacoraDeEstatus::create($datos_bitacora);
@@ -508,7 +513,8 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $inspeccion->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
-			'foliofin' => $inspeccion->formaValorada->foliofin
+			'foliofin' => $inspeccion->formaValorada->foliofin,
+			'tipodedescarga' => 'Inspeccion individual'
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -573,7 +579,8 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $inspeccion->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
-			'foliofin' => $inspeccion->formaValorada->foliofin
+			'foliofin' => $inspeccion->formaValorada->foliofin,
+			'tipodedescarga' => 'Inspeccion compleja individual'
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -630,7 +637,8 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $inspeccion->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
-			'foliofin' => $inspeccion->formaValorada->foliofin
+			'foliofin' => $inspeccion->formaValorada->foliofin,
+			'tipodedescarga' => 'Clausura individual'
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
@@ -676,7 +684,8 @@ class PdfController extends Controller
 			'tipoinspeccion_id' => $inspeccion->tipoInspeccion->id,
 			'usuario_id' => $usuario->id,
 			'folioinicio' => $inspeccion->formaValorada->folioinicio,
-			'foliofin' => $inspeccion->formaValorada->foliofin
+			'foliofin' => $inspeccion->formaValorada->foliofin,
+			'tipodedescarga' => 'Citatorio individual'
 		];
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
