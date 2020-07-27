@@ -1,4 +1,4 @@
-@font-face{
+/* @font-face{
     font-family: arial;
     src: url(../vendor/fonts/arial.ttf);
 }
@@ -7,10 +7,14 @@
     font-family: arialb;
     src: url(../vendor/fonts/arialbd.ttf);
     font-weight: bold;
-}
+} */
 
-b{
-	font-family: arialb !important;
+/* b{
+	font-family: Arial, Helvetica, sans-serif;
+} */
+
+html{
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .mb-0{
@@ -33,25 +37,26 @@ b{
 /* Orden de Inspección */
 
 .folio{
-	font-family: arialb;
 	float: right;
 	margin-top: 0;
 	margin-bottom: 0;
 }
 
-.oi-header-datos{
-	font-family: arial;
-	font-size: .65em;
+.oi-header-datos b{
+	font-size: .70em !important;
+	letter-spacing: .18em !important;
 }
 
 .contenido-general{
-	font-family: arial;
 	text-align: justify;
 	font-size: .60em;
+	letter-spacing: .13em;
+	line-height: 1.5;
 }
 
-.fecha-cierre{
+.fecha-cierre b{
 	font-size: .60em;
+	letter-spacing: .13em;
 }
 
 .atte{
@@ -61,6 +66,7 @@ b{
 .firma-encargado{
 	text-transform: uppercase;
 	font-size: .60em;
+	letter-spacing: 1pt;
 }
 
 .representante div{
@@ -69,7 +75,7 @@ b{
   	border-width: 1px;
 }
 
-.firma-representante{
+.firma-representante b{
 	text-transform: uppercase;
 	font-size: .60em;
 }
@@ -77,6 +83,7 @@ b{
 .constancia{
 	font-family: arial;
 	font-size: .60em;
+	letter-spacing: 1pt;
 }
 
 .firma-orden-inspeccion .encargado{
@@ -92,14 +99,15 @@ b{
 /* Acta de Inspeccion */
 
 .ai-header-datos{
-	font-family: arial;
-	font-size: .50em;
+	font-size: .60em;
+	letter-spacing: 1pt;
 }
 
 .ai-contenido-general{
 	font-family: arial;
 	text-align: justify;
-	font-size: .50em;
+	font-size: .60em;
+	letter-spacing: 1pt;
 }
 
 .ai-documentacion-requerida{
@@ -122,30 +130,34 @@ b{
 }
 
 .ai-documentacion-requerida td{
-	font-size: .40em;
+	font-size: .50em;
 	font-family: arialb;
 	text-align: center;
 	text-transform: uppercase;
 	border: 1px solid black;
+	letter-spacing: 1pt;
 }
 
 .ai-documentacion-requerida th{
 	font-family: arialb;
-	font-size: .40em;
+	font-size: .50em;
 	text-transform: uppercase;
 	text-align: center;
 	border: 1px solid black;
+	letter-spacing: 1pt;
 }
 
 .ai-documentacion-requerida .nombre-documento{
 	text-align: left !important;
-	font-size: .37em !important;
+	font-size: .45em !important;
+	letter-spacing: 1pt;
 }
 
 .observaciones{
 	font-family: arial;
 	text-transform: uppercase;
 	font-size: .45em;
+	letter-spacing: 1pt;
 }
 
 .derivado{
