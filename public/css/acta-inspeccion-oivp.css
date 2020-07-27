@@ -15,8 +15,20 @@
 
 html{
 	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
 }
 
+/* .folio{
+	float: right;
+	margin-top: 0;
+	margin-bottom: 0;
+	cont
+} */
+
+/* .oi-header-datos b{
+	font-size: .70em !important;
+} */
+/*
 .mb-0{
 	margin-bottom: 0;
 }
@@ -32,11 +44,11 @@ html{
 
 .text-center{
 	text-align: center;
-}
+} */
 
 /* Orden de Inspección */
 
-.folio{
+/* .folio{
 	float: right;
 	margin-top: 0;
 	margin-bottom: 0;
@@ -91,16 +103,16 @@ html{
 }
 .firma-orden-inspeccion .representante{
 	width: 60%;
-}
+} */
 
 
 /* Fin Orden de Inspección*/
 
 /* Acta de Inspeccion */
 
-.ai-header-datos{
+/* .ai-header-datos{
 	font-size: .60em;
-	letter-spacing: 1pt;
+	
 }
 
 .ai-contenido-general{
@@ -181,7 +193,7 @@ html{
 
 .firma-acta-inspeccion .ai-firma-encargado{
 	width: 50%;
-}
+} */
 
 .page_break{
 	page-break-after: always;
