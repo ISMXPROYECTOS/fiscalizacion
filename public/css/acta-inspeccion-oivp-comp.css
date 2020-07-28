@@ -1,4 +1,14 @@
-@font-face{
+html{
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+}
+
+.page_break{
+	page-break-after: always;
+}
+
+
+/* @font-face{
     font-family: arial;
     src: url(../vendor/fonts/arial.ttf);
 }
@@ -28,11 +38,11 @@ b{
 
 .text-center{
 	text-align: center;
-}
+} */
 
 /* Orden de Inspección */
 
-.folio{
+/* .folio{
 	font-family: arialb;
 	float: right;
 	margin-top: 0;
@@ -84,12 +94,12 @@ b{
 }
 .firma-orden-inspeccion .representante{
 	width: 60%;
-}
+} */
 
 /* Fin Orden de Inspección*/
 
 /* Acta de Inspeccion */
-
+/* 
 .aic-folio{
 	font-family: arialb;
 	text-align: center;
@@ -155,4 +165,4 @@ b{
 	font-size: .90em;
 	text-align: center;
 	width: 100%;
-}
+} */
