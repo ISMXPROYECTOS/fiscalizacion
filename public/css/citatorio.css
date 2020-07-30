@@ -1,4 +1,14 @@
-@font-face{
+html{
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+}
+
+.page_break{
+	page-break-after: always;
+}
+
+
+/* @font-face{
     font-family: arial;
     src: url(../vendor/fonts/arial.ttf);
 }
@@ -32,11 +42,11 @@ b{
 
 .text-center{
 	text-align: center;
-}
+} */
 
 /* Citatorio */
 
-.ci-header-datos{
+/* .ci-header-datos{
 	font-family: arial;
 	font-size: .70em;
 }
@@ -61,9 +71,6 @@ b{
 
 .firma-citatorio .ci-citatorio-inspector{
 	width: 50%;
-}
+} */
 
 
-.page_break{
-	page-break-after: always;
-}

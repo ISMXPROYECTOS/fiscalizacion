@@ -1,4 +1,14 @@
-@font-face{
+html{
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+}
+
+.page_break{
+	page-break-after: always;
+}
+
+
+/* @font-face{
     font-family: arial;
     src: url(../vendor/fonts/arial.ttf);
 }
@@ -28,11 +38,11 @@ b{
 
 .text-center{
 	text-align: center;
-}
+} */
 
 /* Orden de Clausura */
 
-.folio{
+/* .folio{
 	font-family: arialb;
 	float: right;
 	margin-top: 0;
@@ -84,13 +94,13 @@ b{
 }
 .firma-orden-inspeccion .representante{
 	width: 60%;
-}
+} */
 
 
 /* Fin Orden de Inspección*/
 
 /* Acta de Inspeccion */
-
+/* 
 .ai-header-datos{
 	font-family: arial;
 	font-size: .65em;
@@ -169,11 +179,8 @@ b{
 
 .firma-acta-inspeccion .ai-firma-encargado{
 	width: 50%;
-}
+} */
 
-.page_break{
-	page-break-after: always;
-}
 
 
 /* Fin Acta de Inspeccion */
