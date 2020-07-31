@@ -209,7 +209,9 @@ class PdfController extends Controller
 
 		//$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-' . $forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy]);
 		
-		return \PDF::loadView('acta-inspeccion.acta-inspeccion-' . $forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])->stream('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		return \PDF::loadView('acta-inspeccion.acta-inspeccion-' . $forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])
+						->setPaper('Letter')
+						->stream('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 		
 		//return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
