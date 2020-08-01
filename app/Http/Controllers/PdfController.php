@@ -264,7 +264,9 @@ class PdfController extends Controller
 
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 		
-		return \PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIF', ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])->stream('Inspeccion-Compleja-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+		return \PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIF', ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])
+						->setPaper('Letter')
+						->stream('Inspeccion-Compleja-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 
 		//$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIF', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
 		//return $pdf->download('Inspeccion-Compleja-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
