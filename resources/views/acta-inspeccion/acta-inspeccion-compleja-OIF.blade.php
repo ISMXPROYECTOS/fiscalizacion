@@ -62,9 +62,70 @@
 		<p class="mb-0 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
 		<p class="mb-0 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
 		<p class="mb-0 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
+		<p class="mb-2 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
+		<p class="text-justify mb-2" style="font-size:10px;letter-spacing:1px;">En este momento se le requiere a la persona con la que se entiende la presente visita domiciliaria para que presente en este momento el original o los originales de la siguiente documentación a través del o los cuales acredita haber cumplido con sus obligaciones fiscales:</p>
+		<table class="table table-bordered table-sm">
+			<thead class="text-center text-uppercase" style="font-size:8px;letter-spacing:1px;">
+				<tr>
+					<th style="width:50%;">Documentación</th>
+					<th style="width:5%;">Solicitada</th>
+					<th style="width:5%;">Exhibida</th>
+					<th style="width:30%;">Observaciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td ></td>
+					<td class="text-center text-uppercase font-weight-bold pt-0 pb-0" style="font-size:8px;letter-spacing:1px;">Si / No</td>
+					<td class="text-center text-uppercase font-weight-bold pt-0 pb-0" style="font-size:8px;letter-spacing:1px;">Si / No</td>
+					<td ></td>
+				</tr>
+				@foreach($formavalorada->tipoInspeccion->documentacionPorTipoDeInspeccion as $documento)
+				<tr>
+					<td class="text-uppercase font-weight-bold pt-0 pb-0" style="font-size:7px;">{{ $documento->documentacionRequerida->nombre }}</td>
+					<td ></td>
+					<td ></td>
+					<td ></td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+		<p class="text-justify mb-0" style="font-size:10px;letter-spacing:1px;">Finalmente el suscrito, le informa al visitado el derecho que tiene a formular observaciones en el acto de la diligencia y ofrecer pruebas en relación a los hechos contenidos en ella, o bien, por escrito, hacer uso de tal derecho dentro del término de 10 días hábiles siguientes a la fecha en que se hubiere levantado la presente diligencia, quien manifiesta que ____________________________________________________________________________________</p>
 		<p class="mb-0 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
-		<p class="mb-3 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
-		<p class="text-justify mb-0" style="font-size:10px;letter-spacing:1px;">En este momento se le requiere a la persona con la que se entiende la presente visita domiciliaria para que presente en este momento el original o los originales de la siguiente documentación a través del o los cuales acredita haber cumplido con sus obligaciones fiscales:</p>
+		<p class="mb-0 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
+		<p class="mb-0 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
+		<p class="mb-2 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
+		<p class="text-justify mb-0" style="font-size:10px;letter-spacing:1px;">Independientemente de lo anterior, el verificador formula las siguientes observaciones: _________________________________________________________</p>
+		<p class="mb-0 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
+		<p class="mb-0 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
+		<p class="mb-0 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
+		<p class="mb-2 mt-0" style="line-height: 1;">____________________________________________________________________________________________________</p>
+		<p class="text-justify mb-5" style="font-size:10px;letter-spacing:1px;">Asimismo, derivado  de los resultados de la presente Inspección, con fundamento en el artículo 51, fracción I, del Código Fiscal Municipal del Estado de Quintana Roo, en este acto se le requiere al  contribuyente o a su representante legal, para que dentro del término de diez días contados a  partir del día siguiente al que se realiza esta diligencia, comparezca en las oficinas de la Dirección de Fiscalización dependiente de la Tesorería Municipal de Benito Juárez, Quintana Roo, ubicada en Edificio anexo al Palacio Municipal  en la Avenida Nader sin número, Supermanzana 5, de esta ciudad de Cancún, Quintana Roo, para exhibir la documentación que no exhibe en la presente diligencia, apercibido que en caso de no hacerlo se procederá de conformidad con lo establecido en el artículo 509, fracciones IV y VII del Bando de Gobierno y Policía del Municipio de Benito Juárez, Quintana Roo y 68 del Código Fiscal Municipal del  Estado de Quintana Roo. Asimismo, en el caso de no contar con la licencia de funcionamiento municipal al momento de la diligencia, se le apercibe al contribuyente que el establecimiento visitado podrá ser sujeto a clausura en cualquier momento, ello de conformidad con lo establecido en los artículos 479 y 509, fracciones IV y VII del Bando de Gobierno y Policía del Municipio de Benito Juárez, Quintana Roo, ya que para el ejercicio de cualquier actividad comercial, industrial o de servicios por parte de los contribuyentes, se requiere de permiso, licencia o autorización, según sea el caso, expedido por el Ayuntamiento, entendiéndose que no cuenta la autorización para funcionar si no exhibe la licencia de funcionamiento municipal correspondiente. Con lo anterior se da por concluida la presente diligencia, siendo las _______ horas con ______ minutos del @if($inspeccion->comercio == null) día _____ del mes ___________ del año _______, @else {{ $fecha_hoy }}, @endif se levanta el acta correspondiente, la cual se leyó en presencia de los que en ella intervinieron, haciéndole entrega al visitado de una copia de la presente con firmas autógrafas, la cual ratifican y firman para constancia los que en ella intervinieron y así quisieron hacerlo.</p>
+		<table class="text-uppercase text-center" style="width: 100%;">
+			<tr>
+				<td>
+					<b>INSPECTOR, NOTIFICADOR-EJECUTOR</b>
+					<p>________________________________________</p>
+					<p><b>NOMBRE Y FIRMA</b></p>
+				</td>
+			</tr>
+		</table>
+		<h4 class="text-center"><b>LOS TESTIGOS</b></h4>
+		<table class="text-center mt-0" style="width: 100%;">
+			<tr>
+				<td>
+					<p>_________________________________</p>
+					<p><b>Nombre y Firma del Testigo de Asistencia</b></p>
+				</td>
+				<td>
+					<p>_________________________________</p>
+					<p><b>Nombre y Firma del Testigo de Asistencia</b></p>
+				</td>
+			</tr>
+		</table>
+		<h4 class="text-center"><b>PERSONA CON LA QUE SE ENTENDIÓ LA VISITA DOMICILIARIA</b></h4>
+		<p class="text-center">_______________________________________________________________________</p>
+		<p class="text-center"><b>Nombre y Firma</b></p>
 		<div class="page_break"></div>
 		@endforeach
 	</body>
