@@ -597,7 +597,9 @@ class PdfController extends Controller
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
 		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
-		return \PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy])->download('Inspeccion-Compleja-'.$nombre_archivo.'.pdf');
+		return \PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy])
+						->setPaper('Letter')
+						->stream('Inspeccion-Compleja-'.$nombre_archivo.'.pdf');
 
 		/*
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
@@ -704,7 +706,9 @@ class PdfController extends Controller
 		ImpresionDeFormato::create($datos_bitacora_impresion);
 
 		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
-		return \PDF::loadView('acta-inspeccion.citatorio-individual-OIF', ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy])->download('Citatorio-'.$nombre_archivo.'.pdf');
+		return \PDF::loadView('acta-inspeccion.citatorio-individual-OIF', ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy])
+					->setPaper('Letter')
+					->stream('Citatorio-'.$nombre_archivo.'.pdf');
 
 		/*
 		$pdf = PDF::loadView('acta-inspeccion.citatorio-individual-OIF', ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy]);
