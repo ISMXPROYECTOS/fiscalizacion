@@ -24,7 +24,7 @@
 		<p class="mb-0 text-right">TESORERÍA MUNICIPAL</p>
 		<p class="mb-0 text-right">DIRECCIÓN DE FISCALIZACIÓN</p>
 		<p class="mb-0 text-right">FOLIO: {{ $inspeccion->folio }}</p>
-		<p class="mb-3 text-right">CANCUN, QUINTANA ROO A @if($inspeccion->comercio == null) _______________________ @else {{ $fecha_hoy}} @endif </p>
+		<p class="mb-3 text-right" style="text-transform:uppercase;">CANCUN, QUINTANA ROO A @if($inspeccion->comercio == null) _______________________ @else {{ $fecha_hoy}} @endif </p>
 		@if($inspeccion->comercio == null)
 			<p class="mb-0 mt-0"><b>NOMBRE DEL CONTRIBUYENTE: </b>_____________________________________________________________________________________</p>
 			<p class="mb-0 mt-0"><b>NOMBRE COMERCIAL DEL ESTABLECIMIENTO: </b>________________________________________________________________________</p>
