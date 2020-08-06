@@ -213,7 +213,7 @@ $(document).ready(function(){
 						$('#actualizacion-correcta').modal('show');
 					} else {
 						$('#agregar-prorroga').modal('hide');
-						$('#actualizacion-correcta').modal('show');
+						$('#ocurrio-un-error').modal('show');
 					}
 				},
 				error: function(response) {
