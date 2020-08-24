@@ -63,27 +63,39 @@ $(document).ready(function(){
 				},
 				{data: 'fechavence',
 					'render': function(data, type, row){
+						var fechavence = new Date(row.fechavence);
+						fechavence.setMinutes(fechavence.getMinutes() + fechavence.getTimezoneOffset());
+						
+						var hoy = new Date(row.hoy);
+						hoy.setMinutes(hoy.getMinutes() + hoy.getTimezoneOffset());
+
 						if (row.fechavence == '') {
 							return "<span class='badge badge-pill badge-secondary'>No ha sido capturada</span>";
-						} else if(row.dia_anterior == row.hoy ){
-							return "<span class='badge badge-pill badge-warning'>"+ row.fechavence +"</span> ";
-						} else if(row.fechavence > row.hoy){
-							return "<span class='badge badge-pill badge-success'>"+ row.fechavence +"</span>";
-						} else {
-							return "<span class='badge badge-pill badge-danger'>"+ row.fechavence +"</span> ";
+						} else if(fechavence > hoy){
+							return "<span class='badge badge-pill badge-success'>"+ fechavence.getUTCDate()+'/'+ (fechavence.getUTCMonth()+1) + '/'+ fechavence.getUTCFullYear() +"</span>";
+						} else if(fechavence.getTime() == hoy.getTime()){
+							return "<span class='badge badge-pill badge-warning'>"+ fechavence.getUTCDate()+'/'+ (fechavence.getUTCMonth()+1) + '/'+ fechavence.getUTCFullYear() +"</span> ";
+						} else if (fechavence < hoy) {
+							return "<span class='badge badge-pill badge-danger'>"+ fechavence.getUTCDate()+'/'+ (fechavence.getUTCMonth()+1) + '/'+ fechavence.getUTCFullYear() +"</span> ";
 						}
 					}
 				},
 				{data: 'fechaprorroga',
 					'render': function(data, type, row){
+						var fechaprorroga = new Date(row.fechaprorroga);
+						fechaprorroga.setMinutes(fechaprorroga.getMinutes() + fechaprorroga.getTimezoneOffset());
+
+						var hoy = new Date(row.hoy);
+						hoy.setMinutes(hoy.getMinutes() + hoy.getTimezoneOffset());
+
 						if (row.fechaprorroga == '') {
 							return "<span class='badge badge-pill badge-secondary'>No hay prorroga</span>";
-						} else if(row.fechaprorroga == row.hoy ){
-							return "<span class='badge badge-pill badge-warning'>"+ row.fechaprorroga +"</span>";
-						} else if (row.fechaprorroga > row.hoy) {
-							return "<span class='badge badge-pill badge-danger'>"+ row.fechaprorroga +"</span>";
-						} else {
-							return "<span class='badge badge-pill badge-success'>"+ row.fechaprorroga +"</span>";
+						} else if(fechaprorroga > hoy) {
+							return "<span class='badge badge-pill badge-success'>"+ fechaprorroga.getUTCDate()+'/'+ (fechaprorroga.getUTCMonth()+1) + '/'+ fechaprorroga.getUTCFullYear() +"</span>";
+						} else if(fechaprorroga.getTime() == hoy.getTime()){
+							return "<span class='badge badge-pill badge-warning'>"+ fechaprorroga.getUTCDate()+'/'+ (fechaprorroga.getUTCMonth()+1) + '/'+ fechaprorroga.getUTCFullYear() +"</span>";
+						} else if(fechaprorroga < hoy) {
+							return "<span class='badge badge-pill badge-danger'>"+ fechaprorroga.getUTCDate()+'/'+ (fechaprorroga.getUTCMonth()+1) + '/'+ fechaprorroga.getUTCFullYear() +"</span>";
 						}
 					}
 				},

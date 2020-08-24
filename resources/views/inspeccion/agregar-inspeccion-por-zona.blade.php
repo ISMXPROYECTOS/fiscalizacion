@@ -69,7 +69,10 @@
 			</div>
 		</div>
 	</div>
+
+	
 	<div id="comercios" class="hidden mt-3">
+	
 		<div class="row">
 			<div class="col-md-3">
 				<div class="form-group">

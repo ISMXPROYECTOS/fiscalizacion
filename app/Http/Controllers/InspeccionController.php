@@ -130,21 +130,20 @@ class InspeccionController extends Controller
 			foreach($inspecciones as $inspeccion){
 				if(!empty($inspeccion->fechavence)){
 					$date = strtotime($inspeccion->fechavence);
-					$fechavence = date("d/m/Y", $date);
+					$fechavence = date("Y-m-d", $date);
 				} else {
 					$fechavence = '';
 				}
 
 				if(!empty($inspeccion->fechaprorroga)){
 					$date_2 = strtotime($inspeccion->fechaprorroga);
-					$fechaprorroga = date("d/m/Y", $date_2);
+					$fechaprorroga = date("Y-m-d", $date_2);
 				} else {
 					$fechaprorroga = '';
 				}
 
 				$hoy = new \DateTime();
-				$dia_anterior = date("d/m/Y", strtotime($inspeccion->fechavence."-1 days"));
-
+				//$dia_anterior = date("Y-m-d", strtotime($inspeccion->fechavence."-1 days"));
 
 				$tmp = [
 					'id' => $inspeccion->id,
@@ -158,9 +157,9 @@ class InspeccionController extends Controller
 					'folio' => $inspeccion->folio,
 					'created_at' => $inspeccion->created_at->format('d/m/Y'),
 					'fechavence' => $fechavence,
-					'dia_anterior' => $dia_anterior,
+					//'dia_anterior' => $dia_anterior,
 					'fechaprorroga' => $fechaprorroga,
-					'hoy' => $hoy->format('d/m/Y')
+					'hoy' => $hoy->format('Y-m-d')
 				];
 				
 				$collection->push($tmp);

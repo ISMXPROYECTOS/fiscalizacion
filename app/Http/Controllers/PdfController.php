@@ -211,7 +211,7 @@ class PdfController extends Controller
 		
 		return \PDF::loadView('acta-inspeccion.acta-inspeccion-' . $forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])
 						->setPaper('Letter')
-						->stream('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+						->download('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 		
 		//return $pdf->download('Inspeccion-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 	}
@@ -266,7 +266,7 @@ class PdfController extends Controller
 		
 		return \PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIF', ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])
 						->setPaper('Letter')
-						->stream('Inspeccion-Compleja-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+						->download('Inspeccion-Compleja-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 
 		//$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-OIF', ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
 		//return $pdf->download('Inspeccion-Compleja-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
@@ -312,7 +312,7 @@ class PdfController extends Controller
 
 		return \PDF::loadView('acta-inspeccion.citatorio-OIF', ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])
 					->setPaper('Letter')
-					->stream('Citatorio-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+					->download('Citatorio-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 
 		/*
 		$pdf = PDF::loadView('acta-inspeccion.citatorio-OIF', ['inspecciones' => $inspecciones, 'fecha_hoy' => $fecha_hoy]);
@@ -370,7 +370,7 @@ class PdfController extends Controller
 
 		return \PDF::loadView('clausura.clausuras-'.$forma_valorada->tipoInspeccion->clave, ['formavalorada' => $forma_valorada, 'fecha_hoy' => $fecha_hoy])
 						->setPaper('Letter')
-						->stream('Clausuras-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
+						->download('Clausuras-'.$ejercicio_fiscal->anio.'-'.$forma_valorada->tipoInspeccion->clave.'-'.$forma_valorada->folioinicio.'-'.$forma_valorada->foliofin.'.pdf');
 
 		/*
 		$pdf = PDF::loadView('clausura.clausuras-'.$forma_valorada->tipoInspeccion->clave, ['inspecciones' => $inspecciones, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy]);
@@ -531,7 +531,7 @@ class PdfController extends Controller
 		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
 		return \PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy])
 						->setPaper('Letter')
-						->stream('Inspeccion-'.$nombre_archivo.'.pdf');
+						->download('Inspeccion-'.$nombre_archivo.'.pdf');
 
 		/*
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
@@ -599,7 +599,7 @@ class PdfController extends Controller
 		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
 		return \PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy])
 						->setPaper('Letter')
-						->stream('Inspeccion-Compleja-'.$nombre_archivo.'.pdf');
+						->download('Inspeccion-Compleja-'.$nombre_archivo.'.pdf');
 
 		/*
 		$pdf = PDF::loadView('acta-inspeccion.acta-inspeccion-compleja-individual-OIF', ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'inspectoresExtra' => $inspectores, 'fecha_hoy' => $fecha_hoy]);
@@ -659,7 +659,7 @@ class PdfController extends Controller
 		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
 		return \PDF::loadView('clausura.clausura-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy])
 						->setPaper('Letter')
-						->stream('Clausura-'.$nombre_archivo.'.pdf');
+						->download('Clausura-'.$nombre_archivo.'.pdf');
 		
 		/*
 		$pdf = PDF::loadView('clausura.clausura-individual-'.$inspeccion->tipoInspeccion->clave, ['inspeccion' => $inspeccion, 'documentos' => $documentos_requeridos, 'fecha_hoy' => $fecha_hoy ]);
@@ -708,7 +708,7 @@ class PdfController extends Controller
 		$nombre_archivo = str_replace("/", "-", $inspeccion->folio);
 		return \PDF::loadView('acta-inspeccion.citatorio-individual-OIF', ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy])
 					->setPaper('Letter')
-					->stream('Citatorio-'.$nombre_archivo.'.pdf');
+					->download('Citatorio-'.$nombre_archivo.'.pdf');
 
 		/*
 		$pdf = PDF::loadView('acta-inspeccion.citatorio-individual-OIF', ['inspeccion' => $inspeccion, 'fecha_hoy' => $fecha_hoy]);
