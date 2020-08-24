@@ -721,9 +721,15 @@ class PdfController extends Controller
 	public function verGafete($id){
 		$gafete = Gafete::find($id);
 		$ejercicio_fiscal = EjercicioFiscal::where('anio', date("Y"))->first();
-
+		// $paperSize = custom(425, 328);
 		return \PDF::loadView('gafete.gafete', ['gafete' => $gafete])
-								->download('Gafete-'.$ejercicio_fiscal->anio.'-'.$gafete->inspector->nombre.'.pdf');
+								->setOption('page-width', '90')
+								->setOption('page-height', '110')
+								->setOption("margin-left","0mm")
+								->setOption("margin-right","0mm")
+								->setOption("margin-bottom","0mm")
+								->setOption("margin-top","0mm")
+								->stream('Gafete-'.$ejercicio_fiscal->anio.'-'.$gafete->inspector->nombre.'.pdf');
 		
 		/*
 		$customPaper = array(0,0,425,328);
