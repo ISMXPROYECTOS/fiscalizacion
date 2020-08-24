@@ -729,7 +729,7 @@ class PdfController extends Controller
 								->setOption("margin-right","0mm")
 								->setOption("margin-bottom","0mm")
 								->setOption("margin-top","0mm")
-								->stream('Gafete-'.$ejercicio_fiscal->anio.'-'.$gafete->inspector->nombre.'.pdf');
+								->download('Gafete-'.$ejercicio_fiscal->anio.'-'.$gafete->inspector->nombre.'.pdf');
 		
 		/*
 		$customPaper = array(0,0,425,328);
