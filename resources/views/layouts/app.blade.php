@@ -50,13 +50,35 @@
                             </figure>-->
                             <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
                                 <span class="name">{{ Auth::user()->usuario }}</span>
-                                @if( Auth::user()->role == 'ROLE_ADMIN')
-                                <span class="role">Administrador</span>
-                                @elseif( Auth::user()->role == 'ROLE_INSPECTOR')
-                                <span class="role">Fiscal</span>
-                                @elseif( Auth::user()->role == 'ROLE_VENTANILLA')
-                                <span class="role">Ventanilla</span>
-                                @endif
+
+                                @switch(Auth::user()->role)
+                                    @case('ROLE_ADMIN')
+                                        <span class="role">Administrador</span>
+                                        @break
+                                    @case('ROLE_CAPTURISTA')
+                                        <span class="role">Capturista</span>
+                                        @break
+                                    @case('ROLE_VENTANILLA')
+                                    <span class="role">Ventanilla</span>
+                                        @break
+                                    @case('ROLE_GEN_INSP')
+                                        <span class="role">Generar Inspección</span>
+                                        @break
+                                    @case('ROLE_ASIG_INSP')
+                                        <span class="role">Asignar Inspección</span>
+                                        @break
+                                    @case('ROLE_DESC_INSP')
+                                        <span class="role">Descargar Inspección</span>
+                                        @break
+                                    @case('ROLE_CATALOGOS')
+                                        <span class="role">Catalogos</span>
+                                        @break
+                                    @case('ROLE_CONFIG')
+                                        <span class="role">Configuración</span>
+                                        @break
+                                    @default
+                                        <span class="role">Sin rol</span>
+                                @endswitch    
                             </div>
                             <i class="fa custom-caret"></i>
                         </a>
@@ -96,18 +118,17 @@
                         <div class="nano-content">
                             <nav id="menu" class="nav-main" role="navigation">
                                 <ul class="nav nav-main">
-                                    <li>
-                                        <a class="nav-link" href="{{ route('listado-inspecciones') }}">
-                                            <i class="fas fa-list"></i>
-                                            <span>Administrador de Inspecciones</span>
-                                        </a>
-                                    </li>
-                                    <!--<li>
-                                        <a class="nav-link" href="{{ route('listado-multas') }}">
-                                            <i class="fas fa-list"></i>
-                                            <span>Multas</span>
-                                        </a>
-                                    </li>-->
+
+                                    @if(Auth::user()->role == "ROLE_ADMIN" || Auth::user()->role == "ROLE_VENTANILLA" || Auth::user()->role == "ROLE_CAPTURISTA")
+                                        <li>
+                                            <a class="nav-link" href="{{ route('listado-inspecciones') }}">
+                                                <i class="fas fa-list"></i>
+                                                <span>Administrador de Inspecciones</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    
+                                    @if(Auth::user()->role == "ROLE_ADMIN" || Auth::user()->role == "ROLE_GEN_INSP")
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
                                             <i class="fas fa-folder-plus"></i>
@@ -126,21 +147,27 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endif
 
+                                    @if(Auth::user()->role == "ROLE_ADMIN" || Auth::user()->role == "ROLE_ASIG_INSP")
                                     <li>
                                         <a class="nav-link" href="{{ route('vista-asignar-inspecciones') }}">
                                             <i class="fas fa-user-plus"></i>
                                             <span>Asignar Inspección</span>
                                         </a>
                                     </li>
+                                    @endif
 
+                                    @if(Auth::user()->role == "ROLE_ADMIN" || Auth::user()->role == "ROLE_DESC_INSP")
                                     <li>
                                         <a class="nav-link" href="{{ route('listado-de-inspecciones-para-descargar') }}">
                                             <i class="fas fa-file-download"></i>
                                             <span>Descargar Inspecciones</span>
                                         </a>
                                     </li>
+                                    @endif
 
+                                    @if(Auth::user()->role == "ROLE_ADMIN" || Auth::user()->role == "ROLE_CATALOGOS")
                                     <li class="nav-parent">
                                         
                                         <a class="nav-link" href="#">
@@ -185,6 +212,9 @@
                                             </li>
                                         </ul>
                                     </li>
+
+                                    @endif
+                                    
                                     
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
@@ -192,14 +222,10 @@
                                             <span>Configuración</span>
                                         </a>
                                         <ul class="nav nav-children">
+                                            @if(Auth::user()->role == "ROLE_ADMIN" || Auth::user()->role == "ROLE_CONFIG")
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-ejercicios-fiscales') }}">
                                                     <span>Años fiscales y dias inhabiles</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="nav-link" href="{{ route('cambiar-password') }}">
-                                                    Cambiar contraseña
                                                 </a>
                                             </li>
                                             <li>
@@ -207,9 +233,17 @@
                                                     <span>Encargados</span>
                                                 </a>
                                             </li>
+                                            @endif
+                                            <li>
+                                                <a class="nav-link" href="{{ route('cambiar-password') }}">
+                                                    Cambiar contraseña
+                                                </a>
+                                            </li>
+                                            
                                             
                                         </ul>
                                     </li>
+                                    
 
                                     @if(Auth::user()->role == "ROLE_ADMIN")
                                     <li>

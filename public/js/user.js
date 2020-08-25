@@ -39,10 +39,20 @@ $(document).ready(function(){
                     'render': function(data, type, row){
                         if (row.role == 'ROLE_ADMIN') {
                             return "<span class='badge badge-pill badge-success'>Administrador</span>"
-                        }else if(row.role == 'ROLE_INSPECTOR'){
-                            return "<span class='badge badge-pill badge-info'>Inspector</span>"
-                        }else if(row.role == 'ROLE_VENTANILLA'){
+                        }else if(row.role == 'ROLE_CAPTURISTA'){
+                            return "<span class='badge badge-pill badge-primary'>Capturista</span>"
+                        } else if(row.role == 'ROLE_VENTANILLA'){
                             return "<span class='badge badge-pill badge-secondary'>Ventanilla</span>"
+                        } else if(row.role == 'ROLE_GEN_INSP'){
+                            return "<span class='badge badge-pill badge-danger'>Generar Inspección</span>"
+                        } else if(row.role == 'ROLE_ASIG_INSP'){
+                            return "<span class='badge badge-pill badge-warning'>Asignar Inspección</span>"
+                        }else if(row.role == 'ROLE_DESC_INSP'){
+                            return "<span class='badge badge-pill badge-info'>Descargar Inspección</span>"
+                        }else if(row.role == 'ROLE_CATALOGOS'){
+                            return "<span class='badge badge-pill badge-light'>Catálogos</span>"
+                        }else if(row.role == 'ROLE_CONFIG'){
+                            return "<span class='badge badge-pill badge-dark'>Configuraciones</span>"
                         }
                     }
                 },

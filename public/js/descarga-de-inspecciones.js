@@ -134,24 +134,37 @@ $(document).ready(function(){
 					},
 					{data: 'estatus_inspeccion.nombre',
 						'render': function(data, type, row){
-							if (row.estatus_inspeccion.clave == 'NA') {
-								return "<span class='badge badge-pill badge-secondary'>"+ row.estatus_inspeccion.nombre +"</span>";
-							} else if(row.estatus_inspeccion.clave == 'A'){
-								return "<span class='badge badge-pill badge-primary'>"+ row.estatus_inspeccion.nombre +"</span>";
-							} else if(row.estatus_inspeccion.clave == 'Cap'){
-								return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
-							} else if (row.estatus_inspeccion.clave == 'V') {
-								return "<span class='badge badge-pill badge-danger'>"+ row.estatus_inspeccion.nombre +"</span>";
-							} else if (row.estatus_inspeccion.clave == 'Epc') {
-								return "<span class='badge badge-pill badge-epc'>"+ row.estatus_inspeccion.nombre +"</span>";
-							} else if(row.estatus_inspeccion.clave == 'M'){
-								return "<span class='badge badge-pill badge-multa'>"+ row.estatus_inspeccion.nombre +"</span>";
-							} else if(row.estatus_inspeccion.clave == 'P'){
-								return "<span class='badge badge-pill badge-info'>"+ row.estatus_inspeccion.nombre +"</span>";
-							} else if(row.estatus_inspeccion.clave == 'S'){
-								return "<span class='badge badge-pill badge-solventada'>"+ row.estatus_inspeccion.nombre +"</span>";
-							} else if (row.estatus_inspeccion.clave == 'C') {
-								return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
+
+							switch (row.estatus_inspeccion.clave) {
+								case 'NA':
+									return "<span class='badge badge-pill badge-secondary'>"+ row.estatus_inspeccion.nombre +"</span>";	
+									break;
+								case 'A':
+									return "<span class='badge badge-pill badge-primary'>"+ row.estatus_inspeccion.nombre +"</span>";
+									break;
+								case 'Cap':
+									return "<span class='badge badge-pill badge-success'>"+ row.estatus_inspeccion.nombre +"</span>";
+									break;
+								case 'V':
+									return "<span class='badge badge-pill badge-danger'>"+ row.estatus_inspeccion.nombre +"</span>";
+									break;
+								case 'Epc':
+									return "<span class='badge badge-pill badge-epc'>"+ row.estatus_inspeccion.nombre +"</span>";
+									break;
+								case 'M':
+									return "<span class='badge badge-pill badge-multa'>"+ row.estatus_inspeccion.nombre +"</span>";
+									break;
+								case 'P':
+									return "<span class='badge badge-pill badge-info'>"+ row.estatus_inspeccion.nombre +"</span>";
+									break;
+								case 'S':
+									return "<span class='badge badge-pill badge-solventada'>"+ row.estatus_inspeccion.nombre +"</span>";
+									break;
+								case 'C':
+									return "<span class='badge badge-pill badge-warning'>"+ row.estatus_inspeccion.nombre +"</span>";
+									break;
+								default:
+									break;
 							}
 						}
 					},

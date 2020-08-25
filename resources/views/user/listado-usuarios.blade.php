@@ -43,8 +43,13 @@
                         <select id="role" class="form-control">
                             <option value="">Seleccionar</option>
                             <option value="ROLE_ADMIN">Administrador</option>
-                            <option value="ROLE_INSPECTOR">Fiscal</option>
+                            <option value="ROLE_CAPTURISTA">Capturista</option>
                             <option value="ROLE_VENTANILLA">Ventanilla</option>
+                            <option value="ROLE_GEN_INSP">Generar Inspección</option>
+                            <option value="ROLE_ASIG_INSP">Asignar Inspección</option>
+                            <option value="ROLE_DESC_INSP">Descargar Inspección</option>
+                            <option value="ROLE_CATALOGOS">Catálogos</option>
+                            <option value="ROLE_CONFIG">Configuraciones</option>
                         </select>
                         <p class="text-danger  " id="error-role"></p>
                     </div>
@@ -105,8 +110,13 @@
                         <select id="role-edit" class="form-control">
                             <option value="">Seleccionar</option>
                             <option value="ROLE_ADMIN">Administrador</option>
-                            <option value="ROLE_INSPECTOR">Fiscal</option>
+                            <option value="ROLE_CAPTURISTA">Capturista</option>
                             <option value="ROLE_VENTANILLA">Ventanilla</option>
+                            <option value="ROLE_GEN_INSP">Generar Inspección</option>
+                            <option value="ROLE_ASIG_INSP">Asignar Inspección</option>
+                            <option value="ROLE_DESC_INSP">Descargar Inspección</option>
+                            <option value="ROLE_CATALOGOS">Catálogos</option>
+                            <option value="ROLE_CONFIG">Configuraciones</option>
                         </select>
                         <p class="text-danger" id="error-role-edit"></p>
                     </div>
