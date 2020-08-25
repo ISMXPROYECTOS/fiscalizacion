@@ -64,7 +64,7 @@
 	@case('NA')
 		<div>
 			<label for="">Estatus: </label>
-			<label for=""> <span class="badge badge-pill badge-secondart">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
+			<label for=""> <span class="badge badge-pill badge-secondary">{{ $inspeccion->estatusInspeccion->nombre }}</span></label>
 		</div>
 		@break
 	@case('P')
