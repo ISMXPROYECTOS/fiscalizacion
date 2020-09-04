@@ -205,7 +205,7 @@ class ComercioController extends Controller
 				'giroComercial' => function($query){
 					$query->select(['id', 'nombre']);
 				}
-			])->where('domiciliofiscal', 'like', '%'. $domiciliofiscal .'%')->orderBy('denominacion', 'asc')->orderBy('denominacion', 'ASC')->get(['id', 'giro_id', 'licenciafuncionamiento', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal']);
+			])->where('domiciliofiscal', 'like', '%'. $domiciliofiscal .'%')->orderBy('denominacion', 'ASC')->get(['id', 'giro_id', 'licenciafuncionamiento', 'denominacion', 'nombreestablecimiento', 'domiciliofiscal']);
 			//dd($comercios);
 			//$comercios = Comercio::where('domiciliofiscal', 'like', '%'. $domiciliofiscal .'%')->get();
 			if (count($comercios) == 0) {
