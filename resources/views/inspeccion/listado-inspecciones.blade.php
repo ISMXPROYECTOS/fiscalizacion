@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <header class="page-header">
-	<h2>Inspecciones</h2>
+	<h2>Requerimientos</h2>
 </header>
 <div class="row">
 	<div class="col">

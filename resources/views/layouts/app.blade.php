@@ -123,7 +123,7 @@
                                         <li>
                                             <a class="nav-link" href="{{ route('listado-inspecciones') }}">
                                                 <i class="fas fa-list"></i>
-                                                <span>Administrador de Inspecciones</span>
+                                                <span>Administrador de Fiscalización</span>
                                             </a>
                                         </li>
                                     @endif
@@ -132,7 +132,7 @@
                                     <li class="nav-parent">
                                         <a class="nav-link" href="#">
                                             <i class="fas fa-folder-plus"></i>
-                                            <span>Generar Inspecciones</span>
+                                            <span>Generar Requerimientos</span>
                                         </a>
                                         <ul class="nav nav-children">
                                             <li>
@@ -153,7 +153,7 @@
                                     <li>
                                         <a class="nav-link" href="{{ route('vista-asignar-inspecciones') }}">
                                             <i class="fas fa-user-plus"></i>
-                                            <span>Asignar Inspección</span>
+                                            <span>Asignar Requerimientos</span>
                                         </a>
                                     </li>
                                     @endif
@@ -162,7 +162,7 @@
                                     <li>
                                         <a class="nav-link" href="{{ route('listado-de-inspecciones-para-descargar') }}">
                                             <i class="fas fa-file-download"></i>
-                                            <span>Descargar Inspecciones</span>
+                                            <span>Descargar PDF's</span>
                                         </a>
                                     </li>
                                     @endif
@@ -177,7 +177,7 @@
                                         <ul class="nav nav-children">
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-inspectores') }}">
-                                                    <span>Fiscales</span>
+                                                    <span>Fiscalizadores</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -192,12 +192,12 @@
                                             </li>
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-tipo-inspecciones') }}">
-                                                    <span>Tipo de Inspecciones</span>
+                                                    <span>Tipos</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a class="nav-link" href="{{ route('listado-estatus-inspecciones') }}">                                                    
-                                                    <span>Estatus de Inspecciones</span>
+                                                    <span>Estatus</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -242,14 +242,22 @@
                                             
                                             
                                         </ul>
-                                    </li>
-                                    
+                                    </li> 
 
                                     @if(Auth::user()->role == "ROLE_ADMIN")
                                     <li>
                                         <a class="nav-link" href="{{ route('listado-usuarios') }}">
                                             <i class="fas fa-users"></i>
                                             <span>Usuarios</span>
+                                        </a>
+                                    </li>
+                                    @endif
+
+                                    @if(Auth::user()->role == "ROLE_ADMIN")
+                                    <li>
+                                        <a class="nav-link" href="{{ route('listado-usuarios') }}">
+                                            <i class="fas fa-file-invoice"></i>
+                                            <span>Reportes</span>
                                         </a>
                                     </li>
                                     @endif

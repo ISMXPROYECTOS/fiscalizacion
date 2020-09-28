@@ -19,7 +19,7 @@
 
 
 		<div class="img-container">
-			<img src="{{ asset('img/inspectores/'. $gafete->imageninspector) }}" width="25%" class="mt-3">
+			<img src="{{ asset('img/inspectores/'. $gafete->imageninspector) }}" width="21%" class="mt-3">
 		</div>
 
 		@if(is_object($gafete->inspector))

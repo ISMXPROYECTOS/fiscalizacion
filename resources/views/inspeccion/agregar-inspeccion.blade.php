@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <header class="page-header">
-    <h2>Agregar Inspecciones</h2>
+    <h2>Generar Requerimientos</h2>
 </header>
 
 
@@ -19,7 +19,7 @@
 		<div class="row">
             <div class="col-md-3">
                 <div class="form-group">
-                    <label>Tipo de Inspección</label>
+                    <label>Tipo</label>
                     <select name="tipoinspeccion" class="form-control" id="tipoinspeccion"  >
                         <option value="">Seleccionar</option>
                         @foreach($tiposInspecciones as $tipoInspeccion)
@@ -79,7 +79,7 @@
         <br>
         <div class="form-group row mb-0">
             <div class="col-md-4">
-                <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear Inspecciones') }}</button>
+                <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-enviar">{{ __('Crear') }}</button>
                 
             </div>
         </div>         

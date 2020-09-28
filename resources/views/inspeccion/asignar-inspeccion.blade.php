@@ -21,7 +21,7 @@
     <div class="row mb-3">
         <div class="col-md-8">
             <div class="form-group">
-                <label for="tipoinspeccion-asignar">Tipo de Inspección</label>
+                <label for="tipoinspeccion-asignar">Tipo</label>
                 <select name="tipoinspeccion-asignar" class="form-control" id="tipoinspeccion-asignar">
                     <option value="">Seleccionar</option>
                     @foreach($tiposInspecciones as $tipoInspeccion)
@@ -76,7 +76,7 @@
     <br>
     <div class="form-group row mb-0">
         <div class="col-md-6">
-            <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-asignar">{{ __('Asignar Inspecciones') }}</button>
+            <button type="submit" class="btn btn-primary btn-block btn-primary-custom" id="btn-asignar">{{ __('Asignar') }}</button>
         </div>
     </div>
 </form>
