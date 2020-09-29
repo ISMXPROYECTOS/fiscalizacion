@@ -189,4 +189,8 @@ class InspectorController extends Controller
 		]);
 	}
 
+	public function reporte(){
+	
+	}
+
 }

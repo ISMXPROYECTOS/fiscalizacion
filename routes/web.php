@@ -37,6 +37,7 @@ Route::get('/inspectores/editar/{id}', 'InspectorController@editarInspector');
 Route::post('/inspectores/actualizar', 'InspectorController@update');
 Route::post('/inspectores/estatus', 'InspectorController@updateEstatus');
 Route::get('/inspectores/perfil/{hash}', 'InspectorController@perfil');
+Route::get('/inspectores/reporte', 'InspectorController@reporte');
 
 /* Rutas Gestores */
 Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');
@@ -168,3 +169,8 @@ Route::get('/multas/listado', 'MultaController@tbody');
 Route::get('/multas/editarEstatus/{id}', 'MultaController@editarEstatus');
 Route::post('/multas/estatus', 'MultaController@updateEstatus');
 Route::post('/multas/agregar-multa', 'MultaController@confirmarMulta');
+
+/* Ruta para Reportes */
+
+Route::get('/reportes', function () { return view('reportes.reportes'); })->name('reportes-sistemas');
+

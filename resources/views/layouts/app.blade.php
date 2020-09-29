@@ -255,7 +255,7 @@
 
                                     @if(Auth::user()->role == "ROLE_ADMIN")
                                     <li>
-                                        <a class="nav-link" href="{{ route('listado-usuarios') }}">
+                                        <a class="nav-link" href="{{ route('reportes-sistemas') }}">
                                             <i class="fas fa-file-invoice"></i>
                                             <span>Reportes</span>
                                         </a>
