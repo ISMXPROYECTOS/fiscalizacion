@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Collection;
+use App\Exports\InspectorExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Inspector;
 use App\Gafete;
 
@@ -190,7 +192,8 @@ class InspectorController extends Controller
 	}
 
 	public function reporte(){
-	
+		$fileName = 'Reporte-Fiscalizadores-'. time() . '.csv';
+		return Excel::download(new InspectorExport, $fileName);
 	}
 
 }

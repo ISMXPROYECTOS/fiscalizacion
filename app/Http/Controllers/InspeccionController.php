@@ -8,6 +8,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Collection;
+use App\Exports\InspeccionExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use App\Inspeccion;
 use App\Inspector;
@@ -1320,6 +1322,11 @@ class InspeccionController extends Controller
 		}
 
 		return $data;
+	}
+
+	public function reporte(){
+		$fileName = 'Reporte-Inspecciones-'. time() . '.csv';
+		return Excel::download(new InspeccionExport, $fileName);
 	}
 
 }

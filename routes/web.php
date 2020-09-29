@@ -37,7 +37,7 @@ Route::get('/inspectores/editar/{id}', 'InspectorController@editarInspector');
 Route::post('/inspectores/actualizar', 'InspectorController@update');
 Route::post('/inspectores/estatus', 'InspectorController@updateEstatus');
 Route::get('/inspectores/perfil/{hash}', 'InspectorController@perfil');
-Route::get('/inspectores/reporte', 'InspectorController@reporte');
+Route::get('/inspectores/reporte', 'InspectorController@reporte')->name('reporte-inspectores');
 
 /* Rutas Gestores */
 Route::get('/gestores', 'GestorController@listadoGestores')->name('listado-gestores');
@@ -91,6 +91,7 @@ Route::get('/inspecciones/inspeccion/limpiar/{id}', 'InspeccionController@limpia
 Route::get('/inspecciones/validar-folio-asignado/{id}', 'InspeccionController@validarFolioAsignado');
 Route::get('/inspecciones/cambio-de-estatus', 'InspeccionController@cambiarEstatusAutomaticamente');
 Route::post('/inspecciones/agregar-prorroga', 'InspeccionController@confirmarAgregarProrroga');
+Route::get('/inspecciones/reporte', 'InspeccionController@reporte')->name('reporte-inspecciones');
 
 /* Rutas PDF */
 Route::get('/pdf', 'PdfController@listadoInspeccionesParaDescargar')->name('listado-de-inspecciones-para-descargar');
