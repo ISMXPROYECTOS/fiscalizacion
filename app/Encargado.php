@@ -13,7 +13,7 @@ class Encargado extends Model
 	public function formaValorada(){
 		return $this->hasMany('App\FormaValorada');
 	}
-	
+
     protected $fillable = [
         'nombre', 'apellidopaterno', 'apellidomaterno', 'puesto', 'activo'
     ];
